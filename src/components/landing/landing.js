@@ -2,7 +2,7 @@ import React from "react";
 import "./landing.css";
 import { Button } from "antd";
 
-const LandingPage = () => {
+const Landing = () => {
   return (
     <div className="landing-page">
       <div className="landing-content">
@@ -13,8 +13,11 @@ const LandingPage = () => {
         </p>
         <button className="button-landing">Customize Your Design</button>
       </div>
+      <div>
+
+      </div>
     </div>
   );
 };
 
-export default LandingPage;
+export default Landing;

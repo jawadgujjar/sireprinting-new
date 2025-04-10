@@ -1,0 +1,38 @@
+.container-main {
+    width: 100%;
+    min-height: 171px;
+    background-color: #fec7f6;
+    display: flex;           /* Enable flexbox on the container */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center;     /* Center the content vertically */
+}
+
+.brand-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ensure it takes full width to space items evenly */
+    max-width: 80%; /* Optional: Restrict the width of images for better alignment */
+}
+
+.brand-images img {
+    width: 15%;
+    height: auto;
+    margin: 10px 0;  /* Add space between images */
+}
+
+/* Media Query for small screens (e.g., mobile) */
+@media (max-width: 768px) {
+    .brand-images img {
+        width: 45%;  /* Make images take up 45% width on small screens */
+        margin: 5px; /* Adjust margin for smaller screens */
+    }
+}
+
+/* Media Query for even smaller screens (e.g., very small devices) */
+@media (max-width: 480px) {
+    .brand-images img {
+        width: 45%;  /* Make images take up 45% width on very small screens */
+    }
+}
