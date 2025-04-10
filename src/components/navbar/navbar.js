@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaSearch, FaPhone, FaBars, FaTimes } from "react-icons/fa";
 import "./navbar1.css";
 
@@ -6,6 +6,19 @@ const Navbar1 = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [searchActive, setSearchActive] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -20,75 +33,36 @@ const Navbar1 = () => {
   };
 
   const navItems = [
+    { name: "ALL PRODUCTS", dropdown: false },
+    { name: "MAILER BOXES", dropdown: false },
+    { name: "SHIPPING BOXES", dropdown: false },
     {
-      name: "Home",
-      dropdown: false,
-    },
-    {
-      name: "Products",
-      dropdown: true,
-      items: ["Product 1", "Product 2", "Product 3", "Product 4"],
-    },
-    {
-      name: "Services",
-      dropdown: true,
-      items: ["Service 1", "Service 2", "Service 3"],
-    },
-    {
-      name: "Solutions",
+      name: "POLY MAILERS",
       dropdown: true,
       items: [
-        "Solution 1",
-        "Solution 2",
-        "Solution 3",
-        "Solution 4",
-        "Solution 5",
+        "Custom Poly Mailers",
+        "100% Compostable Poly Mailers",
+        "100% Recycled Plastic Poly Mailers",
+        "Recycled Bubble Mailers",
+        "100% Compostable Padded Bubble Mailers",
       ],
     },
-    {
-      name: "About",
-      dropdown: true,
-      items: ["Company", "Team", "History", "Mission"],
-    },
-    {
-      name: "Blog",
-      dropdown: false,
-    },
-    {
-      name: "Contact",
-      dropdown: true,
-      items: ["Email", "Phone", "Location", "Support"],
-    },
-    {
-      name: "Pricing",
-      dropdown: false,
-    },
-    {
-      name: "Resources",
-      dropdown: true,
-      items: ["Docs", "Tutorials", "Videos", "Webinars"],
-    },
-    {
-      name: "Support",
-      dropdown: true,
-      items: ["FAQ", "Help Center", "Community"],
-    },
+    { name: "PRODUCT BOXES", dropdown: false },
+    { name: "CUSTOM BOXES", dropdown: false },
+    { name: "BOXES BY SIZES", dropdown: false },
+    { name: "GET A QUOTE", dropdown: false },
   ];
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
       <div className="navbar-container">
-        {/* Logo */}
         <div className="logo">
           <a href="/">YourLogo</a>
         </div>
-
-        {/* Mobile menu button */}
         <div className="mobile-menu-btn" onClick={toggleMobileMenu}>
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
 
-        {/* Main Nav */}
         <div className={`nav-links ${isMobileMenuOpen ? "active" : ""}`}>
           <ul className="nav-menu">
             {navItems.map((item, index) => (
@@ -101,7 +75,6 @@ const Navbar1 = () => {
                 <a href="#" className="nav-link">
                   {item.name}
                 </a>
-
                 {item.dropdown && (
                   <div
                     className={`dropdown-menu ${
@@ -109,28 +82,22 @@ const Navbar1 = () => {
                     }`}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {item.items.map((subItem, subIndex) => (
-                      <a key={subIndex} href="#" className="dropdown-item">
-                        {subItem}
-                      </a>
-                    ))}
+                    <div className="dropdown-content">
+                      {item.items.map((subItem, subIndex) => (
+                        <a key={subIndex} href="#" className="dropdown-item">
+                          {subItem}
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 )}
               </li>
             ))}
           </ul>
-          <div className={`search-container ${searchActive ? "active" : ""}`}>
-            <FaSearch className="search-icon" onClick={toggleSearch} />
-            <input
-              type="text"
-              placeholder="Search..."
-              className={`search-input ${searchActive ? "active" : ""}`}
-            />
-          </div>
           <div className="nav-right">
             <div className="phone-number">
               <FaPhone className="phone-icon" />
-              <span>+1 (123) 456-7890</span>
+              <span>+1 (619) 612-5931</span>
             </div>
           </div>
         </div>
