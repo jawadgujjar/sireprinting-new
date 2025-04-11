@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Tabs } from "antd"; // Import Row and Col from Ant Design
 import "./popularproducts.css"; // Import CSS for custom styling
+import ProductCarousel from "./productcarousel";
 
 const { TabPane } = Tabs;
 
@@ -74,18 +75,9 @@ function Popularproducts() {
       <div className="popular-text">
         <h3>Popular Products</h3>
       </div>
-      <div className="tabs-container">
-        <div className="tabs-style">
-          <Tabs defaultActiveKey="1" style={{ width: "100%" }}>
-            <TabPane tab="Tab 1" key="1">
-              <h2>Content for Tab 1</h2>
-              <p>This is the content for the first tab.</p>
-            </TabPane>
-            <TabPane tab="Tab 2" key="2">
-              <h2>Content for Tab 2</h2>
-              <p>This is the content for the second tab.</p>
-            </TabPane>
-          </Tabs>
+      <div className="products-container">
+        <div>
+          <ProductCarousel />
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import "./landing.css";
 import { Button } from "antd";
+import ProductCarousel from "./productcarousel";
 
 const Landing = () => {
   return (
@@ -12,9 +13,6 @@ const Landing = () => {
           brand with packaging that drives your customers crazy.
         </p>
         <button className="button-landing">Customize Your Design</button>
-      </div>
-      <div>
-
       </div>
     </div>
   );
