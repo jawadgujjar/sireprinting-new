@@ -1,81 +1,98 @@
 import React from "react";
-import { Card, Row, Col, Input } from "antd";
-import { useNavigate } from "react-router-dom";
-import "./allproduct.css";
+import { Row, Col, Card } from "antd";
+import Productform1 from "../productform/productform";
+import "./allproduct.css"
 
-const { Search } = Input;
+const { Meta } = Card;
+
+const allProducts = [
+  {
+    titlerelatedProducts: [
+      {
+        title: "Custom Mailer Boxes",
+        description: "Eco-friendly and Sustainable, the preferred packaging choice for...",
+        price: "As low as: $0.99/unit",
+        image: "images/allproduct1.png",
+      },
+      {
+        title: "Custom Poly Mailers",
+        description: "A fully custom high quality self sealing poly mailer.",
+        price: "As low as: $0.85/unit",
+        image: "images/allproduct1.png",
+      },
+      {
+        title: "Custom Shipping Boxes",
+        description: "The Shipping or Regular Slotted Carton (RSC) is the most common...",
+        price: "As low as: $0.99/unit",
+        image: "images/allproduct1.png",
+      },
+    ],
+  },
+];
+
+function handleClick(product) {
+  console.log("Product clicked:", product);
+}
 
 function Allproduct1() {
-  const navigate = useNavigate();
-
-  const productCategories = [
-    {
-      title: "CUSTOM BOXES",
-      image: "https://via.placeholder.com/300x200?text=Custom+Boxes",
-    },
-    {
-      title: "UNBRANDED",
-      image: "https://via.placeholder.com/300x200?text=Unbranded",
-    },
-    {
-      title: "ACCESSORIES",
-      image: "https://via.placeholder.com/300x200?text=Accessories",
-    },
-    {
-      title: "BOXES BY SIZES",
-      image: "https://via.placeholder.com/300x200?text=Boxes+By+Sizes",
-    },
-  ];
-
-  const handleClick = (category) => {
-    const slug = category.title.toLowerCase().replace(/\s+/g, "-");
-    navigate(`/products/${slug}`);
-  };
-
   return (
     <div className="all-products-container">
       <div className="header-section">
-        <h1 className="main-title">All Products</h1>
+        <h2 className="main-title">All Products</h2>
         <p className="subtitle">
-          Arka is your one-stop shop for all your packaging needs. Choose from a
-          range of branded and unbranded options that best suit your needs.
+          Sire Printing is your one-stop shop for all your packaging needs.
+          Choose from a range of branded and unbranded options that best suit
+          your needs.
         </p>
       </div>
 
-      <div className="divider"></div>
+      <div className="divider" />
 
-      <div className="products-section">
-        <h2 className="section-title">ALL PRODUCTS</h2>
+      <div className="packaging-info">
+        <h2 className="packaging-txt">All Packaging Options</h2>
+        <p className="packaging-sub">
+          Searching for packaging services near me? Looking for something that's
+          not listed below? Request a custom quote and our Arka Pro team will
+          get back to you.
+        </p>
+      </div>
 
-        <div className="search-container">
-          <Search
-            placeholder="Search products..."
-            allowClear
-            enterButton
-            size="large"
-            className="product-search"
-          />
-        </div>
-
-        <Row gutter={[24, 24]} className="product-categories">
-          {productCategories.map((category, index) => (
-            <Col xs={24} sm={12} md={12} lg={6} key={index}>
-              <Card
-                hoverable
-                cover={
-                  <img
-                    alt={category.title}
-                    src={category.image}
-                    className="category-image"
-                  />
-                }
-                onClick={() => handleClick(category)}
-                className="product-card"
-              >
-                <div className="category-title">{category.title}</div>
-              </Card>
-            </Col>
-          ))}
+      <div className="allproduct-main">
+        <Row className="allproduct-row" gutter={[24, 16]}>
+          <Col xs={24} md={16} lg={16} className="allproduct-col1">
+            <Row gutter={[16, 16]}>
+              {allProducts[0].titlerelatedProducts.map((card, index) => (
+                <Col xs={24} sm={12} md={12} lg={8} key={index}>
+                  <Card
+                    className="allproduct-card"
+                    hoverable
+                    cover={
+                      <img
+                        alt={card.title}
+                        src={card.image}
+                        className="allproduct-card-image"
+                      />
+                    }
+                    onClick={() => handleClick(card)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <Meta
+                      title={card.title}
+                      description={
+                        <>
+                          <p className="card-description">{card.description}</p>
+                          <p className="card-price">{card.price}</p>
+                        </>
+                      }
+                    />
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </Col>
+          <Col xs={24} md={8} lg={8} className="form-column">
+            <Productform1/>
+          </Col>
         </Row>
       </div>
     </div>

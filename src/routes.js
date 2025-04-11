@@ -1,13 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Landingpage from "./pages/landingpage";
-import Allproduct1 from "./components/allproducts/allproduct";
+import Allproductpage from "./pages/allproductpage";
 
 function AppRouter() {
   return (
     <Routes>
       <Route path="/" element={<Landingpage />} />
-      <Route path="/all-products" element={<Allproduct1 />} />
+      <Route path="/all-products" element={<Allproductpage />} />
       {/* Add more routes here */}
     </Routes>
   );

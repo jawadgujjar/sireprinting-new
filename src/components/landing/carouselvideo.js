@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -11,6 +11,9 @@ function Videocarousel() {
 
   // Create refs for each video slide
   const videoRefs = useRef([]);
+
+  const [isEnd, setIsEnd] = useState(false); // To track if the last slide is reached
+  const [isBeginning, setIsBeginning] = useState(true); // To track if it's the first slide
 
   const handleMouseEnter = (index) => {
     const video = videoRefs.current[index];
@@ -33,12 +36,20 @@ function Videocarousel() {
       video.msRequestFullscreen();
     }
   };
+
+  // Video sources for 6 slides (only 6 videos will be shown)
   const videoSources = [
     "/video/video1.mp4", // Slide 1
     "/video/video1.mp4", // Slide 2
     "/video/video1.mp4", // Slide 3
     "/video/video1.mp4", // Slide 4
     "/video/video1.mp4", // Slide 5
+    "/video/video1.mp4", // Slide 6
+    "/video/video1.mp4", // Slide 6
+    "/video/video1.mp4", // Slide 6
+    "/video/video1.mp4", // Slide 6
+    "/video/video1.mp4", // Slide 6
+    "/video/video1.mp4", // Slide 6
     "/video/video1.mp4", // Slide 6
   ];
 
@@ -52,16 +63,21 @@ function Videocarousel() {
           swiper.navigation.init();
           swiper.navigation.update();
         }}
-        spaceBetween={0}
-        slidesPerView={3}
+        spaceBetween={20} // Adjust spacing between slides
+        slidesPerView={3} // Adjust this to change how many slides are visible at once
+        loop={false}
+        onSlideChange={(swiper) => {
+          setIsEnd(swiper.isEnd);
+          setIsBeginning(swiper.isBeginning);
+        }}
         className="carousel-swiper"
       >
-        {[1, 2, 3, 4, 5, 6].map((slide, index) => (
-          <SwiperSlide key={slide}>
+        {videoSources.map((source, index) => (
+          <SwiperSlide key={index}>
             <div className="vcarousel">
               <video
                 ref={(el) => (videoRefs.current[index] = el)}
-                src={videoSources[slide - 1]} // Get the correct video source based on the slide index
+                src={source}
                 className="vcarousel-video"
                 muted
                 playsInline
@@ -74,8 +90,16 @@ function Videocarousel() {
         ))}
 
         {/* Navigation arrows with refs */}
-        <div className="swiper-button-next" ref={nextRef}></div>
-        <div className="swiper-button-prev" ref={prevRef}></div>
+        <div
+          className="swiper-button-next"
+          ref={nextRef}
+          style={{ pointerEvents: isEnd ? "none" : "auto" }} // Disable next button when last slide is reached
+        ></div>
+        <div
+          className="swiper-button-prev"
+          ref={prevRef}
+          style={{ pointerEvents: isBeginning ? "none" : "auto" }} // Disable prev button when on the first slide
+        ></div>
       </Swiper>
     </div>
   );
