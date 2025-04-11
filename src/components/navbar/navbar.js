@@ -57,7 +57,9 @@ const Navbar1 = () => {
     <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
       <div className="navbar-container">
         <div className="logo">
-          <a href="/">YourLogo</a>
+          <a href="/">
+            <img className="logo-size" alt="logo" src="./images/sirepriting.png" />
+          </a>
         </div>
         <div className="mobile-menu-btn" onClick={toggleMobileMenu}>
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}

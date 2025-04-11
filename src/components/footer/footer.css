@@ -1,0 +1,152 @@
+/* Base styles for the footer */
+.footersire-footer {
+    padding: 20px;
+    background-color: rgb(32, 32, 32); /* Dark background color */
+    color: #fff; /* White text color */
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+  }
+  
+  /* Styles for columns */
+  .footersire-column {
+    text-align: left;
+    flex: 0 0 50%; /* 2 columns (50% width each) */
+    padding: 10px; /* Padding for spacing */
+  }
+  
+  /* Adjust spacing for paragraphs */
+  .sirefooter-p-txt {
+    font-size: 1rem;
+    margin: 10px 0; /* Add top and bottom margin for spacing */
+    font-weight: normal; /* Remove bold */
+    color: #fff;
+    text-decoration: none;
+    display: block;
+  }
+  .sirefooter-p-txt:hover {
+    color:  rgb(255,160,21);
+  }
+  .sirefooter-p-txt1 {
+    font-size: 1rem;
+    margin: 10px 0; /* Add top and bottom margin for spacing */
+    font-weight: normal; /* Remove bold */
+    color: #fff;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Styles for input */
+  .footer-input {
+    margin-top: 1.5rem;
+    width: 80%; /* Adjust this value as needed */
+    height: 2.5rem;
+  }
+  
+  /* Other existing styles remain unchanged */
+  .footer-input-container {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    margin-bottom: 10px; /* Add margin for spacing */
+  }
+  
+  /* Button styles */
+  .submit-button {
+    margin-top: 1.5rem;
+    margin-left: 1rem;
+    background-color: #7c7b7b; /* Button background color */
+    color: #fff; /* White text color for button */
+    padding: 10px 15px; /* Adjust padding for button */
+    border: none; /* Remove default border */
+    border-radius: 2px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    height: 2.5rem;
+    display: flex; /* Center icon in button */
+    align-items: center; /* Center icon vertically */
+  }
+  
+  .footer-visaimg {
+    margin-top: 1.5rem;
+  }
+  
+  /* Add spacing for headings */
+  .get-txt {
+    font-size: 1.6rem;
+    margin: 16px 0; /* Add margin for spacing */
+    font-weight: normal; /* Remove bold */
+    
+  }
+  
+  /* Social icons */
+  .footersire-social-icons {
+    display: flex; /* Use flexbox for layout */
+    justify-content: flex-start; /* Align icons to the left */
+    gap: 10px; /* Space between icons */
+    margin-top: 1.5rem;
+  }
+  
+  .footersire-social-icons svg {
+    font-size: 1.5rem; /* Increase icon size */
+    color: white; /* Default color */
+    transition: color 0.3s; /* Smooth transition for color change */
+  }
+  
+  .footersire-social-icons svg:hover {
+    color: orange; /* Color on hover */
+  }
+  
+  
+  .footer-p {
+    margin: 0; /* Remove default margin */
+    font-size: 1rem; /* Adjust font size */
+    color: #fff; /* White text color */
+    text-align: center; /* Center the text */
+  }
+  
+  /* If you need additional styling specifically for the copyright text */
+  .footer-copyright {
+    text-align: center; /* Center the copyright container */
+    margin-top: 20px; /* Space above */
+    padding: 10px 0; /* Padding for better appearance */
+    width: 100%; /* Full width */
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 1000px) {
+    .footersire-column {
+      flex: 0 0 50%; /* 2 columns per row */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .footersire-column {
+      flex: 0 0 100%; /* 1 column per row */
+    }
+  }
+  
+  @media (max-width: 575px) {
+    .footersire-footer {
+      display: flex;
+      flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center align items horizontally */
+      text-align: center; /* Center text */
+      padding: 20px; /* Maintain padding */
+    }
+  
+    .footersire-column {
+      width: 100%; /* Make columns full width */
+      margin-bottom: 20px; /* Space between stacked columns */
+      text-align: center; /* Center align text within columns */
+    }
+  
+    .footer-input-container {
+      justify-content: center; /* Center the input and button */
+    }
+  
+    .submit-button {
+      margin-top: 1.5rem; /* Adjust top margin for better spacing */
+    }
+  
+    .footersire-social-icons {
+      justify-content: center; /* Center social icons */
+    }
+  }
