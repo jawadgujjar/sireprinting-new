@@ -1,0 +1,134 @@
+/* Overall container for all products */
+.all-products-container {
+    margin: 0 auto;
+    padding: 0; /* Remove padding to let header go edge to edge */
+    width: 100%;
+  }
+  
+  /* Hero / Header Section */
+  .header-section {
+    width: 100vw;
+    margin: 0;
+    padding: 120px 20px 100px; /* Added extra top padding for fixed navbar space */
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  
+  /* Background image overlay */
+  .header-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url("../../../public/images/background1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.6; /* Slight dark overlay */
+    z-index: 1;
+  }
+  
+  /* Ensure text appears above the overlay */
+  .header-section h1,
+  .header-section p {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .main-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Divider line */
+  .divider {
+    height: 1px;
+    background-color: #e8e8e8;
+    margin: 30px 0;
+  }
+  
+  /* Products Section */
+  .products-section {
+    padding: 0 15px 50px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  
+  /* Search box container */
+  .search-container {
+    margin-bottom: 30px;
+  }
+  
+  .product-search {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  /* Grid of cards */
+  .product-categories {
+    margin-top: 30px;
+  }
+  
+  /* Product card styling */
+  .product-card {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Image inside the card */
+  .category-image {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+  }
+  
+  /* Title inside the card */
+  .category-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 15px 0;
+    text-transform: uppercase;
+    color: #333;
+  }
+  
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    .main-title {
+      font-size: 2rem;
+    }
+  
+    .section-title {
+      font-size: 1.5rem;
+    }
+  
+    .category-image {
+      height: 150px;
+    }
+  }
+  

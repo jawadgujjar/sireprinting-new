@@ -1,8 +1,9 @@
 .carousel-main {
   padding: 1rem;
-  width: 100%;
+  width: 97%;
   overflow: hidden;
   position: relative; /* Important for navigation buttons */
+  margin: 0 auto;
 }
 
 .vcarousel {
@@ -34,7 +35,6 @@
   color: #4b5563;
   padding: 8px 0;
 }
-
 
 .carousel-swiper {
   position: relative;
@@ -80,9 +80,9 @@
 }
 
 .swiper-button-next::after {
-  content: 'next';
+  content: "next";
 }
 
 .swiper-button-prev::after {
-  content: 'prev';
+  content: "prev";
 }
