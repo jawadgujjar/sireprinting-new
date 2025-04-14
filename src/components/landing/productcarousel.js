@@ -7,47 +7,47 @@ const logos = [
   {
     title: "Custom Packaging Box",
     description: "High-quality packaging for your business.",
-    images: ["../images/arka.webp", "../images/brand2.avif"],
+    images: ["../images/arka.png", "../images/brand2.avif"],
   },
   {
     title: "Luxury Gift Box",
     description: "Elegant design with premium finish.",
-    images: ["../images/arka.webp", "../images/brand2.avif"],
+    images: ["../images/arka.png", "../images/brand2.avif"],
   },
   {
     title: "Luxury Gift Box",
     description: "Elegant design with premium finish.",
-    images: ["../images/arka.webp", "../images/brand2.avif"],
+    images: ["../images/arka.png", "../images/brand2.avif"],
   },
   {
     title: "Luxury Gift Box",
     description: "Elegant design with premium finish.",
-    images: ["../images/arka.webp", "../images/brand2.avif"],
+    images: ["../images/arka.png", "../images/brand2.avif"],
   },
   {
     title: "Luxury Gift Box",
     description: "Elegant design with premium finish.",
-    images: ["../images/arka.webp", "../images/brand2.avif"],
+    images: ["../images/arka.png", "../images/brand2.avif"],
   },
   {
     title: "Luxury Gift Box",
     description: "Elegant design with premium finish.",
-    images: ["../images/arka.webp", "../images/brand2.avif"],
+    images: ["../images/arka.png", "../images/brand2.avif"],
   },
   {
     title: "Luxury Gift Box",
     description: "Elegant design with premium finish.",
-    images: ["../images/arka.webp", "../images/brand2.avif"],
+    images: ["../images/arka.png", "../images/brand2.avif"],
   },
   {
     title: "Luxury Gift Box",
     description: "Elegant design with premium finish.",
-    images: ["../images/arka.webp", "../images/brand2.avif"],
+    images: ["../images/arka.png", "../images/brand2.avif"],
   },
   {
     title: "Luxury Gift Box",
     description: "Elegant design with premium finish.",
-    images: ["../images/arka.webp", "../images/sirepriting.png"],
+    images: ["../images/arka.png", "../images/brand2.avif"],
   },
 ];
 

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { FaSearch, FaPhone, FaBars, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom"; // ✅ React Router Link
+import { FaPhone, FaBars, FaTimes, FaRegUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "./navbar1.css";
+import { IoSearchOutline } from "react-icons/io5";
 
 const Navbar1 = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -13,12 +14,8 @@ const Navbar1 = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
     };
-
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleMobileMenu = () => {
@@ -27,10 +24,6 @@ const Navbar1 = () => {
 
   const toggleDropdown = (index) => {
     setActiveDropdown(activeDropdown === index ? null : index);
-  };
-
-  const toggleSearch = () => {
-    setSearchActive(!searchActive);
   };
 
   const navItems = [
@@ -54,62 +47,75 @@ const Navbar1 = () => {
     { name: "GET A QUOTE", dropdown: false },
   ];
 
+  const isMobile = window.innerWidth <= 992;
+
   return (
     <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
       <div className="navbar-container">
-        <div className="logo">
-          <a href="/">
-            <img className="logo-size" alt="logo" src="./images/sirepriting.png" />
-          </a>
-        </div>
         <div className="mobile-menu-btn" onClick={toggleMobileMenu}>
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
-
+        <div className="logo">
+          <a href="/">
+            <img
+              className="logo-size"
+              alt="logo"
+              src="./images/sirepriting.png"
+            />
+          </a>
+        </div>
         <div className={`nav-links ${isMobileMenuOpen ? "active" : ""}`}>
           <ul className="nav-menu">
             {navItems.map((item, index) => (
               <li
                 key={index}
                 className={`nav-item ${item.dropdown ? "has-dropdown" : ""}`}
-                onMouseEnter={() => item.dropdown && toggleDropdown(index)}
-                onMouseLeave={() => item.dropdown && toggleDropdown(null)}
+                onClick={() => {
+                  if (isMobile && item.dropdown) toggleDropdown(index);
+                }}
+                onMouseEnter={() =>
+                  !isMobile && item.dropdown && toggleDropdown(index)
+                }
+                onMouseLeave={() => !isMobile && toggleDropdown(null)}
               >
-                {item.name === "ALL PRODUCTS" ? (
-                  <Link to="/all-products" className="nav-link">
-                    {item.name}
-                  </Link>
-                ) : (
-                  <a href="#" className="nav-link">
-                    {item.name}
-                  </a>
-                )}
-
-                {item.dropdown && (
-                  <div
-                    className={`dropdown-menu ${
-                      activeDropdown === index ? "show" : ""
-                    }`}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="dropdown-content">
-                      {item.items.map((subItem, subIndex) => (
-                        <a key={subIndex} href="#" className="dropdown-item">
-                          {subItem}
-                        </a>
-                      ))}
+                <a href="#" className="nav-link">
+                  {item.name}
+                </a>
+                {item.dropdown &&
+                  (isMobile
+                    ? activeDropdown === index
+                    : activeDropdown === index) && (
+                    <div className="dropdown-menu show">
+                      <div className="dropdown-content">
+                        {item.items.map((subItem, subIndex) => (
+                          <a key={subIndex} href="#" className="dropdown-item">
+                            {subItem}
+                          </a>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
               </li>
             ))}
           </ul>
+        </div>
 
-          <div className="nav-right">
-            <div className="phone-number">
+        <div className="nav-icons">
+          <div className="phone-number">
+            <a href="tel:+11392383929" className="phone-number">
               <FaPhone className="phone-icon" />
-              <span>+1 (619) 612-5931</span>
-            </div>
+            </a>{" "}
+          </div>
+          <div className="phone-number">
+            <Link to="/login">
+              {" "}
+              <FaRegUser className="phone-icon" />
+            </Link>
+          </div>
+          <div className="phone-number">
+            <Link to="/search-products">
+              <IoSearchOutline className="phone-icon" />
+            </Link>
           </div>
         </div>
       </div>
