@@ -23,7 +23,7 @@
   letter-spacing: 1px;
 }
 
-/* Underline effect for the Popular Products header */
+/* Underline effect */
 .popular-text h3::after {
   content: "";
   position: absolute;
@@ -36,35 +36,34 @@
   border-radius: 10px;
 }
 
-/* Product List container to display items in a flex grid */
+/* Product List Grid */
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1.5rem;
   justify-content: center;
 }
 
-/* Individual product item styling */
+/* Product Card */
 .product-item {
   background: #fff;
   border: 1px solid #eee;
   border-radius: 1rem;
-  padding: 1.5rem;
+  padding: 1.3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 220px;
+  width: 180px;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Hover effect for product item */
 .product-item:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   transform: translateY(-5px);
 }
 
-/* Styling for images in product items */
+/* Product Image */
 .image-popular {
   width: 80px;
   height: 80px;
@@ -72,7 +71,7 @@
   margin-bottom: 1rem;
 }
 
-/* Title for each product item */
+/* Product Title */
 .product-item div h3 {
   font-size: 1.2rem;
   font-weight: 700;
@@ -80,26 +79,61 @@
   text-align: center;
 }
 
-/* Responsive design for smaller screens (max-width: 768px) */
-@media (max-width: 768px) {
-  /* Adjust product item layout for mobile */
+/* Responsive Design */
+
+/* Medium screens (tablets) */
+@media (max-width: 992px) {
+  .product-item {
+    width: 70%;
+  }
+}
+
+/* Small screens (mobile) */
+@media (max-width: 600px) {
+  .product-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .product-item {
     width: 100%;
     flex-direction: row;
-    justify-content: flex-start;
+    align-items: center;
+    padding: 0.3rem;
     gap: 1rem;
   }
 
-  /* Resize image for mobile */
   .image-popular {
     width: 60px;
     height: 60px;
     margin-bottom: 0;
   }
 
-  /* Adjust product title font size and alignment for mobile */
   .product-item div h3 {
     font-size: 1rem;
     text-align: left;
+  }
+}
+
+/* Extra small screens (very small phones) */
+@media (max-width: 400px) {
+  .popular-text h3 {
+    font-size: 1.5rem;
+  }
+
+  .product-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .image-popular {
+    width: 50px;
+    height: 50px;
+  }
+
+  .product-item div h3 {
+    font-size: 0.9rem;
+    text-align: center;
   }
 }

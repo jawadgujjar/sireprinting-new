@@ -25,7 +25,7 @@
 /* Media Query for small screens (e.g., mobile) */
 @media (max-width: 768px) {
   .brand-images img {
-    width: 45%; /* Make images take up 45% width on small screens */
+    width: 35%; /* Make images take up 45% width on small screens */
     margin: 5px; /* Adjust margin for smaller screens */
   }
 }
@@ -33,6 +33,6 @@
 /* Media Query for even smaller screens (e.g., very small devices) */
 @media (max-width: 480px) {
   .brand-images img {
-    width: 45%; /* Make images take up 45% width on very small screens */
+    width: 25%; /* Make images take up 45% width on very small screens */
   }
 }

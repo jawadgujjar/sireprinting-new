@@ -1,5 +1,6 @@
 /* landing.css */
 
+/* Fullscreen landing page */
 .landing-page {
   position: relative;
   width: 100%;
@@ -10,36 +11,84 @@
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
-  text-align: center;
-  color: white;
+  justify-content: left;
+  padding: 2rem;
+  box-sizing: border-box;
+  padding-top: 4rem;
 }
 
+/* Text content container */
 .landing-content {
   color: black;
   text-align: left;
   padding: 2rem;
-  max-width: 40%;
+  border-radius: 1rem;
+  max-width: 600px;
+  width: 100%;
 }
+
+/* Heading */
+.landing-content h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* CTA button */
 .button-landing {
   background-color: #0a0909 !important;
   color: gold !important;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bolder;
-  padding: 1rem !important;
+  padding: 0.8rem 1.5rem !important;
   border-radius: 2rem;
   margin-top: 1rem;
+  transition: all 0.3s ease-in-out;
 }
+
 .button-landing:hover {
   background-color: white !important;
   border: #0a0909 solid 1px;
   color: #0a0909 !important;
 }
-.landing-content h1 {
-  font-size: 2.5rem;
-}
 
+/* Tablet screens */
 @media (min-width: 768px) {
   .landing-content h1 {
+    font-size: 2.8rem;
+  }
+
+  .button-landing {
+    font-size: 1.5rem;
+    padding: 1rem 2rem !important;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  .landing-content {
+    max-width: 40%;
+  }
+
+  .landing-content h1 {
     font-size: 3.5rem;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+  .landing-content {
+    padding: 1.5rem;
+    text-align: center;
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .landing-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .button-landing {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem !important;
   }
 }

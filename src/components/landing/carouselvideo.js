@@ -55,6 +55,10 @@ function Videocarousel() {
 
   return (
     <div className="carousel-main">
+      <div>
+        <h2 className="testimonials-main">Get Inspiration</h2>
+        <hr />
+      </div>
       <Swiper
         modules={[Navigation]}
         onInit={(swiper) => {
