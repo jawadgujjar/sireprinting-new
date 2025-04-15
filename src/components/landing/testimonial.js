@@ -1,86 +1,109 @@
+// Testimonial.js
 import React from "react";
-import AliceCarousel from "react-alice-carousel";
-import { Card, Avatar } from "antd";
-import "react-alice-carousel/lib/alice-carousel.css";
+import { Row, Col, Progress, Rate, Button, Image } from "antd";
+import { StarFilled } from "@ant-design/icons";
 import "./testimonial.css";
-import Rating from "react-rating";
 
-// Carousel items
-const carouselItems = [
+const starData = [
+  { star: 5, count: 21 },
+  { star: 4, count: 7 },
+  { star: 3, count: 3 },
+  { star: 2, count: 1 },
+  { star: 1, count: 1 },
+];
+
+const reviewImages = [
+  "../images/review.jpg",
+  "../images/review.jpg",
+  "../images/review.jpg",
+  "../images/review.jpg",
+  "../images/review.jpg",
+  "../images/review.jpg",
+];
+
+const reviews = [
   {
-    img: "../images/review.jpg",
     name: "John Wick",
-    occupation: "Broker – About Roatan Real Estate",
+    rating: 5,
+    img: "../images/review.jpg",
     review:
-      "“Thrive exceeded our expectations in every way. They are honest, reliable, and handle all needs quickly. They deliver on their promises without any fuss.”",
+      "Thrive exceeded our expectations in every way. Honest, reliable and quick to help.",
   },
   {
+    name: "Sarah Connor",
+    rating: 4,
     img: "../images/review.jpg",
-    name: "NINI",
-    occupation: "Broker – About Roatan Real Estate",
     review:
-      "“Working with Thrive has been a pleasure. Their dedication, exceptional support, and attention to our needs make us excited for a long-term partnership.”",
+      "Amazing experience! They really go above and beyond. I had some issues and they solved them instantly.",
   },
   {
+    name: "Tony Stark",
+    rating: 5,
     img: "../images/review.jpg",
-    name: "NINI",
-    occupation: "Broker – About Roatan Real Estate",
+    review: "Highly recommend. Support team is awesome and always available.",
+  },
+  {
+    name: "Bruce Wayne",
+    rating: 4,
+    img: "../images/review.jpg",
     review:
-      "“Working with Thrive has been a pleasure. Their dedication, exceptional support, and attention to our needs make us excited for a long-term partnership.”",
+      "Impressive! Their service is outstanding and the team is very helpful.",
   },
 ];
 
-// Render carousel items
-const renderItems = () =>
-  carouselItems.map((item, index) => (
-    <div className="carousel-item-content" key={index}>
-      <Card className="carousel-card">
-        <Avatar className="avatar-review" src={item.img} />
-        <h5>{item.name}</h5>
-        <span>{item.occupation}</span>
-        <Rating
-          initialRating={5}
-          emptySymbol={
-            <i
-              className="far fa-star"
-              style={{ color: "#ccc", fontSize: "20px" }}
-            />
-          }
-          fullSymbol={
-            <i
-              className="fas fa-star"
-              style={{ color: "#fadb14", fontSize: "20px" }}
-            />
-          }
-          readonly
-        />{" "}
-        <p>{item.review}</p>
-      </Card>
-    </div>
-  ));
-
 const Testimonial = () => {
-  const carouselRef = React.useRef(null);
-
   return (
-    <div className="customerdiv">
-      <h1 className="customers">Testimonials</h1>
-      {/* <p className="customer">Client highlighting our services and successful results.</p> */}
-      <div className="carousel-wrapper">
-        <div className="carousel-container1">
-          <AliceCarousel
-            ref={carouselRef}
-            items={renderItems()}
-            responsive={{
-              0: { items: 1 },
-              568: { items: 2 },
-              1024: { items: 3 },
-            }}
-            controlsStrategy="alternate"
-            autoPlay
-            autoPlayInterval={3000}
-            infinite
-          />
+    <div className="testimonial-main">
+      <h2 className="testimonials-main">Testimonials</h2>
+      <hr />
+      <Row className="testimonial-summary-row" gutter={[30, 30]}>
+        <Col xs={24} md={10}>
+          <h2 className="rating-text">
+            4.7/5 <span>(33 reviews)</span>
+          </h2>
+          {starData.map((item, index) => (
+            <div className="star-bar" key={index}>
+              <span className="star-label">
+                {item.star} <StarFilled />
+              </span>
+              <Progress
+                percent={(item.count / 33) * 100}
+                showInfo={false}
+                strokeColor="#ffd700"
+              />
+              <span className="star-count">{item.count}</span>
+            </div>
+          ))}
+        </Col>
+        <Col xs={24} md={14}>
+          <Image.PreviewGroup>
+            <div className="review-images-row">
+              {reviewImages.map((img, index) => (
+                <Image
+                  key={index}
+                  src={img}
+                  alt={`review ${index}`}
+                  className="review-img"
+                  preview={{ mask: "Click to Preview" }}
+                />
+              ))}
+            </div>
+          </Image.PreviewGroup>
+        </Col>
+      </Row>
+      <div className="reviews-section">
+      <h2 className="testimonials-main-sec">All Reviews</h2>
+        {reviews.slice(0, 4).map((rev, i) => (
+          <div className="review-card" key={i}>
+            <Rate disabled defaultValue={rev.rating} className="star-rating" />
+            <h4>{rev.name}</h4>
+            <p>{rev.review}</p>
+          </div>
+        ))}
+        <div className="show-more-btn">
+          <Button size="large" className="golden-btn">
+            Show More Reviews
+          </Button>
         </div>
       </div>
     </div>

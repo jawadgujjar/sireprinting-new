@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
-import "./productcarousel.css";
+import "./industry.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // Arrows import
 
 const logos = [
@@ -64,7 +64,7 @@ const PrevArrow = ({ onClick }) => (
   </div>
 );
 
-const ProductCarousel = () => {
+const Industry = () => {
   const settings = {
     infinite: true,
     speed: 1000, // Normal scroll speed
@@ -99,7 +99,16 @@ const ProductCarousel = () => {
 
   return (
     <div className="trusted">
-      <h2 className="trustedtext"> CUSTOM BOXES BY SIRE PRINTING</h2>
+      <h2 className="industry-main">
+        {" "}
+        Custom Packaging Solutions for Your Industry
+      </h2>
+      <p className="industry-main-p">
+        {" "}
+        Discover customized packaging designed exclusively for your industry.
+        Our expert team creates innovative solutions that not only meet but
+        exceed your packaging needs.
+      </p>
       <Slider {...settings} className="scrolling-slider">
         {logos.map((item, index) => (
           <HoverCard key={index} product={item} />
@@ -143,4 +152,4 @@ const HoverCard = ({ product }) => {
   );
 };
 
-export default ProductCarousel;
+export default Industry;

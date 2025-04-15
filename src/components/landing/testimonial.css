@@ -1,179 +1,131 @@
-/* Container for centering and responsiveness */
-.alice-carousel__prev-btn,
-.alice-carousel__next-btn {
-  display: none !important; /* Forcefully hide the buttons */
+.testimonial-main {
+  background-color: white; /* background ab white */
+  color: black; /* text black */
+  max-width: 1200px;
+  margin: auto;
 }
-.alice-carousel__dots {
-  display: none !important; /* Forcefully hide the dots */
-}
-
-.carousel-wrapper {
-  position: relative; /* Make wrapper relative for absolute buttons */
-  padding: 20px; /* Add some padding to avoid arrow overlap */
-}
-
-/* Hide pagination dots */
-
-.customerdiv {
+.testimonials-main {
   text-align: center;
-  margin-top: 0.4rem;
-
-  /* Adjust margin as needed */
-}
-
-/* Carousel wrapper styling */
-.carousel-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-/* Carousel container styling */
-.carousel-container1 {
-  width: 90%;
-  height: auto;
-  /* Adjust height for responsiveness */
-  padding: 2rem;
-  max-width: 1000px;
-  /* Increased max-width for the carousel container */
-  overflow: hidden;
+  font-size: 3rem;
+  font-weight: 300;
+  color: black;
+  margin-bottom: 60px;
+  text-transform: uppercase;
+  letter-spacing: 8px;
   position: relative;
-  border-radius: 15px;
-  /* Rounded corners for carousel container */
-  /* Light gradient background */
+}
+.testimonials-main-sec {
+  text-align: left;
+  font-size: 2rem;
+  font-weight: 300;
+  color: black;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  position: relative;
 }
 
-/* Hide carousel indicators */
-.carousel-indicators {
-  display: none;
+.testimonial-summary-row {
+  margin-top: 80px;
 }
 
-/* Ensure carousel items are displayed as block and centered */
-.carousel-item-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 18rem;
-  /* Adjust height as needed */
-  width: 100%;
-  /* Full width of container */
-  padding: 1rem;
-  /* Add padding to ensure spacing around the card */
+.rating-text {
+  font-size: 28px;
+  font-weight: bold;
+  color: black;
 }
 
-.ant-card .ant-card-body {
-  padding: 0;
-}
-
-/* Center card content */
-.carousel-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: 400px;
-  padding: 2rem 1.5rem;
-  margin: 0 auto;
-  border-radius: 20px;
-  background: linear-gradient(145deg, #ffffff, #f3f3f3);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.carousel-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-}
-
-.avatar-review {
-  width: 70px;
-  height: 70px;
-  margin-bottom: 1rem;
-  border-radius: 50%;
-  border: 3px solid #ff7f50;
-  object-fit: cover;
-}
-
-.carousel-card h5 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0.4rem 0 0.2rem;
-}
-
-.carousel-card span {
-  font-size: 0.85rem;
+.rating-text span {
   color: #888;
-  margin-bottom: 0.8rem;
+  font-size: 18px;
 }
 
-.carousel-card p {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #444;
-  margin-top: 1rem;
-  font-style: italic;
-  border-top: 1px solid #ddd;
-  padding-top: 1rem;
+.star-bar {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
 }
-/* Card avatar styling */
-.avatar-review {
-  width: 4rem;
-  /* Adjust avatar size */
-  height: 4rem;
-  /* Adjust avatar size */
-  margin-bottom: 1rem;
+
+.star-label {
+  width: 60px;
+  color: #ffd700;
+  font-weight: 500;
+}
+
+.star-count {
+  width: 30px;
+  text-align: right;
+  color: #000;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.review-images-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
+  padding: 10px 0;
+}
+.review-img {
+  width: 100% !important;
+  height: 180px !important;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.review-img:hover {
+  transform: scale(1.05);
+}
+
+.reviews-section {
+  background-color: #f9f9f9; /* light gray section bg */
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.review-card {
+  background-color: #fff; /* white card */
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 5px solid #ffd700;
+  border-radius: 10px;
+  color: black;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.star-rating {
+  color: #ffd700 !important;
+  margin-bottom: 10px;
+}
+
+.reviewer-img {
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
   border-radius: 50%;
-  /* Make the avatar circular */
+  object-fit: cover;
+  border: 2px solid #ffd700;
 }
 
-/* Card title styling */
-
-/* Hide carousel controls (Next and Prev icons) */
-.carousel-control-prev,
-.carousel-control-next {
-  display: none;
-}
-.ant-rate-star-full,
-.ant-rate-star-zero {
-  color: #fadb14 !important; /* AntD's default star color */
-}
-/* Media queries for different screen sizes */
-@media (max-width: 1024px) {
-  .carousel-container1 {
-    height: auto;
-    /* Adjust height for larger screens */
-  }
+.show-more-btn {
+  text-align: center;
+  margin-top: 20px;
 }
 
-@media (max-width: 768px) {
-  .carousel-card {
-    max-width: 300px;
-    /* Further adjust card size for smaller screens */
-  }
+.golden-btn {
+  background-color: #ffd700;
+  color: black;
+  border: none;
+  font-weight: bold;
 }
 
-@media (max-width: 480px) {
-  .carousel-card {
-    max-width: 250px;
-    /* Even smaller card size */
-  }
+.golden-btn:hover {
+  background-color: black !important;
+  color: #ffd700 !important;
 }
 
-@media (max-width: 425px) {
-  .carousel-card {
-    max-width: 250px;
-    /* Even smaller card size */
-    height: 30rem;
-  }
-}
-
-@media (max-width: 375px) {
-  .carousel-card {
-    max-width: 250px;
-    /* Even smaller card size */
-    height: 30rem;
-  }
+.review-card h4 {
+  color: #000;
+  margin-bottom: 5px;
 }

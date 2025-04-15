@@ -21,7 +21,7 @@
   max-width: 40%;
 }
 .button-landing {
-  background-color: #0A0909 !important;
+  background-color: #0a0909 !important;
   color: gold !important;
   font-size: 1.5rem;
   font-weight: bolder;
@@ -31,8 +31,8 @@
 }
 .button-landing:hover {
   background-color: white !important;
-  border: #0A0909 solid 1px;
-  color: #0A0909 !important;
+  border: #0a0909 solid 1px;
+  color: #0a0909 !important;
 }
 .landing-content h1 {
   font-size: 2.5rem;

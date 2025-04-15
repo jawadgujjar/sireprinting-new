@@ -1,0 +1,289 @@
+.sireadvantage-wrapper {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #222222 0%, #333333 100%);
+  font-family: "Montserrat", sans-serif;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.sireadvantage-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80")
+    center/cover;
+  opacity: 0.08;
+  z-index: 0;
+}
+
+.divider-line {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0) 0%,
+    #d4af37 50%,
+    rgba(212, 175, 55, 0) 100%
+  );
+  border: none;
+  width: 200px;
+  margin: 0 auto 60px;
+}
+
+.advantage-main {
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 80px;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  position: relative;
+}
+
+.advantage-main::after {
+  content: "PREMIUM PACKAGING SOLUTIONS";
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  font-weight: 400;
+  color: #d4af37;
+  letter-spacing: 4px;
+}
+
+.three-images-advantages {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
+  position: relative;
+  z-index: 1;
+}
+
+.advantage-card {
+  background: rgba(30, 30, 30, 0.8);
+  padding: 40px 30px;
+  border-radius: 2px;
+  max-width: 360px;
+  text-align: center;
+  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.advantage-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #d4af37;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s ease;
+}
+
+.advantage-card:hover::before {
+  transform: scaleX(1);
+}
+
+.advantage-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+}
+
+.advantage-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  margin-bottom: 30px;
+  filter: grayscale(20%);
+  transition: all 0.5s ease;
+}
+
+.advantage-card:hover img {
+  filter: grayscale(0%);
+}
+
+.advantage-card h3 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #fff;
+  margin-top: 10px;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.advantage-card h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1px;
+  background: #d4af37;
+}
+
+.how-it-works-section {
+  text-align: center;
+  padding: 80px 40px;
+  border-radius: 2px;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.how-it-works-section::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  pointer-events: none;
+}
+
+.how-it-works-title {
+  font-size: 2.2rem;
+  font-weight: 300;
+  margin-bottom: 70px;
+  color: #fff;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.how-it-works-title::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 1px;
+  background: #d4af37;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.step-card {
+  background: rgba(30, 30, 30, 0.8);
+  padding: 50px 30px;
+  border-radius: 2px;
+  width: 280px;
+  transition: all 0.5s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.step-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  pointer-events: none;
+}
+
+.step-card:hover {
+  transform: translateY(-10px);
+  background: rgba(40, 40, 40, 0.9);
+}
+
+.step-icon {
+  font-size: 2.5rem;
+  color: #d4af37;
+  margin-bottom: 30px;
+}
+
+.step-card h4 {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 400;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.step-card p {
+  font-size: 0.9rem;
+  color: #aaa;
+  line-height: 1.8;
+  margin-bottom: 0;
+  font-weight: 300;
+}
+
+/* Number indicators for steps */
+.step-card::after {
+  content: attr(data-step);
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1rem;
+  color: rgba(212, 175, 55, 0.3);
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .advantage-main {
+    font-size: 2.8rem;
+    letter-spacing: 4px;
+  }
+
+  .how-it-works-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .advantage-main {
+    font-size: 2rem;
+    letter-spacing: 3px;
+    margin-bottom: 60px;
+  }
+
+  .advantage-main::after {
+    font-size: 0.8rem;
+    bottom: -20px;
+  }
+
+  .three-images-advantages,
+  .steps-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .advantage-card,
+  .step-card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .how-it-works-title {
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+  }
+}

@@ -1,91 +1,105 @@
+/* Container for Popular Products */
 .popular-products-container {
-  padding: 20px;
-  margin-top: 2rem;
-  padding-bottom: 3rem;
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+  background-color: #f8f8f8;
 }
 
-.product-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* Additional styles for better look */
-.product-item:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.image-popular {
-  width: 5rem;
-  height: auto;
-}
-.product-item div h3 {
-  font-weight: 900;
-  color: #ffa015;
-}
+/* Text section for the Popular Products header */
 .popular-text {
   text-align: center;
-  background-color: rgba(
-    207,
-    205,
-    204,
-    0.5
-  ); /* Last value is opacity for background only */
-}
-@keyframes gradientFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  margin-bottom: 2rem;
 }
 
-@keyframes glowPulse {
-  0%,
-  100% {
-    box-shadow: 0 0 15px rgba(255, 165, 0, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 165, 0, 0.8);
-  }
-}
-
+/* Heading for Popular Products */
 .popular-text h3 {
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(270deg, #fcd34d, #f97316, #fcd34d);
-  background-size: 600% 600%;
-  animation: gradientFlow 6s ease infinite, glowPulse 2.5s ease-in-out infinite;
-  color: black;
-  font-size: 1.7rem;
-  font-weight: 600;
-  text-align: center;
-  padding: 1rem 3rem;
-  border-radius: 60%;
-  margin: 3rem auto;
-  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0a0909;
   position: relative;
-  overflow: hidden;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
   letter-spacing: 1px;
-  transition: all 0.3s ease;
 }
 
-.popular-text h3::before,
+/* Underline effect for the Popular Products header */
 .popular-text h3::after {
   content: "";
   position: absolute;
   width: 60%;
-  height: 2px;
-  left: 20%;
-  opacity: 0.6;
-}
-
-.popular-text h3::before {
-  top: 0;
-}
-
-.popular-text h3::after {
+  height: 4px;
+  background-color: #ffa015;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 0;
+  border-radius: 10px;
+}
+
+/* Product List container to display items in a flex grid */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+/* Individual product item styling */
+.product-item {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover effect for product item */
+.product-item:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+}
+
+/* Styling for images in product items */
+.image-popular {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+/* Title for each product item */
+.product-item div h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+}
+
+/* Responsive design for smaller screens (max-width: 768px) */
+@media (max-width: 768px) {
+  /* Adjust product item layout for mobile */
+  .product-item {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  /* Resize image for mobile */
+  .image-popular {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 0;
+  }
+
+  /* Adjust product title font size and alignment for mobile */
+  .product-item div h3 {
+    font-size: 1rem;
+    text-align: left;
+  }
 }
