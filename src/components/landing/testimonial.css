@@ -1,11 +1,9 @@
 .testimonial-main {
-  background-color: white;
-  color: black;
+  background-color: white; /* background ab white */
+  color: black; /* text black */
   max-width: 1200px;
   margin: auto;
-  padding: 1rem;
 }
-
 .testimonials-main {
   text-align: center;
   font-size: 3rem;
@@ -14,28 +12,27 @@
   margin-bottom: 60px;
   text-transform: uppercase;
   letter-spacing: 8px;
+  position: relative;
 }
-
 .testimonials-main-sec {
   text-align: left;
   font-size: 2rem;
   font-weight: 300;
   color: black;
-  margin: 40px 0 20px;
+  margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 8px;
+  position: relative;
 }
 
 .testimonial-summary-row {
-  margin-top: 40px;
-  flex-wrap: wrap;
+  margin-top: 80px;
 }
 
 .rating-text {
   font-size: 28px;
   font-weight: bold;
   color: black;
-  margin-bottom: 20px;
 }
 
 .rating-text span {
@@ -70,12 +67,10 @@
   justify-content: flex-start;
   padding: 10px 0;
 }
-
 .review-img {
-  width: 100px;
-  height: 100px;
+  width: 100% !important;
+  height: 180px !important;
   object-fit: cover;
-  border-radius: 6px;
   transition: transform 0.3s;
 }
 
@@ -84,14 +79,13 @@
 }
 
 .reviews-section {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; /* light gray section bg */
   padding: 30px;
   border-radius: 10px;
-  margin-top: 40px;
 }
 
 .review-card {
-  background-color: #fff;
+  background-color: #fff; /* white card */
   padding: 20px;
   margin-bottom: 20px;
   border-left: 5px solid #ffd700;
@@ -136,52 +130,12 @@
   margin-bottom: 5px;
 }
 
-/* Medium Devices (Tablets) */
-@media (max-width: 768px) {
-  .testimonials-main {
-    font-size: 2rem;
-    letter-spacing: 4px;
-  }
-
-  .testimonials-main-sec {
-    font-size: 1.5rem;
-    letter-spacing: 3px;
-  }
-
-  .review-img {
-    width: 80px;
-    height: 80px;
-  }
-}
-
-/* Small Devices (Mobiles) */
-@media (max-width: 480px) {
+@media (max-width: 425px) {
   .testimonials-main {
     font-size: 1.5rem;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
   }
-
-  .testimonials-main-sec {
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-  }
-
-  .rating-text {
-    font-size: 1.2rem;
-  }
-
-  .review-img {
-    width: 100%;
-    height: 150px;
-  }
-
   .review-images-row {
-    gap: 10px;
+    display: flex;
     justify-content: center;
-  }
-
-  .review-card {
-    padding: 15px;
   }
 }
