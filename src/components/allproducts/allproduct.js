@@ -57,12 +57,10 @@ const allProducts = [
 
 function Allproduct1() {
   const [hoveredCard, setHoveredCard] = useState(null);
-
-  const navigate = useNavigate(); // <-- useNavigate hook
+  const navigate = useNavigate();
 
   const handleClick = (product) => {
-    console.log("Product clicked:", product);
-    navigate("/main-product"); // <-- Navigate to desired route
+    navigate("/main-product");
   };
 
   return (
@@ -75,7 +73,6 @@ function Allproduct1() {
         </p>
       </div>
 
-      <div className="divider" />
       <div className="packaging-info">
         <h2 className="packaging-txt">All Packaging Options</h2>  
         <p className="packaging-sub">
@@ -83,13 +80,14 @@ function Allproduct1() {
           and our packaging specialists will help you find the perfect solution.
         </p>
       </div>
+      <div className="divider" />
 
       <div className="allproduct-main">
         <Row className="allproduct-row" gutter={[24, 16]}>
           <Col xs={24} md={16} lg={16} className="allproduct-col1">
             <Row gutter={[16, 16]}>
               {allProducts[0].titlerelatedProducts.map((card, index) => (
-                <Col xs={24} sm={12} md={12} lg={8} key={index}>
+                <Col xs={12} sm={12} md={12} lg={8} key={index}>
                   <div 
                     className="product-card-wrapper"
                     onMouseEnter={() => setHoveredCard(index)}
@@ -120,7 +118,6 @@ function Allproduct1() {
                           <>
                             <p className="card-description">{card.description}</p>
                             <p className="card-price">{card.price}</p>
-                            {/* <button className="card-button">View Details</button> */}
                           </>
                         }
                       />
@@ -131,7 +128,7 @@ function Allproduct1() {
             </Row>
           </Col>
           <Col xs={24} md={8} lg={8} className="form-column">
-            <Productform1/>
+            <Productform1 />
           </Col>
         </Row>
       </div>
