@@ -92,6 +92,7 @@
   padding: 20px 0;
   margin-left: 0;
   transform: translateY(10px);
+  margin-top: 1rem;
 }
 
 .dropdown-menu.show {
@@ -151,7 +152,7 @@
   cursor: pointer;
   color: #333;
 }
-.nav-icons{
+.nav-icons {
   display: flex;
   gap: 1rem;
 }

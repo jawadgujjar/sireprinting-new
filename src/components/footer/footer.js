@@ -100,7 +100,7 @@ function Footer1() {
           </p>
 
           <p>
-            <Link to="/blogs" className="sirefooter-p-txt">
+            <Link to="/blog" className="sirefooter-p-txt">
               Blogs
             </Link>
           </p>

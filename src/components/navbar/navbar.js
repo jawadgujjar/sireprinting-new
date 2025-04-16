@@ -27,24 +27,62 @@ const Navbar1 = () => {
   };
 
   const navItems = [
-    { name: "ALL PRODUCTS", dropdown: false },
-    { name: "MAILER BOXES", dropdown: false },
-    { name: "SHIPPING BOXES", dropdown: false },
+    {
+      name: "ALL PRODUCTS",
+      dropdown: false,
+      link: "/all-products",
+    },
+    {
+      name: "MAILER BOXES",
+      dropdown: false,
+      link: "/mailer-boxes",
+    },
+    {
+      name: "SHIPPING BOXES",
+      dropdown: false,
+      link: "/shipping-boxes",
+    },
     {
       name: "POLY MAILERS",
       dropdown: true,
+      link: "/poly-mailers",
       items: [
-        "Custom Poly Mailers",
-        "100% Compostable Poly Mailers",
-        "100% Recycled Plastic Poly Mailers",
-        "Recycled Bubble Mailers",
-        "100% Compostable Padded Bubble Mailers",
+        { name: "Custom Poly Mailers", link: "/custom-poly-mailers" },
+        {
+          name: "100% Compostable Poly Mailers",
+          link: "/compostable-poly-mailers",
+        },
+        {
+          name: "100% Recycled Plastic Poly Mailers",
+          link: "/recycled-poly-mailers",
+        },
+        { name: "Recycled Bubble Mailers", link: "/recycled-bubble-mailers" },
+        {
+          name: "100% Compostable Padded Bubble Mailers",
+          link: "/compostable-bubble-mailers",
+        },
       ],
     },
-    { name: "PRODUCT BOXES", dropdown: false },
-    { name: "CUSTOM BOXES", dropdown: false },
-    { name: "BOXES BY SIZES", dropdown: false },
-    { name: "GET A QUOTE", dropdown: false },
+    {
+      name: "PRODUCT BOXES",
+      dropdown: false,
+      link: "/product-boxes",
+    },
+    {
+      name: "CUSTOM BOXES",
+      dropdown: false,
+      link: "/custom-boxes",
+    },
+    {
+      name: "BOXES BY SIZES",
+      dropdown: false,
+      link: "/boxes-by-sizes",
+    },
+    {
+      name: "GET A QUOTE",
+      dropdown: false,
+      link: "/get-a-quote",
+    },
   ];
 
   const isMobile = window.innerWidth <= 992;
@@ -56,13 +94,13 @@ const Navbar1 = () => {
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
         <div className="logo">
-          <a href="/">
+          <Link to="/">
             <img
               className="logo-size"
               alt="logo"
               src="./images/sirepriting.png"
             />
-          </a>
+          </Link>
         </div>
         <div className={`nav-links ${isMobileMenuOpen ? "active" : ""}`}>
           <ul className="nav-menu">
@@ -78,9 +116,9 @@ const Navbar1 = () => {
                 }
                 onMouseLeave={() => !isMobile && toggleDropdown(null)}
               >
-                <a href="#" className="nav-link">
+                <Link to={item.link} className="nav-link">
                   {item.name}
-                </a>
+                </Link>
                 {item.dropdown &&
                   (isMobile
                     ? activeDropdown === index
@@ -88,9 +126,14 @@ const Navbar1 = () => {
                     <div className="dropdown-menu show">
                       <div className="dropdown-content">
                         {item.items.map((subItem, subIndex) => (
-                          <a key={subIndex} href="#" className="dropdown-item">
-                            {subItem}
-                          </a>
+                          <Link
+                            key={subIndex}
+                            to={subItem.link}
+                            className="dropdown-item"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {subItem.name}
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -99,7 +142,6 @@ const Navbar1 = () => {
             ))}
           </ul>
         </div>
-
         <div className="nav-icons">
           <div className="phone-number">
             <a href="tel:+11392383929" className="phone-number">
