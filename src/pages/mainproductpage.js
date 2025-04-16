@@ -4,6 +4,7 @@ import ProductSpecs from '../components/productmain/productspecs'
 import Videocarousel from '../components/landing/carouselvideo'
 import Relatedproduct from '../components/productmain/relatedproduct'
 import Relatedblogs from '../components/productmain/relatedblogs'
+import Testimonial from '../components/landing/testimonial'
  
 
 function Mainproductpage() {
@@ -14,6 +15,7 @@ function Mainproductpage() {
       <ProductSpecs />
       <Relatedproduct/>
       <Relatedblogs/>
+      <Testimonial />
     </div>
   )
 }

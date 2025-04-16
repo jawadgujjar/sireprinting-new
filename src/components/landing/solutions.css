@@ -2,6 +2,7 @@
   padding: 4rem 2rem;
   background-color: #f9f9f9;
 }
+
 .solution-images {
   width: 100%;
   max-width: 650px;
@@ -35,6 +36,7 @@
   text-align: justify;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .solution-wrapper {
     padding: 2rem 1rem;

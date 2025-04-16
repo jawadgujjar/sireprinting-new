@@ -6,6 +6,8 @@ import Popularproducts from "../components/landing/popularproducts";
 import Solutions from "../components/landing/solutions";
 import Faq1 from "../components/landing/faq";
 import Testimonial from "../components/landing/testimonial";
+import Industry from "../components/landing/industry";
+import Sireadvantage from "../components/landing/sireadvantage";
 
 function Landingpage() {
   return (
@@ -15,8 +17,10 @@ function Landingpage() {
       <Videocarousel />
       <Popularproducts />
       <Solutions />
-      <Faq1 />
+      <Sireadvantage />
+      <Industry />
       <Testimonial />
+      <Faq1 />
     </div>
   );
 }

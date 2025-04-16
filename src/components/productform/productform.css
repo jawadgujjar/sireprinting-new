@@ -9,7 +9,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); /* Optional soft shadow for depth */
   }
   .form-title {
-    text-align: center;
+    text-align: center; 
     margin-bottom: 24px;
     color: #333;
     font-size: 24px;

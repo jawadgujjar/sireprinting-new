@@ -39,6 +39,7 @@
 .carousel-swiper {
   position: relative;
   width: 100%;
+  padding-top: 3rem;
 }
 
 .carousel-swiper .swiper-slide {
@@ -85,4 +86,63 @@
 
 .swiper-button-prev::after {
   content: "prev";
+}
+/* Responsive grid fix for smaller screens */
+@media (max-width: 768px) {
+  .testimonial-summary-row {
+    flex-direction: column;
+  }
+  .carousel-main {
+    padding: 1rem;
+    width: 90%;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  .review-images-row {
+    justify-content: center;
+  }
+
+  .review-img {
+    width: calc(50% - 10px) !important;
+    height: 140px !important;
+  }
+
+  .testimonials-main {
+    font-size: 2rem;
+    letter-spacing: 4px;
+  }
+
+  .testimonials-main-sec {
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+  }
+
+  .rating-text {
+    font-size: 22px;
+  }
+
+  .rating-text span {
+    font-size: 14px;
+  }
+}
+
+/* Mobile optimization */
+@media (max-width: 425px) {
+  .review-img {
+    width: 100% !important;
+    height: 140px !important;
+  }
+
+  .review-card {
+    padding: 15px;
+  }
+
+  .golden-btn {
+    width: 100%;
+  }
+
+  .testimonials-main,
+  .testimonials-main-sec {
+    text-align: center;
+  }
 }

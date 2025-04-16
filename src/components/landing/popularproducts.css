@@ -1,91 +1,139 @@
+/* Container for Popular Products */
 .popular-products-container {
-  padding: 20px;
-  margin-top: 2rem;
-  padding-bottom: 3rem;
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+  background-color: #f8f8f8;
 }
 
-.product-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* Additional styles for better look */
-.product-item:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.image-popular {
-  width: 5rem;
-  height: auto;
-}
-.product-item div h3 {
-  font-weight: 900;
-  color: #ffa015;
-}
+/* Text section for the Popular Products header */
 .popular-text {
   text-align: center;
-  background-color: rgba(
-    207,
-    205,
-    204,
-    0.5
-  ); /* Last value is opacity for background only */
-}
-@keyframes gradientFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  margin-bottom: 2rem;
 }
 
-@keyframes glowPulse {
-  0%,
-  100% {
-    box-shadow: 0 0 15px rgba(255, 165, 0, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 165, 0, 0.8);
-  }
-}
-
+/* Heading for Popular Products */
 .popular-text h3 {
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(270deg, #fcd34d, #f97316, #fcd34d);
-  background-size: 600% 600%;
-  animation: gradientFlow 6s ease infinite, glowPulse 2.5s ease-in-out infinite;
-  color: black;
-  font-size: 1.7rem;
-  font-weight: 600;
-  text-align: center;
-  padding: 1rem 3rem;
-  border-radius: 60%;
-  margin: 3rem auto;
-  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0a0909;
   position: relative;
-  overflow: hidden;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
   letter-spacing: 1px;
-  transition: all 0.3s ease;
 }
 
-.popular-text h3::before,
+/* Underline effect */
 .popular-text h3::after {
   content: "";
   position: absolute;
   width: 60%;
-  height: 2px;
-  left: 20%;
-  opacity: 0.6;
-}
-
-.popular-text h3::before {
-  top: 0;
-}
-
-.popular-text h3::after {
+  height: 4px;
+  background-color: #ffa015;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 0;
+  border-radius: 10px;
+}
+
+/* Product List Grid */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+/* Product Card */
+.product-item {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 1rem;
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.product-item:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+}
+
+/* Product Image */
+.image-popular {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+/* Product Title */
+.product-item div h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+}
+
+/* Responsive Design */
+
+/* Medium screens (tablets) */
+@media (max-width: 992px) {
+  .product-item {
+    width: 70%;
+  }
+}
+
+/* Small screens (mobile) */
+@media (max-width: 600px) {
+  .product-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-item {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.3rem;
+    gap: 1rem;
+  }
+
+  .image-popular {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 0;
+  }
+
+  .product-item div h3 {
+    font-size: 1rem;
+    text-align: left;
+  }
+}
+
+/* Extra small screens (very small phones) */
+@media (max-width: 400px) {
+  .popular-text h3 {
+    font-size: 1.5rem;
+  }
+
+  .product-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .image-popular {
+    width: 50px;
+    height: 50px;
+  }
+
+  .product-item div h3 {
+    font-size: 0.9rem;
+    text-align: center;
+  }
 }
