@@ -56,17 +56,12 @@ function Getquote() {
 
   return (
     <div className="quote-container">
-      <div className="quote-header">
-        <Title level={2} className="quote-title">
-          Request a Custom Quote
-        </Title>
-        <Text className="quote-subtitle">
-          Complete the form below and our packaging specialists will get back to
-          you within 24 hours
-        </Text>
-      </div>
-
       <div className="quote-form-container">
+        <div className="quote-header">
+          <Title level={1} className="quote-title">
+            REQUEST A QUOTE
+          </Title>
+        </div>
         <Form
           form={form}
           layout="vertical"
