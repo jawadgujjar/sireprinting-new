@@ -8,6 +8,7 @@ import LoginPage from "./components/login/login";
 import MainBlog from "./components/blog/mainblog";
 import Blog from "./components/blog/blog";
 import Getquote from "./components/getquote/getquote";
+import Mainproductpage from "./pages/mainproductpage";
 
 function AppRouter() {
   return (
@@ -20,6 +21,7 @@ function AppRouter() {
         <Route path="/blog" element={<MainBlog />} />
         <Route path="/blog1" element={<Blog />} />
         <Route path="/get-a-quote" element={<Getquote />} />
+        <Route path="/main-product" element={<Mainproductpage />} />
       </Routes>
       <Footer1 />
     </>

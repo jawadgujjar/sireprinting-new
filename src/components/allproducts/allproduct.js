@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Card } from "antd";
+import { useNavigate } from "react-router-dom";
 import Productform1 from "../productform/productform";
-import "./allproduct.css"
+import "./allproduct.css";
 
 const { Meta } = Card;
 
@@ -13,47 +14,73 @@ const allProducts = [
         description: "Eco-friendly and Sustainable, the preferred packaging choice for...",
         price: "As low as: $0.99/unit",
         image: "images/allproduct1.png",
+        hoverImage: "images/arka.webp"
       },
       {
         title: "Custom Poly Mailers",
         description: "A fully custom high quality self sealing poly mailer.",
         price: "As low as: $0.85/unit",
         image: "images/allproduct1.png",
+        hoverImage: "images/arka.webp"
       },
       {
         title: "Custom Shipping Boxes",
         description: "The Shipping or Regular Slotted Carton (RSC) is the most common...",
         price: "As low as: $0.99/unit",
         image: "images/allproduct1.png",
+        hoverImage: "images/arka.webp"
+      },
+      {
+        title: "Custom Shipping Boxes",
+        description: "The Shipping or Regular Slotted Carton (RSC) is the most common...",
+        price: "As low as: $0.99/unit",
+        image: "images/allproduct1.png",
+        hoverImage: "images/arka.webp"
+      },
+      {
+        title: "Custom Shipping Boxes",
+        description: "The Shipping or Regular Slotted Carton (RSC) is the most common...",
+        price: "As low as: $0.99/unit",
+        image: "images/allproduct1.png",
+        hoverImage: "images/arka.webp"
+      },
+      {
+        title: "Custom Shipping Boxes",
+        description: "The Shipping or Regular Slotted Carton (RSC) is the most common...",
+        price: "As low as: $0.99/unit",
+        image: "images/allproduct1.png",
+        hoverImage: "images/arka.webp"
       },
     ],
   },
 ];
 
-function handleClick(product) {
-  console.log("Product clicked:", product);
-}
-
 function Allproduct1() {
+  const [hoveredCard, setHoveredCard] = useState(null);
+
+  const navigate = useNavigate(); // <-- useNavigate hook
+
+  const handleClick = (product) => {
+    console.log("Product clicked:", product);
+    navigate("/main-product"); // <-- Navigate to desired route
+  };
+
   return (
     <div className="all-products-container">
       <div className="header-section">
         <h2 className="main-title">All Products</h2>
         <p className="subtitle">
-          Sire Printing is your one-stop shop for all your packaging needs.
-          Choose from a range of branded and unbranded options that best suit
-          your needs.
+          Sire Printing offers high-quality, customizable packaging that protects your products 
+          and enhances your brand. Choose from our range of eco-friendly options.
         </p>
       </div>
 
       <div className="divider" />
-
       <div className="packaging-info">
-        <h2 className="packaging-txt">All Packaging Options</h2>
+        <h2 className="packaging-txt">All Packaging Options</h2>  
         <p className="packaging-sub">
-          Searching for packaging services near me? Looking for something that's
-          not listed below? Request a custom quote and our Arka Pro team will
-          get back to you.
+          Need custom packaging? Can't find what you're looking for? Request a free quote 
+          and our packaging specialists will help you find the perfect solution.
         </p>
       </div>
 
@@ -63,29 +90,42 @@ function Allproduct1() {
             <Row gutter={[16, 16]}>
               {allProducts[0].titlerelatedProducts.map((card, index) => (
                 <Col xs={24} sm={12} md={12} lg={8} key={index}>
-                  <Card
-                    className="allproduct-card"
-                    hoverable
-                    cover={
-                      <img
-                        alt={card.title}
-                        src={card.image}
-                        className="allproduct-card-image"
-                      />
-                    }
-                    onClick={() => handleClick(card)}
-                    style={{ cursor: "pointer" }}
+                  <div 
+                    className="product-card-wrapper"
+                    onMouseEnter={() => setHoveredCard(index)}
+                    onMouseLeave={() => setHoveredCard(null)}
                   >
-                    <Meta
-                      title={card.title}
-                      description={
-                        <>
-                          <p className="card-description">{card.description}</p>
-                          <p className="card-price">{card.price}</p>
-                        </>
+                    <Card
+                      className="allproduct-card"
+                      hoverable
+                      cover={
+                        <div className="card-image-container">
+                          <img
+                            alt={card.title}
+                            src={card.image}
+                            className={`allproduct-card-image ${hoveredCard === index ? 'fade-out' : 'fade-in'}`}
+                          />
+                          <img
+                            alt={card.title}
+                            src={card.hoverImage}
+                            className={`allproduct-card-image hover ${hoveredCard === index ? 'fade-in' : 'fade-out'}`}
+                          />
+                        </div>
                       }
-                    />
-                  </Card>
+                      onClick={() => handleClick(card)}
+                    >
+                      <Meta
+                        title={<span className="card-title">{card.title}</span>}
+                        description={
+                          <>
+                            <p className="card-description">{card.description}</p>
+                            <p className="card-price">{card.price}</p>
+                            {/* <button className="card-button">View Details</button> */}
+                          </>
+                        }
+                      />
+                    </Card>
+                  </div>
                 </Col>
               ))}
             </Row>

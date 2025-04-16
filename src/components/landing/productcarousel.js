@@ -137,7 +137,7 @@ const HoverCard = ({ product }) => {
         alt={product.title}
         className="product-img"
       />
-      <div className="product-title">{product.title}</div>
+      <div className="product-title-css">{product.title}</div>
       <div className="product-desc">{product.description}</div>
     </div>
   );
