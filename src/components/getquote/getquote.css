@@ -1,81 +1,101 @@
+/* GOLDEN-WHITE PREMIUM QUOTE FORM */
+/* GOLDEN-WHITE PREMIUM QUOTE FORM */
 .quote-container {
-  max-width: 1200px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 60px 30px;
-  font-family: "Inter", sans-serif;
-  margin-top: 5rem;
-  background: linear-gradient(to bottom, #f9fbfd 0%, #ffffff 100%);
+  padding: 60px 20px;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(135deg, #fdfbf7 0%, #fffefc 100%);
 }
 
 .quote-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 70px;
   position: relative;
 }
 
-.quote-header::before {
+.quote-title {
+  color: #2a2118 !important;
+  font-weight: 600 !important;
+  font-size: 3rem !important;
+  margin-bottom: 0 !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+  line-height: 1.1;
+}
+
+.quote-title::after {
   content: "";
   position: absolute;
-  bottom: -20px;
+  bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 120px;
   height: 4px;
-  background: linear-gradient(90deg, #1baaa0, #0d8e8a);
+  background: linear-gradient(90deg, #d4af37, #f9e5a5, #d4af37);
   border-radius: 2px;
 }
 
-.quote-title {
-  color: #1a3e72;
-  font-weight: 800;
-  margin-bottom: 16px;
-  font-size: 2.5rem;
-  letter-spacing: -0.5px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
-}
+/* Rest of your existing CSS remains exactly the same */
+/* ... */
 
 .quote-subtitle {
-  color: #5a6a85;
+  color: #7a7a7a;
   font-size: 1.15rem;
   max-width: 700px;
   margin: 0 auto;
   display: block;
-  line-height: 1.6;
+  line-height: 1.8;
+  font-weight: 400;
 }
 
 .quote-form-container {
   background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
   padding: 60px;
   margin-top: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   position: relative;
   overflow: hidden;
+  background-color: #fffdf9;
+  border: 1px solid #f0e6d2;
 }
 
 .quote-form-container::before {
   content: "";
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 100px;
-  height: 100px;
+  top: -20px;
+  right: -20px;
+  width: 200px;
+  height: 200px;
   background: radial-gradient(
     circle,
-    rgba(27, 170, 160, 0.1) 0%,
+    rgba(212, 175, 55, 0.08) 0%,
     rgba(255, 255, 255, 0) 70%
   );
 }
 
+.quote-form-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #d4af37, #f9e5a5, #d4af37);
+}
+
 .section-title {
-  color: #1a3e72;
+  color: #2a2118 !important;
   margin-bottom: 30px !important;
-  font-weight: 700;
+  font-weight: 600;
   position: relative;
-  padding-bottom: 12px;
-  font-size: 1.3rem;
+  padding-bottom: 15px;
+  font-size: 1.4rem;
   letter-spacing: -0.3px;
 }
 
@@ -84,234 +104,244 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #1baaa0, #0d8e8a);
-  border-radius: 2px;
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, #d4af37, #f9e5a5);
+  border-radius: 3px;
 }
 
 .quote-form .ant-form-item-label > label {
-  color: #4a5568;
-  font-weight: 600;
+  color: #5a4a3a;
+  font-weight: 500;
   font-size: 0.95rem;
   margin-bottom: 8px;
   display: inline-block;
 }
 
 .quote-input {
-  height: 52px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  padding: 0 16px;
-  font-size: 0.95rem;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+  height: 56px;
+  border-radius: 12px !important;
+  border: 1px solid #e8e2d5 !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  padding: 0 20px !important;
+  font-size: 1rem !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+  background-color: #fffdfa !important;
 }
 
 .quote-input:hover {
-  border-color: #1baaa0;
-  box-shadow: 0 2px 8px rgba(27, 170, 160, 0.1);
+  border-color: #d4af37 !important;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1) !important;
 }
 
-.quote-input:focus {
-  border-color: #1baaa0;
-  box-shadow: 0 0 0 3px rgba(27, 170, 160, 0.15);
-  outline: none;
+.quote-input:focus,
+.quote-input-focused {
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15) !important;
+  outline: none !important;
 }
 
 .quote-select {
-  height: 52px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s;
+  height: 56px !important;
+  border-radius: 12px !important;
+  border: 1px solid #e8e2d5 !important;
+  transition: all 0.3s !important;
 }
 
 .quote-select:hover {
-  border-color: #1baaa0;
+  border-color: #d4af37 !important;
 }
 
 .quote-select .ant-select-selector {
-  height: 52px !important;
-  border-radius: 10px !important;
-  display: flex;
-  align-items: center;
-  padding: 0 16px !important;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
-  transition: all 0.3s;
+  height: 56px !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 20px !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.3s !important;
+  background-color: #fffdfa !important;
+  border: 1px solid #e8e2d5 !important;
 }
 
 .quote-select .ant-select-selection-placeholder,
 .quote-select .ant-select-selection-item {
-  padding-left: 8px;
-  font-size: 0.95rem;
+  padding-left: 10px !important;
+  font-size: 1rem !important;
+  color: #5a4a3a !important;
 }
 
 .quote-select .ant-select-arrow {
-  color: #718096;
-  font-size: 0.8rem;
+  color: #b3a58a !important;
+  font-size: 0.9rem !important;
 }
 
 .dropdown-icon {
-  color: #718096;
-  font-size: 0.7rem;
+  color: #b3a58a !important;
+  font-size: 0.8rem !important;
 }
 
 .input-prefix {
-  color: #718096;
-  padding-right: 12px;
-  border-right: 1px solid #e2e8f0;
-  margin-right: 12px;
-  font-weight: 500;
+  color: #b3a58a !important;
+  padding-right: 12px !important;
+  border-right: 1px solid #e8e2d5 !important;
+  margin-right: 12px !important;
+  font-weight: 500 !important;
 }
 
 .input-suffix {
-  color: #718096;
-  padding-left: 12px;
-  font-weight: 500;
+  color: #b3a58a !important;
+  padding-left: 12px !important;
+  font-weight: 500 !important;
 }
 
 .input-icon {
-  color: #718096;
-  margin-right: 12px;
-  font-size: 0.9rem;
+  color: #b3a58a !important;
+  margin-right: 12px !important;
+  font-size: 1rem !important;
 }
 
 .quote-upload {
-  border-radius: 12px;
-  border: 2px dashed #e2e8f0;
-  background: #f8fafc;
-  padding: 30px;
-  transition: all 0.3s;
+  border-radius: 16px !important;
+  padding: 40px !important;
+  transition: all 0.3s !important;
 }
 
 .quote-upload:hover {
-  border-color: #1baaa0;
-  background: rgba(27, 170, 160, 0.03);
-}
-
-.quote-upload .ant-upload-drag-icon {
-  margin-bottom: 15px;
+  border-color: #d4af37 !important;
+  background: rgba(212, 175, 55, 0.03) !important;
 }
 
 .quote-upload .ant-upload-drag-icon .anticon {
-  color: #1baaa0;
-  font-size: 2.5rem;
+  color: #d4af37 !important;
+  font-size: 2.5rem !important;
 }
 
 .quote-upload .ant-upload-text {
-  color: #1a3e72;
-  font-weight: 600;
-  font-size: 1.1rem;
+  color: #2a2118 !important;
+  font-weight: 600 !important;
+  font-size: 1.2rem !important;
 }
 
 .quote-upload .ant-upload-hint {
-  color: #718096;
-  font-size: 0.9rem;
+  color: #8a7f6d !important;
+  font-size: 0.95rem !important;
 }
 
 .quote-textarea {
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  resize: none;
-  padding: 16px;
-  font-size: 0.95rem;
-  transition: all 0.3s;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+  border-radius: 16px !important;
+  border: 1px solid #e8e2d5 !important;
+  resize: none !important;
+  padding: 20px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+  background-color: #fffdfa !important;
+  min-height: 150px !important;
 }
 
 .quote-textarea:hover {
-  border-color: #1baaa0;
-  box-shadow: 0 2px 8px rgba(27, 170, 160, 0.1);
+  border-color: #d4af37 !important;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1) !important;
 }
 
 .quote-textarea:focus {
-  border-color: #1baaa0;
-  box-shadow: 0 0 0 3px rgba(27, 170, 160, 0.15);
-  outline: none;
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15) !important;
+  outline: none !important;
 }
 
 .quote-submit-btn {
-  height: 60px;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  display: block;
-  font-weight: 700;
-  font-size: 1.15rem;
-  background: linear-gradient(135deg, #1baaa0, #0d8e8a);
-  border: none;
-  border-radius: 12px;
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  position: relative;
-  overflow: hidden;
-  letter-spacing: 0.5px;
-}
-
-.quote-submit-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: 0.5s;
+  height: 64px !important;
+  width: 100% !important;
+  max-width: 400px !important;
+  margin: 0 auto !important;
+  display: block !important;
+  font-weight: 600 !important;
+  font-size: 1.2rem !important;
+  background: linear-gradient(135deg, #d4af37, #c9a227) !important;
+  border: none !important;
+  border-radius: 16px !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  letter-spacing: 0.5px !important;
+  color: #2a2118 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3) !important;
 }
 
 .quote-submit-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(13, 142, 138, 0.3);
+  transform: translateY(-3px) !important;
+  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4) !important;
+}
+
+.quote-submit-btn::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  ) !important;
+  transition: 0.5s !important;
 }
 
 .quote-submit-btn:hover::before {
-  left: 100%;
+  left: 100% !important;
 }
 
 .privacy-note {
-  display: block;
-  text-align: center;
-  margin-top: 20px;
-  color: #718096;
-  font-size: 0.85rem;
-  position: relative;
-  padding-top: 15px;
+  display: block !important;
+  text-align: center !important;
+  margin-top: 30px !important;
+  color: #8a7f6d !important;
+  font-size: 0.9rem !important;
+  position: relative !important;
+  padding-top: 20px !important;
 }
 
 .privacy-note::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 1px;
-  background: #e2e8f0;
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 120px !important;
+  height: 1px !important;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #e8e2d5,
+    transparent
+  ) !important;
 }
 
 .submit-col {
-  text-align: center;
-  margin-top: 40px;
+  text-align: center !important;
+  margin-top: 60px !important;
 }
 
+/* Responsive Design */
 @media (max-width: 992px) {
   .quote-container {
-    padding: 40px 20px;
+    padding: 60px 30px !important;
   }
 
   .quote-form-container {
-    padding: 40px;
+    padding: 50px !important;
   }
 }
 
 @media (max-width: 768px) {
   .quote-form-container {
-    padding: 30px 20px;
-    border-radius: 15px;
+    padding: 40px 30px !important;
+    border-radius: 20px !important;
   }
 
   .quote-title {
@@ -319,20 +349,34 @@
   }
 
   .quote-subtitle {
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
 
   .section-title {
-    font-size: 1.2rem;
+    font-size: 1.3rem !important;
   }
 
   .quote-input,
   .quote-select .ant-select-selector {
-    height: 48px;
+    height: 52px !important;
   }
 
   .quote-submit-btn {
-    height: 56px;
-    font-size: 1.1rem;
+    height: 60px !important;
+    font-size: 1.15rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .quote-container {
+    padding: 40px 20px !important;
+  }
+
+  .quote-form-container {
+    padding: 30px 20px !important;
+  }
+
+  .quote-title {
+    font-size: 1.8rem !important;
   }
 }
