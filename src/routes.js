@@ -24,7 +24,6 @@ function AppRouter() {
         <Route path="/blog1" element={<Blog />} />
         <Route path="/get-a-quote" element={<Getquote />} />
         <Route path="/portfolio" element={<Portfolio />} />
-
       </Routes>
       <Footer1 />
     </>

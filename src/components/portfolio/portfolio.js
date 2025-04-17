@@ -82,7 +82,7 @@ function Portfolio() {
 
   return (
     <div className="portfolio-container">
-      <h1 className="portfolio-title">Our Products</h1>
+      <h1 className="portfolio-title">Portfolio</h1>
       <div className="product-grid">
         {products.map((product, index) => (
           <div
@@ -155,7 +155,7 @@ function Portfolio() {
                     icon={<MessageOutlined />}
                     className="chat-btn"
                   />
-                   <Button
+                  <Button
                     shape="circle"
                     icon={<SendOutlined />}
                     className="email-btn"
