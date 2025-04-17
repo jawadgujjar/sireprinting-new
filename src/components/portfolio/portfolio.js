@@ -6,8 +6,10 @@ import {
   MessageOutlined,
   LeftOutlined,
   RightOutlined,
+  SendOutlined,
 } from "@ant-design/icons";
 import "./portfolio.css";
+import { FaTelegram } from "react-icons/fa";
 
 function Portfolio() {
   const [previewVisible, setPreviewVisible] = useState(false);
@@ -152,6 +154,11 @@ function Portfolio() {
                     shape="circle"
                     icon={<MessageOutlined />}
                     className="chat-btn"
+                  />
+                   <Button
+                    shape="circle"
+                    icon={<SendOutlined />}
+                    className="email-btn"
                   />
                 </div>
                 <Button type="default" className="pricing-btn">
