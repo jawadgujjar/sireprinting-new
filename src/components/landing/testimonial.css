@@ -7,12 +7,12 @@
 .testimonials-main {
   text-align: center;
   font-size: 3rem;
-  font-weight: 300;
+  font-weight: bold;
   color: black;
   margin-top: 30px;
   /* margin-bottom: 60px; */
   text-transform: uppercase;
-  letter-spacing: 8px;
+  
   position: relative;
 }
 .testimonials-main-sec {

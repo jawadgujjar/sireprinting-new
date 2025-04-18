@@ -1,11 +1,18 @@
 .related-products-section {
     padding: 2rem;
   }
-  
+  .related-row{
+    margin-top: 2rem;
+  }
   .related-title {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  
+  position: relative;
   }
   
   .allproduct-card {

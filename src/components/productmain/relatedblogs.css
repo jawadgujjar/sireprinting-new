@@ -6,15 +6,19 @@
   
   .relatedblog-heading {
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: #333;
+    font-size: 3rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
   }
   
   .relatedblog-card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
     gap: 2rem;
+    margin-top: 2rem;
   }
   
   .relatedblog-card {

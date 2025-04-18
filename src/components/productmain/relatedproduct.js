@@ -55,6 +55,7 @@ function Relatedproduct() {
   return (
     <div className="related-products-section">
       <h2 className="related-title">Related Products</h2>
+      <hr />
       <Row gutter={[16, 16]} className="related-row">
         {relatedProducts.map((product, index) => (
           <Col xs={24} sm={12} md={8} lg={6} key={index}>
