@@ -1,7 +1,7 @@
 .testimonial-main {
   background-color: white; /* background ab white */
   color: black; /* text black */
-  max-width: 850px;
+  max-width: 750px;
   margin: auto;
 }
 .testimonials-main {
@@ -17,12 +17,12 @@
 }
 .testimonials-main-sec {
   text-align: left;
-  font-size: 2rem;
-  font-weight: 300;
+  font-size: 1.3rem;
+  font-weight: 600;
   color: black;
   margin-bottom: 20px;
   text-transform: uppercase;
-  letter-spacing: 8px;
+  letter-spacing: 2px;
   position: relative;
 }
 
@@ -67,10 +67,11 @@
   gap: 15px;
   justify-content: flex-start;
   padding: 10px 0;
+  grid-template-columns: repeat(3, 1fr) !important;
 }
 .review-img {
   width: 100% !important;
-  height: 180px !important;
+  height: 120px !important;
   object-fit: cover;
   transition: transform 0.3s;
 }
