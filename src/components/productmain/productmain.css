@@ -57,7 +57,7 @@
   min-width: 300px;
 }
 
-.quote-form-container {
+.productmain-form-container {
   /* box-sizing: border-box; */
   margin-top: 3rem;
 }
@@ -122,7 +122,7 @@
     flex-direction: column;
   }
 
-  .quote-form-container {
+  .productmain-form-container {
     margin-top: 2rem;
   }
   .small-btn {

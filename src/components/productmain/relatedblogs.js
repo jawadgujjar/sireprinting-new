@@ -21,17 +21,17 @@ const blogPosts = [
 
 function Relatedblogs() {
   return (
-    <div className="related-blog-section">
-      <h2 className="blog-heading">Related Blog Posts</h2>
-      <div className="blog-card-container">
+    <div className="relatedblog-section">
+      <h2 className="relatedblog-heading">Related Blog Posts</h2>
+      <div className="relatedblog-card-container">
         {blogPosts.map((blog, index) => (
-          <div className="blog-card" key={index}>
-            <div className="blog-image-wrapper">
-              <img src={blog.image} alt={blog.title} className="blog-image" />
+          <div className="relatedblog-card" key={index}>
+            <div className="relatedblog-image-wrapper">
+              <img src={blog.image} alt={blog.title} className="relatedblog-image" />
             </div>
-            <div className="blog-content">
-              <h3 className="blog-title">{blog.title}</h3>
-              <p className="blog-description">{blog.description}</p>
+            <div className="relatedblog-content">
+              <h3 className="relatedblog-title">{blog.title}</h3>
+              <p className="relatedblog-description">{blog.description}</p>
             </div>
           </div>
         ))}

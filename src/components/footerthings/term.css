@@ -1,0 +1,27 @@
+.term-container {
+    padding: 20px;
+    margin: 60px auto 0 auto; /* 👈 Yeh hai margin-top */
+    max-width: 1100px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .term-heading {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .term-subheading {
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+  
+  .term-text {
+    text-align: left;
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+  

@@ -1,0 +1,95 @@
+.contact-container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 100px auto 0 auto; /* Center content and add margin-top */
+    padding: 20px;
+  }
+  
+  .form-title {
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .form-column {
+    padding-right: 15px;
+  }
+  
+  .info-column {
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the left */
+    justify-content: center;
+    margin: 2 auto; /* Center the column itself */
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1.5rem; /* Adjust the font size as needed */
+  }
+  
+  .info-item svg {
+    font-size: 1.5rem; /* Increase icon size */
+    margin-right: 15px; /* Space between icon and text */
+  }
+  
+  .info-text {
+    margin-left: 4px; /* Additional space to the left of the text */
+    font-size: 1.5rem; /* Increase text size if needed */
+  }
+  .info-text1 {
+    margin-left: 4px; /* Additional space to the left of the text */
+    font-size: 1.5rem; /* Increase text size if needed */
+  }
+  .info-text {
+    color: black; /* Default color */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  .info-text:hover {
+    color: gray; /* Color on hover */
+  }
+  
+  .btn-main-contact {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    margin: 20px 0; /* Adds vertical space around the button */
+  }
+  
+  .btn-contact {
+    background-color: black; /* Sets the button color to black */
+    color: white; /* Sets the text color to white */
+    border: none; /* Removes the default border */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+  }
+  
+  .btn-contact:hover {
+    background-color: white !important; /* Changes background to white on hover */
+    color: black !important; /* Changes text color to black on hover */
+    border: 2px solid rgba(0, 0, 0, 0.5); /* Lightened border on hover */
+  }
+  
+  /* Custom input styles */
+  .inputborder-contact,
+  .textarea-border-contact {
+    border: 2px solid rgba(0, 0, 0, 0.5); /* Set border color to lightened black */
+    border-radius: 2px; /* Optional: add border radius */
+    padding: 8px; /* Add some padding */
+    width: 100%; /* Make input/textarea take full width */
+    box-sizing: border-box; /* Ensure padding is included in total width */
+  }
+  
+  .inputborder-contact:focus,
+  .textarea-border-contact:focus {
+    border-color: rgba(0, 0, 0, 0.5); /* Maintain lightened black border on focus */
+    outline: none; /* Remove default focus outline */
+  }
+  
+  @media (max-width: 375px) {
+    .info-text,.info-text1{
+      font-size: 1.3rem;
+    }
+  }
+  

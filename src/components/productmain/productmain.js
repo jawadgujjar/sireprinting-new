@@ -39,7 +39,7 @@ const Productmain1 = () => {
         {/* Form Section */}
         <Col xs={24} md={10}>
           <div className="product-form-section">
-            <div className="quote-form-container">
+            <div className="productmain-form-container">
               <h3 className="form-title">Small Pillow Boxes</h3>
 
               <div className="product-rating">

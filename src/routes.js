@@ -10,6 +10,10 @@ import MainBlog from "./components/blog/mainblog";
 import Blog from "./components/blog/blog";
 import Getquote from "./components/getquote/getquote";
 import Portfolio from "./components/portfolio/portfolio";
+import Aboutus from "./components/footerthings/aboutus";
+import Contactus from "./components/footerthings/contactus";
+import Privacy from "./components/footerthings/privacy";
+import Term from "./components/footerthings/term";
 
 function AppRouter() {
   return (
@@ -24,6 +28,10 @@ function AppRouter() {
         <Route path="/blog1" element={<Blog />} />
         <Route path="/get-a-quote" element={<Getquote />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="about-us" element={<Aboutus />} />
+        <Route path="contact-us" element={<Contactus />} />
+        <Route path="privacy" element={<Privacy />} />
+        <Route path="Terms and conditions" element={<Term />} />
       </Routes>
       <Footer1 />
     </>

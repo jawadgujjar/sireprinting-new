@@ -8,10 +8,10 @@ import {
   FaInstagram,
   FaLinkedin,
   FaPaperPlane,
-} from "react-icons/fa"; // Import icons
+  FaPhone,
+} from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { FaPhone } from "react-icons/fa6";
 import "./footer.css";
 
 function Footer1() {
@@ -36,10 +36,11 @@ function Footer1() {
           </p>
           <img
             src="../images/googleplay.png"
-            alt="Additional"
+            alt="Google Play"
             style={{ marginTop: "1rem" }}
           />
         </Col>
+
         <Col xs={24} sm={12} md={8} lg={6} className="footersire-column">
           <p className="get-txt">Get In Touch</p>
           <a href="tel:+447745807425" className="sirefooter-p-txt">
@@ -65,10 +66,11 @@ function Footer1() {
           </div>
           <img
             src="../images/payment-cards.png"
-            alt="Additional"
+            alt="Payment Methods"
             className="footer-visaimg"
           />
         </Col>
+
         <Col xs={24} sm={12} md={8} lg={6} className="footersire-column">
           <p className="get-txt">Hot Selling Categories</p>
           <p className="sirefooter-p-txt">Corrugated Boxes</p>
@@ -78,52 +80,40 @@ function Footer1() {
           <p className="sirefooter-p-txt">Custom Pillow Packaging Boxes</p>
           <p className="sirefooter-p-txt">Rigid Boxes</p>
         </Col>
+
         <Col xs={24} sm={12} md={8} lg={6} className="footersire-column">
           <p className="get-txt">Useful Links</p>
 
-          <p>
-            <Link to="/about-us" className="sirefooter-p-txt">
-              About Us
-            </Link>
-          </p>
+          <Link to="/about-us" className="sirefooter-p-txt">
+            About Us
+          </Link>
 
-          <p>
-            <Link to="/contact-us" className="sirefooter-p-txt">
-              Contact Us
-            </Link>
-          </p>
+          <Link to="/contact-us" className="sirefooter-p-txt">
+            Contact Us
+          </Link>
 
-          <p className="sirefooter-p-txt">
-            <Link to="/portfolio" className="sirefooter-p-txt">
-              Portfolio
-            </Link>
-          </p>
+          <Link to="/portfolio" className="sirefooter-p-txt">
+            Portfolio
+          </Link>
 
-          <p>
-            <Link to="/blog" className="sirefooter-p-txt">
-              Blogs
-            </Link>
-          </p>
+          <Link to="/blog" className="sirefooter-p-txt">
+            Blogs
+          </Link>
 
-          <p className="sirefooter-p-txt">
-            <Link to="/site-map" className="sirefooter-p-txt">
-              Sitemap
-            </Link>
-          </p>
+          <Link to="/site-map" className="sirefooter-p-txt">
+            Sitemap
+          </Link>
 
-          <p className="sirefooter-p-txt">
-            <Link to="/privacy" className="sirefooter-p-txt">
-              Privacy Policy
-            </Link>
-          </p>
+          <Link to="/privacy" className="sirefooter-p-txt">
+            Privacy Policy
+          </Link>
 
-          <p className="sirefooter-p-txt">
-            <Link to="/Terms and conditions" className="sirefooter-p-txt">
-              Terms And Conditions
-            </Link>
-          </p>
+          <Link to="/Terms and conditions" className="sirefooter-p-txt">
+            Terms And Conditions
+          </Link>
         </Col>
       </Row>
+
       <div className="footer-copyright">
         <p className="footer-p">
           Copyright ©2020 - 2024 Sire Printing | The Custom Websites
