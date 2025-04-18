@@ -6,8 +6,8 @@ import Productform1 from "../productform/productform";
 
 function Search() {
   return (
-    <div className="search-form-wrapper">
-      <Row>
+    <div>
+      <Row className="search-form-wrapper">
         <Col xs={24} md={14}>
           <SearchBox />
         </Col>
