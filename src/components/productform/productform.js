@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button, Form, Select, Input, Upload, Row, Col, message } from "antd";
-import { getquote } from "../../utils/axios"; // API call ke liye import
+import { Button, Form, Select, Input, Row, Col, message } from "antd";
+import { getquote } from "../../utils/axios";
 import FileUpload from "../productform/fileupload";
-import './productform.css';
+import "./productform.css";
 
 const { Option } = Select;
 
@@ -12,19 +12,14 @@ function Productform1() {
 
   const handleFinish = async (values) => {
     setLoading(true);
-    console.log(values.uploadFile, "uploadedfile");
-    // Ensure file URL is available before submission
     if (!values.uploadFile) {
       message.error("Please upload a file before submitting!");
       setLoading(false);
       return;
     }
 
-    console.log(values, "formdata"); // Debugging ke liye
-
     try {
       const response = await getquote.post("/", values);
-      console.log("API Response: ", response.data);
       message.success("Form submitted successfully!");
       form.resetFields();
     } catch (error) {
@@ -34,54 +29,66 @@ function Productform1() {
       setLoading(false);
     }
   };
+
   return (
-    <div className="allproduct-form-sticky-div">
-      <div className="div-beatform-txt">
-        <p className="allproduct-beat-txt">Beat My Quote</p>
+    <div className="ultra-compact-form">
+      <div className="form-header">
+        <h2 className="form-title-main">BEAT MY QUOTE</h2>
       </div>
+
       <Form form={form} layout="vertical" onFinish={handleFinish}>
-      <Row gutter={16}>
-          <Col span={6}>
+        {/* Dimensions Section */}
+        <Row gutter={[8, 8]}>
+          <Col xs={24} sm={8}>
             <Form.Item name="length">
-              <Input className="form-input" placeholder="Length" />
+              <Input
+                className="ultra-compact-input"
+                placeholder="Length"
+                suffix={<span className="unit-suffix">in</span>}
+              />
             </Form.Item>
           </Col>
-          <Col span={6}>
+          <Col xs={24} sm={8}>
             <Form.Item name="width">
-              <Input className="form-input" placeholder="Width" />
+              <Input
+                className="ultra-compact-input"
+                placeholder="Width"
+                suffix={<span className="unit-suffix">in</span>}
+              />
             </Form.Item>
           </Col>
-          <Col span={6}>
+          <Col xs={24} sm={8}>
             <Form.Item name="depth">
-              <Input className="form-input" placeholder="Depth" />
-            </Form.Item>
-          </Col>
-          <Col span={6}>
-            <Form.Item name="inches">
-              <Select className="double-border-select" defaultValue="inches">
-                <Option value="inches">Inches</Option>
-                <Option value="cm">cm</Option>
-                <Option value="mm">mm</Option>
-              </Select>
+              <Input
+                className="ultra-compact-input"
+                placeholder="Depth"
+                suffix={<span className="unit-suffix">in</span>}
+              />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item name="chooseProduct" label="Choose Product">
-              <Select 
-                className="double-border-select"
-                placeholder="Select Product"
-              >
-                <Option value="mailer">Custom Mailer Boxes</Option>
-                <Option value="poly">Custom Poly Mailers</Option>
-                <Option value="shipping">Custom Shipping Boxes</Option>
+        <Form.Item name="inches" className="unit-selector">
+          <Select className="ultra-compact-select" defaultValue="inches">
+            <Option value="inches">Inches</Option>
+            <Option value="cm">cm</Option>
+            <Option value="mm">mm</Option>
+          </Select>
+        </Form.Item>
+
+        {/* Product Selection */}
+        <Row gutter={[8, 8]}>
+          <Col xs={24} sm={12}>
+            <Form.Item name="chooseProduct" label="PRODUCT TYPE">
+              <Select className="ultra-compact-select" placeholder="Select">
+                <Option value="mailer">Mailer Boxes</Option>
+                <Option value="poly">Poly Mailers</Option>
+                <Option value="shipping">Shipping Boxes</Option>
               </Select>
             </Form.Item>
           </Col>
-          <Col span={12}>
-            <Form.Item name="colors" label="Color">
-              <Select className="double-border-select" placeholder="Select Color">
+          <Col xs={24} sm={12}>
+            <Form.Item name="colors" label="COLOR">
+              <Select className="ultra-compact-select" placeholder="Select">
                 <Option value="red">Red</Option>
                 <Option value="blue">Blue</Option>
                 <Option value="green">Green</Option>
@@ -89,45 +96,43 @@ function Productform1() {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
-          <Col span={8}>
-            <Form.Item name="quantity" label="Quantity">
+
+        {/* Details Section */}
+        <Row gutter={[8, 8]}>
+          <Col xs={24} sm={8}>
+            <Form.Item name="quantity" >
               <Input
-                className="input-allproduct"
+                className="ultra-compact-input"
                 type="number"
-                placeholder="Enter Quantity"
+                placeholder="Quantity"
               />
             </Form.Item>
           </Col>
-          <Col span={8}>
-            <Form.Item name="phoneNumber" label="Phone">
-              <Input
-                className="input-allproduct"
-                placeholder="Enter Your Phone Number"
-              />
+          <Col xs={24} sm={8}>
+            <Form.Item name="phoneNumber" >
+              <Input className="ultra-compact-input" placeholder="Enter Phone" />
             </Form.Item>
           </Col>
-          <Col span={8}>
-            <Form.Item name="fullName" label="Full Name">
-              <Input
-                className="input-allproduct"
-                placeholder="Enter Your Full Name"
-              />
+          <Col xs={24} sm={8}>
+            <Form.Item name="fullName" >
+              <Input className="ultra-compact-input" placeholder="Enter Name" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item name="email" label="Email">
+
+        {/* Contact Section */}
+        <Row gutter={[8, 8]}>
+          <Col xs={24} sm={12}>
+            <Form.Item name="email" label="EMAIL">
               <Input
-                className="input-allproduct"
+                className="ultra-compact-input"
                 type="email"
-                placeholder="Enter Your Email"
+                placeholder="Email"
               />
             </Form.Item>
           </Col>
-          <Col span={12}>
-            <Form.Item name="uploadFile" label="Upload File">
+          <Col xs={24} sm={12}>
+            <Form.Item name="uploadFile" label="FILE">
               <FileUpload
                 onUploadSuccess={(url) =>
                   form.setFieldsValue({ uploadFile: url })
@@ -136,33 +141,27 @@ function Productform1() {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
-          <Col span={24}>
-            <Form.Item name="message" label="Message">
-              <Input.TextArea
-                className="input-allproduct"
-                placeholder="Enter Your Message"
-                rows={2}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
 
-        <Row>
-          <Col span={24} style={{ textAlign: "center" }}>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="allproduct-form-submit-button"
-                loading={loading}
-                disabled={loading}
-              >
-                {loading ? "Submitting..." : "Submit"}
-              </Button>
-            </Form.Item>
-          </Col>
-        </Row>
+        {/* Message Section */}
+        <Form.Item name="message" label="NOTES">
+          <Input.TextArea
+            className="ultra-compact-textarea"
+            placeholder="Special instructions..."
+            rows={2}
+          />
+        </Form.Item>
+
+        {/* Submit Button */}
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="ultra-compact-submit-btn"
+            loading={loading}
+          >
+            {loading ? "PROCESSING..." : "GET QUOTE"}
+          </Button>
+        </Form.Item>
       </Form>
     </div>
   );

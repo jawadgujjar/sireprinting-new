@@ -43,7 +43,7 @@
 
 .product-card {
   flex: 0 0 auto;
-  width: 200px;
+  /* width: 200px; */
   padding: 1.2rem;
   margin: 0.5rem;
   background: #fff;

@@ -1,233 +1,229 @@
-/* Form Container */
-.allproduct-form-sticky-div {
-  padding: 24px;
-  background: #f7fafc; /* Soft light gray-blue background */
+/* Ultra Compact Premium Form */
+.ultra-compact-form {
+  width: 420px;
+  background: #ffffff;
   border-radius: 8px;
-  border: 1px solid #e2e8f0; /* Soft border */
-  max-width: 800px;
-  margin: 0 auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); /* Optional soft shadow for depth */
+  font-family: "Montserrat", sans-serif;
+  position: sticky;
+  top: 20px; /* Adjust this value based on your header height */
+  align-self: flex-start; /* Important for proper sticky behavior */
+  height: fit-content;
+  margin: 1rem 0; /* Remove auto margins for sticky to work properly */
 }
 
-.form-title {
-  text-align: center; 
-  margin-bottom: 24px;
-  color: #333;
-  font-size: 24px;
-}
-
-.form-input {
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-  padding: 8px 12px;
-  width: 100%;
-}
-
-/* Header Section */
-.div-beatform-txt {
-  margin-bottom: 24px;
+/* Header Styles */
+.form-header {
   text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  padding: 0.1rem;
+  background: #E89000;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+  overflow: hidden;
 }
 
-.allproduct-beat-txt {
-  font-size: 1.75rem;
+/* .form-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+   
+} */
+
+.form-title-main {
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #2d3748;
-  margin: 0 0 8px 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0.5rem 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  color: #1f2020; /* Dark blue for contrast */
 }
 
 .form-subtitle {
-  color: #718096;
   font-size: 1rem;
-  margin: 0;
-}
-
-/* Form Sections */
-.form-section {
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #edf2f7;
-}
-
-.form-section:last-child {
-  border-bottom: none;
-}
-
-.section-title {
-  font-size: 1.1rem;
-  color: #4a5568;
-  margin-bottom: 16px;
-  font-weight: 600;
-}
-
-/* Form Items */
-.ant-form-item {
-  margin-bottom: 16px;
-}
-
-.ant-form-item-label {
-  padding-bottom: 6px;
-}
-
-.ant-form-item-label > label {
-  color: #4a5568;
+  max-width: 80%;
+  margin: 0 auto;
+  color: rgba(44, 62, 80, 0.9);
+  line-height: 1.6;
   font-weight: 500;
-  font-size: 0.9rem;
+}
+.header-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #FFA015 0%, #f1c40f 50%, #FFA015 100%);
 }
 
-/* Input Fields */
-.input-allproduct,
-.ant-select-selector,
-.ant-input-textarea {
-  border-radius: 6px !important;
-  border: 1px solid #e2e8f0 !important;
-  padding: 10px 14px !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* .form-title-main {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin: 0.5rem 0 0.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.form-subtitle {
+  color: #7f8c8d;
+  font-size: 0.75rem;
+  margin: 0;
+  font-weight: 400;
+} */
+
+/* Ultra Compact Input Fields */
+.ultra-compact-input,
+.ultra-compact-select .ant-select-selector {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #e0e6ed;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: all 0.15s ease;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  height: 36px;
+}
+
+.ultra-compact-input:hover,
+.ultra-compact-select .ant-select-selector:hover {
+  border-color: #b8c2cc;
   background-color: #fff;
+}
+
+.ultra-compact-input:focus,
+.ultra-compact-select .ant-select-focused .ant-select-selector,
+.ultra-compact-textarea:focus {
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1) !important;
+  background-color: #fff;
+  outline: none;
+}
+
+.unit-suffix {
+  color: #95a5a6;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+/* Textarea */
+.ultra-compact-textarea {
+  width: 100%;
+  border: 1px solid #e0e6ed;
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.8rem;
+  background-color: #f8f9fa;
+  transition: all 0.15s ease;
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Select Dropdown */
+.ultra-compact-select {
   width: 100%;
 }
 
-.input-allproduct:hover,
-.ant-select-selector:hover,
-.ant-input-textarea:hover {
-  border-color: #4299e1 !important;
-}
-
-.input-allproduct:focus,
-.ant-select-focused .ant-select-selector,
-.ant-input-focused .ant-input-textarea {
-  border-color: #4299e1 !important;
-  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2) !important;
-}
-
-/* Select Dropdowns */
-.ant-select-selector {
-  height: auto !important;
-  min-height: 42px;
+.ultra-compact-select .ant-select-selector {
+  height: 36px !important;
+  min-height: 36px;
   display: flex;
   align-items: center;
 }
 
 .ant-select-dropdown {
-  border-radius: 6px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08) !important;
 }
 
-.double-border-select {
-  width: 100%;
+.ant-select-item {
+  padding: 0.5rem 0.8rem !important;
+  font-size: 0.8rem;
+  min-height: 32px;
 }
 
 /* Submit Button */
-.allproduct-form-submit-button {
+.ultra-compact-submit-btn {
   width: 100%;
-  height: 48px;
-  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
-  border: none;
-  border-radius: 6px;
+  padding: 0.7rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-top: 8px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
+  border: none;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.2rem;
+  height: 40px;
 }
 
-.allproduct-form-submit-button:hover {
-  background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+.ultra-compact-submit-btn:hover {
+  background: linear-gradient(135deg, #c9a227 0%, #e6b801 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
 }
 
-.allproduct-form-submit-button:active {
+.ultra-compact-submit-btn:active {
   transform: translateY(0);
 }
 
-/* File Upload Customization */
-.ant-upload.ant-upload-select {
-  width: 100%;
+/* Form Item Customization */
+.ant-form-item {
+  margin-bottom: 0.8rem;
 }
 
-/* Form Layout Spacing */
-.ant-form {
-  padding: 0;
+.ant-form-item-label {
+  padding-bottom: 0.1rem;
 }
 
-/* 1024px Screen Size Adjustments */
-@media (max-width: 1024px) {
-  .allproduct-form-sticky-div {
-    max-width: 700px;
-    padding: 20px;
-  }
-  
-  .allproduct-beat-txt {
-    font-size: 1.5rem;
-  }
-  
-  .input-allproduct,
-  .ant-select-selector,
-  .ant-input-textarea {
-    padding: 8px 12px !important;
-  }
-  
-  .allproduct-form-submit-button {
-    height: 44px;
-    font-size: 0.9rem;
-  }
+.ant-form-item-label > label {
+  color: #34495e;
+  font-weight: 600;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* 768px Screen Size Adjustments */
-@media (max-width: 768px) {
-  .allproduct-form-sticky-div {
-    max-width: 100%;
-    padding: 16px;
-    border-radius: 0;
+.unit-selector {
+  margin-top: -0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .ultra-compact-form {
+    width: 95%;
+    padding: 1.2rem;
+    margin: 0.5rem auto;
   }
-  
-  .allproduct-beat-txt {
+
+  .form-title-main {
     font-size: 1.3rem;
   }
-  
-  /* Stack columns vertically on small screens */
-  .ant-col {
-    display: block;
-    width: 100% !important;
-    margin-bottom: 16px;
-  }
-  
-  /* Remove gutters on small screens */
-  .ant-row {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-  
-  /* Adjust form item spacing */
-  .ant-form-item {
-    margin-bottom: 12px;
-  }
-  
-  /* Adjust button size */
-  .allproduct-form-submit-button {
-    height: 42px;
-  }
-}
 
-/* Extra small devices (phones, 480px and down) */
-@media (max-width: 480px) {
-  .allproduct-form-sticky-div {
-    padding: 12px;
+  .ultra-compact-input,
+  .ultra-compact-select .ant-select-selector {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.75rem;
+    height: 34px;
   }
-  
-  .allproduct-beat-txt {
-    font-size: 1.2rem;
+
+  .ultra-compact-textarea {
+    min-height: 55px;
   }
-  
-  .input-allproduct,
-  .ant-select-selector,
-  .ant-input-textarea {
-    padding: 6px 10px !important;
-    font-size: 0.9rem;
-  }
-  
-  .allproduct-form-submit-button {
-    height: 40px;
-    font-size: 0.85rem;
+
+  .ultra-compact-submit-btn {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    height: 38px;
   }
 }

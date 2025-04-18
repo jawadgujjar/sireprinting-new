@@ -2,7 +2,7 @@
   margin: 0 auto;
   padding: 0;
   width: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .header-section {
@@ -68,6 +68,8 @@
 }
 
 .allproduct-main {
+  display: flex;
+  justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -154,9 +156,26 @@
 }
 
 .form-column {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   padding-left: 24px;
+  align-self: flex-start;
+  transition: margin-top 0.3s ease;
 }
 
+.scrolled-form {
+  padding-top: 3rem; /* or whatever amount you want */
+}
+
+.sticky-form-container {
+  padding: 20px;
+  border-radius: 8px;
+}
+.allproduct-col1 {
+  flex: 1;
+  margin-right: 24px;
+}
 /* Responsive Styles */
 
 @media (max-width: 1024px) {
@@ -166,16 +185,11 @@
   }
 
   .form-column {
+    position: relative;
+    height: auto;
+    top: auto;
     padding-left: 0;
-    width: 100%;
     margin-top: 40px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .form-column > * {
-    width: 100%;
-    max-width: 500px;
   }
 
   .main-title {
@@ -184,6 +198,26 @@
 
   .packaging-txt {
     font-size: 2rem;
+  }
+  .sticky-form-container {
+    position: relative;
+    top: auto;
+    height: auto;
+  }
+  .allproduct-main {
+    flex-direction: column;
+  }
+
+  .ultra-compact-form {
+    position: relative;
+    top: auto;
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto 0;
+  }
+
+  .allproduct-col1 {
+    margin-right: 0;
   }
 }
 

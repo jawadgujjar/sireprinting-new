@@ -7,7 +7,7 @@ import { IoSearchOutline } from "react-icons/io5";
 const Navbar1 = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [searchActive, setSearchActive] = useState(false);
+  // const [searchActive, setSearchActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -74,9 +74,9 @@ const Navbar1 = () => {
       link: "/custom-boxes",
     },
     {
-      name: "BOXES BY SIZES",
+      name: "Portfolio",
       dropdown: false,
-      link: "/boxes-by-sizes",
+      link: "/portfolio",
     },
     {
       name: "GET A QUOTE",
