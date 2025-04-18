@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Fallback base URL if environment variable is undefined
-const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000/api"; // <-- change this to your local API base if needed
+const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000/v1"; // <-- change this to your local API base if needed
 
 // Create instances with consistent base URLs
 const sireperks = axios.create({
