@@ -6,6 +6,7 @@ function ProductSpecs() {
     <div className="specs-container">
       <div className="specs-header">
         <h2>Product Specifications</h2>
+        <hr />
       </div>
 
       <div className="specs-grid">

@@ -23,6 +23,7 @@ function Relatedblogs() {
   return (
     <div className="relatedblog-section">
       <h2 className="relatedblog-heading">Related Blog Posts</h2>
+      <hr />
       <div className="relatedblog-card-container">
         {blogPosts.map((blog, index) => (
           <div className="relatedblog-card" key={index}>
