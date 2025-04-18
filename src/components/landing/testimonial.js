@@ -92,7 +92,7 @@ const Testimonial = () => {
         </Col>
       </Row>
       <div className="reviews-section">
-      <h2 className="testimonials-main-sec">All Reviews</h2>
+        <h2 className="testimonials-main-sec">All Reviews</h2>
         {reviews.slice(0, 4).map((rev, i) => (
           <div className="review-card" key={i}>
             <Rate disabled defaultValue={rev.rating} className="star-rating" />

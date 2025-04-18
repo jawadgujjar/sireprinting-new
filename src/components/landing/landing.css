@@ -1,4 +1,6 @@
 /* landing.css */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap");
 
 /* Fullscreen landing page */
 .landing-page {
@@ -16,7 +18,32 @@
   box-sizing: border-box;
   padding-top: 4rem;
 }
+.premium-heading {
+  font-family: "Orbitron", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 3px;
+  margin-top: 40px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeInSlide 1.2s ease-out;
+}
 
+/* Premium-style entrance animation */
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* Text content container */
 .landing-content {
   color: black;
@@ -34,21 +61,52 @@
 }
 
 /* CTA button */
+
 .button-landing {
-  background-color: #0a0909 !important;
-  color: gold !important;
-  font-size: 1.2rem;
-  font-weight: bolder;
-  padding: 0.8rem 1.5rem !important;
-  border-radius: 2rem;
+  background: linear-gradient(to right, #d1c7bd, #b5a99c);
+  color: #000;
+  font-family: "Playfair Display", serif;
+  font-size: small !important;
+  font-weight: 700;
+  padding: 1rem 2.2rem;
+  border-radius: 3rem;
   margin-top: 1rem;
-  transition: all 0.3s ease-in-out;
+  border: 2px solid #ffd700;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(255, 215, 0, 0.3);
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.button-landing::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 215, 0, 0.2),
+    rgba(255, 255, 255, 0.1)
+  );
+  transition: all 0.6s ease;
+  z-index: 0;
+}
+
+.button-landing:hover::before {
+  left: 0;
 }
 
 .button-landing:hover {
-  background-color: white !important;
-  border: #0a0909 solid 1px;
-  color: #0a0909 !important;
+  color: #000;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15),
+    0 10px 20px rgba(255, 215, 0, 0.4);
 }
 
 /* Tablet screens */

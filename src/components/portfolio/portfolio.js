@@ -9,7 +9,6 @@ import {
   SendOutlined,
 } from "@ant-design/icons";
 import "./portfolio.css";
-import { FaTelegram } from "react-icons/fa";
 
 function Portfolio() {
   const [previewVisible, setPreviewVisible] = useState(false);
