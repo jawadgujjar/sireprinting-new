@@ -20,16 +20,15 @@
 }
 .premium-heading {
   font-family: "Orbitron", sans-serif;
-  font-size: 3.5rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  text-align: center;
   text-transform: uppercase;
-  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  background: linear-gradient(135deg, #444444, #ff8c00);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 3px;
   margin-top: 40px;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
   animation: fadeInSlide 1.2s ease-out;
 }
 
@@ -111,9 +110,9 @@
 
 /* Tablet screens */
 @media (min-width: 768px) {
-  .landing-content h1 {
+  /* .landing-content h1 {
     font-size: 2.8rem;
-  }
+  } */
 
   .button-landing {
     font-size: 1.5rem;
@@ -125,10 +124,6 @@
 @media (min-width: 1024px) {
   .landing-content {
     max-width: 40%;
-  }
-
-  .landing-content h1 {
-    font-size: 3.5rem;
   }
 }
 
@@ -142,7 +137,7 @@
   }
 
   .landing-content h1 {
-    font-size: 1.8rem;
+    font-size: 1rem;
   }
 
   .button-landing {
