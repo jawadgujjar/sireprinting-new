@@ -1,0 +1,229 @@
+/* Ultra Compact Premium Form */
+.ultra-compact-form {
+  width: 420px;
+  background: #ffffff;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  position: sticky;
+  top: 20px; /* Adjust this value based on your header height */
+  align-self: flex-start; /* Important for proper sticky behavior */
+  height: fit-content;
+  margin: 1rem 0; /* Remove auto margins for sticky to work properly */
+}
+
+/* Header Styles */
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  padding: 0.1rem;
+  background: #E89000;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+  overflow: hidden;
+}
+
+/* .form-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+   
+} */
+
+.form-title-main {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0.5rem 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  color: #1f2020; /* Dark blue for contrast */
+}
+
+.form-subtitle {
+  font-size: 1rem;
+  max-width: 80%;
+  margin: 0 auto;
+  color: rgba(44, 62, 80, 0.9);
+  line-height: 1.6;
+  font-weight: 500;
+}
+.header-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #FFA015 0%, #f1c40f 50%, #FFA015 100%);
+}
+
+/* .form-title-main {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin: 0.5rem 0 0.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.form-subtitle {
+  color: #7f8c8d;
+  font-size: 0.75rem;
+  margin: 0;
+  font-weight: 400;
+} */
+
+/* Ultra Compact Input Fields */
+.ultra-compact-input,
+.ultra-compact-select .ant-select-selector {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #e0e6ed;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: all 0.15s ease;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  height: 36px;
+}
+
+.ultra-compact-input:hover,
+.ultra-compact-select .ant-select-selector:hover {
+  border-color: #b8c2cc;
+  background-color: #fff;
+}
+
+.ultra-compact-input:focus,
+.ultra-compact-select .ant-select-focused .ant-select-selector,
+.ultra-compact-textarea:focus {
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1) !important;
+  background-color: #fff;
+  outline: none;
+}
+
+.unit-suffix {
+  color: #95a5a6;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+/* Textarea */
+.ultra-compact-textarea {
+  width: 100%;
+  border: 1px solid #e0e6ed;
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.8rem;
+  background-color: #f8f9fa;
+  transition: all 0.15s ease;
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Select Dropdown */
+.ultra-compact-select {
+  width: 100%;
+}
+
+.ultra-compact-select .ant-select-selector {
+  height: 36px !important;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.ant-select-dropdown {
+  border-radius: 4px !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08) !important;
+}
+
+.ant-select-item {
+  padding: 0.5rem 0.8rem !important;
+  font-size: 0.8rem;
+  min-height: 32px;
+}
+
+/* Submit Button */
+.ultra-compact-submit-btn {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
+  border: none;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.2rem;
+  height: 40px;
+}
+
+.ultra-compact-submit-btn:hover {
+  background: linear-gradient(135deg, #c9a227 0%, #e6b801 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+}
+
+.ultra-compact-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Form Item Customization */
+.ant-form-item {
+  margin-bottom: 0.8rem;
+}
+
+.ant-form-item-label {
+  padding-bottom: 0.1rem;
+}
+
+.ant-form-item-label > label {
+  color: #34495e;
+  font-weight: 600;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.unit-selector {
+  margin-top: -0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .ultra-compact-form {
+    width: 95%;
+    padding: 1.2rem;
+    margin: 0.5rem auto;
+  }
+
+  .form-title-main {
+    font-size: 1.3rem;
+  }
+
+  .ultra-compact-input,
+  .ultra-compact-select .ant-select-selector {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.75rem;
+    height: 34px;
+  }
+
+  .ultra-compact-textarea {
+    min-height: 55px;
+  }
+
+  .ultra-compact-submit-btn {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    height: 38px;
+  }
+}

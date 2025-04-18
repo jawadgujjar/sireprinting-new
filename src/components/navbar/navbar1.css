@@ -1,0 +1,226 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* On scroll */
+.navbar.scrolled {
+  background-color: white !important;
+  border-bottom: 2px solid #3498db !important;
+}
+.navbar:hover {
+  background-color: white !important;
+  border-bottom: 2px solid #3498db !important;
+}
+
+/* Navbar Container */
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: none !important;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center !important;
+  height: 70px;
+}
+
+/* Logo */
+.logo a {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  position: relative;
+  padding: 0 15px;
+}
+
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 0;
+  display: block;
+  transition: color 0.3s;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+}
+.logo-size {
+  width: 10rem;
+}
+.nav-link:hover {
+  color: #ffa015;
+}
+
+/* Dropdown Styles */
+.dropdown-menu {
+  position: fixed; /* Changed from absolute to fixed */
+  top: 70px; /* Match your navbar height */
+  left: 0;
+  width: 100vw;
+  background-color: white;
+  height: auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  border-top: #333 1px solid;
+  padding: 20px 0;
+  margin-left: 0;
+  transform: translateY(10px);
+  /* margin-top: 1rem; */
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+
+.dropdown-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  border-left: 3px solid transparent;
+}
+
+.dropdown-item:hover {
+  border-left: 3px solid #3498db;
+  color: #3498db;
+  padding-left: 20px;
+}
+
+/* Phone Styles */
+.nav-right {
+  margin-left: 30px;
+}
+
+.phone-number {
+  display: flex;
+  align-items: center;
+  color: #333;
+  font-weight: 500;
+}
+
+.phone-icon {
+  margin-right: 8px;
+  color: #3498db;
+}
+
+/* Mobile Styles */
+.mobile-menu-btn {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+.nav-icons {
+  display: flex;
+  gap: 1rem;
+}
+@media (max-width: 992px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background-color: white;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .nav-links.active {
+    transform: translateX(0);
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-item {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    min-width: 100%;
+    margin-left: 0;
+    transform: none;
+    box-shadow: none;
+    padding: 10px 0 0 20px;
+    opacity: 1;
+    visibility: visible;
+    display: none;
+    border-radius: 0;
+  }
+
+  .dropdown-menu.show {
+    display: block;
+    transform: none;
+  }
+
+  .dropdown-content {
+    display: block;
+    padding: 0;
+  }
+  .dropdown-item {
+    padding: 8px 0;
+  }
+
+  .nav-right {
+    margin-left: 0;
+    margin-top: 20px;
+    width: 100%;
+  }
+}

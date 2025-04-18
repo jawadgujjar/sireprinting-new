@@ -1,0 +1,85 @@
+.specs-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.specs-header h2 {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.specs-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+}
+
+.spec-item {
+  border-radius: 25px;
+  overflow: hidden;
+  border: 2px solid #999; /* Darker border */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  background: #fff;
+}
+
+.spec-item:hover {
+  transform: translateY(-5px);
+}
+
+.spec-top {
+  background-color: #e5fad1;
+  padding: 2.5rem 1rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-circle {
+  background: white;
+  border-radius: 50%;
+  padding: 1.4rem;
+  font-size: 2.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.spec-bottom {
+  padding: 2rem 1.2rem;
+  text-align: center;
+}
+
+.spec-bottom h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 0.8rem;
+}
+
+.spec-bottom p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .specs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .spec-bottom {
+    padding: 1.5rem 1rem;
+  }
+
+  .icon-circle {
+    font-size: 2rem;
+    padding: 1rem;
+  }
+}

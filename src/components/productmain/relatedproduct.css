@@ -1,0 +1,104 @@
+.related-products-section {
+    padding: 2rem;
+  }
+  .related-row{
+    margin-top: 2rem;
+  }
+  .related-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  
+  position: relative;
+  }
+  
+  .allproduct-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+  }
+  
+  .product-card-wrapper:hover .allproduct-card {
+    transform: translateY(-5px);
+  }
+  
+  .card-image-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+  }
+  
+  .allproduct-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .allproduct-card-image.hover {
+    opacity: 0;
+  }
+  
+  .fade-in {
+    opacity: 1 !important;
+    z-index: 1;
+  }
+  
+  .fade-out {
+    opacity: 0 !important;
+    z-index: 0;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .card-description {
+    color: #555;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+  }
+  
+  .card-price {
+    color: #1a8a34;
+    font-weight: 500;
+  }
+  /* Adjust image height for medium screens */
+@media screen and (max-width: 1024px) {
+    .card-image-container {
+      height: 200px;
+    }
+  }
+  
+  /* Optional: For even smaller screens like tablets */
+  @media screen and (max-width: 768px) {
+    .card-image-container {
+      height: 180px;
+    }
+  }
+  
+  /* For mobile screens */
+  @media screen and (max-width: 425px) {
+    .card-image-container {
+      height: auto;
+      aspect-ratio: 4 / 3; /* Maintain good aspect ratio */
+    }
+  
+    .allproduct-card-image {
+      position: static;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+  
+  

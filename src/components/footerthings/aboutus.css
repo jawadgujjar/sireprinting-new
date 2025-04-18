@@ -1,0 +1,26 @@
+.about-container {
+    max-width: 900px;
+    margin: 100px auto 0 auto; /* Navbar ke neeche space */
+    padding: 10px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .about-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .about-subtitle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 15px 0;
+  }
+  
+  .about-text {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+  

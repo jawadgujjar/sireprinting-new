@@ -1,0 +1,148 @@
+.carousel-main {
+  padding: 1rem;
+  width: 97%;
+  overflow: hidden;
+  position: relative; /* Important for navigation buttons */
+  margin: 0 auto;
+}
+
+.vcarousel {
+  width: 260px;
+  height: 300px;
+  border: 2px solid #d1d5db;
+  padding: 0; /* Removed padding so video fills the card */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.vcarousel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.vcarousel-caption {
+  text-align: center;
+  font-weight: 500;
+  color: #4b5563;
+  padding: 8px 0;
+}
+
+.carousel-swiper {
+  position: relative;
+  width: 100%;
+  padding-top: 3rem;
+}
+
+.carousel-swiper .swiper-slide {
+  width: auto !important;
+}
+
+/* Navigation buttons styling */
+.swiper-button-next,
+.swiper-button-prev {
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  z-index: 10;
+  cursor: pointer;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+
+.swiper-button-next {
+  right: 10px;
+}
+
+.swiper-button-prev {
+  left: 10px;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-family: swiper-icons;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.swiper-button-next::after {
+  content: "next";
+}
+
+.swiper-button-prev::after {
+  content: "prev";
+}
+/* Responsive grid fix for smaller screens */
+@media (max-width: 768px) {
+  /* .testimonial-summary-row {
+    flex-direction: column;
+  } */
+  .carousel-main {
+    padding: 1rem;
+    width: 90%;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  .review-images-row {
+    justify-content: center;
+  }
+
+  .review-img {
+    width: calc(50% - 10px) !important;
+    height: 140px !important;
+  }
+
+  .testimonials-main {
+    font-size: 2rem;
+    letter-spacing: 4px;
+  }
+
+  .testimonials-main-sec {
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+  }
+
+  .rating-text {
+    font-size: 22px;
+  }
+
+  .rating-text span {
+    font-size: 14px;
+  }
+}
+
+/* Mobile optimization */
+@media (max-width: 425px) {
+  .review-img {
+    width: 100% !important;
+    height: 140px !important;
+  }
+
+  .review-card {
+    padding: 15px;
+  }
+
+  .golden-btn {
+    width: 100%;
+  }
+
+  .testimonials-main,
+  .testimonials-main-sec {
+    text-align: center;
+  }
+}
