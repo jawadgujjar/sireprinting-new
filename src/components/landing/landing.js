@@ -1,7 +1,6 @@
 import React from "react";
 import "./landing.css";
-import { Button } from "antd";
-import ProductCarousel from "./productcarousel";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
@@ -12,7 +11,10 @@ const Landing = () => {
           Unleash your wild ideas with custom printed packaging. Elevate your
           brand with packaging that drives your customers crazy.
         </p>
-        <button className="button-landing">Customize Your Design</button>
+        <Link to="/get-a-quote">
+          {" "}
+          <button className="button-landing">Customize Your Design</button>
+        </Link>
       </div>
     </div>
   );

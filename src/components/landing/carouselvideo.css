@@ -89,9 +89,9 @@
 }
 /* Responsive grid fix for smaller screens */
 @media (max-width: 768px) {
-  .testimonial-summary-row {
+  /* .testimonial-summary-row {
     flex-direction: column;
-  }
+  } */
   .carousel-main {
     padding: 1rem;
     width: 90%;

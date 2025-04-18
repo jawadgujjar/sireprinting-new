@@ -59,7 +59,8 @@ const Testimonial = () => {
       <Row className="testimonial-summary-row" gutter={[30, 30]}>
         <Col xs={24} md={10}>
           <h2 className="rating-text">
-            4.7/5 <span>(33 reviews)</span>
+            4.7/<span style={{ fontSize: "1.3rem", color: "black" }}>5</span>{" "}
+            <span style={{ fontSize: "0.7rem" }}>(33 reviews)</span>
           </h2>
           {starData.map((item, index) => (
             <div className="star-bar" key={index}>
@@ -84,7 +85,7 @@ const Testimonial = () => {
                   src={img}
                   alt={`review ${index}`}
                   className="review-img"
-                  preview={{ mask: "Click to Preview" }}
+                  preview={{ mask: "  Preview" }}
                 />
               ))}
             </div>
@@ -92,7 +93,7 @@ const Testimonial = () => {
         </Col>
       </Row>
       <div className="reviews-section">
-        <h2 className="testimonials-main-sec">All Reviews</h2>
+        <h2 className="testimonials-main-sec">Customers Reviews</h2>
         {reviews.slice(0, 4).map((rev, i) => (
           <div className="review-card" key={i}>
             <Rate disabled defaultValue={rev.rating} className="star-rating" />
