@@ -72,9 +72,6 @@ function Popularproducts() {
           </Col>
         </Row>
       </div>
-      <div className="popular-text">
-        <h3>Popular Products</h3>
-      </div>
       <div className="products-container">
         <div>
           <ProductCarousel />

@@ -1,307 +1,118 @@
+/* INDUSTRY SECTION */
+
 .industry-main {
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
   line-height: 1.4;
-  color: #333;
+  color: #111;
+  margin-bottom: 1rem;
 }
 
 .industry-main-p {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   text-align: center;
   width: 80%;
-  margin: 0 auto;
-  margin-bottom: 2rem;
+  margin: 0 auto 3rem;
   color: #555;
-}
-
-.sireadvantage-wrapper {
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #222222 0%, #333333 100%);
-  font-family: "Montserrat", sans-serif;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-.sireadvantage-wrapper::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80")
-    center/cover;
-  opacity: 0.1;
-  z-index: 0;
-}
-
-.divider-line {
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(212, 175, 55, 0) 0%,
-    #d4af37 50%,
-    rgba(212, 175, 55, 0) 100%
-  );
-  border: none;
-  width: 200px;
-  margin: 0 auto 60px;
-}
-
-.advantage-main {
-  text-align: center;
-  font-size: 3.5rem;
-  font-weight: 300;
-  color: #fff;
-  margin-bottom: 80px;
-  text-transform: uppercase;
-  letter-spacing: 8px;
-  position: relative;
-}
-
-.advantage-main::after {
-  content: "PREMIUM PACKAGING SOLUTIONS";
-  position: absolute;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1rem;
   font-weight: 400;
-  color: #d4af37;
-  letter-spacing: 4px;
+  line-height: 1.6;
 }
 
-.three-images-advantages {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  flex-wrap: wrap;
-  margin-bottom: 100px;
-  position: relative;
-  z-index: 1;
+/* Grid Layout */
+.industry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  padding: 0 2rem;
+  margin-bottom: 4rem;
 }
 
-.advantage-card {
-  background: rgba(30, 30, 30, 0.8);
-  padding: 40px 30px;
-  border-radius: 8px;
-  max-width: 360px;
-  text-align: center;
-  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-  position: relative;
+/* Card Style */
+/* Card Style */
+.industry-card {
+  background: #fff;
+  border-radius: 20px;
   overflow: hidden;
-  border-top: 1px solid rgba(212, 175, 55, 0.3);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+  cursor: pointer;
 }
 
-.advantage-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: #d4af37;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.6s ease;
+.industry-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(212, 175, 55, 0.25);
+  border-color: #d4af37;
+  /* background-color: #000; */
 }
 
-.advantage-card:hover::before {
-  transform: scaleX(1);
-}
-
-.advantage-card:hover {
-  transform: translateY(-15px);
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
-}
-
-.advantage-card img {
+/* Image Styling */
+.industry-card img {
   width: 100%;
   height: 240px;
   object-fit: cover;
-  margin-bottom: 30px;
-  filter: grayscale(20%);
-  transition: all 0.5s ease;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-.advantage-card:hover img {
-  filter: grayscale(0%);
+.industry-card:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.2);
 }
 
-.advantage-card h3 {
+/* Title */
+.industry-card h3 {
   font-size: 1.4rem;
-  font-weight: 400;
-  color: #fff;
-  margin-top: 10px;
-  letter-spacing: 2px;
-  position: relative;
-  padding-bottom: 15px;
+  color: #000;
+  margin: 1rem 0 0.5rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
-.advantage-card h3::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 1px;
-  background: #d4af37;
+.industry-card:hover h3 {
+  color: #d4af37;
 }
 
-.how-it-works-section {
-  text-align: center;
-  padding: 80px 40px;
-  border-radius: 2px;
-  position: relative;
-  z-index: 1;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  max-width: 1200px;
-  margin: 0 auto;
+/* Description */
+.industry-card p {
+  font-size: 0.95rem;
+  color: #444;
+  padding: 0 1.5rem 1.5rem;
+  line-height: 1.6;
+  transition: color 0.3s ease;
 }
 
-.how-it-works-section::before {
-  content: "";
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-  border: 1px solid rgba(212, 175, 55, 0.1);
-  pointer-events: none;
-}
-
-.how-it-works-title {
-  font-size: 2.2rem;
-  font-weight: 300;
-  margin-bottom: 70px;
-  color: #fff;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  position: relative;
-}
-
-.how-it-works-title::after {
-  content: "";
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 1px;
-  background: #d4af37;
-}
-
-.steps-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-}
-
-.step-card {
-  background: rgba(30, 30, 30, 0.8);
-  padding: 50px 30px;
-  border-radius: 2px;
-  width: 280px;
-  transition: all 0.5s ease;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.step-card::before {
+/* Gold Accent Glow Line (Top Bar) */
+.industry-card::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, #d4af37, #fff);
+  transition: width 0.4s ease;
+}
+
+.industry-card:hover::before {
   width: 100%;
-  height: 100%;
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  pointer-events: none;
 }
 
-.step-card:hover {
-  transform: translateY(-10px);
-  background: rgba(40, 40, 40, 0.9);
-}
-
-.step-icon {
-  font-size: 2.5rem;
-  color: #d4af37;
-  margin-bottom: 30px;
-}
-
-.step-card h4 {
-  font-size: 1.2rem;
-  color: #fff;
-  font-weight: 400;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-}
-
-.step-card p {
-  font-size: 0.9rem;
-  color: #aaa;
-  line-height: 1.8;
-  margin-bottom: 0;
-  font-weight: 300;
-}
-
-/* Number indicators for steps */
-.step-card::after {
-  content: attr(data-step);
+/* Gold Accent Line (Bottom) */
+.industry-card::after {
+  content: "";
   position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 1rem;
-  color: rgba(212, 175, 55, 0.3);
-  font-weight: 700;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .advantage-main {
-    font-size: 2.8rem;
-    letter-spacing: 4px;
-  }
-
-  .how-it-works-title {
-    font-size: 1.8rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .advantage-main {
-    font-size: 2rem;
-    letter-spacing: 3px;
-    margin-bottom: 60px;
-  }
-
-  .advantage-main::after {
-    font-size: 0.8rem;
-    bottom: -20px;
-  }
-
-  .three-images-advantages,
-  .steps-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-  }
-
-  .advantage-card,
-  .step-card {
-    width: 100%;
-    max-width: 400px;
-  }
-
-  .how-it-works-title {
-    font-size: 1.5rem;
-    letter-spacing: 3px;
-  }
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #d4af37, #e0c164);
+  transition: all 0.4s ease;
 }

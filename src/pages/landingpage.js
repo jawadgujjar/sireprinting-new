@@ -14,11 +14,11 @@ function Landingpage() {
     <div>
       <LandingPage />
       <Brands />
-      <Videocarousel />
+      <Industry />
       <Popularproducts />
       <Solutions />
       <Sireadvantage />
-      <Industry />
+      <Videocarousel />
       <Testimonial />
       <Faq1 />
     </div>

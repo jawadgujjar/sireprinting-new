@@ -19,7 +19,6 @@
   padding-top: 4rem;
 }
 .premium-heading {
-  font-family: "Orbitron", sans-serif;
   font-size: 1.5rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -61,13 +60,11 @@
 
 /* CTA button */
 /* .p-tag-landing{
-  font-family: "Orbitron", sans-serif;
 font-size: small;
 } */
 .button-landing {
   background: linear-gradient(to right, #d1c7bd, #b5a99c);
   color: #000;
-  font-family: "Orbitron", sans-serif;
   font-size: small !important;
   font-weight: 700;
   padding: 1rem 2.2rem;
