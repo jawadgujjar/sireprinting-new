@@ -76,7 +76,7 @@ function Productdetail1() {
                 className="accordion-header"
                 onClick={() => setMoreDetailsOpen(!isMoreDetailsOpen)}
               >
-                <h2 style={{ fontWeight: "bold" }}>More Details</h2>
+                <p style={{ fontWeight: "bold" }}>More Details</p>
                 <span>{isMoreDetailsOpen ? "▾" : "▸"}</span>
               </div>
               {isMoreDetailsOpen && (
@@ -100,7 +100,7 @@ function Productdetail1() {
                 className="accordion-header"
                 onClick={() => setFaqOpen(!isFaqOpen)}
               >
-                <h2 style={{ fontWeight: "bold" }}>Quick FAQ's</h2>
+                <p style={{ fontWeight: "bold" }}>Quick FAQ's</p>
                 <span>{isFaqOpen ? "▾" : "▸"}</span>
               </div>
               {isFaqOpen && (
@@ -124,7 +124,7 @@ function Productdetail1() {
                 className="accordion-header"
                 onClick={() => setMaterialOpen(!isMaterialOpen)}
               >
-                <h2 style={{ fontWeight: "bold" }}>Material</h2>
+                <p style={{ fontWeight: "bold" }}>Material</p>
                 <span>{isMaterialOpen ? "▾" : "▸"}</span>
               </div>
               {isMaterialOpen && (
@@ -148,7 +148,7 @@ function Productdetail1() {
                 className="accordion-header"
                 onClick={() => setColorOpen(!isColorOpen)}
               >
-                <h2 style={{ fontWeight: "bold" }}>Color Models</h2>
+                <p style={{ fontWeight: "bold" }}>Color Models</p>
                 <span>{isColorOpen ? "▾" : "▸"}</span>
               </div>
               {isColorOpen && (
@@ -172,7 +172,7 @@ function Productdetail1() {
                 className="accordion-header"
                 onClick={() => setFinishingOpen(!isFinishingOpen)}
               >
-                <h2 style={{ fontWeight: "bold" }}>Finishing</h2>
+                <p style={{ fontWeight: "bold" }}>Finishing</p>
                 <span>{isFinishingOpen ? "▾" : "▸"}</span>
               </div>
               {isFinishingOpen && (
@@ -196,9 +196,9 @@ function Productdetail1() {
                 className="accordion-header"
                 onClick={() => setAddOnOpen(!isAddOnOpen)}
               >
-                <h2 style={{ fontWeight: "bold" }}>
+                <p style={{ fontWeight: "bold" }}>
                   Add-on and Coating Options
-                </h2>
+                </p>
                 <span>{isAddOnOpen ? "▾" : "▸"}</span>
               </div>
               {isAddOnOpen && (
@@ -222,7 +222,7 @@ function Productdetail1() {
                 className="accordion-header"
                 onClick={() => setTurnaroundOpen(!isTurnaroundOpen)}
               >
-                <h2 style={{ fontWeight: "bold" }}>Turnaround Time</h2>
+                <p style={{ fontWeight: "bold" }}>Turnaround Time</p>
                 <span>{isTurnaroundOpen ? "▾" : "▸"}</span>
               </div>
               {isTurnaroundOpen && (

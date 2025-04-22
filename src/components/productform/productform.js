@@ -36,7 +36,7 @@ function Productform1() {
         <h2 className="form-title-main">BEAT MY QUOTE</h2>
       </div>
 
-      <Form form={form} layout="vertical" onFinish={handleFinish}>
+      <Form form={form} layout="vertical" onFinish={handleFinish} className="your-form-class">
         {/* Dimensions Section */}
         <Row gutter={[8, 8]}>
           <Col xs={24} sm={8}>

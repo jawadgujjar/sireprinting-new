@@ -65,7 +65,7 @@ const Productmain1 = () => {
                 <span className="review-count">47 reviews</span>
               </div>
               <div className="product-rating1">
-                <h4>
+                <p>
                   {isExpanded ? text : `${truncatedText}...`}
                   <span
                     onClick={toggleReadMore}
@@ -76,7 +76,7 @@ const Productmain1 = () => {
                   >
                     {isExpanded ? "Read Less" : "Read More"}
                   </span>
-                </h4>
+                </p>
               </div>
               <hr className="divider" />
               <Form layout="vertical" onFinish={handleFinish} form={form}>
