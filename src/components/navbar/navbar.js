@@ -145,18 +145,18 @@ const Navbar1 = () => {
         <div className="nav-icons">
           <div className="phone-number">
             <a href="tel:+11392383929" className="phone-number">
-              <FaPhone className="phone-icon" />
+              <FaPhone className="phone-icons" />
             </a>{" "}
           </div>
           <div className="phone-number">
             <Link to="/login">
               {" "}
-              <FaRegUser className="phone-icon" />
+              <FaRegUser className="phone-icons" />
             </Link>
           </div>
           <div className="phone-number">
             <Link to="/search-products">
-              <IoSearchOutline className="phone-icon" />
+              <IoSearchOutline className="phone-icons" />
             </Link>
           </div>
         </div>

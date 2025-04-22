@@ -23,6 +23,16 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
+  margin-left: 3rem;
+}
+.product-rating1 {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  /* margin-left: 3rem; */
+  color: #5c5a5a;
 }
 
 .stars svg {
@@ -78,7 +88,6 @@
 }
 
 .submit-button {
-  
   height: 40px;
   font-weight: 500;
   background-color: #1890ff;
@@ -101,6 +110,12 @@
   .form-title {
     font-size: 2rem;
   }
+  .product-rating {
+    margin-left: 4rem;
+  }
+  /* .product-rating1 {
+    margin-left: 4rem;
+  } */
 }
 
 @media (max-width: 768px) {
@@ -131,4 +146,15 @@
   .form-title {
     font-size: 2rem;
   }
+  /* .product-rating1 {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .product-rating1 h4 {
+    display: inline-block;
+    text-align: center;
+    margin-left: -3rem;
+  } */
 }

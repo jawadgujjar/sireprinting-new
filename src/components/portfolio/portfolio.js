@@ -137,6 +137,9 @@ function Portfolio() {
 
               {/* Action Buttons Overlay at Bottom */}
               <div className="preview-actions-overlay">
+                <h2 type="default" className="pricing-btn">
+                  Get Pricing for this Product
+                </h2>
                 <div className="action-icons">
                   <Button
                     type="primary"
@@ -160,9 +163,6 @@ function Portfolio() {
                     className="email-btn"
                   />
                 </div>
-                <Button type="default" className="pricing-btn">
-                  Get Pricing for this Product
-                </Button>
               </div>
             </div>
           </div>

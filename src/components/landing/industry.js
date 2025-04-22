@@ -1,153 +1,70 @@
-import React, { useState } from "react";
-import Slider from "react-slick";
+import React from "react";
 import "./industry.css";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // Arrows import
 
 const logos = [
   {
     title: "Custom Packaging Box",
     description: "High-quality packaging for your business.",
-    images: ["../images/arka.png", "../images/brand2.avif"],
+    image: "../images/arka.png",
   },
   {
     title: "Luxury Gift Box",
     description: "Elegant design with premium finish.",
-    images: ["../images/arka.png", "../images/brand2.avif"],
+    image: "../images/arka.png",
   },
   {
-    title: "Luxury Gift Box",
-    description: "Elegant design with premium finish.",
-    images: ["../images/arka.png", "../images/brand2.avif"],
+    title: "Rigid Boxes",
+    description: "Sturdy and stylish boxes for luxury goods.",
+    image: "../images/arka.png",
   },
   {
-    title: "Luxury Gift Box",
-    description: "Elegant design with premium finish.",
-    images: ["../images/arka.png", "../images/brand2.avif"],
+    title: "Mailer Boxes",
+    description: "Perfect for shipping and branding.",
+    image: "../images/arka.png",
   },
   {
-    title: "Luxury Gift Box",
-    description: "Elegant design with premium finish.",
-    images: ["../images/arka.png", "../images/brand2.avif"],
+    title: "Corrugated Boxes",
+    description: "Durable and versatile for all industries.",
+    image: "../images/arka.png",
   },
   {
-    title: "Luxury Gift Box",
-    description: "Elegant design with premium finish.",
-    images: ["../images/arka.png", "../images/brand2.avif"],
+    title: "Display Boxes",
+    description: "Showcase your product in style.",
+    image: "../images/arka.png",
   },
   {
-    title: "Luxury Gift Box",
-    description: "Elegant design with premium finish.",
-    images: ["../images/arka.png", "../images/brand2.avif"],
+    title: "Subscription Boxes",
+    description: "Tailored for monthly delights.",
+    image: "../images/arka.png",
   },
   {
-    title: "Luxury Gift Box",
-    description: "Elegant design with premium finish.",
-    images: ["../images/arka.png", "../images/brand2.avif"],
-  },
-  {
-    title: "Luxury Gift Box",
-    description: "Elegant design with premium finish.",
-    images: ["../images/arka.png", "../images/brand2.avif"],
+    title: "Eco-Friendly Boxes",
+    description: "Sustainable and biodegradable packaging.",
+    image: "../images/arka.png",
   },
 ];
 
-// Custom arrow components
-const NextArrow = ({ onClick }) => (
-  <div className="arrow next" onClick={onClick}>
-    <FaArrowRight />
-  </div>
-);
-
-const PrevArrow = ({ onClick }) => (
-  <div className="arrow prev" onClick={onClick}>
-    <FaArrowLeft />
-  </div>
-);
-
 const Industry = () => {
-  const settings = {
-    infinite: true,
-    speed: 1000, // Normal scroll speed
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000, // Slide change every 2 seconds
-    cssEase: "ease-in-out", // Smooth transition
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
-
   return (
     <div className="trusted">
-      <h2 className="industry-main">
-        {" "}
-        Custom Packaging Solutions for Your Industry
-      </h2>
+      <h2 className="industry-main">Boxes By Style</h2>
       <p className="industry-main-p">
-        {" "}
         Discover customized packaging designed exclusively for your industry.
         Our expert team creates innovative solutions that not only meet but
         exceed your packaging needs.
       </p>
-      <Slider {...settings} className="scrolling-slider">
+
+      <div className="industry-grid">
         {logos.map((item, index) => (
-          <HoverCard key={index} product={item} />
+          <div key={index} className="industry-card">
+            {" "}
+            {/* ← yeh change karo */}
+            <img src={item.image} alt={item.title} />
+            <h3>{item.title}</h3>
+            <p className="product-desc">{item.description}</p>
+          </div>
         ))}
-      </Slider>
-    </div>
-  );
-};
-
-const HoverCard = ({ product }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [hovered, setHovered] = useState(false);
-
-  React.useEffect(() => {
-    let interval;
-    if (hovered && product.images.length > 1) {
-      interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % product.images.length);
-      }, 600);
-    }
-    return () => clearInterval(interval);
-  }, [hovered, product.images.length]);
-
-  return (
-    <div
-      className="product-card"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => {
-        setHovered(false);
-        setCurrentIndex(0);
-      }}
-    >
-      <img
-        src={product.images[currentIndex]}
-        alt={product.title}
-        className="product-img"
-      />
-      <div className="product-title-css">{product.title}</div>
-      <div className="product-desc">{product.description}</div>
+      </div>
     </div>
   );
 };

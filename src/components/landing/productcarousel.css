@@ -1,7 +1,6 @@
 .trusted {
   text-align: center;
   padding: 2rem 1rem;
-  background-color: rgba(207, 205, 204, 0.3);
 }
 
 .trustedtext {
@@ -9,7 +8,7 @@
   text-align: left;
   margin-left: 2rem;
   font-size: 1.8rem;
-  color: #ffa015;
+  color: #00ffff;
   text-transform: uppercase;
   position: relative;
   display: inline-block;
@@ -23,7 +22,7 @@
   left: 0;
   width: 50%;
   height: 3px;
-  background-color: #ffa015;
+  background-color: #00ffff;
   border-radius: 4px;
 }
 
@@ -47,7 +46,6 @@
   padding: 1.2rem;
   margin: 0.5rem;
   background: #fff;
-  border: 1px solid #eee;
   border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
@@ -57,6 +55,9 @@
 .product-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  border: 2px solid transparent;
+  border-image: linear-gradient(90deg, #01257d, #00ffff);
+  border-image-slice: 1;
 }
 
 .product-img {
@@ -71,7 +72,7 @@
   font-weight: 700;
   margin-top: 1rem;
   font-size: 1.15rem;
-  color: #222;
+  color: #00ffff;
 }
 
 .product-desc {

@@ -8,18 +8,20 @@ import Faq1 from "../components/landing/faq";
 import Testimonial from "../components/landing/testimonial";
 import Industry from "../components/landing/industry";
 import Sireadvantage from "../components/landing/sireadvantage";
+import Banner from "../components/landing/banner";
 
 function Landingpage() {
   return (
     <div>
       <LandingPage />
       <Brands />
-      <Videocarousel />
+      <Industry />
       <Popularproducts />
       <Solutions />
       <Sireadvantage />
-      <Industry />
+      <Videocarousel />
       <Testimonial />
+      <Banner />
       <Faq1 />
     </div>
   );

@@ -72,7 +72,7 @@
   width: 10rem;
 }
 .nav-link:hover {
-  color: #ffa015;
+  color: #01257d;
 }
 
 /* Dropdown Styles */
@@ -140,9 +140,10 @@
   font-weight: 500;
 }
 
-.phone-icon {
+.phone-icons {
   margin-right: 8px;
-  color: #3498db;
+  color: #01257d;
+  font-size: 22px; /* ya jitna chaho */
 }
 
 /* Mobile Styles */

@@ -75,7 +75,6 @@
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
-  font-family: swiper-icons;
   font-size: 20px;
   font-weight: bold;
 }
