@@ -121,9 +121,7 @@
   display: flex;
   justify-content: space-between;
 }
-.ant-form-item-label > label {
-  color: white !important;
-}
+
 .small-btn {
   width: auto;
   padding: 0 16px;
