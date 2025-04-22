@@ -60,7 +60,12 @@ function Sireadvantage() {
         </div>
         <div className="form-right">
           <h3 className="form-title-advantage">Get Instant Pricing</h3>
-          <Form layout="vertical" onFinish={handleFinish} form={form}>
+          <Form
+            layout="vertical"
+            onFinish={handleFinish}
+            form={form}
+            className="your-form-class"
+          >
             {step === 1 && (
               <>
                 <Form.Item

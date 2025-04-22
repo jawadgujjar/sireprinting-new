@@ -131,7 +131,9 @@
   font-size: 14px;
   float: right;
 }
-
+.your-form-class .ant-form-item-label > label {
+  color: white !important;
+}
 /* Media Queries */
 @media (max-width: 1024px) {
   .form-title-advantage {

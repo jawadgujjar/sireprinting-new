@@ -36,7 +36,7 @@ function Productform1() {
         <h2 className="form-title-main">BEAT MY QUOTE</h2>
       </div>
 
-      <Form form={form} layout="vertical" onFinish={handleFinish} className="your-form-class">
+      <Form form={form} layout="vertical" onFinish={handleFinish}>
         {/* Dimensions Section */}
         <Row gutter={[8, 8]}>
           <Col xs={24} sm={8}>
@@ -100,7 +100,7 @@ function Productform1() {
         {/* Details Section */}
         <Row gutter={[8, 8]}>
           <Col xs={24} sm={8}>
-            <Form.Item name="quantity" >
+            <Form.Item name="quantity">
               <Input
                 className="ultra-compact-input"
                 type="number"
@@ -109,12 +109,15 @@ function Productform1() {
             </Form.Item>
           </Col>
           <Col xs={24} sm={8}>
-            <Form.Item name="phoneNumber" >
-              <Input className="ultra-compact-input" placeholder="Enter Phone" />
+            <Form.Item name="phoneNumber">
+              <Input
+                className="ultra-compact-input"
+                placeholder="Enter Phone"
+              />
             </Form.Item>
           </Col>
           <Col xs={24} sm={8}>
-            <Form.Item name="fullName" >
+            <Form.Item name="fullName">
               <Input className="ultra-compact-input" placeholder="Enter Name" />
             </Form.Item>
           </Col>
