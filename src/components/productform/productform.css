@@ -22,9 +22,7 @@
   box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
   overflow: hidden;
 }
-.your-form-class .ant-form-item-label > label {
-  color: #01257d !important;
-}
+
 /* .form-header::before {
   content: "";
   position: absolute;
