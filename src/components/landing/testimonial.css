@@ -75,6 +75,24 @@
   object-fit: cover;
   transition: transform 0.3s;
 }
+/* ✅ Center the Ant Design Image preview modal image */
+.ant-image-preview-img-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.ant-image-preview-img {
+  margin: 0 auto !important;
+  max-height: 80vh !important;
+  max-width: 90vw !important;
+  object-fit: contain !important;
+}
+
+/* Optional: Center action buttons (zoom, close etc.) */
+.ant-image-preview-operations-wrapper {
+  justify-content: center !important;
+}
 
 .review-img:hover {
   transform: scale(1.05);
@@ -134,8 +152,10 @@
 }
 
 @media (max-width: 425px) {
-  .testimonials-main {
+  .testimonial-main {
     font-size: 1.5rem;
+    max-width: 400px;
+    margin: 0 auto;
   }
   .review-images-row {
     display: flex;

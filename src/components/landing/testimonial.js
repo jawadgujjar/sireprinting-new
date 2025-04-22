@@ -85,7 +85,7 @@ const Testimonial = () => {
                   src={img}
                   alt={`review ${index}`}
                   className="review-img"
-                  preview={{ mask: "Click to Preview" }}
+                  preview={{ mask: "  Preview" }}
                 />
               ))}
             </div>

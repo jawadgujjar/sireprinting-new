@@ -1,109 +1,184 @@
 .productdetail-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .design-help-container {
-    background-color: #ffc9f2;
-    border-radius: 25px;
-    padding: 30px 25px;
-    height: 100%;
-    box-sizing: border-box;
-  }
-  
-  .design-help-container h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
-  .design-help-container p {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #333;
-  }
-  
-  .design-help-btn {
-    background-color: #690038;
-    color: white;
-    border-radius: 25px;
-    margin-top: 15px;
-    padding: 8px 20px;
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: bold;
-    border: none;
-  }
-  
-  .icon-col {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-  }
-  
-  .icon-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-end;
-  }
-  
-  .sparkle-icon {
-    font-size: 30px;
-    color: #690038;
-  }
-  
-  .sparkle-icon.small {
-    font-size: 18px;
-    opacity: 0.7;
-  }
-  
-  /* Accordion */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.design-help-container {
+  background: linear-gradient(90deg, #01257d, #00ffff);
+  border-radius: 25px;
+  padding: 30px 25px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.design-help-container h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.design-help-container p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.design-help-btn {
+  background-color: #1ab3b3;
+  color: white;
+  border-radius: 25px;
+  margin-top: 15px;
+  padding: 8px 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none;
+}
+
+.icon-col {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.sparkle-icon {
+  font-size: 30px;
+  color: #01257d;
+}
+
+.sparkle-icon.small {
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+/* Accordion */
+.accordion-container {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.accordion-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.accordion-header {
+  background: #fff;
+  padding: 15px 20px;
+
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-header h2 {
+  font-size: 1rem; /* Smaller heading */
+}
+
+.accordion-content p {
+  font-size: 0.875rem; /* Smaller paragraph text */
+}
+
+.accordion-content {
+  line-height: 1.5;
+}
+
+.accordion-header:hover {
+  background-color: #f9f9f9;
+}
+
+.accordion-content {
+  padding: 15px 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.accordion-content hr {
+  margin: 10px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+/* ....icon css's*/
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 1 row mein 3 items */
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.icon-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.icon-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #01257d, #00ffff);
+  transition: all 0.4s ease;
+}
+
+.icon-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.icon-item img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.icon-item:hover img {
+  transform: scale(1.1);
+}
+
+.icon-item p {
+  font-size: 15px;
+  color: #01257d;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .design-help-container,
   .accordion-container {
-    height: 100%;
-    box-sizing: border-box;
+    margin-bottom: 20px;
   }
-  
-  .accordion-item {
-    border: 1px solid #e0e0e0;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    overflow: hidden;
-    background: #fff;
+  .icon-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .accordion-header {
-    background: #fff;
-    padding: 15px 20px;
-     
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+}
+@media (max-width: 480px) {
+  .icon-grid {
+    grid-template-columns: 1fr; /* Mobile pe 1 column */
   }
-  
-  .accordion-header:hover {
-    background-color: #f9f9f9;
-  }
-  
-  .accordion-content {
-    padding: 15px 20px;
-    font-size: 15px;
-    line-height: 1.6;
-  }
-  
-  .accordion-content hr {
-    margin: 10px 0;
-    border: none;
-    border-top: 1px solid #ccc;
-  }
-  
-  /* Responsive tweaks */
-  @media (max-width: 768px) {
-    .design-help-container,
-    .accordion-container {
-      margin-bottom: 20px;
-    }
-  }
-  
+}
