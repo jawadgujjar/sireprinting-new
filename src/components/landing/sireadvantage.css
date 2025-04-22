@@ -1,12 +1,12 @@
 .sireadvantage-wrapper {
-  padding: 40px 20px;
+  /* padding: 40px 20px; */
   background-color: #f9f9f9;
 }
 
 .divider-line {
   border: none;
   height: 2px;
-  background: #ff6600;
+  background: #00ffff;
   width: 100px;
   margin: 0 auto 20px;
 }
@@ -50,7 +50,16 @@
   color: #333;
   margin-bottom: 10px;
 }
-
+.advantage-card:hover {
+  border: 2px solid transparent;
+  border-image: linear-gradient(90deg, #01257d, #00ffff);
+  border-image-slice: 1;
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2); /* Light glowing effect */
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+  background-color: rgba(0, 255, 255, 0.05); /* Subtle background on hover */
+  cursor: pointer;
+}
 .advantage-description {
   color: #777;
   font-size: 14px;
@@ -63,8 +72,8 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  border-radius: 16px;
+  background-color: #01257d;
+  /* border-radius: 16px; */
   padding: 40px 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
@@ -97,22 +106,24 @@
 }
 
 .submit-button {
-  background: #ff6600 !important;
-  border-color: #ff6600 !important;
+  background: #00ffff !important;
+  border-color: #01257d !important;
   font-weight: bold;
   padding: 6px 24px;
   float: right; /* Move the button to the right */
 }
 .submit-button:hover {
-  background: #e65c00 !important;
-  border-color: #e65c00 !important;
+  background: #01257d !important;
+  border: 1px solid #00ffff !important;
 }
 
 .form-buttons {
   display: flex;
   justify-content: space-between;
 }
-
+.ant-form-item-label > label {
+  color: white !important;
+}
 .small-btn {
   width: auto;
   padding: 0 16px;
@@ -123,7 +134,7 @@
 
 /* Media Queries */
 @media (max-width: 1024px) {
-  .form-title-advantage{
+  .form-title-advantage {
     font-size: 2rem;
   }
   .product-rating {

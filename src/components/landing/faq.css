@@ -1,101 +1,62 @@
-#faq {
-  background-color: #f9f9f9;
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center content horizontally */
+/* faq.css */
+
+.faq-heading-col {
+  margin-bottom: 2rem;
+  text-align: left;
 }
 
-.faq-columns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  width: 100%; /* Allow full width up to max-width */
+.frequently {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #01257d; /* Navy Blue Heading */
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
-.faq-questions-col {
-  flex: 2;
-}
-
-.faq-header {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.faq-heading {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: #333;
+.frequently .span {
+  color: #00ffff; /* Aqua Highlight */
 }
 
 .faq-item {
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  background-color: #fff;
-  cursor: pointer;
-  margin: 0 50px 20px;
+  border: 1px solid #00ffff;
+  border-radius: 2rem;
+  margin-bottom: 1rem;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(1, 37, 125, 0.1);
 }
 
-.faq-item:hover .faq-toggle-icon {
-  color: rgb(255, 160, 21); /* Change to yellow on hover */
-}
-
-.faq-toggle-icon {
-  font-size: 1.2rem;
-  color: #4d4e4e; /* Default color for the toggle icon */
+.faq-item:hover {
+  border-color: #01257d;
+  box-shadow: 0 6px 12px rgba(0, 255, 255, 0.2);
 }
 
 .faq-question {
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
-  font-size: 1.2rem;
-
-  color: #333;
-  margin-bottom: 10px;
+  align-items: center;
+  color: #01257d;
 }
 
 .faq-question:hover {
-  color: rgb(255, 160, 21);
+  background-color: none;
+}
+
+.faq-toggle-icon {
+  font-size: 1rem;
+  color: #00ffff;
+  transition: transform 0.2s ease;
 }
 
 .faq-answer {
+  padding: 1rem 1.5rem;
   font-size: 1rem;
-  color: #666;
-}
-
-.faq-heading-col {
-  flex: 1;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #444;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-/* .faq-heading-col1 {
-    flex: 1;
-    margin-bottom: 3rem;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #444;
-    text-align: center;
-} */
-
-.frequently {
-  flex: 1;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #050505;
-  margin-bottom: 3rem !important;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .faq-columns {
-    flex-direction: column;
-  }
-  /* .faq-heading-col, .faq-questions-col {
-        flex: none;
-        margin-bottom: 20px;
-    } */
+  color: #333;
+  border-top: 1px solid #00ffff;
+  background-color: none;
+  line-height: 1.6;
 }

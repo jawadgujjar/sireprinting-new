@@ -242,9 +242,10 @@
 .pricing-btn {
   background-color: #ffa015;
   border-color: #ffa015;
-  color: white;
+  color: black;
   width: 100%;
-  max-width: 250px;
+  padding: 0.4rem;
+  max-width: 320px;
   font-weight: 600;
 }
 

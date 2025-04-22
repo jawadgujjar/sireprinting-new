@@ -1,7 +1,7 @@
 .container-main {
   width: 100%;
   min-height: 171px;
-  background-color: rgba(255, 160, 21, 0.8); /* 0.7 represents 70% opacity */
+  background-color: rgba(1, 37, 125);
   display: flex; /* Enable flexbox on the container */
   justify-content: center; /* Center the content horizontally */
   align-items: center; /* Center the content vertically */

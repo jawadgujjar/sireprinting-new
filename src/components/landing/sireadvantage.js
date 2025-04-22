@@ -54,12 +54,10 @@ function Sireadvantage() {
           </div>
         ))}
       </div>
-
       <div className="form-section">
         <div className="form-left">
           <img src="../images/instant.jpg" alt="form-banner" />
         </div>
-
         <div className="form-right">
           <h3 className="form-title-advantage">Get Instant Pricing</h3>
           <Form layout="vertical" onFinish={handleFinish} form={form}>

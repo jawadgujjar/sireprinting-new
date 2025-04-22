@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import { Row, Col, Image } from "antd";
 import "./faq.css";
 
 const Faq1 = () => {
@@ -71,35 +72,70 @@ const Faq1 = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const imageURL =
+    "https://s3.amazonaws.com/sireprinting.com/products/1664588402Kraft%20Window%20Boxes%20SIre%20Printing%20001.png";
+
   return (
-    <section id="faq">
-      <div className="faq-header">
-        <div className="faq-columns">
-          <div className="faq-questions-col">
-            <div className="faq-heading-col">
-              <p className="frequently">
-                <span className="span">Frequently</span> Asked Questions
-              </p>
-            </div>
-            {faqs.map((faq, index) => (
-              <div key={index} className="faq-item">
-                <div
-                  className="faq-question"
-                  onClick={() => toggleAnswer(index)}
-                >
-                  {faq.question}
-                  <span className="faq-toggle-icon">
-                    {openIndex === index ? <FaMinus /> : <FaPlus />}
-                  </span>
-                </div>
-                {openIndex === index && (
-                  <div className="faq-answer">{faq.answer}</div>
-                )}
-              </div>
+    <section id="faq" style={{ padding: "2rem 1rem" }}>
+      <Row gutter={[24, 24]} justify="space-evenly" align="top">
+        {/* Left Side Image Gallery */}
+        <Col xs={24} md={10} lg={10}>
+          <Row gutter={[16, 16]} justify="center">
+            {[...Array(3)].map((_, index) => (
+              <Col key={`left-top-${index}`} span={8}>
+                <Image
+                  src={imageURL}
+                  alt="Box Sample"
+                  preview={false}
+                  style={{ borderRadius: "8px" }}
+                />
+              </Col>
             ))}
+            {[...Array(2)].map((_, index) => (
+              <Col key={`center-${index}`} span={12}>
+                <Image
+                  src={imageURL}
+                  alt="Box Sample Large"
+                  preview={false}
+                  style={{ borderRadius: "8px", transform: "scale(1.05)" }}
+                />
+              </Col>
+            ))}
+            {[...Array(3)].map((_, index) => (
+              <Col key={`left-bottom-${index}`} span={8}>
+                <Image
+                  src={imageURL}
+                  alt="Box Sample"
+                  preview={false}
+                  style={{ borderRadius: "8px" }}
+                />
+              </Col>
+            ))}
+          </Row>
+        </Col>
+
+        {/* Right Side FAQ Section */}
+        <Col xs={24} md={14} lg={12}>
+          <div className="faq-heading-col">
+            <p className="frequently">
+              <span className="span">Frequently</span> Asked Questions
+            </p>
           </div>
-        </div>
-      </div>
+          {faqs.map((faq, index) => (
+            <div key={index} className="faq-item">
+              <div className="faq-question" onClick={() => toggleAnswer(index)}>
+                {faq.question}
+                <span className="faq-toggle-icon">
+                  {openIndex === index ? <FaMinus /> : <FaPlus />}
+                </span>
+              </div>
+              {openIndex === index && (
+                <div className="faq-answer">{faq.answer}</div>
+              )}
+            </div>
+          ))}
+        </Col>
+      </Row>
     </section>
   );
 };
