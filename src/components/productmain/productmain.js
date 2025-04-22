@@ -10,6 +10,7 @@ const { Option } = Select;
 const Productmain1 = () => {
   const [step, setStep] = useState(1);
   const [form] = Form.useForm();
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleNext = () => {
     form
@@ -26,6 +27,18 @@ const Productmain1 = () => {
     console.log("Final Form Values: ", values);
   };
 
+  const text = `
+    sdkcjhsdcksd ssdkhcsdc sasklh kjscoshcs kcshc kcsdio
+    kchsdlkchso ksdlfcjsd sksdnfskldh sdksdlfkhsd skfhsdklfh
+    sdkcjhsdcksd ssdkhcsdc sasklh kjscoshcs kcshc kcsdio kchsdlkchso ksdlfcjsd sksdnfskldh sdks
+  `;
+
+  const toggleReadMore = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const truncatedText = text.slice(0, 100);
+
   return (
     <div className="product-page-container">
       <Row className="product-content-wrapper">
@@ -41,7 +54,6 @@ const Productmain1 = () => {
           <div className="product-form-section">
             <div className="productmain-form-container">
               <h3 className="form-title">Small Pillow Boxes</h3>
-
               <div className="product-rating">
                 <span className="stars">
                   <StarFilled />
@@ -52,8 +64,21 @@ const Productmain1 = () => {
                 </span>
                 <span className="review-count">47 reviews</span>
               </div>
+              <div className="product-rating1">
+                <h4>
+                  {isExpanded ? text : `${truncatedText}...`}
+                  <span
+                    onClick={toggleReadMore}
+                    style={{
+                      color: "#333",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {isExpanded ? "Read Less" : "Read More"}
+                  </span>
+                </h4>
+              </div>
               <hr className="divider" />
-
               <Form layout="vertical" onFinish={handleFinish} form={form}>
                 {step === 1 && (
                   <>
@@ -71,20 +96,6 @@ const Productmain1 = () => {
                     </Form.Item>
 
                     <Row gutter={16}>
-                      <Col xs={24} sm={12} md={6}>
-                        <Form.Item
-                          name="size"
-                          label="Size"
-                          rules={[{ required: true }]}
-                        >
-                          <Select placeholder="Select Unit">
-                            <Option value="inches">Inches</Option>
-                            <Option value="cm">Centimeters</Option>
-                            <Option value="mm">Millimeters</Option>
-                          </Select>
-                        </Form.Item>
-                      </Col>
-
                       <Col xs={24} sm={12} md={6}>
                         <Form.Item
                           name="length"
@@ -112,6 +123,20 @@ const Productmain1 = () => {
                           rules={[{ required: true }]}
                         >
                           <Input placeholder="Depth" />
+                        </Form.Item>
+                      </Col>
+                      <Col xs={24} sm={12} md={6}>
+                        <Form.Item
+                          name="unit"
+                          label="Unit"
+                          rules={[{ required: true }]}
+                          initialValue="cm" // This sets initial value in the form
+                        >
+                          <Select placeholder="Select Unit" defaultValue="cm">
+                            <Option value="inches">Inches</Option>
+                            <Option value="cm">Centimeters</Option>
+                            <Option value="mm">Millimeters</Option>
+                          </Select>
                         </Form.Item>
                       </Col>
                     </Row>
@@ -218,7 +243,7 @@ const Productmain1 = () => {
         </Col>
       </Row>
       <div>
-        <Productdetail1/>
+        <Productdetail1 />
       </div>
     </div>
   );

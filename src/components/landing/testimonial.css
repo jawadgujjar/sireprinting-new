@@ -12,7 +12,7 @@
   margin-top: 30px;
   /* margin-bottom: 60px; */
   text-transform: uppercase;
-  
+
   position: relative;
 }
 .testimonials-main-sec {
@@ -94,7 +94,6 @@
   justify-content: center !important;
 }
 
-
 .review-img:hover {
   transform: scale(1.05);
 }
@@ -152,8 +151,10 @@
 }
 
 @media (max-width: 425px) {
-  .testimonials-main {
+  .testimonial-main {
     font-size: 1.5rem;
+    max-width: 400px;
+    margin: 0 auto;
   }
   .review-images-row {
     display: flex;
