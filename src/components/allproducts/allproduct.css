@@ -155,17 +155,17 @@
 }
 
 .form-column {
+  position: -webkit-sticky; /* For Safari */
   position: sticky;
-  top: 0;
-  height: 100vh;
-  padding-left: 24px;
+  top: 45px; /* Adjust this value based on your header height */
+  height: fit-content;
   align-self: flex-start;
-  transition: margin-top 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.scrolled-form {
-  padding-top: 3rem; /* or whatever amount you want */
-}
+/* .scrolled-form {
+  padding-top: 3rem;  
+} */
 
 .sticky-form-container {
   padding: 20px;
@@ -184,11 +184,12 @@
   }
 
   .form-column {
-    position: relative;
-    height: auto;
-    top: auto;
-    padding-left: 0;
-    margin-top: 40px;
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 20px; /* Adjust this value based on your header height */
+    height: fit-content;
+    align-self: flex-start;
+    transition: all 0.3s ease;
   }
 
   .main-title {
@@ -221,9 +222,9 @@
 }
 
 @media (max-width: 768px) {
-  .header-section {
+  /* .header-section {
     padding: 60px 20px 50px;
-  }
+  } */
 
   .main-title,
   .subtitle,
@@ -296,5 +297,8 @@
   .divider {
     width: 40%;
     margin: 1.2rem auto;
+  }
+  .scrolled-form {
+    padding-top: 0rem; /* or whatever amount you want */
   }
 }

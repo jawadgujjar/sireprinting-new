@@ -81,4 +81,13 @@
     font-size: 2rem;
     padding: 1rem;
   }
+  .specs-header h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
+  }
 }

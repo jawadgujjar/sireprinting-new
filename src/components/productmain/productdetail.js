@@ -71,7 +71,7 @@ function Productdetail1() {
         <Col xs={24} md={12}>
           <div className="accordion-container">
             {/* More Details */}
-            <div className="accordion-item">
+            {/* <div className="accordion-item">
               <div
                 className="accordion-header"
                 onClick={() => setMoreDetailsOpen(!isMoreDetailsOpen)}
@@ -92,32 +92,10 @@ function Productdetail1() {
                   <p>Roll end lock front with dust flaps and cherry locks</p>
                 </div>
               )}
-            </div>
+            </div> */}
 
-            {/* Quick FAQ's */}
-            <div className="accordion-item">
-              <div
-                className="accordion-header"
-                onClick={() => setFaqOpen(!isFaqOpen)}
-              >
-                <p style={{ fontWeight: "bold" }}>Quick FAQ's</p>
-                <span>{isFaqOpen ? "▾" : "▸"}</span>
-              </div>
-              {isFaqOpen && (
-                <div className="accordion-content">
-                  <p>Standardized or fully customizable sizing options</p>
-                  <hr />
-                  <p>FSC Certified Paper and OK Compost Certified 32 ECT</p>
-                  <hr />
-                  <p>Carbon-neutral packaging and fulfillment available</p>
-                  <hr />
-                  <p>Double-sided printing available</p>
-                  <hr />
-                  <p>Roll end lock front with dust flaps and cherry locks</p>
-                </div>
-              )}
-            </div>
-
+       
+            
             {/* Material */}
             <div className="accordion-item">
               <div
@@ -226,6 +204,28 @@ function Productdetail1() {
                 <span>{isTurnaroundOpen ? "▾" : "▸"}</span>
               </div>
               {isTurnaroundOpen && (
+                <div className="accordion-content">
+                  <p>Standardized or fully customizable sizing options</p>
+                  <hr />
+                  <p>FSC Certified Paper and OK Compost Certified 32 ECT</p>
+                  <hr />
+                  <p>Carbon-neutral packaging and fulfillment available</p>
+                  <hr />
+                  <p>Double-sided printing available</p>
+                  <hr />
+                  <p>Roll end lock front with dust flaps and cherry locks</p>
+                </div>
+              )}
+            </div>
+            <div className="accordion-item">
+              <div
+                className="accordion-header"
+                onClick={() => setFaqOpen(!isFaqOpen)}
+              >
+                <p style={{ fontWeight: "bold" }}>Quick FAQ's</p>
+                <span>{isFaqOpen ? "▾" : "▸"}</span>
+              </div>
+              {isFaqOpen && (
                 <div className="accordion-content">
                   <p>Standardized or fully customizable sizing options</p>
                   <hr />

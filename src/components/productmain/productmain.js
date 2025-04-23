@@ -40,7 +40,7 @@ const Productmain1 = () => {
   const truncatedText = text.slice(0, 100);
 
   return (
-    <div className="product-page-container">
+    <div className="products-page-container">
       <Row className="product-content-wrapper">
         {/* Image Section */}
         <Col xs={24} md={14}>
@@ -53,18 +53,20 @@ const Productmain1 = () => {
         <Col xs={24} md={10}>
           <div className="product-form-section">
             <div className="productmain-form-container">
-              <h3 className="form-title">Small Pillow Boxes</h3>
-              <div className="product-rating">
-                <span className="stars">
-                  <StarFilled />
-                  <StarFilled />
-                  <StarFilled />
-                  <StarFilled />
-                  <StarTwoTone twoToneColor="#fadb14" />
-                </span>
-                <span className="review-count">47 reviews</span>
+              <div className="product-header-group">
+                <h3 className="form-title1">Small Pillow Boxes</h3>
+                <div className="product-ratings">
+                  <span className="stars">
+                    <StarFilled />
+                    <StarFilled />
+                    <StarFilled />
+                    <StarFilled />
+                    <StarTwoTone twoToneColor="#fadb14" />
+                  </span>
+                  <span className="review-count">47 reviews</span>
+                </div>
               </div>
-              <div className="product-rating1">
+              <div className="product-ratings1">
                 <p>
                   {isExpanded ? text : `${truncatedText}...`}
                   <span
@@ -179,7 +181,7 @@ const Productmain1 = () => {
                         className="submit-button small-btn"
                         onClick={handleNext}
                       >
-                        Next
+                        Get Pricing
                       </Button>
                     </Form.Item>
                   </>
