@@ -47,7 +47,10 @@ const logos = [
 const Industry = () => {
   return (
     <div className="trusted">
-      <h2 className="industry-main">Boxes By Style</h2>
+      <div className="div-trustedtext">
+        {" "}
+        <h2 className="trustedtext">Boxes By Style</h2>
+      </div>
       <p className="industry-main-p">
         Discover customized packaging designed exclusively for your industry.
         Our expert team creates innovative solutions that not only meet but
@@ -60,8 +63,10 @@ const Industry = () => {
             {" "}
             {/* ← yeh change karo */}
             <img src={item.image} alt={item.title} />
-            <h3>{item.title}</h3>
-            <p className="product-desc">{item.description}</p>
+            <div className="industry-blue-part">
+              <h3>{item.title}</h3>
+              <p className="product-desc">{item.description}</p>
+            </div>
           </div>
         ))}
       </div>

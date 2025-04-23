@@ -42,9 +42,9 @@ function Sireadvantage() {
 
   return (
     <div className="sireadvantage-wrapper">
-      <hr className="divider-line" />
-      <h2 className="advantage-main">SIRE PRINTING ADVANTAGES</h2>
-
+      <div className="div-trustedtext">
+        <h2 className="trustedtext">SIRE PRINTING ADVANTAGES</h2>
+      </div>
       <div className="three-images-advantages">
         {advantages.map((item, index) => (
           <div className="advantage-card" key={index}>
@@ -54,11 +54,85 @@ function Sireadvantage() {
           </div>
         ))}
       </div>
-      <div className="form-section">
-        <div className="form-left">
-          <img src="../images/instant.jpg" alt="form-banner" />
-        </div>
-        <div className="form-right">
+      <Row className="form-section">
+        <Col xs={24} md={12} className="form-left">
+          <h3 className="form-title-advantage">Order Process</h3>
+          <div className="process-div">
+            {/* Images Row */}
+            <div className="process-images-row">
+              <div className="process-div-inside">
+                <img alt="processimage" src="../images/process1.png" />
+              </div>
+              <div className="process-div-inside">
+                <img alt="processimage" src="../images/process2.png" />
+              </div>
+              <div className="process-div-inside">
+                <img alt="processimage" src="../images/process3.png" />
+              </div>
+              <div className="process-div-inside">
+                <img alt="processimage" src="../images/process4.png" />
+              </div>
+              <div className="process-div-inside">
+                <img alt="processimage" src="../images/process5.png" />
+              </div>
+            </div>
+
+            {/* Headings Row */}
+            <div className="process-headings-row">
+              <div className="process-div-inside">
+                <h3>Inquire Your Packaging</h3>
+              </div>
+              <div className="process-div-inside">
+                <h3>Cost Estimation</h3>
+              </div>
+              <div className="process-div-inside">
+                <h3>Packaging Design Proof</h3>
+              </div>
+              <div className="process-div-inside">
+                <h3>Printing Process</h3>
+              </div>
+              <div className="process-div-inside">
+                <h3>Shipping & Handling</h3>
+              </div>
+            </div>
+
+            {/* Text Row */}
+            <div className="process-text-row">
+              <div className="process-div-inside">
+                <p>
+                  Fill the quote form with your box specification like size,
+                  color and quantity.
+                </p>
+              </div>
+              <div className="process-div-inside">
+                <p>
+                  We will share pricing within 24Hrs based on submitted
+                  specification.
+                </p>
+              </div>
+              <div className="process-div-inside">
+                <p>
+                  Submit artwork or use our FREE design services to finalize
+                  your proof.
+                </p>
+              </div>
+              <div className="process-div-inside">
+                <p>
+                  Upon approval we start printing and production of your
+                  packaging.
+                </p>
+              </div>
+              <div className="process-div-inside">
+                <p>
+                  Your order ships after production and quality checks. Doorstep
+                  delivery.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Col>
+
+        <Col xs={24} md={12} className="form-right">
           <h3 className="form-title-advantage">Get Instant Pricing</h3>
           <Form
             layout="vertical"
@@ -216,8 +290,8 @@ function Sireadvantage() {
               </>
             )}
           </Form>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </div>
   );
 }
