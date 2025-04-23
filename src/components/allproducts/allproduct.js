@@ -182,7 +182,7 @@ function Allproduct1() {
           </Col>
           <Col
             xs={24}
-            md={8}
+            md={10}
             lg={8}
             className={`form-column ${scrolled ? "scrolled-form" : ""}`}
           >

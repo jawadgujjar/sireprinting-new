@@ -39,30 +39,30 @@ function Productform1() {
       <Form form={form} layout="vertical" onFinish={handleFinish}>
         {/* Dimensions Section */}
         <Row gutter={[8, 8]}>
-          <Col xs={24} sm={8}>
+          <Col xs={24} sm={12} md={8}>
             <Form.Item name="length">
               <Input
                 className="ultra-compact-input"
                 placeholder="Length"
-                suffix={<span className="unit-suffix">in</span>}
+                // suffix={<span className="unit-suffix">in</span>}
               />
             </Form.Item>
           </Col>
-          <Col xs={24} sm={8}>
+          <Col xs={24} sm={12} md={8}>
             <Form.Item name="width">
               <Input
                 className="ultra-compact-input"
                 placeholder="Width"
-                suffix={<span className="unit-suffix">in</span>}
+                // suffix={<span className="unit-suffix">in</span>}
               />
             </Form.Item>
           </Col>
-          <Col xs={24} sm={8}>
+          <Col xs={24} sm={12} md={8} >
             <Form.Item name="depth">
               <Input
                 className="ultra-compact-input"
                 placeholder="Depth"
-                suffix={<span className="unit-suffix">in</span>}
+                // suffix={<span className="unit-suffix">in</span>}
               />
             </Form.Item>
           </Col>
@@ -78,7 +78,7 @@ function Productform1() {
         {/* Product Selection */}
         <Row gutter={[8, 8]}>
           <Col xs={24} sm={12}>
-            <Form.Item name="chooseProduct" label="PRODUCT TYPE">
+            <Form.Item name="chooseProduct" label="PRODUCT">
               <Select className="ultra-compact-select" placeholder="Select">
                 <Option value="mailer">Mailer Boxes</Option>
                 <Option value="poly">Poly Mailers</Option>

@@ -1,7 +1,7 @@
 .product-page-container {
   background-color: #f9f9f9;
-  padding: 20px;
-  min-height: 100vh;
+   padding: 20px;
+ 
 }
 
 .product-header {
@@ -18,21 +18,32 @@
   margin-top: 1rem;
 }
 
-.product-rating {
+.product-ratings {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
-  margin-left: 3rem;
+   
 }
-.product-rating1 {
+.product-ratings1 {
   display: flex;
-  align-items: center;
-  text-align: center;
+  align-items: left;
+  text-align: left;
   gap: 8px;
   margin-bottom: 10px;
-  /* margin-left: 3rem; */
   color: #5c5a5a;
+   
+}
+.product-header-group {
+  margin-bottom: 15px; /* Controls space below the whole group */
+}
+
+.product-header-group .form-title1 {
+  margin-bottom: 0; /* Remove space between heading and ratings */
+}
+
+.product-header-group .product-ratings {
+  margin-top: 2px; /* Small gap between heading and ratings */
 }
 
 .stars svg {
@@ -72,9 +83,8 @@
   margin-top: 3rem;
 }
 
-.form-title {
-  text-align: center;
-  color: #333;
+.form-title1 {
+  text-align: left;
   font-size: 3rem;
   margin-bottom: 20px;
   font-weight: bold;
@@ -107,12 +117,12 @@
   float: right;
 }
 @media (max-width: 1024px) {
-  .form-title {
-    font-size: 2rem;
+  .form-title1 {
+    font-size: 2.5rem;
   }
-  .product-rating {
+  /* .product-rating {
     margin-left: 4rem;
-  }
+  } */
   /* .product-rating1 {
     margin-left: 4rem;
   } */
@@ -143,7 +153,7 @@
   .small-btn {
     margin-top: 1rem;
   }
-  .form-title {
+  .form-title1 {
     font-size: 2rem;
   }
   /* .product-rating1 {
@@ -157,4 +167,70 @@
     text-align: center;
     margin-left: -3rem;
   } */
+}
+ /* Add these styles to your productmain.css file */
+
+@media (max-width: 425px) {
+  .product-page-container {
+    padding: 10px;
+    width: 100%;
+    min-width: 320px; /* Ensure it doesn't shrink below 320px */
+    box-sizing: border-box;
+  }
+
+  .product-content-wrapper {
+    margin-top: 2rem;
+  }
+
+  .form-title1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+
+  /* .product-ratings1 {
+    justify-content: center;
+    text-align: center;
+  } */
+
+  .product-form-section {
+    padding: 0 10px;
+  }
+
+  /* Adjust form elements for small screens */
+  .ant-form-item-label {
+    text-align: left !important;
+  }
+
+  .ant-input,
+  .ant-select-selector {
+    height: 36px !important;
+  }
+
+  .small-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* Ensure the back/submit buttons stack vertically */
+  .ant-form-item-control {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ant-form-item-control .ant-btn + .ant-btn {
+    margin-top: 10px;
+    margin-left: 0;
+  }
+}
+
+/* For very small screens (below 320px) */
+@media (max-width: 320px) {
+  .product-page-container {
+    min-width: 100%;
+    padding: 5px;
+  }
+
+  .form-title1 {
+    font-size: 1.5rem;
+  }
 }
