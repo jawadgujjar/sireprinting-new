@@ -68,7 +68,7 @@ const ProductCarousel = () => {
   const settings = {
     infinite: true,
     speed: 1000, // Normal scroll speed
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000, // Slide change every 2 seconds
@@ -99,7 +99,10 @@ const ProductCarousel = () => {
 
   return (
     <div className="trusted">
-      <h2 className="trustedtext"> CUSTOM BOXES BY SIRE PRINTING</h2>
+      <div className="div-trustedtext">
+        {" "}
+        <h2 className="trustedtext"> CUSTOM BOXES BY SIRE PRINTING</h2>
+      </div>
       <Slider {...settings} className="scrolling-slider">
         {logos.map((item, index) => (
           <HoverCard key={index} product={item} />
@@ -125,7 +128,7 @@ const HoverCard = ({ product }) => {
 
   return (
     <div
-      className="product-card"
+      className="industry-card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
         setHovered(false);
@@ -133,12 +136,14 @@ const HoverCard = ({ product }) => {
       }}
     >
       <img
+        className="image-carousel"
         src={product.images[currentIndex]}
         alt={product.title}
-        className="product-img"
       />
-      <div className="product-title-css">{product.title}</div>
-      <div className="product-desc">{product.description}</div>
+      <div className="industry-blue-part">
+        <h3>{product.title}</h3>
+        <p className="product-desc">{product.description}</p>
+      </div>
     </div>
   );
 };

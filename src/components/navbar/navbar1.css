@@ -7,18 +7,23 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 10;
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  padding: 0.5rem;
 }
-
 /* On scroll */
 .navbar.scrolled {
-  background-color: white !important;
+  background-color: #01257d !important;
   border-bottom: 2px solid #3498db !important;
 }
 .navbar:hover {
-  background-color: white !important;
+  background-color: #01257d !important;
   border-bottom: 2px solid #3498db !important;
 }
-
+.navbar:hover .nav-link {
+  color: #00ffff !important;
+}
+.navbar:hover .phone-icons {
+  color: #00ffff !important;
+}
 /* Navbar Container */
 .navbar-container {
   max-width: 1400px;
@@ -56,9 +61,11 @@
   position: relative;
   padding: 0 15px;
 }
-
+.logo-size {
+  width: 8rem;
+}
 .nav-link {
-  color: #333;
+  color: #01257d;
   text-decoration: none;
   font-weight: 500;
   padding: 10px 0;
@@ -68,11 +75,28 @@
   font-size: 13px;
   font-weight: 600;
 }
-.logo-size {
-  width: 10rem;
-}
+
 .nav-link:hover {
-  color: #01257d;
+  color: #00ffff !important;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #00ffff;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 30%; /* Adjust width as needed */
+}
+.nav-link.scrolled {
+  color: #00ffff !important;
 }
 
 /* Dropdown Styles */
@@ -143,6 +167,11 @@
 .phone-icons {
   margin-right: 8px;
   color: #01257d;
+  font-size: 22px; /* ya jitna chaho */
+}
+.phone-icons.scrolled {
+  margin-right: 8px;
+  color: #00ffff;
   font-size: 22px; /* ya jitna chaho */
 }
 

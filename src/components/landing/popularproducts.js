@@ -30,6 +30,13 @@ function Popularproducts() {
   return (
     <div>
       <div className="popular-products-container">
+        <div className="div-trustedtext">
+          {" "}
+          <h2 className="trustedtext">
+            {" "}
+            Your Packaging, Your Way – Complete Control
+          </h2>
+        </div>
         <Row gutter={[16, 16]} justify="center">
           {cardData.map((card, index) => (
             <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6}>
