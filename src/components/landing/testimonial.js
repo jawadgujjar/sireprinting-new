@@ -1,7 +1,6 @@
-// Testimonial.js
 import React from "react";
 import { Row, Col, Progress, Rate, Button, Image } from "antd";
-import { StarFilled } from "@ant-design/icons";
+import { EyeOutlined, StarFilled } from "@ant-design/icons";
 import "./testimonial.css";
 
 const starData = [
@@ -36,77 +35,95 @@ const reviews = [
     review:
       "Amazing experience! They really go above and beyond. I had some issues and they solved them instantly.",
   },
-  {
-    name: "Tony Stark",
-    rating: 5,
-    img: "../images/review.jpg",
-    review: "Highly recommend. Support team is awesome and always available.",
-  },
-  {
-    name: "Bruce Wayne",
-    rating: 4,
-    img: "../images/review.jpg",
-    review:
-      "Impressive! Their service is outstanding and the team is very helpful.",
-  },
 ];
 
 const Testimonial = () => {
   return (
     <div className="testimonial-main">
-      <h2 className="testimonials-main">Testimonials</h2>
-      <hr />
-      <Row className="testimonial-summary-row" gutter={[30, 30]}>
-        <Col xs={24} md={10}>
-          <h2 className="rating-text">
-            4.7/<span style={{ fontSize: "1.3rem", color: "black" }}>5</span>{" "}
-            <span style={{ fontSize: "0.7rem" }}>(33 reviews)</span>
-          </h2>
-          {starData.map((item, index) => (
-            <div className="star-bar" key={index}>
-              <span className="star-label">
-                {item.star} <StarFilled />
-              </span>
-              <Progress
-                percent={(item.count / 33) * 100}
-                showInfo={false}
-                strokeColor="#ffd700"
-              />
-              <span className="star-count">{item.count}</span>
-            </div>
-          ))}
-        </Col>
-        <Col xs={24} md={14}>
-          <Image.PreviewGroup>
-            <div className="review-images-row">
-              {reviewImages.map((img, index) => (
-                <Image
-                  key={index}
-                  src={img}
-                  alt={`review ${index}`}
-                  className="review-img"
-                  preview={{ mask: "  Preview" }}
+      <div className="testimonial-header">
+        <h2 className="trustedtext">Testimonials</h2>
+      </div>
+
+      <Row gutter={[24, 24]} className="testimonial-content-row">
+        {/* Rating Summary Column */}
+        <Col xs={24} sm={12} lg={8}>
+          <div className="rating-summary-card">
+            <h2 className="rating-text">
+              4.7/
+              <span className="rating-denominator">5</span>{" "}
+              <span className="review-count">(33 reviews)</span>
+            </h2>
+            {starData.map((item, index) => (
+              <div className="star-bar" key={index}>
+                <span className="star-label">
+                  {item.star} <StarFilled />
+                </span>
+                <Progress
+                  percent={(item.count / 33) * 100}
+                  showInfo={false}
+                  strokeColor="#ffd700"
                 />
-              ))}
+                <span className="star-count">{item.count}</span>
+              </div>
+            ))}
+          </div>
+        </Col>
+
+        {/* Review Images Column */}
+        <Col xs={24} sm={12} lg={8}>
+          <div className="review-images-card">
+            <h3 className="customer-review-text">Customer Gallery</h3>
+            <Image.PreviewGroup>
+              <div className="review-images-grid">
+                {reviewImages.map((img, index) => (
+                  <div className="image-container" key={index}>
+                    <Image
+                      src={img}
+                      alt={`Customer review ${index + 1}`}
+                      className="review-img"
+                      preview={{
+                        mask: (
+                          <EyeOutlined
+                            style={{ color: "#fff", fontSize: "18px" }}
+                          />
+                        ),
+                      }}
+                    />
+                    <div className="image-hover-overlay">
+                      <EyeOutlined
+                        style={{ color: "#fff", fontSize: "24px" }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Image.PreviewGroup>
+          </div>
+        </Col>
+
+        {/* Customer Reviews Column */}
+        <Col xs={24} sm={24} lg={8}>
+          <div className="reviews-card">
+            <h3 className="testimonials-main-sec">Top Reviews</h3>
+            {reviews.map((rev, i) => (
+              <div className="review-card" key={i}>
+                <Rate
+                  disabled
+                  defaultValue={rev.rating}
+                  className="star-rating"
+                />
+                <h4>{rev.name}</h4>
+                <p>{rev.review}</p>
+              </div>
+            ))}
+            <div className="show-more-btn">
+              <Button size="large" className="golden-btn">
+                Show More Reviews
+              </Button>
             </div>
-          </Image.PreviewGroup>
+          </div>
         </Col>
       </Row>
-      <div className="reviews-section">
-        <h2 className="testimonials-main-sec">Customers Reviews</h2>
-        {reviews.slice(0, 4).map((rev, i) => (
-          <div className="review-card" key={i}>
-            <Rate disabled defaultValue={rev.rating} className="star-rating" />
-            <h4>{rev.name}</h4>
-            <p>{rev.review}</p>
-          </div>
-        ))}
-        <div className="show-more-btn">
-          <Button size="large" className="golden-btn">
-            Show More Reviews
-          </Button>
-        </div>
-      </div>
     </div>
   );
 };

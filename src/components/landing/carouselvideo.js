@@ -54,9 +54,12 @@ function Videocarousel() {
   ];
 
   return (
-    <div className="carousel-main">
-      <div>
-        <h2 className="testimonials-main">Get Inspiration</h2>
+    <div>
+      <div className="carousel-main">
+        <div className="div-trustedtext">
+          {" "}
+          <h2 className="trustedtext">Get Inspiration</h2>
+        </div>
         <hr />
       </div>
       <Swiper

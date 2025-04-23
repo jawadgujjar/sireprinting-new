@@ -95,11 +95,7 @@ const Navbar1 = () => {
         </div>
         <div className="logo">
           <Link to="/">
-            <img
-              className="logo-size"
-              alt="logo"
-              src="./images/sirepriting.png"
-            />
+            <img className="logo-size" alt="logo" src="./images/logo.png" />
           </Link>
         </div>
         <div className={`nav-links ${isMobileMenuOpen ? "active" : ""}`}>
@@ -116,7 +112,10 @@ const Navbar1 = () => {
                 }
                 onMouseLeave={() => !isMobile && toggleDropdown(null)}
               >
-                <Link to={item.link} className="nav-link">
+                <Link
+                  to={item.link}
+                  className={`nav-link ${isScrolled ? "scrolled" : ""}`}
+                >
                   {item.name}
                 </Link>
                 {item.dropdown &&
@@ -145,18 +144,24 @@ const Navbar1 = () => {
         <div className="nav-icons">
           <div className="phone-number">
             <a href="tel:+11392383929" className="phone-number">
-              <FaPhone className="phone-icons" />
+              <FaPhone
+                className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
+              />
             </a>{" "}
           </div>
           <div className="phone-number">
             <Link to="/login">
               {" "}
-              <FaRegUser className="phone-icons" />
+              <FaRegUser
+                className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
+              />
             </Link>
           </div>
           <div className="phone-number">
             <Link to="/search-products">
-              <IoSearchOutline className="phone-icons" />
+              <IoSearchOutline
+                className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
+              />
             </Link>
           </div>
         </div>
