@@ -54,7 +54,7 @@ const Productmain1 = () => {
           <div className="product-form-section">
             <div className="productmain-form-container">
               <div className="product-header-group">
-                <h3 className="form-title1">Small Pillow Boxes</h3>
+                <p className="form-title1">Small Pillow Boxes</p>
                 <div className="product-ratings">
                   <span className="stars">
                     <StarFilled />
