@@ -1,12 +1,12 @@
 .container-main {
   width: 100%;
   min-height: 171px;
-  background-color: rgba(1, 37, 125);
+  /* background-color: rgba(1, 37, 125); */
   display: flex; /* Enable flexbox on the container */
   justify-content: center; /* Center the content horizontally */
   align-items: center; /* Center the content vertically */
+  border: 2px solid #00ffff;
 }
-
 .brand-images {
   display: flex;
   flex-wrap: wrap;
