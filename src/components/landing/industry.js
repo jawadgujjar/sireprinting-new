@@ -51,7 +51,7 @@ const Industry = () => {
         {" "}
         <h2 className="trustedtext">Boxes By Style</h2>
       </div>
-      <p className="industry-main-p">
+      <p className="industry-main-p"> 
         Discover customized packaging designed exclusively for your industry.
         Our expert team creates innovative solutions that not only meet but
         exceed your packaging needs.

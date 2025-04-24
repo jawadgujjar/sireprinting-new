@@ -92,30 +92,29 @@
 
 .process-div-inside {
   display: flex;
+  justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
-  width: 20%; /* Adjust based on your needs */
+  width: 100%;
 }
 .process-div-inside img {
-  width: 8rem; /* Adjust size as needed */
   height: auto;
   object-fit: contain;
-  margin-left: -0.8rem;
 }
 
 .process-div-inside h3 {
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
-  margin: 0;
+  margin-left: 0 auto;
   color: #fff;
 }
 
 .process-div-inside p {
-  font-size: 14px;
+  font-size: 10px;
   text-align: center;
   color: #fff;
   margin: 0;
-  width: 100%;
+  width: 90%;
 }
 .advantage-card {
   background: #fff;
@@ -126,7 +125,10 @@
   text-align: center;
   transition: all 0.3s ease;
 }
-
+.process-div-img{
+  width: 110%;
+  margin-left: -2rem;
+}
 .advantage-card img {
   width: 100%;
   height: 180px;
@@ -190,15 +192,17 @@
 }
 
 .submit-button {
-  background: #00ffff !important;
-  border-color: #01257d !important;
+  background: #01257d !important;
+  border: 1px solid #00ffff !important;
   font-weight: bold;
   padding: 6px 24px;
   float: right; /* Move the button to the right */
 }
 .submit-button:hover {
-  background: #01257d !important;
-  border: 1px solid #00ffff !important;
+  background: #00ffff !important;
+  border: 1px solid #01257d !important;
+  color: #01257d !important;
+  font-weight: bold;
 }
 
 .form-buttons {
@@ -225,7 +229,7 @@
     text-align: center;
   }
   .process-div-inside img {
-    width: 4rem; /* Adjust size as needed */
+    width: auto; /* Adjust size as needed */
     height: auto;
     object-fit: contain;
     margin-left: -0.8rem;
@@ -253,7 +257,10 @@
     flex-direction: column;
     padding: 20px 10px;
   }
-
+  .process-div-img{
+    width: 100%;
+    margin-left: -0.5rem;
+  }
   .form-left,
   .form-right {
     width: 100%;
@@ -301,11 +308,11 @@
   .process-div-inside h3 {
     font-size: 10px;
     text-align: left;
-    width: 80%;
+    width: 100%;
   }
   .process-div-inside p {
-    font-size: 10px;
+    font-size: 7px;
     text-align: left;
-    width: 70%;
+    width: 80%;
   }
 }

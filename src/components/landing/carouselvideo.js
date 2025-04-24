@@ -60,7 +60,6 @@ function Videocarousel() {
           {" "}
           <h2 className="trustedtext">Get Inspiration</h2>
         </div>
-        <hr />
       </div>
       <Swiper
         modules={[Navigation]}

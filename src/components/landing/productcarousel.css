@@ -17,8 +17,8 @@
 } */
 
 .image-carousel {
-  width: 100%;
-  height: 240px;
+  width: 2rem;
+  height: 2rem;
   object-fit: cover;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -65,53 +65,61 @@
   display: none;
 }
 
+/* Product Card Styles */
 .product-card {
   flex: 0 0 auto;
-  /* width: 200px; */
-  padding: 1.2rem;
   margin: 0.5rem;
-  background: #fff;
-  border-radius: 12px;
+  background: #01257d;
+  border-radius: 16px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  max-width: 350px;
+  cursor: pointer;
+  border: 1px solid #01257d;
 }
 
 .product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
   border: 2px solid transparent;
   border-image: linear-gradient(90deg, #01257d, #00ffff);
   border-image-slice: 1;
 }
 
+/* Product Image Styles */
 .product-img {
-  height: 150px;
+  height: 240px;
   width: 100%;
   object-fit: contain;
   transition: all 0.4s ease;
-  border-radius: 8px;
+  border-radius: 10px;
+  background-color: #fff;
 }
 
+/* Title & Description */
 .product-title-css {
   font-weight: 700;
   margin-top: 1rem;
   font-size: 1.15rem;
-  color: #00ffff;
+  color: #01257d;
+  text-transform: capitalize;
 }
 
 .product-desc {
   font-size: 0.95rem;
-  color: #666;
+  color: #fff;
   margin-top: 0.5rem;
+  line-height: 1.4;
 }
 
+/* Arrow Controls */
 .arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.95);
-  padding: 0.5rem 0.8rem;
+  padding: 0.6rem 0.9rem;
   border-radius: 50%;
   cursor: pointer;
   z-index: 20;
@@ -133,9 +141,25 @@
   right: 10px;
 }
 
+/* HoverCard Specific Image Styling */
+.image-carousel {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.image-carousel:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .product-img {
-    height: 100px;
+    height: 240px;
   }
 
   .product-title-css {

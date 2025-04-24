@@ -39,7 +39,7 @@
 .carousel-swiper {
   position: relative;
   width: 100%;
-  padding-top: 3rem;
+  /* padding-top: 3rem; */
 }
 
 .carousel-swiper .swiper-slide {

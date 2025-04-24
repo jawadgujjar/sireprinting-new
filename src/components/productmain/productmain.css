@@ -32,7 +32,6 @@
   gap: 8px;
   margin-bottom: 10px;
   color: #5c5a5a;
-   
 }
 .product-header-group {
   margin-bottom: 15px; /* Controls space below the whole group */
@@ -88,6 +87,7 @@
   font-size: 3rem;
   margin-bottom: 20px;
   font-weight: bold;
+  color: #01257d !important;
 }
 
 .form-row {

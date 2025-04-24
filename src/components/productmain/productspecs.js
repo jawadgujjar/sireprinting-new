@@ -4,9 +4,10 @@ import './productspecs.css';
 function ProductSpecs() {
   return (
     <div className="specs-container">
-      <div className="specs-header">
-        <h2>Product Specifications</h2>
-        <hr />
+     <div className="div-trustedtext">
+        {" "}
+        <h2 className="trustedtext">Product Specifications</h2>
+        
       </div>
 
       <div className="specs-grid">
