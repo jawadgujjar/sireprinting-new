@@ -7,22 +7,22 @@ const cardData = [
   {
     title: "Low Minimums",
     description: "Only order what you need.",
-    img: "https://www.arka.com/cdn/shop/files/Frame_428.png?v=1717179391",
+    img: "../images/icon1.svg",
   },
   {
     title: "Sustainable Options",
     description: "Only order what you need.",
-    img: "https://www.arka.com/cdn/shop/files/Frame_432.png?v=1717179391",
+    img: "../images/icon2.svg",
   },
   {
     title: "Fully Customizable",
     description: "Only order what you need.",
-    img: "https://www.arka.com/cdn/shop/files/Frame_433_0bb1965a-0b07-40b5-bb76-2c75790a53ab.png?v=1717179391",
+    img: "../images/icon3.svg",
   },
   {
     title: "Quick Turnaround",
     description: "Only order what you need.",
-    img: "https://www.arka.com/cdn/shop/files/Frame_436.png?v=1717179391",
+    img: "../images/icon4.svg",
   },
 ];
 
@@ -37,6 +37,12 @@ function Popularproducts() {
             Your Packaging, Your Way – Complete Control
           </h2>
         </div>
+        <p className="industry-main-p">
+          Your product deserves packaging that speaks your brand. With us,
+          you're in charge — every fold, color, and finish is your call. We
+          empower you to create packaging that's not just protective, but
+          powerful. Let's build something unforgettable, together.
+        </p>
         <Row gutter={[16, 16]} justify="center">
           {cardData.map((card, index) => (
             <Col key={index} xs={24} sm={12} md={8} lg={6} xl={6}>

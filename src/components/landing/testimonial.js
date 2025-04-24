@@ -43,7 +43,11 @@ const Testimonial = () => {
       <div className="testimonial-header">
         <h2 className="trustedtext">Testimonials</h2>
       </div>
-
+      <p className="industry-main-p">
+        Hear from our satisfied clients who’ve experienced the difference. From
+        small businesses to large enterprises, our custom packaging has made a
+        lasting impact.{" "}
+      </p>
       <Row gutter={[24, 24]} className="testimonial-content-row">
         {/* Rating Summary Column */}
         <Col xs={24} sm={12} lg={8}>
@@ -89,11 +93,11 @@ const Testimonial = () => {
                         ),
                       }}
                     />
-                    <div className="image-hover-overlay">
+                    {/* <div className="image-hover-overlay">
                       <EyeOutlined
                         style={{ color: "#fff", fontSize: "24px" }}
                       />
-                    </div>
+                    </div> */}
                   </div>
                 ))}
               </div>

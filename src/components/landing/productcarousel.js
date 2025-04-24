@@ -103,6 +103,11 @@ const ProductCarousel = () => {
         {" "}
         <h2 className="trustedtext"> CUSTOM BOXES BY SIRE PRINTING</h2>
       </div>
+      <p className="industry-main-p">
+        Discover premium custom packaging solutions tailored to your brand’s
+        needs. At Sire Printing, we combine quality, creativity, and precision
+        to bring your packaging ideas to life.
+      </p>
       <Slider {...settings} className="scrolling-slider">
         {logos.map((item, index) => (
           <HoverCard key={index} product={item} />
@@ -128,7 +133,7 @@ const HoverCard = ({ product }) => {
 
   return (
     <div
-      className="industry-card"
+      className="product-card "
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
         setHovered(false);
@@ -136,12 +141,12 @@ const HoverCard = ({ product }) => {
       }}
     >
       <img
-        className="image-carousel"
         src={product.images[currentIndex]}
         alt={product.title}
+        className="product-img"
       />
       <div className="industry-blue-part">
-        <h3>{product.title}</h3>
+        <h3 className="product-title-css">{product.title}</h3>
         <p className="product-desc">{product.description}</p>
       </div>
     </div>
