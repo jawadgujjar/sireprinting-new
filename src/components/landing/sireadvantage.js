@@ -43,7 +43,9 @@ function Sireadvantage() {
   return (
     <div className="sireadvantage-wrapper">
       <div className="div-trustedtext">
-        <h2 className="trustedtext" style={{marginBottom:"2rem"}}>SIRE PRINTING ADVANTAGES</h2>
+        <h2 className="trustedtext" style={{ marginBottom: "2rem" }}>
+          SIRE PRINTING ADVANTAGES
+        </h2>
       </div>
       <div className="three-images-advantages">
         {advantages.map((item, index) => (

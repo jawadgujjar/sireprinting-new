@@ -69,14 +69,12 @@
 .product-card {
   flex: 0 0 auto;
   margin: 0.5rem;
-  background: #01257d;
   border-radius: 16px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   max-width: 350px;
   cursor: pointer;
-  border: 1px solid #01257d;
 }
 
 .product-card:hover {

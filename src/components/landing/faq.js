@@ -76,7 +76,7 @@ const Faq1 = () => {
     "https://s3.amazonaws.com/sireprinting.com/products/1664588402Kraft%20Window%20Boxes%20SIre%20Printing%20001.png";
 
   return (
-    <section id="faq" style={{ padding: "2rem 1rem" }}>
+    <section id="faq" style={{ padding: "2rem 1rem",marginTop:"2rem" }}>
       <Row gutter={[24, 24]} justify="space-evenly" align="top">
         {/* Left Side Image Gallery */}
         <Col xs={24} md={10} lg={10}>
