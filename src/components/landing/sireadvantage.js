@@ -88,53 +88,47 @@ function Sireadvantage() {
             <div className="process-headings-row">
               <div className="process-div-inside">
                 <h3>Inquire Your Packaging</h3>
-              </div>
-              <div className="process-div-inside">
-                <h3>Cost Estimation</h3>
-              </div>
-              <div className="process-div-inside">
-                <h3>Packaging Design Proof</h3>
-              </div>
-              <div className="process-div-inside">
-                <h3>Printing Process</h3>
-              </div>
-              <div className="process-div-inside">
-                <h3>Shipping & Handling</h3>
-              </div>
-            </div>
-
-            {/* Text Row */}
-            <div className="process-text-row">
-              <div className="process-div-inside">
                 <p>
                   Fill the quote form with your box specification like size,
                   color and quantity.
                 </p>
               </div>
               <div className="process-div-inside">
+                <h3>Cost Estimation</h3>
                 <p>
                   We will share pricing within 24Hrs based on submitted
                   specification.
                 </p>
               </div>
               <div className="process-div-inside">
+                <h3>Packaging Design Proof</h3>
                 <p>
                   Submit artwork or use our FREE design services to finalize
                   your proof.
                 </p>
               </div>
               <div className="process-div-inside">
+                <h3>Printing Process</h3>
                 <p>
                   Upon approval we start printing and production of your
                   packaging.
                 </p>
               </div>
               <div className="process-div-inside">
+                <h3>Shipping & Handling</h3>
                 <p>
                   Your order ships after production and quality checks. Doorstep
                   delivery.
                 </p>
               </div>
+            </div>
+
+            <div className="process-text-row">
+              <div className="process-div-inside"></div>
+              <div className="process-div-inside"></div>
+              <div className="process-div-inside"></div>
+              <div className="process-div-inside"></div>
+              <div className="process-div-inside"></div>
             </div>
           </div>
         </Col>

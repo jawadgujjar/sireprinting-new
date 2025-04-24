@@ -11,60 +11,60 @@ const Faq1 = () => {
       question:
         "Can I personalize the boxes in any size, color, and style with custom printed logo/artwork?",
       answer:
-        "Yes, we are adept in producing custom boxes in any size, color, and shape with your own artwork printed. For your acknowledgment, you can review product pages with different options available. In case you are not able to find your desired need you can contact our Packaging Experts serving you 24/7 on live chat support.",
+        "Yes, we are adept in producing custom boxes in any size, color, and shape with your own artwork printed...",
     },
     {
       question:
         "Can I customize stickers and woven labels in either way like die-cut shape, color, and stock with custom printed logo/artwork?",
       answer:
-        "In general, your price is determined by the size and quantity of your selected product. We can provide a custom price quote based on your exact artwork and specifications for bulk quantity orders of 10,000pcs or more. Contact our sales team for a custom quote and we will reply with pricing and an estimated delivery date within 1 business day.",
+        "In general, your price is determined by the size and quantity of your selected product...",
     },
     {
       question: "Is there a minimum quantity to order?",
       answer:
-        "We have set different minimum order quantity for product lines. Below are MOQ’s set according to product lines.Minimum Order Quantity for custom boxes is set to 50.Minimum Order Quantity for custom stickers is set to 100.Minimum Order Quantity for Woven Labels/Patches is set to 50.",
+        "We have set different minimum order quantity for product lines...",
     },
     {
       question: "What is your turnaround time?",
       answer:
-        "We do have three types of turnaround times that you can choose.Standard Turnaround Time (10-12 Business days to ship after approval on Final Spec Sheet) Expedite Turnaround Time (7-8 Business days to ship after approval on Final Spec Sheet) Rush Turnaround Time (4-6 Business days to ship after approval on Final Spec Sheet) All your orders will be processed with Standard Turnaround Time as FREE Shipping & Handling is a part of it. But if your choice is other than this, there would be additional shipping charges (contact sales) varies on order type.",
+        "We do have three types of turnaround times that you can choose...",
     },
     {
       question:
         "How do I request a quote for the project? How soon do I receive the price quote?",
       answer:
-        "You can request a quote for your project by using any following method:You can fill in any online form available on the website commonly used product page form, which will not only help you choose the specifications but also providing you the related information. Other online forms are also available like “Get a Free Quote” & “Beat My Quote”.You can also get online assistance through our Live Chat Support, where 24/7 sales representative serving you proactively. You can chat with them and provide your packaging needs for a quick price quote.You can directly Email us at support@sireprinting.com, one of our packaging expert will be in touch with you for further assistance. Once your inquiry is submitted, the price quote will be sent your way no later than 24 hours.",
+        "You can request a quote for your project by using any following method...",
     },
     {
       question: "What if I don’t have the Design/Artwork file ready to print?",
       answer:
-        "No Problem! You can unlock the feature of FREE Graphic Design Support by sending your inquiry or you can directly contact our Packaging Experts Team either through Live Chat or Email at support@sireprinting.com.",
+        "No Problem! You can unlock the feature of FREE Graphic Design Support...",
     },
     {
       question:
         "What is the Free Graphic Design Support? Can I send my own Design/Artwork file?",
       answer:
-        "We are providing FREE Graphic Design Support comprising the packaging design right from scratch to its pre-press ready. Also, the designing service we are offering is not static to one or twice revisions but we are committed to offering you multiple revisions till your satisfaction. We do have a very professional in-house designer’s team for this purpose. If you already have the design file ready you can submit the artwork file either through custom quote, product page form, or directly email to support@sireprinting.com and one of our representatives will be in touch with you for further assistance.",
+        "We are providing FREE Graphic Design Support comprising the packaging design right from scratch...",
     },
     {
       question: "How do I place my order?",
       answer:
-        "Once you agreed with the price and approve the final artwork, you will be sending your billing and shipping address to your packaging expert or email at support@sireprinting.com in order to setup a secure payment link for your online order processing. All you just need to click the payment link and complete the order online using PayPal or Credit Card.",
+        "Once you agreed with the price and approve the final artwork, you will be sending your billing and shipping address...",
     },
     {
       question: "Do you offer samples?",
       answer:
-        "Generic Physical Sample Kit (to evaluate printing quality and stock) is always FREE with the order's amount of minimum $1000 if your order amount is less than $1000 you can still request a generic physical sample kit which will cost you $35. You can also request a physical sampling of your own boxes (Contact Sales for Pricing).",
+        "Generic Physical Sample Kit (to evaluate printing quality and stock) is always FREE with the order's amount of minimum $1000...",
     },
     {
       question: "What do I expect once my order is placed?",
       answer:
-        "You will get order confirmation email from your packaging expert. Next you will be expecting a Final Spec Sheet for your approval along with the final design file and 3D mockup of your box which you need to review carefully as we would be needing your Approval on that before heading toward its production and shipping. Once you approve the final spec sheet and artwork files your order will be forward to production.",
+        "You will get order confirmation email from your packaging expert. Next you will be expecting a Final Spec Sheet for your approval...",
     },
     {
       question: "Do you offer discounts on bulk quantity order?",
       answer:
-        "Yes! The packaging industry has the simple formula “Price goes down as the quantity increases”. SirePrinting being a leading packaging company and offering its services more than a decade therefore wholesalers are welcome significantly. In order to serve this niche, we have specially made a department “Beat My Quote” where wholesalers can expect the better pricing from the market, all they just need to submit the requirements along with the market price quote you received and leave the rest on us and for sure we will beat the price for you.",
+        "Yes! The packaging industry has the simple formula “Price goes down as the quantity increases”...",
     },
   ];
 
@@ -72,42 +72,36 @@ const Faq1 = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const imageURL =
-    "https://s3.amazonaws.com/sireprinting.com/products/1664588402Kraft%20Window%20Boxes%20SIre%20Printing%20001.png";
+  const imageURLs = [
+    "../images/Black_Soap_Boxes_SirePrinting.jpeg",
+    "../images/CBD_Concentrate_Packaging_Boxes_SirePrinting.jpg",
+    "../images/Die_Cut_Soap_Boxes_SirePrinting.jpeg",
+    "../images/Food_Packaging_Sleeves_SirePrinting.jpg",
+    "../images/Holographic_Stickers_SirePrinting.jpeg",
+    "../images/Lip_Balm_Display_Boxes_SirePrinting.jpg",
+    "../images/Serum_Boxes_SirePrinting.jpeg",
+    "../images/SoapBox__Stickers_SirePrinting.jpeg",
+    "../images/Custom Mailer Boxes with Inserts.png",
+  ];
 
   return (
-    <section id="faq" style={{ padding: "2rem 1rem",marginTop:"2rem" }}>
+    <section id="faq" style={{ padding: "2rem 1rem", marginTop: "2rem" }}>
       <Row gutter={[24, 24]} justify="space-evenly" align="top">
         {/* Left Side Image Gallery */}
         <Col xs={24} md={10} lg={10}>
           <Row gutter={[16, 16]} justify="center">
-            {[...Array(3)].map((_, index) => (
-              <Col key={`left-top-${index}`} span={8}>
+            {imageURLs.map((url, index) => (
+              <Col key={`image-${index}`} span={8}>
                 <Image
-                  src={imageURL}
-                  alt="Box Sample"
+                  className="images-faq"
+                  src={url}
+                  alt={`Box Sample ${index + 1}`}
                   preview={false}
-                  style={{ borderRadius: "8px" }}
-                />
-              </Col>
-            ))}
-            {[...Array(2)].map((_, index) => (
-              <Col key={`center-${index}`} span={12}>
-                <Image
-                  src={imageURL}
-                  alt="Box Sample Large"
-                  preview={false}
-                  style={{ borderRadius: "8px", transform: "scale(1.05)" }}
-                />
-              </Col>
-            ))}
-            {[...Array(3)].map((_, index) => (
-              <Col key={`left-bottom-${index}`} span={8}>
-                <Image
-                  src={imageURL}
-                  alt="Box Sample"
-                  preview={false}
-                  style={{ borderRadius: "8px" }}
+                  style={{
+                    borderRadius: "8px",
+                    transform:
+                      index === 3 || index === 4 ? "scale(1.05)" : "none",
+                  }}
                 />
               </Col>
             ))}
