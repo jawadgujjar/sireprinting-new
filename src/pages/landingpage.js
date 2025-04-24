@@ -17,11 +17,11 @@ function Landingpage() {
       <Brands />
       <Industry />
       <Popularproducts />
-      <Solutions />
+      {/* <Solutions /> */}
       <Sireadvantage />
-      <Videocarousel />
       <Testimonial />
       <Banner />
+      <Videocarousel />
       <Faq1 />
     </div>
   );

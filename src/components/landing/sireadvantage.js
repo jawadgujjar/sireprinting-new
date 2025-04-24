@@ -59,8 +59,13 @@ function Sireadvantage() {
           <h3 className="form-title-advantage">Order Process</h3>
           <div className="process-div">
             {/* Images Row */}
+            <img
+              alt="process"
+              src="../images/process.png"
+              className="process-div-img"
+            />
             <div className="process-images-row">
-              <div className="process-div-inside">
+              {/* <div className="process-div-inside">
                 <img alt="processimage" src="../images/process1.png" />
               </div>
               <div className="process-div-inside">
@@ -74,7 +79,7 @@ function Sireadvantage() {
               </div>
               <div className="process-div-inside">
                 <img alt="processimage" src="../images/process5.png" />
-              </div>
+              </div> */}
             </div>
 
             {/* Headings Row */}
