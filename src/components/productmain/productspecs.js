@@ -4,10 +4,8 @@ import './productspecs.css';
 function ProductSpecs() {
   return (
     <div className="specs-container">
-     <div className="div-trustedtext">
-        {" "}
+      <div className="div-trustedtext">
         <h2 className="trustedtext">Product Specifications</h2>
-        
       </div>
 
       <div className="specs-grid">

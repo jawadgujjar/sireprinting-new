@@ -23,18 +23,53 @@
   }
   
   .relatedblog-card {
+    position: relative; /* Required for ::before & ::after */
     display: flex;
     flex-direction: column;
     background-color: #fff;
-    border: 2px solid #ddd;
+    border: 2px solid transparent;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-image: none;
   }
   
   .relatedblog-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    border-image: linear-gradient(90deg, #01257d, #00ffff);
+    border-image-slice: 1;
+  }
+  .relatedblog-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, #01257d, #00ffff);
+    transition: width 0.4s ease;
+  }
+  .relatedblog-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    background: linear-gradient(90deg, #01257d, #00ffff);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+  }
+  .relatedblog-card:hover::before {
+    width: 100%;
+  }
+  
+  .relatedblog-card:hover::after {
+    transform: scaleX(1);
   }
   
   .relatedblog-image-wrapper {
@@ -57,7 +92,7 @@
     font-size: 1.3rem;
     font-weight: bold;
     margin-bottom: 0.6rem;
-    color: #111;
+    color: #01257d !important;
   }
   
   .relatedblog-description {
