@@ -90,8 +90,6 @@ const Productmain1 = () => {
               <Form layout="vertical" onFinish={handleFinish} form={form}>
                 {step === 1 && (
                   <>
-                   
-
                     <Row gutter={16}>
                       <Col xs={24} sm={12} md={6}>
                         <Form.Item
