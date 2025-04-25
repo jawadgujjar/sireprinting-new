@@ -14,6 +14,9 @@
   background-color: #01257d !important;
   border-bottom: 2px solid #3498db !important;
 }
+.flag {
+  width: 2rem;
+}
 .navbar:hover {
   background-color: #01257d !important;
   border-bottom: 2px solid #3498db !important;
@@ -48,6 +51,7 @@
 .nav-links {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-menu {
@@ -84,7 +88,7 @@
   content: "";
   position: absolute;
   bottom: -4px;
-  left: 50%;
+  left: 35%;
   width: 0;
   height: 2px;
   background-color: #00ffff;
@@ -252,5 +256,10 @@
     margin-left: 0;
     margin-top: 20px;
     width: 100%;
+  }
+}
+@media (max-width: 425px) {
+  .flag {
+    display: none;
   }
 }

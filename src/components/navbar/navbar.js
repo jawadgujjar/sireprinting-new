@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaPhone, FaBars, FaTimes, FaRegUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { countries } from "country-flag-icons";
 import "./navbar1.css";
 import { IoSearchOutline } from "react-icons/io5";
 
@@ -28,53 +29,66 @@ const Navbar1 = () => {
 
   const navItems = [
     {
-      name: "ALL PRODUCTS",
-      dropdown: false,
+      name: "Custom Packaging Boxes",
+      dropdown: true,
       link: "/all-products",
+      items: [
+        { name: "Candle Packaging", link: "/Candle-Packaging" },
+        { name: "CBD Packaging Boxes", link: "/CBD-Packaging-Boxes" },
+        { name: "Chocolate Packaging", link: "/Chocolate-Packaging" },
+        { name: "Cigarette Packaging", link: "/Cigarette-Packaging" },
+        { name: "Cosmetic Packaging", link: "/Cosmetic-Packaging" },
+        { name: "Cardboard Display Boxes", link: "/Cardboard-Display-Boxes" },
+        { name: "Food Packaging", link: "/Food-Packaging" },
+        { name: "Custom Gift Boxes", link: "/Custom-Gift-Boxes" },
+        { name: "Custom Incense Packaging", link: "/Custom-Incense-Packaging" },
+        { name: "Rigid Boxes", link: "/Rigid-Boxes" },
+        { name: "Sleeves Packaging", link: "/Sleeves-Packaging" },
+      ],
     },
     {
-      name: "MAILER BOXES",
-      dropdown: false,
+      name: "Packaging Styles",
+      dropdown: true,
       link: "/mailer-boxes",
+      items: [
+        { name: "Folding Boxes", link: "/Folding-Boxes" },
+        { name: "Tray Boxes", link: "/Tray-Boxes" },
+        { name: "Tuck End Boxes", link: "/Tuck-End-Boxes" },
+        { name: "Insert Boxes", link: "/Insert-Boxes" },
+        { name: "Rigid Boxes", link: "/Rigid-Boxes" },
+        { name: "Boxes with Lid", link: "/Boxes-with-Lid" },
+        { name: "Envelopes", link: "/Envelopes" },
+        { name: "Cards & Tags", link: "/Cards&Tags" },
+        { name: "Gift Box Styles", link: "/Gift-Box-Styles" },
+        { name: "Display Boxes", link: "/Display-Boxes" },
+      ],
     },
     {
-      name: "SHIPPING BOXES",
+      name: "Labels & Tags",
       dropdown: false,
       link: "/shipping-boxes",
     },
     {
-      name: "POLY MAILERS",
-      dropdown: true,
+      name: "Custom Stickers",
+      dropdown: false,
       link: "/poly-mailers",
+    },
+    {
+      name: "Promotional Products",
+      dropdown: true,
+      link: "/product-boxes",
       items: [
-        { name: "Custom Poly Mailers", link: "/custom-poly-mailers" },
-        {
-          name: "100% Compostable Poly Mailers",
-          link: "/compostable-poly-mailers",
-        },
-        {
-          name: "100% Recycled Plastic Poly Mailers",
-          link: "/recycled-poly-mailers",
-        },
-        { name: "Recycled Bubble Mailers", link: "/recycled-bubble-mailers" },
-        {
-          name: "100% Compostable Padded Bubble Mailers",
-          link: "/compostable-bubble-mailers",
-        },
+        { name: "Paper Bags", link: "/Paper-Bags" },
+        { name: "Custom Envelopes", link: "/Custom-Envelopes" },
       ],
     },
     {
-      name: "PRODUCT BOXES",
-      dropdown: false,
-      link: "/product-boxes",
-    },
-    {
-      name: "CUSTOM BOXES",
+      name: "Mylar Bags",
       dropdown: false,
       link: "/custom-boxes",
     },
     {
-      name: "Portfolio",
+      name: "Work Showcase",
       dropdown: false,
       link: "/portfolio",
     },
@@ -142,6 +156,18 @@ const Navbar1 = () => {
           </ul>
         </div>
         <div className="nav-icons">
+          {/* <img
+            src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/us.svg"
+            alt="USA Flag"
+            className="flag"
+            title="United States"
+          />
+          <img
+            src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/gb.svg"
+            alt="UK Flag"
+            className="flag"
+            title="United Kingdom"
+          /> */}
           <div className="phone-number">
             <a href="tel:+11392383929" className="phone-number">
               <FaPhone

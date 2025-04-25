@@ -6,33 +6,64 @@ import "./productimgs.css";
 function Productimgs1() {
   const [selectedImage, setSelectedImage] = useState(0);
   const carouselRef = useRef(null);
+  const videoRefs = useRef([]);
 
-  const productImages = [
-    "/images/allproduct1.png",
-    "/images/arka.webp",
-    "/images/pillowproduct2.png",
-    "/images/pillowproduct3.png",
-    "/images/pillowproduct4.png",
+  const productMedia = [
+    { type: "image", src: "/images/allproduct1.png" },
+    { type: "video", src: "/video/video1.mp4" },
+    { type: "image", src: "/images/arka.webp" },
+    { type: "image", src: "/images/pillowproduct2.png" },
+    { type: "video", src: "/videos/demo-video.mp4" },
+    { type: "image", src: "/images/pillowproduct3.png" },
+    { type: "image", src: "/images/pillowproduct4.png" },
   ];
 
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } = e.target.getBoundingClientRect();
-    const x = ((e.clientX - left) / width) * 100;
-    const y = ((e.clientY - top) / height) * 100;
-    e.target.style.transformOrigin = `${x}% ${y}%`;
-    e.target.style.transform = "scale(2)";
-  };
-
-  const handleMouseLeave = (e) => {
-    e.target.style.transform = "scale(1)";
-    e.target.style.transformOrigin = "center center";
-  };
-
+  // Handle video play/pause when slide changes
   useEffect(() => {
     if (carouselRef.current) {
       carouselRef.current.goTo(selectedImage);
     }
+
+    // Pause all videos first
+    videoRefs.current.forEach(video => {
+      if (video) {
+        video.pause();
+        video.currentTime = 0; // Reset video to start
+      }
+    });
+
+    // Try to play current video if it's a video slide
+    const currentMedia = productMedia[selectedImage];
+    if (currentMedia.type === "video" && videoRefs.current[selectedImage]) {
+      const video = videoRefs.current[selectedImage];
+      const playPromise = video.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Autoplay prevented:", error);
+          // Show controls if autoplay fails
+          video.controls = true;
+        });
+      }
+    }
   }, [selectedImage]);
+
+  const handleMouseMove = (e) => {
+    if (e.target.tagName === 'IMG') {
+      const { left, top, width, height } = e.target.getBoundingClientRect();
+      const x = ((e.clientX - left) / width) * 100;
+      const y = ((e.clientY - top) / height) * 100;
+      e.target.style.transformOrigin = `${x}% ${y}%`;
+      e.target.style.transform = "scale(2)";
+    }
+  };
+
+  const handleMouseLeave = (e) => {
+    if (e.target.tagName === 'IMG') {
+      e.target.style.transform = "scale(1)";
+      e.target.style.transformOrigin = "center center";
+    }
+  };
 
   return (
     <div className="product-image-container">
@@ -44,20 +75,29 @@ function Productimgs1() {
           ▲
         </button>
         <div className="thumbnail-vertical">
-          {productImages.map((image, index) => (
+          {productMedia.map((media, index) => (
             <div
               key={index}
               className={`thumbnail-item-vertical ${selectedImage === index ? "active" : ""}`}
               onClick={() => setSelectedImage(index)}
             >
-              <img src={image} alt={`Thumbnail ${index + 1}`} />
+              {media.type === "image" ? (
+                <img src={media.src} alt={`Thumbnail ${index + 1}`} />
+              ) : (
+                <div className="video-thumbnail">
+                  <video muted playsInline>
+                    <source src={media.src} type="video/mp4" />
+                  </video>
+                  <div className="play-icon">▶</div>
+                </div>
+              )}
             </div>
           ))}
         </div>
         <button
           className="arrow-button"
           onClick={() =>
-            setSelectedImage((prev) => Math.min(prev + 1, productImages.length - 1))
+            setSelectedImage((prev) => Math.min(prev + 1, productMedia.length - 1))
           }
         >
           ▼
@@ -74,16 +114,30 @@ function Productimgs1() {
           slidesToScroll={1}
           arrows
         >
-          {productImages.map((image, index) => (
+          {productMedia.map((media, index) => (
             <div key={index} className="slide-container">
               <div className="zoom-wrapper">
-                <img
-                  src={image}
-                  alt={`Product ${index + 1}`}
-                  className="main-product-image"
-                  onMouseMove={handleMouseMove}
-                  onMouseLeave={handleMouseLeave}
-                />
+                {media.type === "image" ? (
+                  <img
+                    src={media.src}
+                    alt={`Product ${index + 1}`}
+                    className="main-product-image"
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                  />
+                ) : (
+                  <video
+                    ref={el => videoRefs.current[index] = el}
+                    className="main-product-video"
+                    controls // Always show controls
+                    muted
+                    playsInline
+                    loop
+                  >
+                    <source src={media.src} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                )}
               </div>
             </div>
           ))}
