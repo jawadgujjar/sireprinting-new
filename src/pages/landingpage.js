@@ -16,7 +16,7 @@ function Landingpage() {
       <LandingPage />
       <Brands />
       <Industry />
-      <Popularproducts />
+      {/* <Popularproducts /> */}
       {/* <Solutions /> */}
       <Sireadvantage />
       <Testimonial />
