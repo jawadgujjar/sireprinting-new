@@ -132,3 +132,16 @@
 .show-more-btn:hover {
   background-color: #00ffff;
 }
+
+@media (max-width: 820px) {
+  .tabs {
+    width: 40%;
+
+  }
+}
+@media (max-width: 650px) {
+  .tabs {
+    width: 90%;
+
+  }
+}
