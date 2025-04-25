@@ -17,7 +17,7 @@ const Landing = () => {
       </div>
       <img
         className="landing-image"
-        src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=663,h=552,fit=crop,trim=0;97.30157068062827;0;563.4439790575916/mP4eW5e5e0T0PkWW/pito-marketing-medico-AE0Mz2nDl1h8pBjX.png"
+        src="../images/landing1.png"
         alt="Packaging"
       />
     </div>
