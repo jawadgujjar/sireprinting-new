@@ -50,13 +50,13 @@ function Footer1() {
             href="mailto:support@sireprinting.com"
             className="sirefooter-p-txt"
           >
-            <FaEnvelope /> support@sireprinting.com
+            <FaEnvelope /> support@sireprinting.co.uk
           </a>
           <p className="sirefooter-p-txt1">
             <FaMapMarkerAlt /> 5 South Charlotte Street Edinburgh EH2 4AN
           </p>
           <p className="sirefooter-p-txt1">
-            <FaShippingFast /> 100% Free shipping all across USA
+            <FaShippingFast /> 100% Free shipping all across UK
           </p>
           <div className="footersire-social-icons">
             <FaFacebook />
