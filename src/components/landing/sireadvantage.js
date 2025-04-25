@@ -43,7 +43,9 @@ function Sireadvantage() {
   return (
     <div className="sireadvantage-wrapper">
       <div className="div-trustedtext">
-        <h2 className="trustedtext" style={{marginBottom:"2rem"}}>SIRE PRINTING ADVANTAGES</h2>
+        <h2 className="trustedtext" style={{ marginBottom: "2rem" }}>
+          SIRE PRINTING ADVANTAGES
+        </h2>
       </div>
       <div className="three-images-advantages">
         {advantages.map((item, index) => (
@@ -100,40 +102,9 @@ function Sireadvantage() {
                 <h3>Shipping & Handling</h3>
               </div>
             </div>
-
-            {/* Text Row */}
-            <div className="process-text-row">
-              <div className="process-div-inside">
-                <p>
-                  Fill the quote form with your box specification like size,
-                  color and quantity.
-                </p>
-              </div>
-              <div className="process-div-inside">
-                <p>
-                  We will share pricing within 24Hrs based on submitted
-                  specification.
-                </p>
-              </div>
-              <div className="process-div-inside">
-                <p>
-                  Submit artwork or use our FREE design services to finalize
-                  your proof.
-                </p>
-              </div>
-              <div className="process-div-inside">
-                <p>
-                  Upon approval we start printing and production of your
-                  packaging.
-                </p>
-              </div>
-              <div className="process-div-inside">
-                <p>
-                  Your order ships after production and quality checks. Doorstep
-                  delivery.
-                </p>
-              </div>
-            </div>
+            <div style={{ color: "#01257d", display: "hidden" }}>a</div>
+            <div style={{ color: "#01257d", display: "hidden" }}>a</div>
+            <div style={{ color: "#01257d", display: "hidden" }}>a</div>
           </div>
         </Col>
 
@@ -147,19 +118,6 @@ function Sireadvantage() {
           >
             {step === 1 && (
               <>
-                <Form.Item
-                  name="color"
-                  label="Color"
-                  rules={[{ required: true }]}
-                >
-                  <Select placeholder="Select Color">
-                    <Option value="white">White</Option>
-                    <Option value="kraft">Kraft</Option>
-                    <Option value="black">Black</Option>
-                    <Option value="full">Full Color</Option>
-                  </Select>
-                </Form.Item>
-
                 <Row gutter={16}>
                   <Col xs={24} sm={12} md={6}>
                     <Form.Item
@@ -203,7 +161,18 @@ function Sireadvantage() {
                     </Form.Item>
                   </Col>
                 </Row>
-
+                <Form.Item
+                  name="color"
+                  label="Color"
+                  rules={[{ required: true }]}
+                >
+                  <Select placeholder="Select Color">
+                    <Option value="white">White</Option>
+                    <Option value="kraft">Kraft</Option>
+                    <Option value="black">Black</Option>
+                    <Option value="full">Full Color</Option>
+                  </Select>
+                </Form.Item>
                 <Row gutter={16}>
                   <Col xs={24} sm={12}>
                     <Form.Item

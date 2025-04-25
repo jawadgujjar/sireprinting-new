@@ -44,7 +44,7 @@ function Footer1() {
         <Col xs={24} sm={12} md={8} lg={6} className="footersire-column">
           <p className="get-txt">Get In Touch</p>
           <a href="tel:+447745807425" className="sirefooter-p-txt">
-            <FaPhone /> 077 45807425
+            <FaPhone /> 074 46124339
           </a>
           <a
             href="mailto:support@sireprinting.com"
@@ -53,7 +53,7 @@ function Footer1() {
             <FaEnvelope /> support@sireprinting.com
           </a>
           <p className="sirefooter-p-txt1">
-            <FaMapMarkerAlt /> 626 92nd Street, Brooklyn NY 11220
+            <FaMapMarkerAlt /> 5 South Charlotte Street Edinburgh EH2 4AN
           </p>
           <p className="sirefooter-p-txt1">
             <FaShippingFast /> 100% Free shipping all across USA

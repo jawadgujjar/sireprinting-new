@@ -4,15 +4,16 @@
   padding: 2rem;
 }
 
-.specs-header h2 {
+.div-trustedtext {
   text-align: center;
+}
+
+.trustedtext {
   font-size: 3rem;
   font-weight: bold;
-  color: black;
+  color: #01257d;
   margin-bottom: 20px;
   text-transform: uppercase;
-  position: relative;
-  color: #01257d !important;
 }
 
 .specs-grid {
@@ -23,20 +24,50 @@
 }
 
 .spec-item {
-  border-radius: 25px;
+  position: relative;
   overflow: hidden;
-  border: 2px solid #999; /* Darker border */
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   background: #fff;
+  border: 2px solid transparent; /* Always apply */
+  border-image: none; /* Default no gradient */
 }
 
 .spec-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  border-image: linear-gradient(90deg, #01257d, #00ffff);
+  border-image-slice: 1;
+}
+
+.spec-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, #01257d, #00ffff);
+  transition: width 0.4s ease;
+}
+
+.spec-item:hover::before {
+  width: 100%;
+}
+
+.spec-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #01257d, #00ffff);
+  transition: all 0.4s ease;
 }
 
 .spec-top {
-  background-color: #e5fad1;
   padding: 2.5rem 1rem 1.5rem;
   display: flex;
   justify-content: center;
@@ -59,7 +90,7 @@
 .spec-bottom h3 {
   font-size: 1.4rem;
   font-weight: bold;
-  color: #111;
+  color: #01257d !important;
   margin-bottom: 0.8rem;
 }
 
@@ -82,13 +113,8 @@
     font-size: 2rem;
     padding: 1rem;
   }
-  .specs-header h2 {
-    text-align: center;
+
+  .trustedtext {
     font-size: 2rem;
-    font-weight: bold;
-    color: black;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    position: relative;
   }
 }

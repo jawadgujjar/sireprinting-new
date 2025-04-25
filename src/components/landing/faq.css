@@ -4,7 +4,9 @@
   margin-bottom: 2rem;
   text-align: left;
 }
-
+.images-faq {
+  height: 18rem !important;
+}
 .frequently {
   font-size: 2rem;
   font-weight: 600;
@@ -59,4 +61,11 @@
   border-top: 1px solid #00ffff;
   background-color: none;
   line-height: 1.6;
+}
+
+@media (max-width: 425px) {
+
+.images-faq {
+  height: 10rem !important;
+}
 }

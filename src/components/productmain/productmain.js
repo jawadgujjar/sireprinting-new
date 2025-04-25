@@ -55,15 +55,21 @@ const Productmain1 = () => {
             <div className="productmain-form-container">
               <div className="product-header-group">
                 <p className="form-title1">Small Pillow Boxes</p>
-                <div className="product-ratings">
-                  <span className="stars">
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarTwoTone twoToneColor="#fadb14" />
-                  </span>
-                  <span className="review-count">47 reviews</span>
+                <div className="product-ratings-wrapper">
+                  <div className="product-ratings-left">
+                    <span className="stars">
+                      <StarFilled />
+                      <StarFilled />
+                      <StarFilled />
+                      <StarFilled />
+                      <StarTwoTone twoToneColor="#fadb14" />
+                    </span>
+                    <span className="review-count">47 reviews</span>
+                  </div>
+                  <div style={{ display: "flex", gap: "1rem" }}>
+                    <span className="sku-id">SKU: #123456</span>
+                    <span className="sku-id">ID: #123456</span>
+                  </div>
                 </div>
               </div>
               <div className="product-ratings1">
@@ -84,18 +90,7 @@ const Productmain1 = () => {
               <Form layout="vertical" onFinish={handleFinish} form={form}>
                 {step === 1 && (
                   <>
-                    <Form.Item
-                      name="color"
-                      label="Color"
-                      rules={[{ required: true }]}
-                    >
-                      <Select placeholder="Select Color">
-                        <Option value="white">White</Option>
-                        <Option value="kraft">Kraft</Option>
-                        <Option value="black">Black</Option>
-                        <Option value="full">Full Color</Option>
-                      </Select>
-                    </Form.Item>
+                   
 
                     <Row gutter={16}>
                       <Col xs={24} sm={12} md={6}>
@@ -142,6 +137,18 @@ const Productmain1 = () => {
                         </Form.Item>
                       </Col>
                     </Row>
+                    <Form.Item
+                      name="color"
+                      label="Color"
+                      rules={[{ required: true }]}
+                    >
+                      <Select placeholder="Select Color">
+                        <Option value="white">White</Option>
+                        <Option value="kraft">Kraft</Option>
+                        <Option value="black">Black</Option>
+                        <Option value="full">Full Color</Option>
+                      </Select>
+                    </Form.Item>
 
                     <Row gutter={16}>
                       <Col xs={24} sm={12}>

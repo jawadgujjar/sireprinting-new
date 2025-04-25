@@ -16,15 +16,55 @@
   }
   
   .allproduct-card {
+    position: relative; /* Required for ::before & ::after */
     border-radius: 10px;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     height: 100%;
+    background: #fff;
+    border: 2px solid transparent;
+    border-image: none;
   }
   
-  .product-card-wrapper:hover .allproduct-card {
-    transform: translateY(-5px);
+  .allproduct-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-image: linear-gradient(90deg, #01257d, #00ffff);
+    border-image-slice: 1;
+  }
+  
+  .allproduct-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, #01257d, #00ffff);
+    transition: width 0.4s ease;
+  }
+  
+  .allproduct-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    background: linear-gradient(90deg, #01257d, #00ffff);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+  }
+  
+  .allproduct-card:hover::before {
+    width: 100%;
+  }
+  
+  .allproduct-card:hover::after {
+    transform: scaleX(1);
   }
   
   .card-image-container {
@@ -61,6 +101,7 @@
   .card-title {
     font-size: 1.1rem;
     font-weight: bold;
+    color: #01257d !important;
   }
   
   .card-description {

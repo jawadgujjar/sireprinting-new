@@ -133,7 +133,7 @@ const HoverCard = ({ product }) => {
 
   return (
     <div
-      className="product-card "
+      className="product-card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
         setHovered(false);
