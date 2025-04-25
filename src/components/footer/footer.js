@@ -111,6 +111,20 @@ function Footer1() {
           <Link to="/Terms and conditions" className="sirefooter-p-txt">
             Terms And Conditions
           </Link>
+          <div className="flag-gap">
+            <img
+              src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/us.svg"
+              alt="USA Flag"
+              className="flag"
+              title="United States"
+            />
+            <img
+              src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/gb.svg"
+              alt="UK Flag"
+              className="flag"
+              title="United Kingdom"
+            />
+          </div>
         </Col>
       </Row>
 
