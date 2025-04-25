@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./carouselvideo.css"; // Add CSS for the loader and centering
 
 function Videocarousel() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,13 +24,21 @@ function Videocarousel() {
       <div
         style={{
           width: "100%",
-          height:"425px",
+          height: "425px",
           overflow: "hidden",
           borderRadius: "12px",
+          position: "relative", // Added for positioning the loader
         }}
       >
         {isLoading ? (
-          <p>loading....</p>
+          <div className="loader-container">
+            <img
+              src="../images/logo.png"
+              alt="Logo"
+              className="loading-image"
+            />
+            <div className="loader"></div>
+          </div>
         ) : (
           <>
             <div className="div-trustedtext">
