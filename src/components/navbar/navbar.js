@@ -156,7 +156,7 @@ const Navbar1 = () => {
           </ul>
         </div>
         <div className="nav-icons">
-          <img
+          {/* <img
             src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/us.svg"
             alt="USA Flag"
             className="flag"
@@ -167,7 +167,7 @@ const Navbar1 = () => {
             alt="UK Flag"
             className="flag"
             title="United Kingdom"
-          />
+          /> */}
           <div className="phone-number">
             <a href="tel:+11392383929" className="phone-number">
               <FaPhone

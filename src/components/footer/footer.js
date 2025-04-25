@@ -50,13 +50,13 @@ function Footer1() {
             href="mailto:support@sireprinting.com"
             className="sirefooter-p-txt"
           >
-            <FaEnvelope /> support@sireprinting.com
+            <FaEnvelope /> support@sireprinting.co.uk
           </a>
           <p className="sirefooter-p-txt1">
             <FaMapMarkerAlt /> 5 South Charlotte Street Edinburgh EH2 4AN
           </p>
           <p className="sirefooter-p-txt1">
-            <FaShippingFast /> 100% Free shipping all across USA
+            <FaShippingFast /> 100% Free shipping all across UK
           </p>
           <div className="footersire-social-icons">
             <FaFacebook />
@@ -111,6 +111,20 @@ function Footer1() {
           <Link to="/Terms and conditions" className="sirefooter-p-txt">
             Terms And Conditions
           </Link>
+          <div className="flag-gap">
+            <img
+              src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/us.svg"
+              alt="USA Flag"
+              className="flag"
+              title="United States"
+            />
+            <img
+              src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/gb.svg"
+              alt="UK Flag"
+              className="flag"
+              title="United Kingdom"
+            />
+          </div>
         </Col>
       </Row>
 

@@ -5,6 +5,7 @@
   color: #fff; /* White text color */
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: space-evenly;
 }
 
 /* Styles for columns */
@@ -107,7 +108,13 @@
   padding: 10px 0; /* Padding for better appearance */
   width: 100%; /* Full width */
 }
-
+.flag {
+  width: 2rem;
+}
+.flag-gap {
+  display: flex;
+  gap: 1rem;
+}
 /* Responsive styles */
 @media (max-width: 1000px) {
   .footersire-column {
