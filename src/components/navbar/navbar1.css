@@ -11,21 +11,21 @@
 }
 /* On scroll */
 .navbar.scrolled {
-  background-color: #01257d !important;
+  background-color: #fff !important;
   border-bottom: 2px solid #3498db !important;
 }
 .flag {
   width: 2rem;
 }
 .navbar:hover {
-  background-color: #01257d !important;
+  background-color: #fff !important;
   border-bottom: 2px solid #3498db !important;
 }
 .navbar:hover .nav-link {
-  color: #00ffff !important;
+  color: #01257d !important;
 }
 .navbar:hover .phone-icons {
-  color: #00ffff !important;
+  color: #01257d !important;
 }
 /* Navbar Container */
 .navbar-container {
@@ -59,6 +59,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 95% !important;
 }
 
 .nav-item {
@@ -100,7 +101,7 @@
   width: 30%; /* Adjust width as needed */
 }
 .nav-link.scrolled {
-  color: #00ffff !important;
+  color: #01257d !important;
 }
 
 /* Dropdown Styles */
@@ -175,7 +176,7 @@
 }
 .phone-icons.scrolled {
   margin-right: 8px;
-  color: #00ffff;
+  color: #01257d;
   font-size: 22px; /* ya jitna chaho */
 }
 
