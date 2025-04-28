@@ -33,8 +33,8 @@ const Navbar1 = () => {
       dropdown: true,
       link: "/all-products",
       items: [
-        { name: "Candle Packaging", link: "/Candle-Packaging" },
         { name: "CBD Packaging Boxes", link: "/CBD-Packaging-Boxes" },
+        { name: "Candle Packaging", link: "/Candle-Packaging" },
         { name: "Chocolate Packaging", link: "/Chocolate-Packaging" },
         { name: "Cigarette Packaging", link: "/Cigarette-Packaging" },
         { name: "Cosmetic Packaging", link: "/Cosmetic-Packaging" },
