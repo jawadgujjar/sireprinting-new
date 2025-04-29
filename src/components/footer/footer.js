@@ -100,10 +100,6 @@ function Footer1() {
             Blogs
           </Link>
 
-          <Link to="/site-map" className="sirefooter-p-txt">
-            Sitemap
-          </Link>
-
           <Link to="/privacy" className="sirefooter-p-txt">
             Privacy Policy
           </Link>
