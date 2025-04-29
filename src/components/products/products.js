@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col } from "antd";
-import "./category.css";
+import "./products.css";
 import Productform1 from "../productform/productform";
 import Benefits from "./benefits";
 import Faq1 from "../landing/faq";
 import Banner from "../landing/banner";
 import Categorydescription from "./catdes";
 
-function Category() {
+function Products() {
   const categories = [
     {
       id: 1,
@@ -157,7 +157,7 @@ function Category() {
         {/* Hero Section */}
         <div className="category-hero">
           <div className="hero-content">
-            <h1 className="hero-title">Custom Packaging Boxes</h1>
+            <h1 className="hero-title">Sub Category Name</h1>
             <div className="hero-divider"></div>
             <p className="hero-description">
               Custom apparel packaging from Ryt Packaging combines elegance and
@@ -201,9 +201,7 @@ function Category() {
               className="category-col"
             >
               <div>
-                <h2 className="hero-title-one">
-                  Custom Packaging Boxes Sub-Categories
-                </h2>
+                <h2 className="hero-title-one">Products </h2>
               </div>
               <div className="category-grid-container">
                 {categories.map((category) => (
@@ -252,4 +250,4 @@ function Category() {
   );
 }
 
-export default Category;
+export default Products;
