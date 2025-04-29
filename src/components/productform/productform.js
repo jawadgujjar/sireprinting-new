@@ -57,7 +57,7 @@ function Productform1() {
               />
             </Form.Item>
           </Col>
-          <Col xs={24} sm={12} md={8} >
+          <Col xs={24} sm={12} md={8}>
             <Form.Item name="depth">
               <Input
                 className="ultra-compact-input"

@@ -1,7 +1,6 @@
 /* Ultra Compact Premium Form */
 .ultra-compact-form {
   width: 420px;
-  background: #ffffff;
   border-radius: 8px;
   position: sticky;
   top: 20px; /* Adjust this value based on your header height */
@@ -57,7 +56,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #FFA015 0%, #f1c40f 50%, #FFA015 100%);
+  background: linear-gradient(90deg, #ffa015 0%, #f1c40f 50%, #ffa015 100%);
 }
 
 /* .form-title-main {

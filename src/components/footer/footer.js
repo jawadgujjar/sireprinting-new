@@ -100,15 +100,11 @@ function Footer1() {
             Blogs
           </Link>
 
-          <Link to="/site-map" className="sirefooter-p-txt">
-            Sitemap
-          </Link>
-
           <Link to="/privacy" className="sirefooter-p-txt">
             Privacy Policy
           </Link>
 
-          <Link to="/Terms and conditions" className="sirefooter-p-txt">
+          <Link to="/Terms_and_conditions" className="sirefooter-p-txt">
             Terms And Conditions
           </Link>
           <div className="flag-gap">
