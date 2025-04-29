@@ -1,160 +1,118 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Card } from "antd";
+import { Link } from "react-router-dom";
 import "./subcategory.css";
 
 function Subcategory() {
+  const [selectedCategory, setSelectedCategory] = useState(1);
+  
   const categories = [
     {
       id: 1,
       name: "Custom Packaging Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
+      image: "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
       count: 24,
     },
     {
       id: 2,
-      name: "Custom mailer Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
+      name: "Custom Mailer Boxes",
+      image: "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
       count: 24,
     },
     {
       id: 3,
-      name: "Custom mailer Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
+      name: "Carry Bags",
+      image: "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
       count: 24,
     },
     {
       id: 4,
-      name: "Custom mailer Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
+      name: "Handle Boxes",
+      image: "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
       count: 24,
     },
   ];
 
+  const productsByCategory = {
+    1: [
+      { id: 1, name: "Product 1", image: "images/allproduct1.png" },
+      { id: 2, name: "Product 2", image: "images/process1.png" },
+      { id: 3, name: "Product 3", image: "images/allproduct1.png" },
+      { id: 4, name: "Product 4", image: "images/allproduct1.png" },
+      { id: 5, name: "Product 5", image: "images/allproduct1.png" },
+      { id: 6, name: "Product 6", image: "images/allproduct1.png" },
+    ],
+    2: [
+      { id: 7, name: "Mailer Box 1", image: "images/allproduct1.png" },
+      { id: 8, name: "Mailer Box 2", image: "images/process1.png" },
+      { id: 9, name: "Mailer Box 3", image: "images/allproduct1.png" },
+    ],
+    3: [
+      { id: 10, name: "Carry Bag 1", image: "images/allproduct1.png" },
+      { id: 11, name: "Carry Bag 2", image: "images/process1.png" },
+    ],
+    4: [
+      { id: 12, name: "Handle Box 1", image: "images/allproduct1.png" },
+      { id: 13, name: "Handle Box 2", image: "images/process1.png" },
+      { id: 14, name: "Handle Box 3", image: "images/allproduct1.png" },
+      { id: 15, name: "Handle Box 4", image: "images/allproduct1.png" },
+    ]
+  };
+
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategory(categoryId);
+  };
+
   return (
     <div>
-      <div className="subcategory-container">
-        <div className="div-txt">
-          <div className="category-info">Category: Carriers & Handle Boxes</div>
-          <p style={{textAlign:'left',color:'#01257D',fontSize:'1rem',marginTop:'1rem'}}>
-            This is a demo text for the short description of the packaging
-            product page and will be use for the products and the products in
-            the packaging.
-          </p>
-        </div>
-      </div>
-
-      {/* Row and Col layout from Ant Design */}
       <Row className="subcategory-products">
-        {/* First Column with a Card that contains an image and text */}
-        <Col xs={24} md={8}>
-          <p style={{ fontWeight: "bold", fontSize: "2.5rem" }}>Categories</p>
-          {categories.map((category) => (
-            <Card
-              hoverable
-              cover={<img alt="example" src={category.image} />}
-              className="category-card"
-              key={category.id}
-            >
-              <div className="category-card-content">
-                <div className="category-text">
-                  <h3 className="category-name">{category.name}</h3>
-                  <p className="category-count">{category.count} products</p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </Col>
-
-        {/* Second Column with 3 Product Cards */}
-        <Col xs={24} md={16}>
-          <p style={{ fontWeight: "bold", fontSize: "2.5rem", }}>
-            Sub-Categories
+        {/* First Column with Category Cards */}
+        <Col xs={24} md={8} className="category-column">
+          <p className="category-heading">
+            Sub-Categories <div className="divider1"></div>
           </p>
-          <Row>
-            <Col xs={8} sm={8} md={8} lg={8}>
+          <div className="category-list">
+            {categories.map((category) => (
               <Card
                 hoverable
-                cover={<img alt="product1" src="images/allproduct1.png" />}
-                className="product-card"
-                bodyStyle={{ padding: "10px", overflow: "visible" }}
+                cover={<img alt="example" src={category.image} />}
+                className={`category-card ${selectedCategory === category.id ? 'active-category' : ''}`}
+                key={category.id}
+                onClick={() => handleCategoryClick(category.id)}
               >
-                <div className="product-title">Product 1</div>
+                <div className="category-card-content">
+                  <div className="category-text">
+                    <h3 className="category-name">{category.name}</h3>
+                    <p className="category-count">{category.count} products</p>
+                  </div>
+                </div>
               </Card>
-            </Col>
-            <Col xs={8} sm={8} md={8} lg={8}>
-              <Card
-                hoverable
-                cover={<img alt="product2" src="images/process1.png" />}
-                className="product-card"
-                bodyStyle={{ padding: "10px", overflow: "visible" }}
-              >
-                <div className="product-title">Product 2</div>
-              </Card>
-            </Col>
-            <Col xs={8} sm={8} md={8} lg={8}>
-              <Card
-                hoverable
-                cover={<img alt="product3" src="images/allproduct1.png" />}
-                className="product-card"
-                bodyStyle={{ padding: "10px", overflow: "visible" }}
-              >
-                <div className="product-title">Product 3</div>
-              </Card>
-            </Col>
-            <Col xs={8} sm={8} md={8} lg={8}>
-              <Card
-                hoverable
-                cover={<img alt="product3" src="images/allproduct1.png" />}
-                className="product-card"
-                bodyStyle={{ padding: "10px", overflow: "visible" }}
-              >
-                <div className="product-title">Product 3</div>
-              </Card>
-            </Col>
-            <Col xs={8} sm={8} md={8} lg={8}>
-              <Card
-                hoverable
-                cover={<img alt="product3" src="images/allproduct1.png" />}
-                className="product-card"
-                bodyStyle={{ padding: "10px", overflow: "visible" }}
-              >
-                <div className="product-title">Product 3</div>
-              </Card>
-            </Col>
-            <Col xs={8} sm={8} md={8} lg={8}>
-              <Card
-                hoverable
-                cover={<img alt="product3" src="images/allproduct1.png" />}
-                className="product-card"
-                bodyStyle={{ padding: "10px", overflow: "visible" }}
-              >
-                <div className="product-title">Product 3</div>
-              </Card>
-            </Col>
-            <Col xs={8} sm={8} md={8} lg={8}>
-              <Card
-                hoverable
-                cover={<img alt="product3" src="images/allproduct1.png" />}
-                className="product-card"
-                bodyStyle={{ padding: "10px", overflow: "visible" }}
-              >
-                <div className="product-title">Product 3</div>
-              </Card>
-            </Col>
-            <Col xs={8} sm={8} md={8} lg={8}>
-              <Card
-                hoverable
-                cover={<img alt="product3" src="images/allproduct1.png" />}
-                className="product-card"
-                bodyStyle={{ padding: "10px", overflow: "visible" }}
-              >
-                <div className="product-title">Product 3</div>
-              </Card>
-            </Col>
+            ))}
+          </div>
+        </Col>
+        
+        {/* Second Column with Products */}
+        <Col xs={24} md={16}>
+          <p className="category-heading" style={{ fontWeight: "bold", fontSize: "2.5rem" }}>
+            {categories.find(c => c.id === selectedCategory)?.name || 'Products'}
+            <div className="divider1"></div>
+          </p>
+
+          <Row gutter={[16, 16]}>
+            {productsByCategory[selectedCategory]?.map((product) => (
+              <Col xs={12} sm={8} md={8} lg={8} key={product.id}>
+                <Link to={`/product/${product.id}`} className="product-link">
+                  <Card
+                    hoverable
+                    cover={<img alt={product.name} src={product.image} />}
+                    className="product-card"
+                    bodyStyle={{ padding: "10px", overflow: "visible" }}
+                  >
+                    <div className="product-title">{product.name}</div>
+                  </Card>
+                </Link>
+              </Col>
+            ))}
           </Row>
         </Col>
       </Row>
