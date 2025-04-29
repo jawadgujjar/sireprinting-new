@@ -4,7 +4,7 @@ import "./term.css";
 function Term() {
   return (
     <div className="term-container">
-        <img
+      <img
         className="img-cbdmain"
         src="../images/term.webp"
         alt="term"
@@ -13,7 +13,7 @@ function Term() {
           height: "auto",
         }}
       />
-         {/* <div className="breadcrumb-container">
+      {/* <div className="breadcrumb-container">
           <Breadcrumb
             items={[
               {

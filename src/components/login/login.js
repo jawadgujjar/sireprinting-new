@@ -19,11 +19,7 @@ const LoginPage = () => {
             name="email"
             rules={[{ required: true, message: "Please input your email!" }]}
           >
-            <Input
-              placeholder="Email"
-              size="large"
-              className="login-input"
-            />
+            <Input placeholder="Email" size="large" className="login-input" />
           </Form.Item>
 
           <Form.Item
@@ -42,10 +38,6 @@ const LoginPage = () => {
               Login
             </Button>
           </Form.Item>
-
-          <Link to="/register" className="register-link">
-            Don't have an account? Register here
-          </Link>
         </Form>
       </div>
     </div>

@@ -1,96 +1,95 @@
 /* Main Login Container */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f7fafc;
-    padding: 0 20px;
-  }
-  
-  /* Login Form */
-  .login-form {
-    padding: 40px 30px;
-    background-color: #fff;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(255, 160, 21, 0.4);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  /* Title */
-  .login-title {
-    color: #ffa015;
-    font-size: 28px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  /* Input Styles */
-  .login-input {
-    margin-bottom: 15px;
-    background-color: #fff;
-    color: #000;
-    border: 2px solid #ffa015;
-    border-radius: 8px;
-    transition: 0.3s ease;
-  }
-  
-  .login-input:hover,
-  .login-input:focus-within {
-    box-shadow: 0 0 8px rgba(255, 160, 21, 0.5);
-    border-color: #ffa015;
-  }
-  
-  /* Button Styles */
-  .login-button {
-    background-color: #ffa015;
-    border: none;
-    color: white;
-    font-weight: 600;
-    width: 100%;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 16px;
-    transition: 0.3s ease;
-  }
-  
-  .login-button:hover {
-    background-color: #e89000;
-    color: white;
-    box-shadow: 0 4px 12px rgba(255, 160, 21, 0.4);
-  }
-  
-  /* Register Link */
-  .register-link {
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-    font-size: 14px;
-    color: #ffa015;
-    text-decoration: none;
-  }
-  
-  .register-link:hover {
-    text-decoration: underline;
-  }
-  
-  Phone Icon
-  .phone-number {
-    display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .phone-icon {
-    font-size: 20px;
-    color: #ffa015;
-    transition: 0.3s ease;
-  }
-  
-  .phone-icon:hover {
-    color: #e89000;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f7fafc;
+  padding: 0 20px;
+}
+
+/* Login Form */
+.login-form {
+  padding: 40px 30px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(1, 37, 125, 0.3);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Title */
+.login-title {
+  color: #01257d !important;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Input Styles */
+.login-input {
+  margin-bottom: 15px;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #01257d;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.login-input:hover,
+.login-input:focus-within {
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+  border-color: #00ffff;
+}
+
+/* Button Styles */
+.login-button {
+  background-color: #01257d;
+  border: none;
+  color: white;
+  font-weight: 600;
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #001c5a;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.4);
+}
+
+/* Register Link */
+.register-link {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #00ffff;
+  text-decoration: none;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+/* Phone Icon */
+.phone-number {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.phone-icon {
+  font-size: 20px;
+  color: #00ffff;
+  transition: 0.3s ease;
+}
+
+.phone-icon:hover {
+  color: #01257d;
+}

@@ -15,7 +15,6 @@ import Contactus from "./components/footerthings/contactus";
 import Privacy from "./components/footerthings/privacy";
 import Term from "./components/footerthings/term";
 import Category from "./components/category/category";
-import Subcategory from "./components/category/subcategory";
 import Subcategorypage from "./pages/subcategorypage";
 
 function AppRouter() {

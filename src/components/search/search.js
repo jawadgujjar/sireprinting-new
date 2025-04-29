@@ -8,7 +8,7 @@ function Search() {
   return (
     <div>
       <Row className="search-form-wrapper">
-        <Col xs={24} md={14}>
+        <Col xs={24} md={12}>
           <SearchBox />
         </Col>
         <Col xs={24} md={10}>

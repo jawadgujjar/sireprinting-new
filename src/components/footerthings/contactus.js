@@ -29,14 +29,16 @@ function Contactus() {
     <div>
       {/* Removed Breadcrumb component */}
       <div className="contact-container">
-        <Row justify="center"> {/* Centering Row */}
+        <Row justify="center">
+          {" "}
+          {/* Centering Row */}
           {/* Form Column */}
           <Col xs={24} md={15} className="form-column">
             <h1 className="form-title">Message Us!</h1>
             <Form layout="vertical" form={form} onFinish={onFinish}>
               <Form.Item
                 name="fullName"
-                rules={[{ required: true, message: "Full name is required" }]}  
+                rules={[{ required: true, message: "Full name is required" }]}
               >
                 <Input
                   placeholder="Full name"
@@ -45,7 +47,13 @@ function Contactus() {
               </Form.Item>
               <Form.Item
                 name="email"
-                rules={[{ required: true, type: "email", message: "Valid email is required" }]}
+                rules={[
+                  {
+                    required: true,
+                    type: "email",
+                    message: "Valid email is required",
+                  },
+                ]}
               >
                 <Input
                   placeholder="Enter your email"
@@ -54,7 +62,9 @@ function Contactus() {
               </Form.Item>
               <Form.Item
                 name="phoneNumber"
-                rules={[{ required: true, message: "Phone number is required" }]}
+                rules={[
+                  { required: true, message: "Phone number is required" },
+                ]}
               >
                 <Input
                   placeholder="Enter your phone"
@@ -85,7 +95,6 @@ function Contactus() {
               </Form.Item>
             </Form>
           </Col>
-
           {/* Contact Info Column */}
           <Col xs={24} md={9} className="info-column">
             <div className="info-item">
