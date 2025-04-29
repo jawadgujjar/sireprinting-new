@@ -4,20 +4,22 @@ import "./banner.css";
 const Banner = () => {
   return (
     <div className="banner-container">
-      <div className="banner-content">
-        <h2 className="banner-title">Need Help? Call Our Team At</h2>
-        <p className="banner-phone">(302) 778-9458</p>
-        <h3 className="banner-subtitle">
-          Need Help with Sire Printing Packaging Consultant?
-        </h3>
-        <p className="banner-text">
-          We're here! We offer a variety of packaging options, from sustainable
-          choices to personalized packaging, all aimed at helping your product
-          stand out. And with our fast turnaround, you can get started without
-          the wait.
-        </p>
-
-        <button className="banner-button">ASK FOR HELP</button>
+      <div className="banner-inner">
+        <div className="banner-image">
+          <img
+            src="https://s3.amazonaws.com/sireprinting.com/products/1632951680Face-Serum-Boxes-Sire%20Printing%2001.png"
+            alt="Packaging Help"
+          />
+        </div>
+        <div className="banner-content">
+          <h2 className="banner-title">Request a Sample</h2>
+          <p className="banner-text">
+            Order a sample of just <strong>1 box</strong>, and we’ll print your
+            design and deliver it to your doorstep. Once approved and full order
+            placed, <strong>your sample cost is refunded</strong>.
+          </p>
+          <button className="banner-button">Get Started</button>
+        </div>
       </div>
     </div>
   );
