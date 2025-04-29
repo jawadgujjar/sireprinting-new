@@ -22,6 +22,7 @@ function AppRouter() {
   return (
     <>
       <Routes>
+        <Route path="*" element={<Landingpage />} />
         <Route path="/" element={<Landingpage />} />
         <Route path="/all-products" element={<Allproductpage />} />
         <Route path="/main-product" element={<Mainproductpage />} />
@@ -35,7 +36,7 @@ function AppRouter() {
         <Route path="about-us" element={<Aboutus />} />
         <Route path="contact-us" element={<Contactus />} />
         <Route path="privacy" element={<Privacy />} />
-        <Route path="Terms and conditions" element={<Term />} />
+        <Route path="Terms_and_conditions" element={<Term />} />
         <Route path="CBD-Packaging-Boxes" element={<Subcategorypage />} />
       </Routes>
       <Footer1 />

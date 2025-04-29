@@ -3,12 +3,15 @@
     margin: 80px auto 0 auto; /* Adds top margin */
     max-width: 1100px;
   }
-  
+  .privacy-container h2{
+    color: #01257d !important;
+  }
   .privacy-heading {
     text-align: center;
     font-weight: bold;
     font-size: 2em;
     margin-bottom: 20px;
+    margin-top: 2rem;
   }
   
   .privacy-subheading {

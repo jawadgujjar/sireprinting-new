@@ -108,7 +108,7 @@ function Footer1() {
             Privacy Policy
           </Link>
 
-          <Link to="/Terms and conditions" className="sirefooter-p-txt">
+          <Link to="/Terms_and_conditions" className="sirefooter-p-txt">
             Terms And Conditions
           </Link>
           <div className="flag-gap">

@@ -1,26 +1,28 @@
 .term-container {
-    padding: 20px;
-    margin: 60px auto 0 auto; /* 👈 Yeh hai margin-top */
-    max-width: 1100px;
-  }
-  
-  .term-heading {
-    text-align: center;
-    font-weight: bold;
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  
-  .term-subheading {
-    text-align: left;
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-bottom: 15px;
-  }
-  
-  .term-text {
-    text-align: left;
-    margin-bottom: 15px;
-    line-height: 1.6;
-  }
-  
+  padding: 20px;
+  margin: 60px auto 0 auto; /* 👈 Yeh hai margin-top */
+  max-width: 1100px;
+}
+.term-container h2,h1 {
+  color: #01257d !important;
+}
+.term-heading {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  margin-bottom: 20px;
+  margin-top: 2rem;
+}
+
+.term-subheading {
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.term-text {
+  text-align: left;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
