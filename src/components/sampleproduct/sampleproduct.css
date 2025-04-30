@@ -1,4 +1,4 @@
-/* Main Container */
+Main Container
 .sample-product-container {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   max-width: 1200px;
@@ -69,7 +69,7 @@
   border: 1px solid rgba(1, 37, 125, 0.1);
   display: flex;
   flex-direction: column;
-  height: 27rem;
+  /* height: 27rem; */
 }
 
 .product-card:hover {
