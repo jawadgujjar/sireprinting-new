@@ -301,6 +301,9 @@
   .category-card-content {
     flex-direction: column;
   }
+  .category-card {
+    margin: 0 auto;
+  }
 
   .category-image-container {
     width: 100%;
@@ -309,6 +312,18 @@
 
   .feature-item {
     font-size: 0.8rem;
+  }
+}
+@media (max-width: 600px) {
+  .category-image-container {
+    width: auto;
+    height: 150px;
+  }
+
+  .category-image {
+    width: 100%; /* Ensure the image takes full width */
+    height: 8rem; /* Height stays the same */
+    object-fit: cover; /* Maintain aspect ratio */
   }
 }
 
