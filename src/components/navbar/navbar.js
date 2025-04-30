@@ -1,16 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaPhone, FaBars, FaTimes, FaRegUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { countries } from "country-flag-icons";
-import "./navbar1.css";
+import { Link, useNavigate } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
+import "./navbar1.css";
+import { Button } from "antd";
 
 const Navbar1 = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  // const [searchActive, setSearchActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const navigate = useNavigate();
+  const searchRef = useRef(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSearchBar(false);
+      }
+    };
+
+    if (showSearchBar) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showSearchBar]);
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -18,6 +37,12 @@ const Navbar1 = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (showSearchBar) {
+      navigate("/search-products");
+    }
+  }, [showSearchBar, navigate]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -138,57 +163,81 @@ const Navbar1 = () => {
                     : activeDropdown === index) && (
                     <div className="dropdown-menu show">
                       <div className="dropdown-content">
-                        {item.items.map((subItem, subIndex) => (
-                          <Link
-                            key={subIndex}
-                            to={subItem.link}
-                            className="dropdown-item"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
+                        <div className="dropdown-main-items">
+                          {item.items.map((subItem, subIndex) => (
+                            <Link
+                              key={subIndex}
+                              to={subItem.link}
+                              className="dropdown-item"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {subItem.name}
+                            </Link>
+                          ))}
+                        </div>
+                        <div className="dropdown-fixed-content">
+                          <h2>Get Help With Expert Guidance</h2>
+                          <h3>
+                            Need help finding the perfect packaging? Contact us
+                            now for a free consultation with a trained packaging
+                            specialist.
+                          </h3>
+                          <h3>Call Us at:</h3>
+                          <h3>
+                            <a href="tel:+447745807425" className="number-tel">
+                              074 46124339
+                            </a>
+                          </h3>
+                          <div className="get-navbar-quote-butt">
+                            {" "}
+                            <Button>Get Free Quote</Button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
               </li>
             ))}
           </ul>
+
+          {/* Search dropdown */}
+          {showSearchBar && (
+            <div
+              ref={searchRef}
+              className={`search-dropdown ${showSearchBar ? "show" : ""}`}
+            >
+              <input
+                type="text"
+                placeholder="Search products..."
+                className="search-input"
+              />
+            </div>
+          )}
         </div>
         <div className="nav-icons">
-          {/* <img
-            src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/us.svg"
-            alt="USA Flag"
-            className="flag"
-            title="United States"
-          />
-          <img
-            src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/gb.svg"
-            alt="UK Flag"
-            className="flag"
-            title="United Kingdom"
-          /> */}
-          <div className="phone-number">
-            <a href="tel:+11392383929" className="phone-number">
+          <div>
+            <a href="tel:+11392383929">
               <FaPhone
                 className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
               />
-            </a>{" "}
+            </a>
           </div>
-          <div className="phone-number">
+          <div>
             <Link to="/login">
-              {" "}
               <FaRegUser
                 className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
               />
             </Link>
           </div>
-          <div className="phone-number">
-            <Link to="/search-products">
+          <div>
+            <div
+              className="search-icon"
+              onClick={() => setShowSearchBar((prev) => !prev)}
+            >
               <IoSearchOutline
                 className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
               />
-            </Link>
+            </div>
           </div>
         </div>
       </div>

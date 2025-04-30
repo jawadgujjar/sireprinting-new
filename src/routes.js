@@ -16,6 +16,7 @@ import Privacy from "./components/footerthings/privacy";
 import Term from "./components/footerthings/term";
 import Subcategorypage from "./pages/subcategorypage";
 import Products from "./components/products/products";
+import Sampleproduct from "./components/sampleproduct/sampleproduct";
 
 function AppRouter() {
   return (
@@ -37,6 +38,7 @@ function AppRouter() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="Terms_and_conditions" element={<Term />} />
         <Route path="CBD-Packaging-Boxes" element={<Subcategorypage />} />
+        <Route path="sample-product" element={<Sampleproduct />} />
       </Routes>
       <Footer1 />
     </>
