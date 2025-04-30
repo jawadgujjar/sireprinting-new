@@ -54,7 +54,7 @@ const Navbar1 = () => {
 
   const navItems = [
     {
-      name: "Custom Packaging Boxes",
+      name: "Custom Packaging",
       dropdown: true,
       link: "/products",
       items: [
