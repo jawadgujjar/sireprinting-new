@@ -110,14 +110,14 @@ function Allproduct1() {
 
   return (
     <div className="all-products-container">
-      <div className="header-section">
+      {/* <div className="header-section">
         <h2 className="main-title">All Products</h2>
         <p className="subtitle">
           Sire Printing offers high-quality, customizable packaging that
           protects your products and enhances your brand. Choose from our range
           of eco-friendly options.
         </p>
-      </div>
+      </div> */}
 
       <div className="packaging-info">
         <h2 className="packaging-txt">All Packaging Options</h2>

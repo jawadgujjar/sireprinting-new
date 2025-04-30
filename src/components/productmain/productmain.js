@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Form, Input, Upload, Select, Row, Col } from "antd";
 import { UploadOutlined, StarFilled, StarTwoTone } from "@ant-design/icons";
+import { TruckOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
 import "./productmain.css";
 import Productimgs1 from "./productimgs";
 import Productdetail1 from "./productdetail";
@@ -181,13 +183,70 @@ const Productmain1 = () => {
                     </Row>
 
                     <Form.Item>
-                      <Button
-                        type="primary"
-                        className="submit-button small-btn"
-                        onClick={handleNext}
-                      >
-                        Get Pricing
-                      </Button>
+                      <Row justify="space-between" align="middle">
+                        {/* Delivery + Price Section (Left) */}
+                        <Col>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "6px",
+                            }}
+                          >
+                            {/* Delivery Info */}
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
+                              }}
+                            >
+                              <TruckOutlined style={{ fontSize: "18px" }} />
+                              <span>
+                                <strong>Delivery (Free):</strong> 2 - 3 Business
+                                Days
+                              </span>
+                            </div>
+
+                            {/* Price Info */}
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "6px",
+                              }}
+                            >
+                              <span style={{ fontWeight: "bold" }}>Price:</span>
+                              <span
+                                style={{
+                                  color: "#012376",
+                                  fontWeight: "bold",
+                                  fontSize: "18px",
+                                }}
+                              >
+                                $4.00
+                              </span>
+                              <Tooltip title="This is the price per box.">
+                                <InfoCircleOutlined style={{ color: "#666" }} />
+                              </Tooltip>
+                              <span style={{ color: "#aaa", fontSize: "13px" }}>
+                                each box
+                              </span>
+                            </div>
+                          </div>
+                        </Col>
+
+                        {/* Get Pricing Button (Right) */}
+                        <Col>
+                          <Button
+                            type="primary"
+                            className="submit-button small-btn"
+                            onClick={handleNext}
+                          >
+                            Get Pricing
+                          </Button>
+                        </Col>
+                      </Row>
                     </Form.Item>
                   </>
                 )}

@@ -135,14 +135,14 @@
 }
 
 .category-card {
-  display: block;
-  background-color: #f8faff;
-  border-radius: 10px;
-  overflow: hidden;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(1, 37, 125, 0.08);
-  border: 1px solid #e0e8ff;
+    display: block;
+    background-color: #f8faff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(1, 37, 125, 0.08);
+    border: 1px solid #e0e8ff;
 }
 
 .category-card:hover {
