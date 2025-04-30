@@ -10,7 +10,7 @@ const SearchBox = () => {
       <Input
         placeholder="Enter product name..."
         size="large"
-        className="search-input"
+        className="search-input-1"
         suffix={<SearchOutlined />}
       />
       <Button type="primary" className="search-button">

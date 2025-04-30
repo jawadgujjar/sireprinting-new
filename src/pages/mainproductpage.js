@@ -5,6 +5,8 @@ import Videocarousel from '../components/landing/carouselvideo'
 import Relatedproduct from '../components/productmain/relatedproduct'
 import Relatedblogs from '../components/productmain/relatedblogs'
 import Testimonial from '../components/landing/testimonial'
+import Banner from '../components/landing/banner'
+import Categorydescription from '../components/products/catdes'
  
 
 function Mainproductpage() {
@@ -13,8 +15,10 @@ function Mainproductpage() {
       <Productmain1 />
       <Videocarousel />
       <ProductSpecs />
+      <Banner />
+      <Categorydescription/>
       <Relatedproduct/>
-      <Relatedblogs/>
+      {/* <Relatedblogs/> */}
       <Testimonial />
     </div>
   )

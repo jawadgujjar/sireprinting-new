@@ -135,7 +135,10 @@
   font-weight: 500;
   color: #666;
 }
-
+.submit-button.small-btn {
+  padding: 4px 16px;
+  font-size: 14px;
+}
 @media (max-width: 1024px) {
   .form-title1 {
     font-size: 2.5rem;

@@ -2,8 +2,9 @@ import React from "react";
 import Subcategory from "../components/products/subcategory";
 import Sireadvantage from "../components/landing/sireadvantage";
 import Faq1 from "../components/landing/faq";
-import Allproducttxt from "../components/allproducts/allproducttxt";
 import Subcategoryhead from "../components/products/subcategoryhead";
+import Categorydescription from "../components/products/catdes";
+import Banner from "../components/landing/banner";
 
 function Subcategorypage() {
   return (
@@ -11,8 +12,10 @@ function Subcategorypage() {
       <Subcategoryhead />
       <Subcategory />
       <Sireadvantage />
+      <Banner />
+      <Categorydescription/>
       <Faq1 />
-      <Allproducttxt />
+     
     </div>
   );
 }
