@@ -213,9 +213,9 @@ function Products() {
                     <div className="category-card-content">
                       <div className="category-text">
                         <h3 className="category-name">{category.name}</h3>
-                        <p className="category-count">
+                        {/* <p className="category-count">
                           {category.count} products
-                        </p>
+                        </p> */}
                       </div>
                       <div className="category-image-container">
                         <img
