@@ -9,6 +9,7 @@ import {
   FaLinkedin,
   FaPaperPlane,
   FaPhone,
+  FaPinterest,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -52,17 +53,47 @@ function Footer1() {
           >
             <FaEnvelope /> support@sireprinting.co.uk
           </a>
-          <p className="sirefooter-p-txt1">
-            <FaMapMarkerAlt /> 5 South Charlotte Street Edinburgh EH2 4AN
+          <p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=5 South Charlotte Street Edinburgh EH2 4AN"
+              target="_blank"
+              className="sirefooter-p-txt1"
+            >
+              <FaMapMarkerAlt /> 5 South Charlotte Street Edinburgh EH2 4AN
+            </a>
           </p>
           <p className="sirefooter-p-txt1">
             <FaShippingFast /> 100% Free shipping all across UK
           </p>
           <div className="footersire-social-icons">
-            <FaFacebook />
-            <FaXTwitter />
-            <FaInstagram />
-            <FaLinkedin />
+            <a
+              href="https://www.facebook.com/sireprinting"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFacebook />
+            </a>
+            <a
+              href="https://x.com/sireprintingco"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaXTwitter />
+            </a>
+            <a
+              href="https://www.instagram.com/sireprinting/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="https://www.pinterest.com/sireprinting/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaPinterest />
+            </a>
           </div>
           <img
             src="../images/payment-cards.png"
