@@ -13,6 +13,7 @@
   
   .subcategory-left {
     padding: 20px;
+    text-align: left;
   }
   
   .subcategory-heading {
@@ -20,6 +21,7 @@
     font-weight: bold;
     margin-bottom: 20px;
     color: #01257D !important;
+    text-align: left;
   }
   
   .subcategory-description {

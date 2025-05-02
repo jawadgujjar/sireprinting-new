@@ -193,6 +193,7 @@
   font-size: 2rem;
   font-weight: 800;
   margin-bottom: 2rem;
+  text-align: left;
 }
 .category-card:hover .category-name,
 .category-card:hover .category-count {
