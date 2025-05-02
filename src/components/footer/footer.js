@@ -53,8 +53,14 @@ function Footer1() {
           >
             <FaEnvelope /> support@sireprinting.co.uk
           </a>
-          <p className="sirefooter-p-txt1">
-            <FaMapMarkerAlt /> 5 South Charlotte Street Edinburgh EH2 4AN
+          <p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=5 South Charlotte Street Edinburgh EH2 4AN"
+              target="_blank"
+              className="sirefooter-p-txt1"
+            >
+              <FaMapMarkerAlt /> 5 South Charlotte Street Edinburgh EH2 4AN
+            </a>
           </p>
           <p className="sirefooter-p-txt1">
             <FaShippingFast /> 100% Free shipping all across UK
