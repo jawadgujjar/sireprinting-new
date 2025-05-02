@@ -165,7 +165,6 @@
 }
 
 /* ✅ Tablet & Mobile View */
-/* ✅ Tablet & Mobile View */
 @media (max-width: 1024px) {
   .product-image-container {
     flex-direction: column;
@@ -193,7 +192,6 @@
     max-height: none;
     padding: 0;
     width: auto;
-
     scrollbar-width: none;
   }
 

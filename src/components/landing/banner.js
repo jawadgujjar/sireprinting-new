@@ -1,5 +1,6 @@
 import React from "react";
 import "./banner.css";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -18,7 +19,9 @@ const Banner = () => {
             design and deliver it to your doorstep. Once approved and full order
             placed, <strong>your sample cost is refunded</strong>.
           </p>
-          <button className="banner-button">Get Started</button>
+          <Link to="/sample-product">
+            <button className="banner-button">Get Started</button>
+          </Link>
         </div>
       </div>
     </div>
