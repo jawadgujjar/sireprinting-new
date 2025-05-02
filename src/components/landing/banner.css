@@ -76,6 +76,7 @@
   .banner-button {
     width: 100%;
     max-width: 250px;
+    margin-bottom: 2rem;
   }
 
   .banner-title {

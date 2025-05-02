@@ -17,12 +17,14 @@ import Term from "./components/footerthings/term";
 import Subcategorypage from "./pages/subcategorypage";
 import Products from "./components/products/products";
 import Sampleproduct from "./components/sampleproduct/sampleproduct";
+import Cart from "./components/addtocart/cart";
+import NotFound from "./components/not found/notfound";
 
 function AppRouter() {
   return (
     <>
       <Routes>
-        <Route path="*" element={<Landingpage />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Landingpage />} />
         <Route path="/all-products" element={<Allproductpage />} />
         <Route path="/main-product" element={<Mainproductpage />} />
@@ -39,6 +41,7 @@ function AppRouter() {
         <Route path="Terms_and_conditions" element={<Term />} />
         <Route path="CBD-Packaging-Boxes" element={<Subcategorypage />} />
         <Route path="sample-product" element={<Sampleproduct />} />
+        <Route path="add-to-cart" element={<Cart />} />
       </Routes>
       <Footer1 />
     </>

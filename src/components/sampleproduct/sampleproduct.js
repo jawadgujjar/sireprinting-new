@@ -1,26 +1,32 @@
 import React from "react";
 import "./sampleproduct.css";
 import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function SampleProduct() {
+  const navigate = useNavigate();
+
   const sampleCards = [
     {
       title: "Random Sample",
       text: "These are random samples that we provide you from our recently manufactured boxes.",
       price: "$40",
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/01/random-sample.png",
+      cartAvailable: true,
     },
     {
       title: "Custom Sample",
       text: "Customized samples made according to your specific requirements and designs.",
       price: "$100",
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/01/plain-sample.png",
+      cartAvailable: true,
     },
     {
       title: "Premium Sample",
       text: "High-quality samples showcasing our premium materials and finishing options.",
       price: "Get Price",
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/01/pre-production-sample.png",
+      cartAvailable: false,
     },
   ];
 
@@ -42,6 +48,10 @@ function SampleProduct() {
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/12/shipping-box-1-orange.webp",
     },
   ];
+
+  const handleNavigateToCart = (item) => {
+    navigate("/add-to-cart", { state: item });
+  };
 
   return (
     <div className="sample-product-container">
@@ -69,7 +79,14 @@ function SampleProduct() {
               <div className="card-content">
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-text">{item.text}</p>
-                <Button type="primary" className="price-button">
+                <Button
+                  className="price-button"
+                  onClick={() => {
+                    if (item.cartAvailable) {
+                      handleNavigateToCart(item);
+                    }
+                  }}
+                >
                   {item.price}
                 </Button>
               </div>

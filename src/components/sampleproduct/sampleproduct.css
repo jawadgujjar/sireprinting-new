@@ -163,9 +163,9 @@
 }
 
 .price-button:hover {
-  background-color: #00ffff;
+  background-color: #00ffff !important;
   border-color: #01257d;
-  color: #01257d;
+  color: #01257d !important;
 }
 
 /* Accent Effect */
