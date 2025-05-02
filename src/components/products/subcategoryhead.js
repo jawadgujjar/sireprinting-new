@@ -14,9 +14,7 @@ function Subcategoryhead() {
             boxes offering customized packaging solutions to elevate your
             product’s impact in the wellness and supplement market. From oils,
             serums, tinctures to gummies and everything in between, we produce
-            CBD packaging that ensures durability, compliance, and strong shelf
-            presence. Each box is uniquely built to reflect your branding and
-            deliver functionality in both retail and eCommerce channels.
+            
           </p>
           <Link to="/get-a-quote">
             <button className="get-pricing-button">Get Pricing</button>

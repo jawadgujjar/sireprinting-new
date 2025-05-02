@@ -126,6 +126,10 @@
     .card-image-container {
       height: 180px;
     }
+    .allproduct-card-image{
+      width: 100%;
+      height: auto;
+    }
   }
   
   /* For mobile screens */

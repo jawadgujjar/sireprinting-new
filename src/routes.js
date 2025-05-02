@@ -17,17 +17,21 @@ import Term from "./components/footerthings/term";
 import Subcategorypage from "./pages/subcategorypage";
 import Products from "./components/products/products";
 import Sampleproduct from "./components/sampleproduct/sampleproduct";
+import Cart from "./components/addtocart/cart";
+import NotFound from "./components/not found/notfound";
+import SignupPage from "./components/login/signup";
 
 function AppRouter() {
   return (
     <>
       <Routes>
-        <Route path="*" element={<Landingpage />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Landingpage />} />
         <Route path="/all-products" element={<Allproductpage />} />
         <Route path="/main-product" element={<Mainproductpage />} />
         <Route path="/search-products" element={<Search />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/products" element={<Products />} />
         <Route path="/blog" element={<MainBlog />} />
         <Route path="/blog1" element={<Blog />} />
@@ -36,9 +40,10 @@ function AppRouter() {
         <Route path="/about-us" element={<Aboutus />} />
         <Route path="/contact-us" element={<Contactus />} />
         <Route path="/privacy" element={<Privacy />} />
-        <Route path="Terms_and_conditions" element={<Term />} />
-        <Route path="CBD-Packaging-Boxes" element={<Subcategorypage />} />
-        <Route path="sample-product" element={<Sampleproduct />} />
+        <Route path="/Terms_and_conditions" element={<Term />} />
+        <Route path="/CBD-Packaging-Boxes" element={<Subcategorypage />} />
+        <Route path="/sample-product" element={<Sampleproduct />} />
+        <Route path="/add-to-cart" element={<Cart />} />
       </Routes>
       <Footer1 />
     </>

@@ -1,4 +1,3 @@
-Main Container
 .sample-product-container {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   max-width: 1200px;
@@ -148,7 +147,6 @@ Main Container
   padding: 15px;
   margin: 0;
   margin-bottom: 1rem;
-
 }
 
 /* Button Styles */
@@ -165,9 +163,9 @@ Main Container
 }
 
 .price-button:hover {
-  background-color: #00ffff;
+  background-color: #00ffff !important;
   border-color: #01257d;
-  color: #01257d;
+  color: #01257d !important;
 }
 
 /* Accent Effect */
@@ -204,10 +202,13 @@ Main Container
   .simple-card {
     height: auto;
   }
-
+  .simple-card {
+    margin-top: 2rem;
+    display: contents;
+  }
   .card-image,
   .simple-card-image {
-    height: auto;
+    /* height: auto; */
     max-height: 300px;
   }
 }

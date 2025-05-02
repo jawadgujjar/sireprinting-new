@@ -1,59 +1,114 @@
 .subcategory-container {
-    padding: 40px;
-    background-color: #f1f1f1;
-    margin-top: 5.5rem;
-  }
-  
-  .subcategory-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .subcategory-left {
-    padding: 20px;
-  }
-  
+  padding: 40px;
+  background-color: #f1f1f1;
+  margin-top: 5.5rem;
+  height: auto;
+}
+
+.subcategory-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.subcategory-left {
+  padding: 20px;
+  text-align: left;
+}
+
+.subcategory-heading {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #01257D !important;
+  text-align: left;
+}
+
+.subcategory-description {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.get-pricing-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #01257d !important;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.get-pricing-button:hover {
+  background: white !important;
+  color: #01257d;
+  border: 1px solid #01257d;
+}
+
+.subcategory-right {
+  text-align: center;
+  padding: 20px;
+}
+
+.subcategory-image {
+  max-width: 85%;
+  height: auto;
+  border-radius: 12px;
+  transition: transform 0.5s ease;
+}
+
+/* ✅ RESPONSIVE MEDIA QUERIES */
+
+/* Tablet view */
+@media (max-width: 1024px) {
   .subcategory-heading {
-    font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #01257D !important;
-  }
-  
-  .subcategory-description {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 20px;
-  }
-  
-  .get-pricing-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background: #01257d !important;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .get-pricing-button:hover {
-    background: white !important;
-    color: #01257d;
-    border: 1px solid #01257d;
-  }
-  
-  .subcategory-right {
+    font-size: 2.2rem;
     text-align: center;
+  }
+
+  .subcategory-description {
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .subcategory-left {
+    text-align: center;
+    padding: 15px;
+  }
+
+  .subcategory-right {
+    padding: 15px;
+  }
+
+  .get-pricing-button {
+    font-size: 15px;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .subcategory-container {
     padding: 20px;
   }
-  
-  .subcategory-image {
-    max-width: 85%;
-    height: auto;
-    border-radius: 12px;
-    transition: transform 0.5s ease;
+
+  .subcategory-heading {
+    font-size: 1.8rem;
   }
-  
+
+  .subcategory-description {
+    font-size: 14px;
+  }
+
+  .subcategory-image {
+    max-width: 95%;
+  }
+
+  .get-pricing-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+ 
