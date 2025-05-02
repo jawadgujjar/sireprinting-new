@@ -9,6 +9,7 @@ import {
   FaLinkedin,
   FaPaperPlane,
   FaPhone,
+  FaPinterest,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -59,10 +60,34 @@ function Footer1() {
             <FaShippingFast /> 100% Free shipping all across UK
           </p>
           <div className="footersire-social-icons">
-            <FaFacebook />
-            <FaXTwitter />
-            <FaInstagram />
-            <FaLinkedin />
+            <a
+              href="https://www.facebook.com/sireprinting"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFacebook />
+            </a>
+            <a
+              href="https://x.com/sireprintingco"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaXTwitter />
+            </a>
+            <a
+              href="https://www.instagram.com/sireprinting/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="https://www.pinterest.com/sireprinting/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaPinterest />
+            </a>
           </div>
           <img
             src="../images/payment-cards.png"

@@ -18,6 +18,15 @@
   max-width: 400px;
 }
 
+.signup-link a {
+  color: #01257d;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
 /* Title */
 .login-title {
   color: #01257d !important;

@@ -1,19 +1,26 @@
 import React from "react";
 import { Input, Button, Form } from "antd";
 import { Link } from "react-router-dom";
-import "./login.css";
+import "./login.css"; // reuse same styles
 
-const LoginPage = () => {
+const SignupPage = () => {
   return (
     <div className="login-container">
       <div className="login-form">
-        <h2 className="login-title">Login</h2>
+        <h2 className="login-title">Sign Up</h2>
 
         <Form
-          name="login"
+          name="signup"
           initialValues={{ remember: true }}
-          onFinish={(values) => console.log("Login success:", values)}
+          onFinish={(values) => console.log("Signup success:", values)}
         >
+          <Form.Item
+            name="name"
+            rules={[{ required: true, message: "Please input your name!" }]}
+          >
+            <Input placeholder="Name" size="large" className="login-input" />
+          </Form.Item>
+
           <Form.Item
             name="email"
             rules={[{ required: true, message: "Please input your email!" }]}
@@ -34,17 +41,17 @@ const LoginPage = () => {
 
           <Form.Item>
             <Button type="primary" htmlType="submit" className="login-button">
-              Login
+              Sign Up
             </Button>
           </Form.Item>
         </Form>
 
         <div className="signup-link">
-          Don't have an account? <Link to="/signup">Sign up</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default SignupPage;
