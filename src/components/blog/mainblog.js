@@ -283,15 +283,15 @@ function MainBlog() {
               </div>
             </div>
             <div className="side-banner-container">
-            <img
-              src="../images/blog_banner.png"
-              alt="Banner"
-              className="side-banner"
-            />
-            <a href="/get-a-quote" className="get-quote-button">
-              Get a Quote
-            </a>
-          </div>
+              <img
+                src="../images/blog_banner.png"
+                alt="Banner"
+                className="side-banner"
+              />
+              <a href="/get-a-quote" className="get-quote-button">
+                Get a Quote
+              </a>
+            </div>
           </div>
         </div>
 
