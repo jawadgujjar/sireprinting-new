@@ -1,163 +1,245 @@
 import React from "react";
 import "./blog.css";
+import { Col, Row, Carousel } from "antd";
 
-const Blog = () => {
-  return (
-    <div className="blog-article">
-      <header className="article-header">
-        <div className="breadcrumb">
-          <a href="/">Home</a> &gt; <a href="/blog">Blog</a> &gt; Unboxing
-          Experience
-        </div>
-        <h1>The Power of Unboxing Experience in Modern Packaging</h1>
-        <div className="article-meta">
-          <span className="date">Published: May 15, 2023</span>
-          <span className="author">By: Refine Packaging Team</span>
-          <span className="category">Category: Packaging Design</span>
-        </div>
-      </header>
-
-      <div className="article-content">
-        <div className="featured-image">
-          <img
-            src="https://refinepackaging.com/wp-content/uploads/2023/05/unboxing-experience.jpg"
-            alt="Unboxing Experience"
-          />
-        </div>
-
-        <div className="content-section">
-          <h2>Why Unboxing Experience Matters</h2>
-          <p>
-            In today's competitive market, the unboxing experience has become a
-            crucial touchpoint between brands and consumers. It's not just about
-            protecting the product anymore - it's about creating memorable
-            moments that customers want to share.
-          </p>
-          <p>
-            Studies show that 40% of consumers are more likely to make repeat
-            purchases from a brand that delivers premium packaging, and 52% are
-            likely to share their unboxing experience on social media.
-          </p>
-        </div>
-
-        <div className="content-section">
-          <h2>Key Elements of a Great Unboxing Experience</h2>
-          <div className="feature-box">
-            <div className="feature">
-              <h3>1. First Impressions</h3>
-              <p>
-                The outer packaging should create excitement and anticipation.
-                Custom printed boxes with vibrant colors and finishes make a
-                strong first impression.
-              </p>
-            </div>
-            <div className="feature">
-              <h3>2. Opening Mechanism</h3>
-              <p>
-                Consider easy-to-open designs that don't require scissors or
-                excessive force. Magnetic closures or ribbon pulls add a premium
-                feel.
-              </p>
-            </div>
-            <div className="feature">
-              <h3>3. Interior Presentation</h3>
-              <p>
-                Use custom inserts, tissue paper, or foam to cradle the product
-                securely while creating visual appeal when opened.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="content-section">
-          <h2>Materials That Enhance Unboxing</h2>
-          <ul className="material-list">
-            <li>
-              <strong>Folding cartons</strong> - Perfect for luxury items with
-              high-end printing capabilities
-            </li>
-            <li>
-              <strong>Corrugated mailers</strong> - Durable yet can be
-              customized with vibrant prints
-            </li>
-            <li>
-              <strong>Rigid boxes</strong> - The ultimate premium packaging
-              solution
-            </li>
-            <li>
-              <strong>Eco-friendly options</strong> - Recycled materials that
-              don't compromise on quality
-            </li>
-          </ul>
-        </div>
-
-        <div className="content-section">
-          <h2>Real-World Examples</h2>
-          <div className="example-gallery">
-            <div className="example">
-              <img
-                src="https://refinepackaging.com/wp-content/uploads/2023/05/cosmetics-unboxing.jpg"
-                alt="Cosmetics Unboxing"
-              />
-              <p>
-                Cosmetics brand using magnetic closure box with custom foam
-                insert
-              </p>
-            </div>
-            <div className="example">
-              <img
-                src="https://refinepackaging.com/wp-content/uploads/2023/05/electronics-unboxing.jpg"
-                alt="Electronics Unboxing"
-              />
-              <p>
-                Tech company using layered corrugated packaging with branded
-                tissue
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="cta-section">
-          <h3>Ready to Elevate Your Unboxing Experience?</h3>
-          <p>
-            Our packaging experts can help you design a memorable unboxing
-            journey for your customers.
-          </p>
-          <a href="/contact" className="cta-button">
-            Get a Free Quote
-          </a>
-        </div>
-      </div>
-
-      <aside className="article-sidebar">
-        <div className="sidebar-widget">
-          <h3>Related Articles</h3>
-          <ul>
-            <li>
-              <a href="#">How Packaging Affects Brand Perception</a>
-            </li>
-            <li>
-              <a href="#">Sustainable Packaging Trends for 2023</a>
-            </li>
-            <li>
-              <a href="#">The Psychology of Packaging Colors</a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="sidebar-widget">
-          <h3>Popular Tags</h3>
-          <div className="tags">
-            <a href="#">#unboxing</a>
-            <a href="#">#packagingdesign</a>
-            <a href="#">#customerexperience</a>
-            <a href="#">#branding</a>
-            <a href="#">#sustainablepackaging</a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  );
+const blogContent = {
+  title: "The Art of Sustainable Packaging",
+  description:
+    "Discover how eco-friendly materials are revolutionizing the packaging industry and how you can implement these solutions.",
+  author: {
+    name: "Sarah Johnson",
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+  },
+  image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
+  body: (
+    <>
+      <p>
+        In today’s environmentally-conscious market, sustainable packaging is no
+        longer a luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses. In today’s
+        environmentally-conscious market, sustainable packaging is no longer a
+        luxury but a necessity. This article explores biodegradable,
+        compostable, and recyclable options for modern businesses.
+      </p>
+      <h4>Pros:</h4>
+      <ul>
+        <li>Eco-friendly materials reduce carbon footprint</li>
+        <li>Appeals to environmentally aware customers</li>
+        <li>Can improve brand image</li>
+      </ul>
+      <h4>Cons:</h4>
+      <ul>
+        <li>Initial cost may be higher</li>
+        <li>Availability of materials can vary</li>
+      </ul>
+      <table className="comparison-table">
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th>Biodegradable</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Plastic</td>
+            <td>No</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td>Kraft Paper</td>
+            <td>Yes</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td>Cornstarch</td>
+            <td>Yes</td>
+            <td>High</td>
+          </tr>
+        </tbody>
+      </table>
+    </>
+  ),
 };
 
-export default Blog;
+// Sample carousel items
+const carouselItems = [
+  {
+    id: 1,
+    title: "Mailer Box",
+    image: "/images/arka.png",
+  },
+  {
+    id: 2,
+    title: "Window Box",
+    image: "/images/arka.png",
+  },
+  {
+    id: 3,
+    title: "Corrugated Box",
+    image: "/images/arka.png",
+  },
+  {
+    id: 4,
+    title: "Mailer Box",
+    image: "/images/arka.png",
+  },
+  {
+    id: 5,
+    title: "Window Box",
+    image: "/images/arka.png",
+  },
+  {
+    id: 6,
+    title: "Corrugated Box",
+    image: "/images/arka.png",
+  },
+  {
+    id: 7,
+    title: "Mailer Box",
+    image: "/images/arka.png",
+  },
+  {
+    id: 8,
+    title: "Window Box",
+    image: "/images/arka.png",
+  },
+  {
+    id: 9,
+    title: "Corrugated Box",
+    image: "/images/arka.png",
+  },
+];
+
+function MainBlogRedesign() {
+  return (
+    <div className="blog-redesign-container">
+      {/* Top Section */}
+      <Row gutter={[24, 24]} align="middle" className="top-section">
+        <Col xs={24} md={12}>
+          <h1 className="blog-title">{blogContent.title}</h1>
+          <p className="blog-description">{blogContent.description}</p>
+          <div className="author-info">
+            <img
+              src={blogContent.author.avatar}
+              alt={blogContent.author.name}
+              className="author-avatar"
+            />
+            <span className="author-name">{blogContent.author.name}</span>
+          </div>
+        </Col>
+        <Col xs={24} md={12}>
+          <img src={blogContent.image} className="main-image" alt="Main blog" />
+        </Col>
+      </Row>
+
+      {/* Second Section */}
+      <Row gutter={[24, 24]} className="second-section">
+        <Col xs={24} md={16}>
+          <div className="blog-body">{blogContent.body}</div>
+          <h3 className="carousel-heading">Related Products</h3>
+          <Carousel
+            dots={false}
+            slidesToShow={5}
+            autoplay
+            className="product-carousel"
+          >
+            {carouselItems.map((item) => (
+              <div className="carousel-item" key={item.id}>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="carousel-img"
+                />
+                <div className="carousel-title">{item.title}</div>
+              </div>
+            ))}
+          </Carousel>
+        </Col>
+        <Col xs={24} md={8}>
+          <div className="side-banner-container">
+            <img
+              src="../images/blog_banner.png"
+              alt="Banner"
+              className="side-banner"
+            />
+            <a href="/get-a-quote" className="get-quote-button">
+              Get a Quote
+            </a>
+          </div>
+        </Col>
+      </Row>
+    </div>
+  );
+}
+
+export default MainBlogRedesign;
