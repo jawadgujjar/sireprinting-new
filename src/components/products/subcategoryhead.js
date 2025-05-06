@@ -8,7 +8,7 @@ function Subcategoryhead() {
     <div className="subcategory-container">
       <Row className="subcategory-row">
         <Col xs={24} md={12} className="subcategory-left">
-          <h2 className="subcategory-heading">CBD Packaging Boxes</h2>
+          <h2 className="subcategory-heading">Custom Packaging</h2>
           <p className="subcategory-description">
             Sire Packaging is a leading supplier of custom printed CBD packaging
             boxes offering customized packaging solutions to elevate your

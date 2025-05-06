@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Input, Button, message, Form } from "antd";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMail, IoLocationSharp } from "react-icons/io5";
-import { contactus } from "../../utils/axios";
+// import { contactus } from "../../utils/axios";
 import "./contactus.css";
 
 function Contactus() {
@@ -13,9 +13,8 @@ function Contactus() {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await contactus.post("/", values);
+      // const response = await contactus.post("/", values);
       message.success("Message sent successfully!");
-      console.log("Response:", response.data);
       form.resetFields();
     } catch (error) {
       message.error("Failed to send message. Try again.");

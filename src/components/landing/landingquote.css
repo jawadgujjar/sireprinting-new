@@ -1,0 +1,54 @@
+.landingquote-container {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 2rem auto;
+  max-width: 1200px;
+}
+
+.landingquote-text h2 {
+  color: #01257d;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.landingquote-text p {
+  color: #555;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.landingquote-button button {
+  background-color: #01257d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
+.landingquote-button button:hover {
+  background-color: #00ffff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .landingquote-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .landingquote-button {
+    margin-top: 1rem;
+  }
+}

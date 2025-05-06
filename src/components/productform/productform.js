@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Select, Input, Row, Col, message } from "antd";
-import { getquote } from "../../utils/axios";
+// import { getquote } from "../../utils/axios";
 import FileUpload from "../productform/fileupload";
 import "./productform.css";
 
@@ -19,7 +19,7 @@ function Productform1() {
     }
 
     try {
-      const response = await getquote.post("/", values);
+      // const response = await getquote.post("/", values);
       message.success("Form submitted successfully!");
       form.resetFields();
     } catch (error) {
