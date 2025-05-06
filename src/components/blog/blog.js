@@ -1,6 +1,13 @@
 import React from "react";
 import "./blog.css";
 import { Col, Row, Carousel } from "antd";
+import {
+  FacebookOutlined,
+  TwitterOutlined,
+  LinkedinOutlined,
+} from "@ant-design/icons";
+import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
+import { FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 
 const blogContent = {
   title: "The Art of Sustainable Packaging",
@@ -14,78 +21,69 @@ const blogContent = {
   body: (
     <>
       <p>
-        In today’s environmentally-conscious market, sustainable packaging is no
+        In today's environmentally-conscious market, sustainable packaging is no
         longer a luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today’s
+        compostable, and recyclable options for modern businesses. In today's
         environmentally-conscious market, sustainable packaging is no longer a
         luxury but a necessity. This article explores biodegradable,
         compostable, and recyclable options for modern businesses.
@@ -183,6 +181,34 @@ const carouselItems = [
 function MainBlogRedesign() {
   return (
     <div className="blog-redesign-container">
+      {/* Social Media Icons Column */}
+      <div className="social-icons-column">
+        <a
+          href="https://www.facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-icon"
+        >
+          <FaFacebookF style={{ fontSize: "25px" }}/>
+
+        </a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-icon"
+        >
+          <TwitterOutlined style={{ fontSize: "25px" }} />
+        </a>
+        <a
+          href="https://www.linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-icon"
+        >
+          <FaLinkedinIn style={{ fontSize: "25px" }} />
+        </a>
+      </div>
       {/* Top Section */}
       <Row gutter={[24, 24]} align="middle" className="top-section">
         <Col xs={24} md={12}>

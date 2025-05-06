@@ -2,21 +2,26 @@ import React from "react";
 import { Input, Button, Form, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { users } from "../../utils/axios";
+import { toast } from "react-toastify";
 import "./login.css";
+import { useUser } from "../../contextapi/userContext.js";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [form] = Form.useForm();
+  const { loginUser } = useUser(); // <-- use context
 
   const onFinish = async (values) => {
     try {
-      const res = await users.post("/login", values);
-      message.success("Login successful!");
+      const response = await users.post("/login", values);
+      const userData = response.data; // adjust according to your API
+
+      loginUser(userData); // Save in context
+      toast.success("Login successful!");
       navigate("/");
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Login error:", error);
       const errorMsg =
-        error.response?.data?.message || "Login failed. Try again.";
+        error.response?.data?.message || "Login failed. Please try again.";
       message.error(errorMsg);
     }
   };
@@ -26,54 +31,34 @@ const LoginPage = () => {
       <div className="login-form">
         <h2 className="login-title">Login</h2>
 
-        <Form
-          form={form}
-          name="login"
-          layout="vertical"
-          onFinish={onFinish}
-          autoComplete="off"
-        >
+        <Form name="login" onFinish={onFinish}>
           <Form.Item
             name="email"
-            label="Email"
-            rules={[
-              { required: true, message: "Please enter your email" },
-              { type: "email", message: "Invalid email format" },
-            ]}
+            rules={[{ required: true, message: "Please input your email!" }]}
           >
-            <Input
-              placeholder="Enter your email"
-              size="large"
-              className="login-input"
-            />
+            <Input placeholder="Email" size="large" className="login-input" />
           </Form.Item>
 
           <Form.Item
             name="password"
-            label="Password"
-            rules={[{ required: true, message: "Please enter your password" }]}
+            rules={[{ required: true, message: "Please input your password!" }]}
           >
             <Input.Password
-              placeholder="Enter password"
+              placeholder="Password"
               size="large"
               className="login-input"
             />
           </Form.Item>
 
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              block
-              className="login-button"
-            >
+            <Button type="primary" htmlType="submit" className="login-button">
               Login
             </Button>
           </Form.Item>
         </Form>
 
         <div className="signup-link">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
+          Don't have an account? <Link to="/signup">Sign up</Link>
         </div>
       </div>
     </div>

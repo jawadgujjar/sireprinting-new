@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
 import "./navbar1.css";
 import { Button } from "antd";
+import { useUser } from "../../contextapi/userContext.js";
 
 const Navbar1 = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -12,6 +13,7 @@ const Navbar1 = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const navigate = useNavigate();
   const searchRef = useRef(null);
+  const { user } = useUser();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -223,10 +225,11 @@ const Navbar1 = () => {
             </a>
           </div>
           <div>
-            <Link to="/login">
+            <Link to="/login" style={{ display: "flex" }}>
               <FaRegUser
                 className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
               />
+              {user?.name || null}
             </Link>
           </div>
           <div>
