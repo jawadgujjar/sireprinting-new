@@ -153,6 +153,7 @@ function MainBlog() {
             <Row gutter={[16, 16]}>
               {filteredBlogs.map((blog) => (
                 <Col xs={24} sm={12} lg={12} key={blog.id}>
+
                   <Link to={`/blog1`} style={{ textDecoration: "none" }}>
                     <div className="blog-card">
                       <div
