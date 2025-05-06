@@ -41,7 +41,7 @@ function AppRouter() {
         <Route path="/contact-us" element={<Contactus />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Terms_and_conditions" element={<Term />} />
-        <Route path="/CBD-Packaging-Boxes" element={<Subcategorypage />} />
+        <Route path="/main-category" element={<Subcategorypage />} />
         <Route path="/sample-product" element={<Sampleproduct />} />
         <Route path="/add-to-cart" element={<Cart />} />
       </Routes>

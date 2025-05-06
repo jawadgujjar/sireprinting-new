@@ -206,7 +206,8 @@ function Products() {
               <div className="category-grid-container">
                 {categories.map((category) => (
                   <Link
-                    to={`/category/${category.id}`}
+                    // to={`/main-product/${category.id}`}
+                    to={`/main-product`}
                     key={category.id}
                     className="category-card"
                   >

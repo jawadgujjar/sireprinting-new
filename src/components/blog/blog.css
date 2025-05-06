@@ -129,3 +129,8 @@
   background-color: #00ffff;
   color: white !important;
 }
+@media (max-width: 768px) {
+  .blog-title {
+    margin-top: 3rem;
+  }
+}

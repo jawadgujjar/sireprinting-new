@@ -5,6 +5,8 @@ import AppRouter from "./routes";
 import { BrowserRouter as Router } from "react-router-dom";
 import ChatButtons from "./components/chat buttons/chatbutton";
 import Verify from "./components/search/loginmainverify";
+import ScrollToTop from "./components/landing/scrolltop";
+ 
 
 function App() {
   const [isVerified, setIsVerified] = useState(false);
@@ -13,6 +15,7 @@ function App() {
     <div className="App">
       {isVerified ? (
         <Router>
+          <ScrollToTop/>  
           <Navbar1 />
           <AppRouter />
           <ChatButtons />
