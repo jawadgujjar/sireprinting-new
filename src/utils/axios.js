@@ -4,29 +4,8 @@ import axios from "axios";
 const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000/v1"; // <-- change this to your local API base if needed
 
 // Create instances with consistent base URLs
-const sireperks = axios.create({
-  baseURL: `${baseURL}/sireperks`,
-});
-const products = axios.create({
-  baseURL: `${baseURL}/products`,
-});
-const getquote = axios.create({
-  baseURL: `${baseURL}/getquote`,
-});
-const category = axios.create({
-  baseURL: `${baseURL}/category`,
-});
-const portfolio = axios.create({
-  baseURL: `${baseURL}/portfolio`,
-});
-const blogs = axios.create({
-  baseURL: `${baseURL}/blogs`,
-});
-const contactus = axios.create({
-  baseURL: `${baseURL}/contactus`,
-});
-const newsletter = axios.create({
-  baseURL: `${baseURL}/newsletter`,
+const users = axios.create({
+  baseURL: `${baseURL}/auth`,
 });
 
 // Request Interceptor
@@ -42,26 +21,8 @@ const errorInterceptor = (err) => {
 };
 
 // Apply interceptors
-[
-  sireperks,
-  products,
-  getquote,
-  category,
-  portfolio,
-  blogs,
-  contactus,
-  newsletter,
-].forEach((instance) => {
+[users].forEach((instance) => {
   instance.interceptors.request.use(requestInterceptor, errorInterceptor);
 });
 
-export {
-  sireperks,
-  products,
-  getquote,
-  category,
-  portfolio,
-  blogs,
-  contactus,
-  newsletter,
-};
+export { users };
