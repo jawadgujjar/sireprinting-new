@@ -65,7 +65,7 @@ function Subcategory() {
       { id: 5, name: "Product 5", image: "images/allproduct1.png" },
       { id: 6, name: "Product 6", image: "images/allproduct1.png" },
     ],
-    2: [
+    2: [  
       { id: 7, name: "Mailer Box 1", image: "images/allproduct1.png" },
       { id: 8, name: "Mailer Box 2", image: "images/process1.png" },
       { id: 9, name: "Mailer Box 3", image: "images/allproduct1.png" },
@@ -131,7 +131,7 @@ function Subcategory() {
             </>
           ) : (
             <div className="mobile-accordion">
-            <p className="subcategory-heading1">Categories</p>
+            <p className="subcategory-heading1">  Sub-Categories</p>
             {categories.map((category) => (
               <div key={category.id} className="mobile-category">
                 <div
@@ -150,7 +150,7 @@ function Subcategory() {
                     <Row gutter={[16, 16]}>
                       {productsByCategory[category.id]?.map((product) => (
                         <Col xs={24} key={product.id}>
-                          <Link to={`/all-products`} className="product-link">
+                          <Link to={`/main-product`} className="product-link">
                             <Card
                               hoverable
                               cover={<img alt={product.name} src={product.image} />}
@@ -186,7 +186,7 @@ function Subcategory() {
             <Row gutter={[16, 16]}>
               {productsByCategory[selectedCategory]?.map((product) => (
                 <Col xs={24} sm={8} md={8} lg={8} key={product.id}>
-                  <Link to={`/all-products`} className="product-link">
+                  <Link to={`/main-product`} className="product-link">
                     <Card
                       className="allproduct-card"
                       hoverable

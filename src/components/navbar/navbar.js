@@ -58,9 +58,9 @@ const Navbar1 = () => {
     {
       name: "Custom Packaging",
       dropdown: true,
-      link: "/products",
+      link: "/main-category",
       items: [
-        { name: "CBD Packaging Boxes", link: "/CBD-Packaging-Boxes" },
+        { name: "CBD Packaging Boxes", link: "/products" },
         { name: "Candle Packaging", link: "/Candle-Packaging" },
         { name: "Chocolate Packaging", link: "/Chocolate-Packaging" },
         { name: "Cigarette Packaging", link: "/Cigarette-Packaging" },

@@ -89,13 +89,13 @@
 
 .blog-title::after {
   content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
+  width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, #ff7b00, #ff0058);
+  background: #01257d;
+  display: block;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 8px #01257d;
 }
 
 .blog-subtitle {
@@ -304,7 +304,7 @@
   bottom: -40px;
   left: 0;
   width: 100%;
-  background: linear-gradient(90deg, #ff7b00, #ff0058);
+  background: linear-gradient(90deg, #01257D, #00FFFF);
   color: white;
   padding: 1rem;
   text-align: center;
@@ -340,12 +340,13 @@
 
 .sidebar-title::after {
   content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 50px;
-  height: 2px;
-  background: linear-gradient(90deg, #ff7b00, #ff0058);
+  width: 60px;
+  height: 4px;
+  background: #01257d;
+  display: block;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 8px #01257d;
 }
 
 .popular-posts-list {
@@ -591,7 +592,7 @@
 .featured-categories {
   margin-top: 2rem;
   padding: 1rem;
-  background-color: #ffeae4;
+  background-color: #F7F7F7;
   border-radius: 10px;
 }
 

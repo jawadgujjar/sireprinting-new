@@ -1,5 +1,5 @@
 import React from "react";
-import { SiWhatsapp } from "react-icons/si"; // better looking icon
+import { SiWhatsapp } from "react-icons/si";
 import { FaCommentDots } from "react-icons/fa";
 import "./chatbutton.css";
 
@@ -15,6 +15,7 @@ const ChatButtons = () => {
       >
         <SiWhatsapp size={24} />
       </a>
+
       <a href="/chat" title="Live Chat" className="chat-icon live-chat">
         <FaCommentDots size={24} />
       </a>

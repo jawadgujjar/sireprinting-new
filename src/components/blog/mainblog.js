@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./mainblog.css";
+import { Link } from "react-router-dom";
 import { Button, Col, Row } from "antd";
 
 const categories = [
@@ -152,32 +153,34 @@ function MainBlog() {
             <Row gutter={[16, 16]}>
               {filteredBlogs.map((blog) => (
                 <Col xs={24} sm={12} lg={12} key={blog.id}>
-                  <div className="blog-card">
-                    <div
-                      className="blog-card-image"
-                      style={{ backgroundImage: `url(${blog.image})` }}
-                    >
-                      <div className="image-overlay"></div>
-                    </div>
-                    <div className="blog-card-content">
-                      <h3 className="blog-card-title">{blog.title}</h3>
-                      <div className="blog-meta">
-                        <img
-                          src={blog.avatar}
-                          alt={blog.author}
-                          className="author-avatar"
-                        />
-                        <div>
-                          <span className="author-name">{blog.author}</span>
-                          <span className="post-date">{blog.date}</span>
-                        </div>
+                  <Link to={`/blog1`} style={{ textDecoration: "none" }}>
+                    <div className="blog-card">
+                      <div
+                        className="blog-card-image"
+                        style={{ backgroundImage: `url(${blog.image})` }}
+                      >
+                        <div className="image-overlay"></div>
                       </div>
-                      <p className="blog-card-description">
-                        {blog.description}
-                      </p>
-                      <div className="hover-read-more">READ MORE →</div>
+                      <div className="blog-card-content">
+                        <h3 className="blog-card-title">{blog.title}</h3>
+                        <div className="blog-meta">
+                          <img
+                            src={blog.avatar}
+                            alt={blog.author}
+                            className="author-avatar"
+                          />
+                          <div>
+                            <span className="author-name">{blog.author}</span>
+                            <span className="post-date">{blog.date}</span>
+                          </div>
+                        </div>
+                        <p className="blog-card-description">
+                          {blog.description}
+                        </p>
+                        <div className="hover-read-more">READ MORE →</div>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </Col>
               ))}
             </Row>
@@ -304,7 +307,9 @@ function MainBlog() {
             consultation and instant price quote.
           </h4>
           <div className="getbutton-center">
-            <Button className="getquote-button">Get a Quote</Button>
+            <Link to="/get-a-quote">
+              <Button className="getquote-button">Get a Quote</Button>
+            </Link>
           </div>
         </div>
       </div>

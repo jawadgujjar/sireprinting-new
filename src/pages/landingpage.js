@@ -2,13 +2,13 @@ import React from "react";
 import LandingPage from "../components/landing/landing";
 import Videocarousel from "../components/landing/carouselvideo";
 import Brands from "../components/landing/brands";
-import Popularproducts from "../components/landing/popularproducts";
-import Solutions from "../components/landing/solutions";
 import Faq1 from "../components/landing/faq";
 import Testimonial from "../components/landing/testimonial";
 import Industry from "../components/landing/industry";
 import Sireadvantage from "../components/landing/sireadvantage";
 import Banner from "../components/landing/banner";
+import Landingdes from "../components/landing/landingdes";
+import Landingquote from "../components/landing/landingquote";
 
 function Landingpage() {
   return (
@@ -18,6 +18,8 @@ function Landingpage() {
       <Industry />
       {/* <Popularproducts /> */}
       {/* <Solutions /> */}
+      <Landingdes/>
+      <Landingquote/>
       <Sireadvantage />
       <Testimonial />
       <Banner />
