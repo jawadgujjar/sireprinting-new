@@ -179,21 +179,22 @@ const carouselItems = [
 ];
 
 function MainBlogRedesign() {
+  const currentUrl = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent("Check this out!");
   return (
     <div className="blog-redesign-container">
       {/* Social Media Icons Column */}
       <div className="social-icons-column">
         <a
-          href="https://www.facebook.com"
+          href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`}
           target="_blank"
           rel="noopener noreferrer"
           className="social-icon"
         >
-          <FaFacebookF style={{ fontSize: "25px" }}/>
-
+          <FaFacebookF style={{ fontSize: "25px" }} />
         </a>
         <a
-          href="https://twitter.com"
+          href={`https://twitter.com/intent/tweet?url=${currentUrl}&text=${text}`}
           target="_blank"
           rel="noopener noreferrer"
           className="social-icon"
@@ -201,7 +202,7 @@ function MainBlogRedesign() {
           <TwitterOutlined style={{ fontSize: "25px" }} />
         </a>
         <a
-          href="https://www.linkedin.com"
+          href={`https://www.linkedin.com/shareArticle?mini=true&url=${currentUrl}`}
           target="_blank"
           rel="noopener noreferrer"
           className="social-icon"
