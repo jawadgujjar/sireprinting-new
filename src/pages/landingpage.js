@@ -9,6 +9,7 @@ import Sireadvantage from "../components/landing/sireadvantage";
 import Banner from "../components/landing/banner";
 import Landingdes from "../components/landing/landingdes";
 import Landingquote from "../components/landing/landingquote";
+import Landingdie from "../components/landing/landingdie";
 
 function Landingpage() {
   return (
@@ -18,6 +19,7 @@ function Landingpage() {
       <Industry />
       {/* <Popularproducts /> */}
       {/* <Solutions /> */}
+      <Landingdie />
       <Landingdes/>
       <Landingquote/>
       <Sireadvantage />

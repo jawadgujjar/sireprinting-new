@@ -20,6 +20,8 @@ import Sampleproduct from "./components/sampleproduct/sampleproduct";
 import Cart from "./components/addtocart/cart";
 import NotFound from "./components/not found/notfound";
 import SignupPage from "./components/login/signup";
+import Diepage from "./pages/diepage";
+import Diecategory from "./components/die-component/diecategory";
 
 function AppRouter() {
   return (
@@ -44,6 +46,8 @@ function AppRouter() {
         <Route path="/main-category" element={<Subcategorypage />} />
         <Route path="/sample-product" element={<Sampleproduct />} />
         <Route path="/add-to-cart" element={<Cart />} />
+        <Route path="/Die-template" element={<Diepage />} />
+        <Route path="/Die-category-template" element={<Diecategory />} />
       </Routes>
       <Footer1 />
     </>
