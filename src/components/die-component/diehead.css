@@ -1,0 +1,35 @@
+.diehead-section {
+    padding: 40px 40px;
+    background-color: #ffffff;
+    margin-top: 5rem;
+  }
+  
+  .diehead-text h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #111;
+    text-align: left;
+  }
+  
+  .diehead-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+    text-align: left;
+  }
+  
+  .diehead-text .highlight {
+    color: #01257D;
+    font-weight: bold;
+  }
+  
+  .diehead-image-wrapper {
+    text-align: center;
+  }
+  
+  .diehead-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
