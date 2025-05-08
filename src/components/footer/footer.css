@@ -54,6 +54,7 @@
 .submit-button {
   margin-top: 1.5rem;
   margin-left: 1rem;
+  width: fit-content;
   background-color: #7c7b7b; /* Button background color */
   color: #fff; /* White text color for button */
   padding: 10px 15px; /* Adjust padding for button */
