@@ -274,7 +274,30 @@
   color: #01257d;
   font-size: 22px;
 }
+.user-dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
 
+.user-dropdown-menu {
+  position: absolute;
+  top: 120%; /* Adjust spacing from the user icon */
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 120px;
+}
+
+.user-dropdown-menu button {
+  width: 100%;
+  font-size: 14px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
 .phone-icons.scrolled {
   margin-right: 8px;
   color: #01257d;

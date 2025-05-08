@@ -445,7 +445,7 @@ function Getquote() {
                   {faqData.map((item, index) => (
                     <Panel
                       header={
-                        <span className="faq-question">{item.question}</span>
+                        <span className="faq-questions">{item.question}</span>
                       }
                       key={index}
                       className="faq-panel"
