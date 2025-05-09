@@ -11,27 +11,36 @@ const Navbar1 = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const navigate = useNavigate();
   const searchRef = useRef(null);
-  const { user } = useUser();
+  const inputRef = useRef(null);
+  const userMenuRef = useRef(null);
+
+  const { user, logout } = useUser();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setShowSearchBar(false);
+        setSearchQuery("");
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setShowUserMenu(false);
       }
     };
 
-    if (showSearchBar) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+  useEffect(() => {
+    if (showSearchBar && inputRef.current) {
+      inputRef.current.focus();
+    }
   }, [showSearchBar]);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -40,11 +49,14 @@ const Navbar1 = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (showSearchBar) {
-      navigate("/search-products");
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search-products?query=${encodeURIComponent(searchQuery)}`);
+      setShowSearchBar(false);
+      setSearchQuery("");
     }
-  }, [showSearchBar, navigate]);
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -52,6 +64,12 @@ const Navbar1 = () => {
 
   const toggleDropdown = (index) => {
     setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setShowUserMenu(false);
+    navigate("/");
   };
 
   const navItems = [
@@ -90,16 +108,8 @@ const Navbar1 = () => {
         { name: "Display Boxes", link: "/Display-Boxes" },
       ],
     },
-    {
-      name: "Labels & Tags",
-      dropdown: false,
-      link: "/shipping-boxes",
-    },
-    {
-      name: "Custom Stickers",
-      dropdown: false,
-      link: "/poly-mailers",
-    },
+    { name: "Labels & Tags", dropdown: false, link: "/shipping-boxes" },
+    { name: "Custom Stickers", dropdown: false, link: "/poly-mailers" },
     {
       name: "Promotional Products",
       dropdown: true,
@@ -109,21 +119,9 @@ const Navbar1 = () => {
         { name: "Custom Envelopes", link: "/Custom-Envelopes" },
       ],
     },
-    {
-      name: "Mylar Bags",
-      dropdown: false,
-      link: "/custom-boxes",
-    },
-    {
-      name: "Work Showcase",
-      dropdown: false,
-      link: "/portfolio",
-    },
-    {
-      name: "GET A QUOTE",
-      dropdown: false,
-      link: "/get-a-quote",
-    },
+    { name: "Mylar Bags", dropdown: false, link: "/custom-boxes" },
+    { name: "Work Showcase", dropdown: false, link: "/portfolio" },
+    { name: "GET A QUOTE", dropdown: false, link: "/get-a-quote" },
   ];
 
   const isMobile = window.innerWidth <= 992;
@@ -145,9 +143,9 @@ const Navbar1 = () => {
               <li
                 key={index}
                 className={`nav-item ${item.dropdown ? "has-dropdown" : ""}`}
-                onClick={() => {
-                  if (isMobile && item.dropdown) toggleDropdown(index);
-                }}
+                onClick={() =>
+                  isMobile && item.dropdown && toggleDropdown(index)
+                }
                 onMouseEnter={() =>
                   !isMobile && item.dropdown && toggleDropdown(index)
                 }
@@ -157,47 +155,43 @@ const Navbar1 = () => {
                   to={item.link}
                   className={`nav-link ${isScrolled ? "scrolled" : ""}`}
                 >
-                  {item.name}
+                  <span>{item.name}</span>
                 </Link>
-                {item.dropdown &&
-                  (isMobile
-                    ? activeDropdown === index
-                    : activeDropdown === index) && (
-                    <div className="dropdown-menu show">
-                      <div className="dropdown-content">
-                        <div className="dropdown-main-items">
-                          {item.items.map((subItem, subIndex) => (
-                            <Link
-                              key={subIndex}
-                              to={subItem.link}
-                              className="dropdown-item"
-                              onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                              {subItem.name}
-                            </Link>
-                          ))}
-                        </div>
-                        <div className="dropdown-fixed-content">
-                          <h2>Get Help With Expert Guidance</h2>
-                          <h3>
-                            Need help finding the perfect packaging? Contact us
-                            now for a free consultation with a trained packaging
-                            specialist.
-                          </h3>
-                          <h3>Call Us at:</h3>
-                          <h3>
-                            <a href="tel:+447745807425" className="number-tel">
-                              074 46124339
-                            </a>
-                          </h3>
-                          <div className="get-navbar-quote-butt">
-                            {" "}
-                            <Button>Get Free Quote</Button>
-                          </div>
+                {item.dropdown && activeDropdown === index && (
+                  <div className="dropdown-menu show">
+                    <div className="dropdown-content">
+                      <div className="dropdown-main-items">
+                        {item.items.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={subItem.link}
+                            className="dropdown-item"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                      <div className="dropdown-fixed-content">
+                        <h2>Get Help With Expert Guidance</h2>
+                        <h3>
+                          Need help finding the perfect packaging? Contact us
+                          now for a free consultation with a trained packaging
+                          specialist.
+                        </h3>
+                        <h3>Call Us at:</h3>
+                        <h3>
+                          <a href="tel:+447745807425" className="number-tel">
+                            074 46124339
+                          </a>
+                        </h3>
+                        <div className="get-navbar-quote-butt">
+                          <Button>Get Free Quote</Button>
                         </div>
                       </div>
                     </div>
-                  )}
+                  </div>
+                )}
               </li>
             ))}
           </ul>
@@ -208,14 +202,20 @@ const Navbar1 = () => {
               ref={searchRef}
               className={`search-dropdown ${showSearchBar ? "show" : ""}`}
             >
-              <input
-                type="text"
-                placeholder="Search products..."
-                className="search-input"
-              />
+              <form onSubmit={handleSearchSubmit}>
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Search products..."
+                  className="search-input"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </form>
             </div>
           )}
         </div>
+
         <div className="nav-icons">
           <div>
             <a href="tel:+11392383929">
@@ -224,23 +224,59 @@ const Navbar1 = () => {
               />
             </a>
           </div>
-          <div>
-            <Link to="/login" style={{ display: "flex" }}>
-              <FaRegUser
-                className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
-              />
-              {user?.name || null}
-            </Link>
+
+          <div ref={userMenuRef} className="user-icon-container">
+            {user ? (
+              <div className="user-dropdown-wrapper">
+                <div
+                  className="user-icon"
+                  onClick={() => setShowUserMenu((prev) => !prev)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  <FaRegUser
+                    className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
+                  />
+                  <span style={{ marginLeft: 5, color: "#01257d" }}>
+                    {user?.name}
+                  </span>
+                </div>
+                {showUserMenu && (
+                  <div className="user-dropdown-menu">
+                    <Button danger onClick={handleLogout}>
+                      Logout
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                style={{
+                  display: "flex",
+                  textDecoration: "none",
+                  alignItems: "center",
+                  color: "#01257d",
+                }}
+              >
+                <FaRegUser
+                  className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
+                />
+                <span style={{ marginLeft: 5 }}>Login</span>
+              </Link>
+            )}
           </div>
-          <div>
-            <div
-              className="search-icon"
-              onClick={() => setShowSearchBar((prev) => !prev)}
-            >
-              <IoSearchOutline
-                className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
-              />
-            </div>
+
+          <div
+            className="search-icon"
+            onClick={() => setShowSearchBar((prev) => !prev)}
+          >
+            <IoSearchOutline
+              className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
+            />
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Landingpage from "./pages/landingpage";
 import Allproductpage from "./pages/allproductpage";
 import Footer1 from "./components/footer/footer";
@@ -22,6 +22,13 @@ import NotFound from "./components/not found/notfound";
 import SignupPage from "./components/login/signup";
 import Diepage from "./pages/diepage";
 import Diecategory from "./components/die-component/diecategory";
+import { useUser } from "./contextapi/userContext";
+
+// Protected route component
+const ProtectedRoute = ({ children }) => {
+  const { user } = useUser();
+  return user ? <Navigate to="/" replace /> : children;
+};
 
 function AppRouter() {
   return (
@@ -32,8 +39,25 @@ function AppRouter() {
         <Route path="/all-products" element={<Allproductpage />} />
         <Route path="/main-product" element={<Mainproductpage />} />
         <Route path="/search-products" element={<Search />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+
+        {/* Protected login and signup routes */}
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute>
+              <LoginPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <ProtectedRoute>
+              <SignupPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path="/products" element={<Products />} />
         <Route path="/blog" element={<MainBlog />} />
         <Route path="/blog1" element={<Blog />} />

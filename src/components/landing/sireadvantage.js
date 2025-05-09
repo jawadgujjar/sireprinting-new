@@ -47,15 +47,39 @@ function Sireadvantage() {
           SIRE PRINTING ADVANTAGES
         </h2>
       </div>
-      <div className="three-images-advantages">
-        {advantages.map((item, index) => (
-          <div className="advantage-card" key={index}>
-            <img alt={item.title} src={item.image} />
-            <h3>{item.title}</h3>
-            <p className="advantage-description">{item.description}</p>
+      <div className="three-images-advantages-ad ">
+        <div className="icon-grid-ad ">
+          <div className="icon-item-ad text-center">
+            <img src="/images/1.webp" alt="Icon 1" className="icon-img-ad " />
+            <p className="icon-text-ad ">High Quality</p>
           </div>
-        ))}
+          <div className="icon-item-ad text-center">
+            <img src="/images/2.webp" alt="Icon 2" className="icon-img-ad " />
+            <p className="icon-text-ad ">Custom Design</p>
+          </div>
+          <div className="icon-item-ad text-center">
+            <img
+              src="/images/Eco-Friendly.png"
+              alt="Icon 3"
+              className="icon-img-ad "
+            />
+            <p className="icon-text-ad ">Eco Friendly</p>
+          </div>
+          <div className="icon-item-ad text-center">
+            <img src="/images/3.webp" alt="Icon 4" className="icon-img-ad " />
+            <p className="icon-text-ad ">Free Delivery</p>
+          </div>
+          <div className="icon-item-ad ">
+            <img src="/images/1.webp" alt="Icon 5" className="icon-img-ad " />
+            <p className="icon-text-ad ">Affordable</p>
+          </div>
+          <div className="icon-item-ad ">
+            <img src="/images/2.webp" alt="Icon 6" className="icon-img-ad " />
+            <p className="icon-text-ad ">24/7 Support</p>
+          </div>
+        </div>
       </div>
+
       <Row className="form-section">
         <Col xs={24} md={12} className="form-left">
           <h3 className="form-title-advantage">Order Process</h3>

@@ -50,12 +50,16 @@ function Productdetail1() {
               <p className="icon-text">Custom Design</p>
             </div>
             <div className="icon-item">
-              <img src="/images/3.webp" alt="Icon 3" className="icon-img" />
+              <img
+                src="/images/Eco-Friendly.png"
+                alt="Icon 3"
+                className="icon-img"
+              />
               <p className="icon-text">Eco Friendly</p>
             </div>
             <div className="icon-item">
-              <img src="/images/4.webp" alt="Icon 4" className="icon-img" />
-              <p className="icon-text">Fast Delivery</p>
+              <img src="/images/3.webp" alt="Icon 4" className="icon-img" />
+              <p className="icon-text">Free Delivery</p>
             </div>
             <div className="icon-item">
               <img src="/images/1.webp" alt="Icon 5" className="icon-img" />
@@ -94,8 +98,6 @@ function Productdetail1() {
               )}
             </div> */}
 
-       
-            
             {/* Material */}
             <div className="accordion-item">
               <div
@@ -174,9 +176,7 @@ function Productdetail1() {
                 className="accordion-header"
                 onClick={() => setAddOnOpen(!isAddOnOpen)}
               >
-                <p style={{ fontWeight: "bold" }}>
-                  Add-on and Coating Options
-                </p>
+                <p style={{ fontWeight: "bold" }}>Add-on and Coating Options</p>
                 <span>{isAddOnOpen ? "▾" : "▸"}</span>
               </div>
               {isAddOnOpen && (
