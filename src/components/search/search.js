@@ -9,7 +9,10 @@ function Search() {
     <div>
       <Row className="search-form-wrapper">
         <Col xs={24} md={12}>
-          <SearchBox />
+          <div className="searchbox">
+            {" "}
+            <SearchBox />
+          </div>
         </Col>
         <Col xs={24} md={10}>
           <Productform1 />

@@ -3,6 +3,7 @@ import { Input, Button, Form, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import {users} from "../../utils/axios";
 import "./login.css"; // Reusing login styles
+import { toast } from "react-toastify";
 
 const SignupPage = () => {
   const [form] = Form.useForm();
@@ -11,7 +12,7 @@ const SignupPage = () => {
   const onFinish = async (values) => {
     try {
       const response = await users.post("/register", values);
-      message.success("Signup successful!");
+      toast.success("Signup successful!");
       navigate("/login");
     } catch (error) {
       console.error("Signup error:", error);

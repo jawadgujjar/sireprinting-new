@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Button } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
 import "./diecategory.css";
 
 const { Meta } = Card;
@@ -22,38 +23,13 @@ function Diecategory() {
     {
       id: 1,
       name: "Packaging Styles",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
+      image: "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
       count: 24,
     },
-    {
-      id: 2,
-      name: "Folding Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 3,
-      name: "Tray Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 4,
-      name: "Rigid Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 5,
-      name: "Candle Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
+    { id: 2, name: "Folding Boxes", image: "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp", count: 24 },
+    { id: 3, name: "Tray Boxes", image: "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp", count: 24 },
+    { id: 4, name: "Rigid Boxes", image: "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp", count: 24 },
+    { id: 5, name: "Candle Boxes", image: "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp", count: 24 },
   ];
 
   const productsByCategory = {
@@ -90,6 +66,40 @@ function Diecategory() {
     setSelectedCategory(categoryId === selectedCategory ? null : categoryId);
   };
 
+  const handleDownloadPDF = async (product) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = product.image;
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+
+      const imgData = canvas.toDataURL("image/jpeg", 1.0);
+      const pdf = new jsPDF({
+        orientation: img.width > img.height ? "landscape" : "portrait",
+        unit: "pt",
+        format: [img.width, img.height],
+      });
+
+      pdf.addImage(imgData, "JPEG", 0, 0, img.width, img.height);
+
+      // Show preview in new tab
+      const blobUrl = pdf.output("bloburl");
+      window.open(blobUrl, "_blank");
+
+      // Optional: also download
+      pdf.save(`${product.name}.pdf`);
+    };
+
+    img.onerror = () => {
+      alert("Failed to load image. Cannot generate PDF.");
+    };
+  };
+
   return (
     <div style={{ marginTop: "5rem" }}>
       <Row className="subcategory-products">
@@ -103,9 +113,7 @@ function Diecategory() {
                 {categories.map((category) => (
                   <div
                     key={category.id}
-                    className={`category-card ${
-                      selectedCategory === category.id ? "active-category" : ""
-                    }`}
+                    className={`category-card ${selectedCategory === category.id ? "active-category" : ""}`}
                     onClick={() => handleCategoryClick(category.id)}
                   >
                     <div className="category-card-content">
@@ -117,10 +125,7 @@ function Diecategory() {
                           src={category.image}
                           alt={category.name}
                           className="category-image"
-                          onError={(e) =>
-                            (e.target.src =
-                              "https://via.placeholder.com/300x200?text=Packaging")
-                          }
+                          onError={(e) => (e.target.src = "https://via.placeholder.com/300x200?text=Packaging")}
                         />
                       </div>
                     </div>
@@ -139,9 +144,7 @@ function Diecategory() {
                   >
                     <span>{category.name}</span>
                     <DownOutlined
-                      className={`dropdown-arrow ${
-                        selectedCategory === category.id ? "rotated" : ""
-                      }`}
+                      className={`dropdown-arrow ${selectedCategory === category.id ? "rotated" : ""}`}
                     />
                   </div>
                   {selectedCategory === category.id && (
@@ -152,32 +155,15 @@ function Diecategory() {
                             <Link to={``} className="product-link">
                               <Card
                                 hoverable
-                                cover={
-                                  <img
-                                    alt={product.name}
-                                    src={product.image}
-                                  />
-                                }
+                                cover={<img alt={product.name} src={product.image} />}
                                 className="product-card"
-                                bodyStyle={{
-                                  padding: "10px",
-                                  overflow: "visible",
-                                }}
+                                bodyStyle={{ padding: "10px", overflow: "visible" }}
                               >
-                                <div className="product-title">
-                                  {product.name}
-                                </div>
+                                <div className="product-title">{product.name}</div>
                                 <div style={{ marginTop: "10px", textAlign: "center" }}>
-                                  <a
-                                    href={product.image}
-                                    download
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    <Button type="primary" size="small">
-                                      Download
-                                    </Button>
-                                  </a>
+                                  <Button type="primary" size="small" onClick={() => handleDownloadPDF(product)}>
+                                    Download
+                                  </Button>
                                 </div>
                               </Card>
                             </Link>
@@ -196,8 +182,7 @@ function Diecategory() {
         {!isMobile && (
           <Col xs={24} sm={24} md={16}>
             <p className="subcategory-heading1" style={{ fontWeight: "bold" }}>
-              {categories.find((c) => c.id === selectedCategory)?.name ||
-                "Products"}
+              {categories.find((c) => c.id === selectedCategory)?.name || "Products"}
               <div className="divider1"></div>
             </p>
             <Row gutter={[16, 16]}>
@@ -217,22 +202,11 @@ function Diecategory() {
                         </div>
                       }
                     >
-                      <Meta
-                        title={
-                          <span className="card-title">{product.name}</span>
-                        }
-                      />
+                      <Meta title={<span className="card-title">{product.name}</span>} />
                       <div style={{ marginTop: "10px", textAlign: "center" }}>
-                        <a
-                          href={product.image}
-                          download
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Button type="primary" size="small">
-                            Download
-                          </Button>
-                        </a>
+                        <Button type="primary" size="small" onClick={() => handleDownloadPDF(product)}>
+                          Download
+                        </Button>
                       </div>
                     </Card>
                   </Link>
