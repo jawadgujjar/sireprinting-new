@@ -20,10 +20,9 @@ import Sampleproduct from "./components/sampleproduct/sampleproduct";
 import Cart from "./components/addtocart/cart";
 import NotFound from "./components/not found/notfound";
 import SignupPage from "./components/login/signup";
+import { useUser } from "./contextapi/userContext";
 import Diepage from "./pages/diepage";
 import Diecategory from "./components/die-component/diecategory";
-import { useUser } from "./contextapi/userContext";
-
 // Protected route component
 const ProtectedRoute = ({ children }) => {
   const { user } = useUser();
