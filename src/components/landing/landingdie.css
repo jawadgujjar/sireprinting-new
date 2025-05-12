@@ -1,59 +1,111 @@
 .landingdie-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .landingdie-container {
+    grid-template-columns: 1fr 1fr;
   }
-  
-  @media (min-width: 768px) {
-    .landingdie-container {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  
-  .landingdie-card {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .landingdie-image {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 16px;
-  }
-  
-  .landingdie-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #e3342f;
-    margin-bottom: 12px;
-  }
-  
-  .landingdie-description {
-    color: #4a4a4a;
-    font-size: 16px;
-    margin-bottom: 16px;
-  }
-  
-  .landingdie-button {
-    padding: 10px 20px;
-    border: 2px solid #01257D;
-    background-color: transparent;
-    color: #01257D;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .landingdie-button:hover {
-    background-color: #d7d9ff;
-  }
-  
+}
+
+.landingdie-card {
+  position: relative;
+  background-color: rgb(233, 233, 233);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* Top border animation */
+.landingdie-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, #01257d, #00ffff);
+  transition: width 0.4s ease;
+}
+
+/* Bottom border animation */
+.landingdie-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #01257d, #00ffff);
+  transition: all 0.4s ease;
+}
+
+.landingdie-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  border-image: linear-gradient(90deg, #01257d, #00ffff);
+  border-image-slice: 1;
+}
+
+/* Animate top border on hover */
+.landingdie-card:hover::before {
+  width: 100%;
+}
+
+/* Optional: Square corners on hover */
+.landingdie-card:hover {
+  border-radius: 0;
+}
+
+/* Inside image */
+.landingdie-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  transition: none;
+}
+
+/* Title */
+.landingdie-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #01257D;
+  margin-bottom: 12px;
+  transition: none;
+}
+
+/* Description */
+.landingdie-description {
+  color: #4a4a4a;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+/* Button */
+.landingdie-button {
+  padding: 10px 20px;
+  border: 2px solid #01257D;
+  background-color: transparent;
+  color: #01257D;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.landingdie-button:hover {
+  background-color: #d7d9ff;
+}

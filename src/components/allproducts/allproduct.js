@@ -119,15 +119,40 @@ function Allproduct1() {
         </p>
       </div> */}
 
-      <div className="packaging-info">
-        <h2 className="packaging-txt">All Packaging Options</h2>
-        <p className="packaging-sub">
-          Need custom packaging? Can't find what you're looking for? Request a
-          free quote and our packaging specialists will help you find the
-          perfect solution.
-        </p>
+      {/* hero section */}
+      <div className="category-hero">
+        <div className="hero-content">
+          <h1 className="hero-title">Sub Category Name</h1>
+          <div className="hero-divider"></div>
+          <p className="hero-description">
+            Custom apparel packaging from Ryt Packaging combines elegance and
+            functionality to elevate your brand's presentation. Our bespoke
+            boxes are designed to protect and showcase your clothing line,
+            leaving a lasting impression.
+          </p>
+          <div className="hero-features">
+            <div className="feature-item">
+              <span className="feature-icon">✓</span>
+              <span>Customizable Options</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">✓</span>
+              <span>Premium Materials</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">✓</span>
+              <span>Brand Identity Focus</span>
+            </div>
+          </div>
+        </div>
+        <div className="hero-image-container">
+          <img
+            className="hero-image"
+            src="../images/landing1.png"
+            alt="Premium Packaging"
+          />
+        </div>
       </div>
-      <div className="divider" />
 
       <div className="allproduct-main">
         <Row className="allproduct-row" gutter={[24, 16]}>
