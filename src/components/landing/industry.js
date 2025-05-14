@@ -121,32 +121,30 @@ const Industry = () => {
       <div className="tabs">
         <button
           className={`tab-button ${
-            activeTab === "boxesByStyle" ? "active" : ""
-          }`}
-          onClick={() => setActiveTab("boxesByStyle")}
-        >
-          Boxes By Style
-        </button>
-        <button
-          className={`tab-button ${
             activeTab === "customBoxes" ? "active" : ""
           }`}
           onClick={() => setActiveTab("customBoxes")}
         >
           Custom Boxes
         </button>
+        <button
+          className={`tab-button ${
+            activeTab === "boxesByStyle" ? "active" : ""
+          }`}
+          onClick={() => setActiveTab("boxesByStyle")}
+        >
+          Boxes By Style
+        </button>
       </div>
 
       <div className="industry-grid">{renderContent()}</div>
 
-      {activeTab === "customBoxes" && (
-        <button
-          className="show-more-btn"
-          onClick={() => navigate("/allproducts")} // Navigate to /allproducts
-        >
-          Show More
-        </button>
-      )}
+      <button
+        className="show-more-btn"
+        onClick={() => navigate("/allproducts")} // Navigate to /allproducts
+      >
+        Show More
+      </button>
     </div>
   );
 };

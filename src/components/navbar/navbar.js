@@ -13,10 +13,12 @@ const Navbar1 = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [hoverTimeout, setHoverTimeout] = useState(null);
   const navigate = useNavigate();
   const searchRef = useRef(null);
   const inputRef = useRef(null);
   const userMenuRef = useRef(null);
+  const navRef = useRef(null);
 
   const { user, logout } = useUser();
 
@@ -28,6 +30,9 @@ const Navbar1 = () => {
       }
       if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
         setShowUserMenu(false);
+      }
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setActiveDropdown(null);
       }
     };
 
@@ -60,10 +65,33 @@ const Navbar1 = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+    setActiveDropdown(null);
   };
 
-  const toggleDropdown = (index) => {
-    setActiveDropdown(activeDropdown === index ? null : index);
+  const handleDropdownToggle = (index) => {
+    if (isMobile) {
+      setActiveDropdown(activeDropdown === index ? null : index);
+    }
+  };
+
+  const handleMouseEnter = (index) => {
+    if (!isMobile) {
+      clearTimeout(hoverTimeout);
+      setActiveDropdown(index);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isMobile) {
+      const timeout = setTimeout(() => {
+        setActiveDropdown(null);
+      }, 200);
+      setHoverTimeout(timeout);
+    }
+  };
+
+  const cancelMouseLeave = () => {
+    clearTimeout(hoverTimeout);
   };
 
   const handleLogout = () => {
@@ -127,7 +155,7 @@ const Navbar1 = () => {
   const isMobile = window.innerWidth <= 992;
 
   return (
-    <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
+    <nav className={`navbar ${isScrolled ? "scrolled" : ""}`} ref={navRef}>
       <div className="navbar-container">
         <div className="mobile-menu-btn" onClick={toggleMobileMenu}>
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -143,13 +171,9 @@ const Navbar1 = () => {
               <li
                 key={index}
                 className={`nav-item ${item.dropdown ? "has-dropdown" : ""}`}
-                onClick={() =>
-                  isMobile && item.dropdown && toggleDropdown(index)
-                }
-                onMouseEnter={() =>
-                  !isMobile && item.dropdown && toggleDropdown(index)
-                }
-                onMouseLeave={() => !isMobile && toggleDropdown(null)}
+                onClick={() => handleDropdownToggle(index)}
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
               >
                 <Link
                   to={item.link}
@@ -158,7 +182,11 @@ const Navbar1 = () => {
                   <span>{item.name}</span>
                 </Link>
                 {item.dropdown && activeDropdown === index && (
-                  <div className="dropdown-menu show">
+                  <div
+                    className="dropdown-menu show"
+                    onMouseEnter={cancelMouseLeave}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <div className="dropdown-content">
                       <div className="dropdown-main-items">
                         {item.items.map((subItem, subIndex) => (
@@ -196,7 +224,6 @@ const Navbar1 = () => {
             ))}
           </ul>
 
-          {/* Search dropdown */}
           {showSearchBar && (
             <div
               ref={searchRef}

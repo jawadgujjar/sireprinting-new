@@ -1,12 +1,7 @@
 import React from "react";
 import "./blog.css";
 import { Col, Row, Carousel } from "antd";
-import {
-  FacebookOutlined,
-  TwitterOutlined,
-  LinkedinOutlined,
-} from "@ant-design/icons";
-import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
+import { TwitterOutlined } from "@ant-design/icons";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 
 const blogContent = {
