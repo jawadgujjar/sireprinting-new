@@ -13,7 +13,7 @@ const Navbar1 = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [hoverTimeout, setHoverTimeout] = useState(null);
+  const [isMobileView, setIsMobileView] = useState(false);
   const navigate = useNavigate();
   const searchRef = useRef(null);
   const inputRef = useRef(null);
@@ -21,84 +21,6 @@ const Navbar1 = () => {
   const navRef = useRef(null);
 
   const { user, logout } = useUser();
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setShowSearchBar(false);
-        setSearchQuery("");
-      }
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
-        setShowUserMenu(false);
-      }
-      if (navRef.current && !navRef.current.contains(event.target)) {
-        setActiveDropdown(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    if (showSearchBar && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [showSearchBar]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search-products?query=${encodeURIComponent(searchQuery)}`);
-      setShowSearchBar(false);
-      setSearchQuery("");
-    }
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-    setActiveDropdown(null);
-  };
-
-  const handleDropdownToggle = (index) => {
-    if (isMobile) {
-      setActiveDropdown(activeDropdown === index ? null : index);
-    }
-  };
-
-  const handleMouseEnter = (index) => {
-    if (!isMobile) {
-      clearTimeout(hoverTimeout);
-      setActiveDropdown(index);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (!isMobile) {
-      const timeout = setTimeout(() => {
-        setActiveDropdown(null);
-      }, 200);
-      setHoverTimeout(timeout);
-    }
-  };
-
-  const cancelMouseLeave = () => {
-    clearTimeout(hoverTimeout);
-  };
-
-  const handleLogout = () => {
-    logout();
-    setShowUserMenu(false);
-    navigate("/");
-  };
 
   const navItems = [
     {
@@ -152,7 +74,91 @@ const Navbar1 = () => {
     { name: "GET A QUOTE", dropdown: false, link: "/get-a-quote" },
   ];
 
-  const isMobile = window.innerWidth <= 992;
+  // Check for mobile view on resize and initial load
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 992);
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSearchBar(false);
+        setSearchQuery("");
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setShowUserMenu(false);
+      }
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Focus search input when shown
+  useEffect(() => {
+    if (showSearchBar && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [showSearchBar]);
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search-products?query=${encodeURIComponent(searchQuery)}`);
+      setShowSearchBar(false);
+      setSearchQuery("");
+    }
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (!isMobileMenuOpen) {
+      setActiveDropdown(null);
+    }
+  };
+
+  const handleDropdownToggle = (index) => {
+    if (isMobileView) {
+      setActiveDropdown(activeDropdown === index ? null : index);
+    }
+  };
+
+  const handleMouseEnter = (index) => {
+    if (!isMobileView) {
+      setActiveDropdown(index);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isMobileView) {
+      setActiveDropdown(null);
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setShowUserMenu(false);
+    navigate("/");
+  };
 
   return (
     <nav className={`navbar ${isScrolled ? "scrolled" : ""}`} ref={navRef}>
@@ -170,10 +176,12 @@ const Navbar1 = () => {
             {navItems.map((item, index) => (
               <li
                 key={index}
-                className={`nav-item ${item.dropdown ? "has-dropdown" : ""}`}
-                onClick={() => handleDropdownToggle(index)}
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={handleMouseLeave}
+                className={`nav-item ${item.dropdown ? "has-dropdown" : ""} ${
+                  activeDropdown === index ? "active" : ""
+                }`}
+                onClick={() => item.dropdown && handleDropdownToggle(index)}
+                onMouseEnter={() => !isMobileView && handleMouseEnter(index)}
+                onMouseLeave={() => !isMobileView && handleMouseLeave()}
               >
                 <Link
                   to={item.link}
@@ -181,11 +189,15 @@ const Navbar1 = () => {
                 >
                   <span>{item.name}</span>
                 </Link>
-                {item.dropdown && activeDropdown === index && (
+                {item.dropdown && (
                   <div
-                    className="dropdown-menu show"
-                    onMouseEnter={cancelMouseLeave}
-                    onMouseLeave={handleMouseLeave}
+                    className={`dropdown-menu ${
+                      activeDropdown === index ? "show" : ""
+                    }`}
+                    onMouseEnter={() =>
+                      !isMobileView && handleMouseEnter(index)
+                    }
+                    onMouseLeave={() => !isMobileView && handleMouseLeave()}
                   >
                     <div className="dropdown-content">
                       <div className="dropdown-main-items">
@@ -194,7 +206,10 @@ const Navbar1 = () => {
                             key={subIndex}
                             to={subItem.link}
                             className="dropdown-item"
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setActiveDropdown(null);
+                            }}
                           >
                             {subItem.name}
                           </Link>
@@ -204,8 +219,7 @@ const Navbar1 = () => {
                         <h2>Get Help With Expert Guidance</h2>
                         <h3>
                           Need help finding the perfect packaging? Contact us
-                          now for a free consultation with a trained packaging
-                          specialist.
+                          now for a free consultation.
                         </h3>
                         <h3>Call Us at:</h3>
                         <h3>
@@ -299,7 +313,10 @@ const Navbar1 = () => {
 
           <div
             className="search-icon"
-            onClick={() => setShowSearchBar((prev) => !prev)}
+            onClick={() => {
+              setShowSearchBar((prev) => !prev);
+              setSearchQuery("");
+            }}
           >
             <IoSearchOutline
               className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
