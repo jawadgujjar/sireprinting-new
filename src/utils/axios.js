@@ -7,7 +7,9 @@ const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000/v1"; // 
 const users = axios.create({
   baseURL: `${baseURL}/auth`,
 });
-
+const getquote = axios.create({
+  baseURL: `${baseURL}/getquote`,
+});
 // Request Interceptor
 const requestInterceptor = (req) => {
   // Optional: Add auth tokens if needed
@@ -21,8 +23,8 @@ const errorInterceptor = (err) => {
 };
 
 // Apply interceptors
-[users].forEach((instance) => {
+[users, getquote].forEach((instance) => {
   instance.interceptors.request.use(requestInterceptor, errorInterceptor);
 });
 
-export { users };
+export { users, getquote };

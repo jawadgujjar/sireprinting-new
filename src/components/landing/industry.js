@@ -89,8 +89,8 @@ const customBoxes = [
 ];
 
 const Industry = () => {
-  const [activeTab, setActiveTab] = useState("boxesByStyle");
-  const navigate = useNavigate(); // Initialize useHistory for navigation
+  const [activeTab, setActiveTab] = useState("customBoxes");
+  const navigate = useNavigate();
 
   const renderContent = () => {
     const items =

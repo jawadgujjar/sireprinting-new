@@ -21,7 +21,7 @@
   width: 100%;
   position: sticky;
 }
-.ant-collapse-header{
+.ant-collapse-header {
   align-items: center !important;
   text-align: left !important;
 }
@@ -108,7 +108,6 @@
 
 .quote-upload {
   border-radius: 8px;
-  border: 2px dashed #d0d8e8;
   background: #f8faff;
 }
 
@@ -216,7 +215,7 @@
 
 .faq-title .anticon {
   font-size: 1.4rem;
-  color: #00ffff;
+  color: #01257d;
 }
 
 .faq-subtitle {
