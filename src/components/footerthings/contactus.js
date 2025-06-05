@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import { Row, Col, Input, Button, message, Form } from "antd";
+import { Row, Col, Input, Button, Form } from "antd";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMail, IoLocationSharp } from "react-icons/io5";
-// import { contactus } from "../../utils/axios";
+import { contactus } from "../../utils/axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./contactus.css";
 
 function Contactus() {
-  const [loading, setLoading] = useState(false); // For button loading state
+  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
-  // Function to handle form submission
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      // const response = await contactus.post("/", values);
-      message.success("Message sent successfully!");
+      await contactus.post("/", values);
+      toast.success("Message sent successfully!");
       form.resetFields();
     } catch (error) {
-      message.error("Failed to send message. Try again.");
+      toast.error("Failed to send message. Try again.");
       console.error("Error:", error);
     } finally {
       setLoading(false);
@@ -26,12 +27,8 @@ function Contactus() {
 
   return (
     <div>
-      {/* Removed Breadcrumb component */}
       <div className="contact-container">
         <Row justify="center">
-          {" "}
-          {/* Centering Row */}
-          {/* Form Column */}
           <Col xs={24} md={15} className="form-column">
             <h1 className="form-title">Message Us!</h1>
             <Form layout="vertical" form={form} onFinish={onFinish}>
@@ -63,6 +60,10 @@ function Contactus() {
                 name="phoneNumber"
                 rules={[
                   { required: true, message: "Phone number is required" },
+                  {
+                    pattern: /^[0-9]{10,15}$/,
+                    message: "Please enter a valid phone number (10-15 digits)",
+                  },
                 ]}
               >
                 <Input
@@ -94,7 +95,7 @@ function Contactus() {
               </Form.Item>
             </Form>
           </Col>
-          {/* Contact Info Column */}
+
           <Col xs={24} md={9} className="info-column">
             <div className="info-item">
               <FaPhoneAlt style={{ fontSize: "26px" }} />
@@ -117,6 +118,7 @@ function Contactus() {
           </Col>
         </Row>
       </div>
+      <ToastContainer />
     </div>
   );
 }

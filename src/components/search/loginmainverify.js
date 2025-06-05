@@ -7,7 +7,7 @@ const Verify = ({ onVerified }) => {
   const checkPw = (e) => {
     e.preventDefault();
 
-    if (password === "sireprinting") {
+    if (password === "123") {
       onVerified(true); // Call the function passed as a prop to indicate verification
     } else {
       alert("Sorry, that's not it");

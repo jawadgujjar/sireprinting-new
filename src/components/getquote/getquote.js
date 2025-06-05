@@ -323,7 +323,6 @@ function Getquote() {
                         />
                       </Form.Item>
                     </Col>
-
                     <Col xs={24} sm={12}>
                       <Form.Item name="company" label="Company Name">
                         <Input
@@ -333,7 +332,6 @@ function Getquote() {
                         />
                       </Form.Item>
                     </Col>
-
                     <Col xs={24} sm={12}>
                       <Form.Item
                         name="email"
@@ -356,7 +354,6 @@ function Getquote() {
                         />
                       </Form.Item>
                     </Col>
-
                     <Col xs={24} sm={12}>
                       <Form.Item
                         name="phone"
@@ -376,7 +373,6 @@ function Getquote() {
                       </Form.Item>
                     </Col>
                   </Row>
-
                   <Row gutter={24}>
                     <Col span={24}>
                       <Form.Item
@@ -402,7 +398,6 @@ function Getquote() {
                         </Dragger>
                       </Form.Item>
                     </Col>
-
                     <Col span={24}>
                       <Form.Item name="notes" label="Additional Notes">
                         <TextArea
@@ -413,7 +408,6 @@ function Getquote() {
                       </Form.Item>
                     </Col>
                   </Row>
-
                   <Row>
                     <Col span={24} className="submit-col">
                       <Form.Item>

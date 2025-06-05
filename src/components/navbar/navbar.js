@@ -3,8 +3,10 @@ import { FaPhone, FaBars, FaTimes, FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
 import "./navbar1.css";
+import { slugify } from "../../utils/slugify";
 import { Button } from "antd";
 import { useUser } from "../../contextapi/userContext.js";
+import { navitems, subcategory } from "../../utils/axios.js";
 
 const Navbar1 = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,6 +16,9 @@ const Navbar1 = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [navItems, setNavItems] = useState([]);
+  const [subCategories, setSubCategories] = useState({});
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const searchRef = useRef(null);
   const inputRef = useRef(null);
@@ -22,57 +27,46 @@ const Navbar1 = () => {
 
   const { user, logout } = useUser();
 
-  const navItems = [
-    {
-      name: "Custom Packaging",
-      dropdown: true,
-      link: "/main-category",
-      items: [
-        { name: "CBD Packaging Boxes", link: "/all-products" },
-        { name: "Candle Packaging", link: "/Candle-Packaging" },
-        { name: "Chocolate Packaging", link: "/Chocolate-Packaging" },
-        { name: "Cigarette Packaging", link: "/Cigarette-Packaging" },
-        { name: "Cosmetic Packaging", link: "/Cosmetic-Packaging" },
-        { name: "Cardboard Display Boxes", link: "/Cardboard-Display-Boxes" },
-        { name: "Food Packaging", link: "/Food-Packaging" },
-        { name: "Custom Gift Boxes", link: "/Custom-Gift-Boxes" },
-        { name: "Custom Incense Packaging", link: "/Custom-Incense-Packaging" },
-        { name: "Rigid Boxes", link: "/Rigid-Boxes" },
-        { name: "Sleeves Packaging", link: "/Sleeves-Packaging" },
-      ],
-    },
-    {
-      name: "Packaging Styles",
-      dropdown: true,
-      link: "/mailer-boxes",
-      items: [
-        { name: "Folding Boxes", link: "/Folding-Boxes" },
-        { name: "Tray Boxes", link: "/Tray-Boxes" },
-        { name: "Tuck End Boxes", link: "/Tuck-End-Boxes" },
-        { name: "Insert Boxes", link: "/Insert-Boxes" },
-        { name: "Rigid Boxes", link: "/Rigid-Boxes" },
-        { name: "Boxes with Lid", link: "/Boxes-with-Lid" },
-        { name: "Envelopes", link: "/Envelopes" },
-        { name: "Cards & Tags", link: "/Cards&Tags" },
-        { name: "Gift Box Styles", link: "/Gift-Box-Styles" },
-        { name: "Display Boxes", link: "/Display-Boxes" },
-      ],
-    },
-    { name: "Labels & Tags", dropdown: false, link: "/shipping-boxes" },
-    { name: "Custom Stickers", dropdown: false, link: "/poly-mailers" },
-    {
-      name: "Promotional Products",
-      dropdown: true,
-      link: "/product-boxes",
-      items: [
-        { name: "Paper Bags", link: "/Paper-Bags" },
-        { name: "Custom Envelopes", link: "/Custom-Envelopes" },
-      ],
-    },
-    { name: "Mylar Bags", dropdown: false, link: "/custom-boxes" },
-    { name: "Work Showcase", dropdown: false, link: "/portfolio" },
-    { name: "GET A QUOTE", dropdown: false, link: "/get-a-quote" },
-  ];
+  // Fetch navitems and subcategories on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch navitems
+        const navItemsResponse = await navitems.get("/");
+        const activeNavItems = navItemsResponse.data
+          .filter((item) => item.isActive)
+          .sort((a, b) => a.position - b.position);
+        setNavItems(activeNavItems);
+
+        // Fetch subcategories for each category in navitems
+        const subCategoriesData = {};
+        for (const navItem of activeNavItems) {
+          for (const category of navItem.categories) {
+            try {
+              const subResponse = await subcategory.get(
+                `/category/${category._id}`
+              );
+              subCategoriesData[category._id] = subResponse.data;
+            } catch (error) {
+              console.error(
+                `Error fetching subcategories for category ${category._id}:`,
+                error
+              );
+              subCategoriesData[category._id] = [];
+            }
+          }
+        }
+
+        setSubCategories(subCategoriesData);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Check for mobile view on resize and initial load
   useEffect(() => {
@@ -136,13 +130,13 @@ const Navbar1 = () => {
     }
   };
 
-  const handleDropdownToggle = (index) => {
+  const handleDropdownToggle = (index, categoryId) => {
     if (isMobileView) {
       setActiveDropdown(activeDropdown === index ? null : index);
     }
   };
 
-  const handleMouseEnter = (index) => {
+  const handleMouseEnter = (index, categoryId) => {
     if (!isMobileView) {
       setActiveDropdown(index);
     }
@@ -160,6 +154,10 @@ const Navbar1 = () => {
     navigate("/");
   };
 
+  if (loading) {
+    return <div className="navbar-loading">Loading...</div>;
+  }
+
   return (
     <nav className={`navbar ${isScrolled ? "scrolled" : ""}`} ref={navRef}>
       <div className="navbar-container">
@@ -173,69 +171,83 @@ const Navbar1 = () => {
         </div>
         <div className={`nav-links ${isMobileMenuOpen ? "active" : ""}`}>
           <ul className="nav-menu">
-            {navItems.map((item, index) => (
-              <li
-                key={index}
-                className={`nav-item ${item.dropdown ? "has-dropdown" : ""} ${
-                  activeDropdown === index ? "active" : ""
-                }`}
-                onClick={() => item.dropdown && handleDropdownToggle(index)}
-                onMouseEnter={() => !isMobileView && handleMouseEnter(index)}
-                onMouseLeave={() => !isMobileView && handleMouseLeave()}
-              >
-                <Link
-                  to={item.link}
-                  className={`nav-link ${isScrolled ? "scrolled" : ""}`}
-                >
-                  <span>{item.name}</span>
-                </Link>
-                {item.dropdown && (
-                  <div
-                    className={`dropdown-menu ${
-                      activeDropdown === index ? "show" : ""
-                    }`}
-                    onMouseEnter={() =>
-                      !isMobileView && handleMouseEnter(index)
-                    }
-                    onMouseLeave={() => !isMobileView && handleMouseLeave()}
+            {navItems.map((navItem, navIndex) =>
+              navItem.categories.map((category, catIndex) => {
+                const index = `${navIndex}-${catIndex}`;
+                return (
+                  <li
+                    key={category._id}
+                    className={`nav-item ${
+                      subCategories[category._id]?.length > 0
+                        ? "has-dropdown"
+                        : ""
+                    } ${activeDropdown === index ? "active" : ""}`}
+                    onClick={() => handleDropdownToggle(index, category._id)}
+                    onMouseEnter={() => handleMouseEnter(index, category._id)}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    <div className="dropdown-content">
-                      <div className="dropdown-main-items">
-                        {item.items.map((subItem, subIndex) => (
-                          <Link
-                            key={subIndex}
-                            to={subItem.link}
-                            className="dropdown-item"
-                            onClick={() => {
-                              setIsMobileMenuOpen(false);
-                              setActiveDropdown(null);
-                            }}
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
-                      </div>
-                      <div className="dropdown-fixed-content">
-                        <h2>Get Help With Expert Guidance</h2>
-                        <h3>
-                          Need help finding the perfect packaging? Contact us
-                          now for a free consultation.
-                        </h3>
-                        <h3>Call Us at:</h3>
-                        <h3>
-                          <a href="tel:+447745807425" className="number-tel">
-                            074 46124339
-                          </a>
-                        </h3>
-                        <div className="get-navbar-quote-butt">
-                          <Button>Get Free Quote</Button>
+                    <Link
+                      to={`/${slugify(category.title)}`}
+                      state={{ id: category._id }}
+                      className={`nav-link ${isScrolled ? "scrolled" : ""}`}
+                    >
+                      <span>{category.title}</span>
+                    </Link>
+                    {subCategories[category._id]?.length > 0 && (
+                      <div
+                        className={`dropdown-menu ${
+                          activeDropdown === index ? "show" : ""
+                        }`}
+                        onMouseEnter={() =>
+                          handleMouseEnter(index, category._id)
+                        }
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <div className="dropdown-content">
+                          <div className="dropdown-main-items">
+                            {subCategories[category._id]?.map((subCategory) => (
+                              <Link
+                                key={subCategory._id}
+                                to={`/${slugify(category.title)}/${slugify(
+                                  subCategory.title
+                                )}`}
+                                state={{ id: subCategory._id }}
+                                className="dropdown-item"
+                                onClick={() => {
+                                  setIsMobileMenuOpen(false);
+                                  setActiveDropdown(null);
+                                }}
+                              >
+                                {subCategory.title}
+                              </Link>
+                            ))}
+                          </div>
+                          <div className="dropdown-fixed-content">
+                            <h2>Get Help With Expert Guidance</h2>
+                            <h3>
+                              Need help finding the perfect packaging? Contact
+                              us now for a free consultation.
+                            </h3>
+                            <h3>Call Us at:</h3>
+                            <h3>
+                              <a
+                                href="tel:+447745807425"
+                                className="number-tel"
+                              >
+                                074 46124339
+                              </a>
+                            </h3>
+                            <div className="get-navbar-quote-butt">
+                              <Button>Get Free Quote</Button>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                )}
-              </li>
-            ))}
+                    )}
+                  </li>
+                );
+              })
+            )}
           </ul>
 
           {showSearchBar && (
