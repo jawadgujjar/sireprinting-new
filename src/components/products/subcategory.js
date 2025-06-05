@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Card } from "antd";
+import { Row, Col, Card, Spin, Empty, Alert } from "antd";
 import { DownOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { subcategory, product, category } from "../../utils/axios";
+import { slugify } from "../../utils/slugify";
 import "./subcategory.css";
+
+// Local fallback image
+const fallbackImage = "https://sireprinting.com/img/brand/Sire-Printing.png";
 
 const { Meta } = Card;
 
-function Subcategory() {
-  const [selectedCategory, setSelectedCategory] = useState(1);
+function Subcategory({ data }) {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [subCategories, setSubCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [categoryTitle, setCategoryTitle] = useState("");
+  const { slug: categorySlug } = useParams(); // Get category slug from URL
 
+  // Handle window resize for mobile detection
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -18,82 +30,98 @@ function Subcategory() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const categories = [
-    {
-      id: 1,
-      name: "Custom Packaging Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 2,
-      name: "Custom Mailer Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 3,
-      name: "Carry Bags",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 4,
-      name: "Handle Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 5,
-      name: "Candle Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-  ];
+  // Fetch category title based on category ID
+  useEffect(() => {
+    const fetchCategoryTitle = async () => {
+      if (data?._id) {
+        try {
+          const response = await category.get(`/${data._id}`);
+          setCategoryTitle(slugify(response.data.title));
+        } catch (err) {
+          console.error("Error fetching category title:", err);
+        }
+      }
+    };
 
-  const productsByCategory = {
-    1: [
-      { id: 1, name: "Product 1", image: "images/allproduct1.png" },
-      { id: 2, name: "Product 2", image: "images/process1.png" },
-      { id: 3, name: "Product 3", image: "images/allproduct1.png" },
-      { id: 4, name: "Product 4", image: "images/allproduct1.png" },
-      { id: 5, name: "Product 5", image: "images/allproduct1.png" },
-      { id: 6, name: "Product 6", image: "images/allproduct1.png" },
-    ],
-    2: [  
-      { id: 7, name: "Mailer Box 1", image: "images/allproduct1.png" },
-      { id: 8, name: "Mailer Box 2", image: "images/process1.png" },
-      { id: 9, name: "Mailer Box 3", image: "images/allproduct1.png" },
-    ],
-    3: [
-      { id: 10, name: "Carry Bag 1", image: "images/allproduct1.png" },
-      { id: 11, name: "Carry Bag 2", image: "images/process1.png" },
-    ],
-    4: [
-      { id: 12, name: "Handle Box 1", image: "images/allproduct1.png" },
-      { id: 13, name: "Handle Box 2", image: "images/process1.png" },
-      { id: 14, name: "Handle Box 3", image: "images/allproduct1.png" },
-      { id: 15, name: "Handle Box 4", image: "images/allproduct1.png" },
-    ],
-    5: [
-      { id: 16, name: "Candle Box 1", image: "images/allproduct1.png" },
-      { id: 17, name: "Candle Box 2", image: "images/process1.png" },
-    ],
+    fetchCategoryTitle();
+  }, [data?._id]);
+
+  // Fetch subcategories when component mounts or categoryId changes
+  useEffect(() => {
+    if (data?._id) {
+      fetchSubCategories(data._id);
+    }
+  }, [data?._id]);
+
+  // Fetch products when selected subcategory changes
+  useEffect(() => {
+    if (selectedCategory) {
+      fetchProducts(selectedCategory);
+    }
+  }, [selectedCategory]);
+
+  const fetchSubCategories = async (categoryId) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await subcategory.get(`/category/${categoryId}`);
+      setSubCategories(response.data);
+      // Auto-select first subcategory if available
+      if (response.data.length > 0) {
+        setSelectedCategory(response.data[0]._id);
+      }
+    } catch (err) {
+      setError(err.message || "Failed to fetch subcategories");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId === selectedCategory ? null : categoryId);
+  const fetchProducts = async (subCategoryId) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await product.get(`/subcategory/${subCategoryId}`);
+      setProducts(response.data);
+    } catch (err) {
+      setError(err.message || "Failed to fetch products");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const handleCategoryClick = (subCategoryId) => {
+    setSelectedCategory(
+      subCategoryId === selectedCategory ? null : subCategoryId
+    );
+  };
+
+  // Handle image error
+  const handleImageError = (e) => {
+    e.target.src = fallbackImage;
+    e.target.onerror = null; // Prevent infinite loop if fallback fails
+  };
+
+  if (loading && !subCategories.length) {
+    return (
+      <div className="loading-container">
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <Alert message="Error" description={error} type="error" showIcon />
+      </div>
+    );
+  }
 
   return (
     <div>
       <Row className="subcategory-products">
-        {/* Left Column: Categories */}
+        {/* Left Column: Subcategories */}
         <Col xs={24} md={6} className="category-column">
           {!isMobile ? (
             <>
@@ -101,27 +129,26 @@ function Subcategory() {
                 Sub-Categories <div className="divider1"></div>
               </p>
               <div className="category-grid-container">
-                {categories.map((category) => (
+                {subCategories.map((subCategory) => (
                   <div
-                    key={category.id}
+                    key={subCategory._id}
                     className={`category-card ${
-                      selectedCategory === category.id ? "active-category" : ""
+                      selectedCategory === subCategory._id
+                        ? "active-category"
+                        : ""
                     }`}
-                    onClick={() => handleCategoryClick(category.id)}
+                    onClick={() => handleCategoryClick(subCategory._id)}
                   >
                     <div className="category-card-content">
                       <div className="category-text">
-                        <h3 className="category-name">{category.name}</h3>
+                        <h3 className="category-name">{subCategory.title}</h3>
                       </div>
                       <div className="category-image-container">
                         <img
-                          src={category.image}
-                          alt={category.name}
+                          src={subCategory.image || fallbackImage}
+                          alt={subCategory.title}
                           className="category-image"
-                          onError={(e) =>
-                            (e.target.src =
-                              "https://via.placeholder.com/300x200?text=Packaging")
-                          }
+                          onError={handleImageError}
                         />
                       </div>
                     </div>
@@ -131,47 +158,68 @@ function Subcategory() {
             </>
           ) : (
             <div className="mobile-accordion">
-            <p className="subcategory-heading1">  Sub-Categories</p>
-            {categories.map((category) => (
-              <div key={category.id} className="mobile-category">
-                <div
-                  className="mobile-category-header"
-                  onClick={() => handleCategoryClick(category.id)}
-                >
-                  <span>{category.name}</span>
-                  <DownOutlined
-                    className={`dropdown-arrow ${
-                      selectedCategory === category.id ? "rotated" : ""
-                    }`}
-                  />
-                </div>
-                {selectedCategory === category.id && (
-                  <div className="mobile-category-products">
-                    <Row gutter={[16, 16]}>
-                      {productsByCategory[category.id]?.map((product) => (
-                        <Col xs={24} key={product.id}>
-                          <Link to={`/main-product`} className="product-link">
-                            <Card
-                              hoverable
-                              cover={<img alt={product.name} src={product.image} />}
-                              className="product-card"
-                              bodyStyle={{
-                                padding: "10px",
-                                overflow: "visible",
-                              }}
-                            >
-                              <div className="product-title">{product.name}</div>
-                            </Card>
-                          </Link>
-                        </Col>
-                      ))}
-                    </Row>
+              <p className="subcategory-heading1">Sub-Categories</p>
+              {subCategories.map((subCategory) => (
+                <div key={subCategory._id} className="mobile-category">
+                  <div
+                    className="mobile-category-header"
+                    onClick={() => handleCategoryClick(subCategory._id)}
+                  >
+                    <span>{subCategory.title}</span>
+                    <DownOutlined
+                      className={`dropdown-arrow ${
+                        selectedCategory === subCategory._id ? "rotated" : ""
+                      }`}
+                    />
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
-          
+                  {selectedCategory === subCategory._id && (
+                    <div className="mobile-category-products">
+                      <Row gutter={[16, 16]}>
+                        {products.length > 0 ? (
+                          products.map((product) => (
+                            <Col xs={24} key={product._id}>
+                              <Link
+                                to={`/${
+                                  categorySlug || categoryTitle
+                                }/${slugify(subCategory.title)}/${slugify(
+                                  product.title
+                                )}`}
+                                state={{ id: product._id }}
+                                className="product-link"
+                              >
+                                <Card
+                                  hoverable
+                                  cover={
+                                    <img
+                                      alt={product.title}
+                                      src={product.image || fallbackImage}
+                                      onError={handleImageError}
+                                    />
+                                  }
+                                  className="product-card"
+                                  bodyStyle={{
+                                    padding: "10px",
+                                    overflow: "visible",
+                                  }}
+                                >
+                                  <div className="product-title">
+                                    {product.title}
+                                  </div>
+                                </Card>
+                              </Link>
+                            </Col>
+                          ))
+                        ) : (
+                          <Col span={24}>
+                            <Empty description="No products found" />
+                          </Col>
+                        )}
+                      </Row>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           )}
         </Col>
 
@@ -179,36 +227,50 @@ function Subcategory() {
         {!isMobile && (
           <Col xs={24} sm={24} md={16}>
             <p className="subcategory-heading1" style={{ fontWeight: "bold" }}>
-              {categories.find((c) => c.id === selectedCategory)?.name ||
+              {subCategories.find((c) => c._id === selectedCategory)?.title ||
                 "Products"}
               <div className="divider1"></div>
             </p>
             <Row gutter={[16, 16]}>
-              {productsByCategory[selectedCategory]?.map((product) => (
-                <Col xs={24} sm={8} md={8} lg={8} key={product.id}>
-                  <Link to={`/main-product`} className="product-link">
-                    <Card
-                      className="allproduct-card"
-                      hoverable
-                      cover={
-                        <div className="card-image-container">
-                          <img
-                            alt={product.name}
-                            src={product.image}
-                            className="allproduct-card-image"
-                          />
-                        </div>
-                      }
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <Col xs={24} sm={8} md={8} lg={8} key={product._id}>
+                    <Link
+                      to={`/${categorySlug || categoryTitle}/${slugify(
+                        subCategories.find((c) => c._id === selectedCategory)
+                          ?.title
+                      )}/${slugify(product.title)}`}
+                      state={{ id: product._id }}
+                      className="product-link"
                     >
-                      <Meta
-                        title={
-                          <span className="card-title">{product.name}</span>
+                      <Card
+                        className="allproduct-card"
+                        hoverable
+                        cover={
+                          <div className="card-image-container">
+                            <img
+                              alt={product.title}
+                              src={product.image || fallbackImage}
+                              className="allproduct-card-image"
+                              onError={handleImageError}
+                            />
+                          </div>
                         }
-                      />
-                    </Card>
-                  </Link>
+                      >
+                        <Meta
+                          title={
+                            <span className="card-title">{product.title}</span>
+                          }
+                        />
+                      </Card>
+                    </Link>
+                  </Col>
+                ))
+              ) : (
+                <Col span={24}>
+                  <Empty description="No products found" />
                 </Col>
-              ))}
+              )}
             </Row>
           </Col>
         )}

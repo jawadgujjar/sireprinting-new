@@ -20,8 +20,8 @@ function Landingpage() {
       {/* <Popularproducts /> */}
       {/* <Solutions /> */}
       <Landingdie />
-      <Landingdes/>
-      <Landingquote/>
+      <Landingdes />
+      <Landingquote />
       <Sireadvantage />
       <Testimonial />
       <Banner />

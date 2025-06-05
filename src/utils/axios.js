@@ -7,6 +7,46 @@ const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000/v1"; // 
 const users = axios.create({
   baseURL: `${baseURL}/auth`,
 });
+const getquote = axios.create({
+  baseURL: `${baseURL}/getquote`,
+});
+const category = axios.create({
+  baseURL: `${baseURL}/category`,
+});
+const subcategory = axios.create({
+  baseURL: `${baseURL}/subcategory`,
+});
+const product = axios.create({
+  baseURL: `${baseURL}/products`,
+});
+const blog = axios.create({
+  baseURL: `${baseURL}/blogs`,
+});
+const blogauthor = axios.create({
+  baseURL: `${baseURL}/blogauthor`,
+});
+const blogcategory = axios.create({
+  baseURL: `${baseURL}/blogcategory`,
+});
+const navitems = axios.create({
+  baseURL: `${baseURL}/navitems`,
+});
+const faq = axios.create({
+  baseURL: `${baseURL}/faq`,
+});
+const term = axios.create({
+  baseURL: `${baseURL}/term`,
+});
+const privacy = axios.create({
+  baseURL: `${baseURL}/privacy`,
+});
+const aboutus = axios.create({
+  baseURL: `${baseURL}/aboutus`,
+});
+const contactus = axios.create({
+  baseURL: `${baseURL}/contactus`,
+});
+
 
 // Request Interceptor
 const requestInterceptor = (req) => {
@@ -21,8 +61,38 @@ const errorInterceptor = (err) => {
 };
 
 // Apply interceptors
-[users].forEach((instance) => {
+[
+  users,
+  getquote,
+  category,
+  subcategory,
+  blog,
+  blogauthor,
+  blogcategory,
+  product,
+  navitems,
+  faq,
+  term,
+  privacy,
+  aboutus,
+  contactus
+].forEach((instance) => {
   instance.interceptors.request.use(requestInterceptor, errorInterceptor);
 });
 
-export { users };
+export {
+  users,
+  getquote,
+  category,
+  subcategory,
+  blog,
+  blogauthor,
+  blogcategory,
+  product,
+  navitems,
+  faq,
+  term,
+  privacy,
+  aboutus,
+  contactus
+};

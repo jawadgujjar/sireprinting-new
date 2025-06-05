@@ -1,12 +1,12 @@
 .testimonial-main {
   background-color: white;
-  padding: 40px 20px;
+  padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .testimonial-header {
-  text-align: center;
   margin-bottom: 40px;
 }
 
@@ -14,311 +14,68 @@
   font-size: 2.5rem;
   color: #01257d;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .accent-line {
   width: 80px;
   height: 4px;
   background: #00ffff;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   border-radius: 2px;
 }
 
-.testimonial-content-row {
-  margin-top: 30px;
-}
-
-/* Rating Summary Card */
-.rating-summary-card {
-  background-color: #f9f9f9;
-  padding: 25px;
-  border-radius: 10px;
-  height: 100%;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-}
-
-.rating-text {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #01257d;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.rating-denominator {
-  font-size: 1.5rem;
-  color: black;
-}
-
-.review-count {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.star-bar {
-  display: flex;
-  align-items: center;
-  margin: 12px 0;
-}
-
-.star-label {
-  width: 50px;
-  color: #ffd700;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.star-count {
-  width: 30px;
-  text-align: right;
-  color: #000;
-  font-weight: bold;
-  margin-left: 10px;
-}
-
-/* Review Images Card */
-.review-images-card {
-  background-color: #f9f9f9;
-  padding: 25px;
-  border-radius: 10px;
-  height: 100%;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-}
-
-.customer-review-text {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #01257d;
-  text-align: center;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.customer-review-text::after {
-  content: "";
-  width: 60px;
-  height: 4px;
-  background: #00ffff;
-  display: block;
-  margin: 10px auto 0;
-  border-radius: 2px;
-}
-
-.review-images-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.image-container {
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  aspect-ratio: 1/1;
-  transition: all 0.3s ease;
-}
-
-.review-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.image-hover-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(1, 37, 125, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.image-container:hover .image-hover-overlay {
-  opacity: 1;
-}
-
-.image-container:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Reviews Card */
-.reviews-card {
-  background-color: #f9f9f9;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-}
-
-.testimonials-main-sec {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #01257d;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.review-card {
-  background-color: #fff;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-left: 4px solid #00ffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.review-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.star-rating {
-  color: #ffd700 !important;
-  margin-bottom: 10px;
-}
-
-.review-card h4 {
-  color: #01257d;
-  margin-bottom: 8px;
+.industry-main-p {
   font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.review-card p {
   color: #555;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin: 0;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-/* Buttons */
-.show-more-btn {
-  text-align: center;
-  margin-top: 20px;
+.featurable-widget-container {
+  min-height: 400px;
+  margin: 40px 0;
+  position: relative;
 }
 
-.golden-btn {
-  background-color: #01257d;
-  color: white !important;
-  border: none;
-  font-weight: 600;
-  padding: 12px 30px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.widget-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #666;
+  font-style: italic;
 }
 
-.golden-btn:hover {
-  background-color: #00ffff !important;
-  color: #01257d !important;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
+/* ✨ Strong CSS branding removal */
+.powered-by-featurable,
+a[href*="featurable"],
+[class*="featurable-branding"],
+div[id*="featurable"] a,
+div[id*="featurable"] .branding,
+div[id*="featurable"] footer,
+div[id*="featurable"] [class*="branding"],
+div[id*="featurable"] [class*="powered"],
+div[id*="featurable"] [href*="featurable"],
+div[id*="featurable"] > a:last-child {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  pointer-events: none !important;
 }
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
+/* Responsive design */
+@media (max-width: 768px) {
   .trustedtext {
     font-size: 2rem;
   }
 
-  .rating-text {
-    font-size: 1.8rem;
-  }
-
-  .review-images-grid {
-    grid-template-columns: repeat(2, 3fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .testimonial-main {
-    padding: 30px 15px;
-  }
-
-  .trustedtext {
-    font-size: 1.8rem;
-  }
-
-  .review-images-grid {
-    grid-template-columns: repeat(3, 3fr);
-  }
-
-  .rating-summary-card,
-  .review-images-card {
-    margin-bottom: 24px;
-  }
-}
-
-@media (max-width: 576px) {
-  .trustedtext {
-    font-size: 1.5rem;
-  }
-
-  .customer-review-text,
-  .testimonials-main-sec {
-    font-size: 1.1rem;
-  }
-
-  .review-images-grid {
-    grid-template-columns: repeat(3, 3fr);
-  }
-
-  .rating-text {
-    font-size: 1.5rem;
-  }
-
-  .review-card {
-    padding: 15px;
-  }
-
-  .golden-btn {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .testimonial-main {
-    padding: 0 10px;
-  }
-
-  .testimonials-main {
-    font-size: 1.8rem;
-  }
-
-  .testimonials-main-sec {
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  .rating-text {
-    font-size: 22px;
-  }
-
-  .review-images-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 375px) {
-  .testimonials-main {
-    font-size: 1.5rem;
-  }
-
-  .review-images-row {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .review-img {
-    height: 90px;
+  .featurable-widget-container {
+    min-height: 300px;
   }
 }

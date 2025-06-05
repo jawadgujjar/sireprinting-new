@@ -1,133 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./blog.css";
-import { Col, Row, Carousel } from "antd";
-import {
-  FacebookOutlined,
-  TwitterOutlined,
-  LinkedinOutlined,
-} from "@ant-design/icons";
-import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { Col, Row, Carousel, Spin, Alert } from "antd";
+import { TwitterOutlined } from "@ant-design/icons";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
-
-const blogContent = {
-  title: "The Art of Sustainable Packaging",
-  description:
-    "Discover how eco-friendly materials are revolutionizing the packaging industry and how you can implement these solutions.",
-  author: {
-    name: "Sarah Johnson",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-  },
-  image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
-  body: (
-    <>
-      <p>
-        In today's environmentally-conscious market, sustainable packaging is no
-        longer a luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses. In today's
-        environmentally-conscious market, sustainable packaging is no longer a
-        luxury but a necessity. This article explores biodegradable,
-        compostable, and recyclable options for modern businesses.
-      </p>
-      <h4>Pros:</h4>
-      <ul>
-        <li>Eco-friendly materials reduce carbon footprint</li>
-        <li>Appeals to environmentally aware customers</li>
-        <li>Can improve brand image</li>
-      </ul>
-      <h4>Cons:</h4>
-      <ul>
-        <li>Initial cost may be higher</li>
-        <li>Availability of materials can vary</li>
-      </ul>
-      <table className="comparison-table">
-        <thead>
-          <tr>
-            <th>Material</th>
-            <th>Biodegradable</th>
-            <th>Cost</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Plastic</td>
-            <td>No</td>
-            <td>Low</td>
-          </tr>
-          <tr>
-            <td>Kraft Paper</td>
-            <td>Yes</td>
-            <td>Medium</td>
-          </tr>
-          <tr>
-            <td>Cornstarch</td>
-            <td>Yes</td>
-            <td>High</td>
-          </tr>
-        </tbody>
-      </table>
-    </>
-  ),
-};
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { blog } from "../../utils/axios";
+import { slugify } from "../../utils/slugify";
 
 // Sample carousel items
 const carouselItems = [
@@ -146,41 +25,98 @@ const carouselItems = [
     title: "Corrugated Box",
     image: "/images/arka.png",
   },
-  {
-    id: 4,
-    title: "Mailer Box",
-    image: "/images/arka.png",
-  },
-  {
-    id: 5,
-    title: "Window Box",
-    image: "/images/arka.png",
-  },
-  {
-    id: 6,
-    title: "Corrugated Box",
-    image: "/images/arka.png",
-  },
-  {
-    id: 7,
-    title: "Mailer Box",
-    image: "/images/arka.png",
-  },
-  {
-    id: 8,
-    title: "Window Box",
-    image: "/images/arka.png",
-  },
-  {
-    id: 9,
-    title: "Corrugated Box",
-    image: "/images/arka.png",
-  },
 ];
 
 function MainBlogRedesign() {
-  const currentUrl = encodeURIComponent(window.location.href);
-  const text = encodeURIComponent("Check this out!");
+  const { slug } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const fallbackId = location.state?.id;
+  const [blogContent, setBlogContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        let response;
+
+        // First try to fetch by ID if available
+        if (fallbackId) {
+          response = await blog.get(`/${fallbackId}`);
+        }
+        // Then try by slug
+        else {
+          try {
+            response = await blog.get(`/slug/${slug}`);
+          } catch (slugError) {
+            // If slug fails and looks like ID, try as ID
+            if (/^[0-9a-fA-F]{24}$/.test(slug)) {
+              response = await blog.get(`/${slug}`);
+            } else {
+              throw slugError;
+            }
+          }
+        }
+
+        if (!response?.data) {
+          throw new Error("Blog post not found");
+        }
+
+        const data = response.data;
+        setBlogContent(data);
+
+        // Verify URL matches the actual blog slug
+        const expectedSlug = slugify(data.title);
+        if (slug !== expectedSlug) {
+          navigate(`/blog/${expectedSlug}`, {
+            state: { id: data._id },
+            replace: true,
+          });
+        }
+      } catch (err) {
+        setError(err.message || "Failed to fetch blog post");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogData();
+  }, [slug, fallbackId, navigate]);
+
+  if (loading) {
+    return (
+      <div className="blog-redesign-container">
+        <Spin size="large" tip="Loading..." />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="blog-redesign-container">
+        <Alert message="Error" description={error} type="error" showIcon />
+      </div>
+    );
+  }
+
+  if (!blogContent) {
+    return (
+      <div className="blog-redesign-container">
+        <Alert
+          message="Not Found"
+          description="The requested blog post could not be found"
+          type="warning"
+          showIcon
+        />
+      </div>
+    );
+  }
+  const currentUrl = window.location.href;
+  const text = blogContent?.title || "Check out this blog post!";
   return (
     <div className="blog-redesign-container">
       {/* Social Media Icons Column */}
@@ -210,18 +146,40 @@ function MainBlogRedesign() {
           <FaLinkedinIn style={{ fontSize: "25px" }} />
         </a>
       </div>
+
       {/* Top Section */}
       <Row gutter={[24, 24]} align="middle" className="top-section">
         <Col xs={24} md={12}>
           <h1 className="blog-title">{blogContent.title}</h1>
-          <p className="blog-description">{blogContent.description}</p>
+          <p className="blog-description">
+            {blogContent.details[0]?.detailDescription ||
+              "No description available"}
+          </p>
           <div className="author-info">
-            <img
-              src={blogContent.author.avatar}
-              alt={blogContent.author.name}
-              className="author-avatar"
-            />
-            <span className="author-name">{blogContent.author.name}</span>
+            <Link
+              to="/blog-author"
+              state={{ id: blogContent.blogAuthor?._id }}
+              className="author-link"
+            >
+              <img
+                src={
+                  blogContent.blogAuthor?.avatar ||
+                  "https://randomuser.me/api/portraits/women/44.jpg"
+                }
+                alt={blogContent.blogAuthor?.name || "Author"}
+                className="author-avatar"
+              />
+              <span className="author-name">
+                {blogContent.blogAuthor?.name || "Unknown Author"}
+              </span>
+            </Link>
+            <span style={{ marginLeft: "0.5rem" }} className="post-date">
+              {new Date(blogContent.createdAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span>
           </div>
         </Col>
         <Col xs={24} md={12}>
@@ -232,11 +190,38 @@ function MainBlogRedesign() {
       {/* Second Section */}
       <Row gutter={[24, 24]} className="second-section">
         <Col xs={24} md={16}>
-          <div className="blog-body">{blogContent.body}</div>
+          <div className="blog-body">
+            {blogContent.details?.map((detail, index) => (
+              <React.Fragment key={index}>
+                {detail.detailTitle && <h2>{detail.detailTitle}</h2>}
+                <p>{detail.detailDescription}</p>
+                {detail.table && detail.table.length > 0 && (
+                  <table className="comparison-table">
+                    <thead>
+                      <tr>
+                        {Object.keys(detail.table[0]).map((key) => (
+                          <th key={key}>{key}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {detail.table.map((row, rowIndex) => (
+                        <tr key={rowIndex}>
+                          {Object.values(row).map((value, colIndex) => (
+                            <td key={colIndex}>{value}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
           <h3 className="carousel-heading">Related Products</h3>
           <Carousel
             dots={false}
-            slidesToShow={5}
+            slidesToShow={Math.min(5, carouselItems.length)}
             autoplay
             className="product-carousel"
           >

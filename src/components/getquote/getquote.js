@@ -19,6 +19,7 @@ import {
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 import "./getquote.css";
+import { getquote } from "../../utils/axios";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -76,8 +77,25 @@ function Getquote() {
 
   const handleSubmit = async (values) => {
     setLoading(true);
+    const quoteData = {
+      length: values.length,
+      width: values.width,
+      height: values.height,
+      chooseProduct: values.productType,
+      colors: values.color,
+      quantity: values.quantity,
+      phoneNumber: values.phone,
+      fullName: values.name,
+      email: values.email,
+      uploadFile: fileList[0]?.name || "", // You might want to handle file upload separately
+      material: values.material,
+      finishOption: values.finish,
+      message: values.notes,
+      companyName: values.company || "",
+    };
     try {
-      // Simulate API call
+      const response = await getquote.post("/", quoteData);
+      console.log(response, "values");
       await new Promise((resolve) => setTimeout(resolve, 1500));
       message.success("Quote request submitted successfully!");
       form.resetFields();
@@ -305,7 +323,6 @@ function Getquote() {
                         />
                       </Form.Item>
                     </Col>
-
                     <Col xs={24} sm={12}>
                       <Form.Item name="company" label="Company Name">
                         <Input
@@ -315,7 +332,6 @@ function Getquote() {
                         />
                       </Form.Item>
                     </Col>
-
                     <Col xs={24} sm={12}>
                       <Form.Item
                         name="email"
@@ -338,7 +354,6 @@ function Getquote() {
                         />
                       </Form.Item>
                     </Col>
-
                     <Col xs={24} sm={12}>
                       <Form.Item
                         name="phone"
@@ -358,7 +373,6 @@ function Getquote() {
                       </Form.Item>
                     </Col>
                   </Row>
-
                   <Row gutter={24}>
                     <Col span={24}>
                       <Form.Item
@@ -384,7 +398,6 @@ function Getquote() {
                         </Dragger>
                       </Form.Item>
                     </Col>
-
                     <Col span={24}>
                       <Form.Item name="notes" label="Additional Notes">
                         <TextArea
@@ -395,7 +408,6 @@ function Getquote() {
                       </Form.Item>
                     </Col>
                   </Row>
-
                   <Row>
                     <Col span={24} className="submit-col">
                       <Form.Item>
