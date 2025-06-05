@@ -3,18 +3,16 @@ import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import "./subcategoryhead.css";
 
-function Subcategoryhead() {
+function Subcategoryhead({ data }) {
   return (
     <div className="subcategory-container">
       <Row className="subcategory-row">
         <Col xs={24} md={12} className="subcategory-left">
-          <h2 className="subcategory-heading">Custom Packaging</h2>
+          <h2 className="subcategory-heading">{data?.title}</h2>
           <p className="subcategory-description">
-            Sire Packaging is a leading supplier of custom printed CBD packaging
-            boxes offering customized packaging solutions to elevate your
-            product’s impact in the wellness and supplement market. From oils,
-            serums, tinctures to gummies and everything in between, we produce
-            
+            {/* You can use data.seoDescription or create a custom one */}
+            {data?.description ||
+              "We offer custom printed packaging designed to fit your brand perfectly."}
           </p>
           <Link to="/get-a-quote">
             <button className="get-pricing-button">Get Pricing</button>
@@ -22,8 +20,8 @@ function Subcategoryhead() {
         </Col>
         <Col xs={24} md={12} className="subcategory-right">
           <img
-            src="/images/landing1.png"
-            alt="Service Visual"
+            src={data?.pageImage || "/images/landing1.png"}
+            alt={data?.title}
             className="subcategory-image"
           />
         </Col>

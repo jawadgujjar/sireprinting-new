@@ -164,6 +164,12 @@
   background-color: #00ffff;
   color: white !important;
 }
+.author-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

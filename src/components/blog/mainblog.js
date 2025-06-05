@@ -1,103 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./mainblog.css";
 import { Link } from "react-router-dom";
-import { Button, Col, Row } from "antd";
-
-const categories = [
-  "All",
-  "Featured",
-  "Step-By-Step Guides",
-  "Retail Packaging",
-  "Box Customization",
-  "Packaging Glossary",
-  "Inspiration",
-];
-
-const blogs = [
-  {
-    id: 1,
-    title: "The Art of Sustainable Packaging",
-    description:
-      "Discover how eco-friendly materials are revolutionizing the packaging industry and how you can implement these solutions.",
-    image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
-    author: "Sarah Johnson",
-    date: "May 15, 2023",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    popular: true,
-    category: "Featured",
-  },
-  {
-    id: 2,
-    title: "Mastering Die-Cut Techniques",
-    description:
-      "Learn professional die-cutting methods that will elevate your packaging designs to premium quality standards.",
-    image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
-    author: "Michael Chen",
-    date: "April 28, 2023",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    popular: true,
-    category: "Step-By-Step Guides",
-  },
-  {
-    id: 3,
-    title: "Spot UV: The Ultimate Guide",
-    description:
-      "Everything you need to know about spot UV finishing techniques for stunning packaging effects.",
-    image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
-    author: "Emma Davis",
-    date: "April 10, 2023",
-    avatar: "https://randomuser.me/api/portraits/women/63.jpg",
-    popular: false,
-    category: "Retail Packaging",
-  },
-  {
-    id: 4,
-    title: "Corrugated Cardboard Innovations",
-    description:
-      "Explore the latest advancements in corrugated cardboard technology for durable yet lightweight packaging.",
-    image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
-    author: "James Wilson",
-    date: "March 22, 2023",
-    avatar: "https://randomuser.me/api/portraits/men/75.jpg",
-    popular: true,
-    category: "Box Customization",
-  },
-  {
-    id: 5,
-    title: "Glossary of Packaging Terms",
-    description:
-      "Understand key packaging terms and industry lingo with our easy-to-navigate glossary.",
-    image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
-    author: "Lily Smith",
-    date: "February 14, 2023",
-    avatar: "https://randomuser.me/api/portraits/women/51.jpg",
-    popular: false,
-    category: "Packaging Glossary",
-  },
-  {
-    id: 6,
-    title: "Creative Packaging Inspiration",
-    description:
-      "Be inspired by creative packaging from brands around the world.",
-    image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
-    author: "Brian Lee",
-    date: "January 30, 2023",
-    avatar: "https://randomuser.me/api/portraits/men/18.jpg",
-    popular: false,
-    category: "Inspiration",
-  },
-];
+import { Button, Col, Row, Spin, Alert } from "antd";
+import { blog, blogcategory } from "../../utils/axios";
+import { slugify } from "../../utils/slugify";
 
 function MainBlog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [blogs, setBlogs] = useState([]);
+  const [categories, setCategories] = useState(["All"]); // Initialize with "All"
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch blogs
+        const blogsResponse = await blog.get("/");
+        setBlogs(blogsResponse.data);
+
+        // Fetch categories with error handling
+        try {
+          const categoriesResponse = await blogcategory.get("/");
+
+          // Access the nested data property
+          const responseData = categoriesResponse?.data?.data || [];
+
+          // Ensure we have an array and extract names safely
+          const categoryNames = Array.isArray(responseData)
+            ? responseData.map((cat) => cat?.name).filter((name) => name)
+            : [];
+
+          setCategories(["All", ...new Set(categoryNames)]); // Remove duplicates
+        } catch (categoriesError) {
+          console.error("Failed to fetch categories:", categoriesError);
+          // Continue with just "All" category
+        }
+      } catch (err) {
+        setError(err.message || "Failed to fetch blog data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const filteredBlogs =
     selectedCategory === "All"
       ? blogs
-      : blogs.filter((blog) => blog.category === selectedCategory);
+      : blogs.filter((blog) => blog.blogCategory?.name === selectedCategory);
 
-  const featuredBlog = blogs[0];
   const popularBlogs = blogs.filter((blog) => blog.popular);
+
+  if (loading) {
+    return (
+      <div className="main-blog-container">
+        <Spin size="large" tip="Loading..." />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="main-blog-container">
+        <Alert message="Error" description={error} type="error" showIcon />
+      </div>
+    );
+  }
 
   return (
     <div className="main-blog-container">
@@ -152,9 +125,12 @@ function MainBlog() {
           <div className="blog-main-content">
             <Row gutter={[16, 16]}>
               {filteredBlogs.map((blog) => (
-                <Col xs={24} sm={12} lg={12} key={blog.id}>
-
-                  <Link to={`/blog1`} style={{ textDecoration: "none" }}>
+                <Col xs={24} sm={12} lg={12} key={blog._id}>
+                  <Link
+                    to={`/blog/${slugify(blog.title)}`}
+                    state={{ id: blog._id }}
+                    style={{ textDecoration: "none" }}
+                  >
                     <div className="blog-card">
                       <div
                         className="blog-card-image"
@@ -166,17 +142,32 @@ function MainBlog() {
                         <h3 className="blog-card-title">{blog.title}</h3>
                         <div className="blog-meta">
                           <img
-                            src={blog.avatar}
-                            alt={blog.author}
+                            src={
+                              blog.blogAuthor?.avatar ||
+                              "https://randomuser.me/api/portraits/women/44.jpg"
+                            }
+                            alt={blog.blogAuthor?.name || "Author"}
                             className="author-avatar"
                           />
                           <div>
-                            <span className="author-name">{blog.author}</span>
-                            <span className="post-date">{blog.date}</span>
+                            <span className="author-name">
+                              {blog.blogAuthor?.name || "Unknown Author"}
+                            </span>
+                            <span className="post-date">
+                              {new Date(blog.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                }
+                              )}
+                            </span>
                           </div>
                         </div>
                         <p className="blog-card-description">
-                          {blog.description}
+                          {blog.details[0]?.detailDescription ||
+                            "No description available"}
                         </p>
                         <div className="hover-read-more">READ MORE →</div>
                       </div>
@@ -193,19 +184,25 @@ function MainBlog() {
               <h3 className="sidebar-title">Most Popular</h3>
               <div className="popular-posts-list">
                 {popularBlogs.map((blog) => (
-                  <div className="popular-post-card" key={blog.id}>
-                    <div
-                      className="popular-post-image"
-                      style={{ backgroundImage: `url(${blog.image})` }}
-                    ></div>
-                    <div className="popular-post-content">
-                      <h4
-                        className="popular-post-title"
-                        style={{ color: "black" }}
-                      >
-                        {blog.title}
-                      </h4>
-                    </div>
+                  <div className="popular-post-card" key={blog._id}>
+                    <Link
+                      to={`/blog/${slugify(blog.title)}`}
+                      state={{ id: blog._id }}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div
+                        className="popular-post-image"
+                        style={{ backgroundImage: `url(${blog.image})` }}
+                      ></div>
+                      <div className="popular-post-content">
+                        <h4
+                          className="popular-post-title"
+                          style={{ color: "black" }}
+                        >
+                          {blog.title}
+                        </h4>
+                      </div>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -225,7 +222,10 @@ function MainBlog() {
                     >
                       {cat}
                       <span className="category-count">
-                        {blogs.filter((b) => b.category === cat).length}
+                        {
+                          blogs.filter((b) => b.blogCategory?.name === cat)
+                            .length
+                        }
                       </span>
                     </button>
                   ))}

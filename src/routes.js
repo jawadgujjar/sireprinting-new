@@ -23,6 +23,7 @@ import SignupPage from "./components/login/signup";
 import { useUser } from "./contextapi/userContext";
 import Diepage from "./pages/diepage";
 import Diecategory from "./components/die-component/diecategory";
+import Blogauthor from "./components/blog/blogauthor";
 // Protected route component
 const ProtectedRoute = ({ children }) => {
   const { user } = useUser();
@@ -35,10 +36,12 @@ function AppRouter() {
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Landingpage />} />
-        <Route path="/all-products" element={<Allproductpage />} />
-        <Route path="/main-product" element={<Mainproductpage />} />
+        <Route
+          path="/:categoryTitle/:subcategoryTitle"
+          element={<Allproductpage />}
+        />
+        <Route path="/:categoryTitle/:subcategoryTitle/:productTitle" element={<Mainproductpage />} />
         <Route path="/search-products" element={<Search />} />
-
         {/* Protected login and signup routes */}
         <Route
           path="/login"
@@ -56,17 +59,17 @@ function AppRouter() {
             </ProtectedRoute>
           }
         />
-        
         <Route path="/products" element={<Products />} />
         <Route path="/blog" element={<MainBlog />} />
-        <Route path="/blog1" element={<Blog />} />
+        <Route path="/blog/:slug" element={<Blog />} />
+         <Route path="/blog-author" element={<Blogauthor />} />
         <Route path="/get-a-quote" element={<Getquote />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/about-us" element={<Aboutus />} />
         <Route path="/contact-us" element={<Contactus />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Terms_and_conditions" element={<Term />} />
-        <Route path="/main-category" element={<Subcategorypage />} />
+        <Route path="/:slug" element={<Subcategorypage />} />
         <Route path="/sample-product" element={<Sampleproduct />} />
         <Route path="/add-to-cart" element={<Cart />} />
         <Route path="/Die-template" element={<Diepage />} />

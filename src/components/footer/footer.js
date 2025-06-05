@@ -1,4 +1,3 @@
-import React from "react";
 import { Row, Col } from "antd";
 import {
   FaEnvelope,
@@ -6,7 +5,6 @@ import {
   FaShippingFast,
   FaFacebook,
   FaInstagram,
-  FaLinkedin,
   FaPaperPlane,
   FaPhone,
   FaPinterest,
