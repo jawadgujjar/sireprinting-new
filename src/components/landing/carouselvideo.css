@@ -1,29 +1,38 @@
+/* Loader Container - centers everything inside iframe box */
 .loader-container {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white; /* Optional: white background while loading */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  z-index: 10;
 }
 
+/* Logo Image */
 .loading-image {
-  width: 100px; /* Adjust the size of your image */
-  height: 100px; /* Adjust the size of your image */
-  margin-bottom: 20px;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 16px;
+  object-fit: contain;
+  animation: fadeIn 1s ease-in-out;
 }
 
+/* Circular Spinner */
 .loader {
-  border: 5px solid #f3f3f3; /* Light grey color */
-  border-top: 5px solid #3498db; /* Blue color */
+  border: 6px solid #f3f3f3;       /* Light grey outer ring */
+  border-top: 6px solid #3498db;   /* Blue spinning part */
   border-radius: 50%;
-  width: 50px; /* Size of the loader */
-  height: 50px; /* Size of the loader */
-  animation: spin 2s linear infinite;
+  width: 48px;
+  height: 48px;
+  animation: spin 1.2s linear infinite;
 }
 
+/* Spinner Rotation Animation */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -31,4 +40,29 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Fade-in animation for logo/image */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Optional: Title above iframe */
+.div-trustedtext {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.trustedtext {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
 }

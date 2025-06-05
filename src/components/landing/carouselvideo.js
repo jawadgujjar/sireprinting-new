@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from "react";
-import "./carouselvideo.css"; // Add CSS for the loader and centering
+import React, { useState } from "react";
+import "./carouselvideo.css";
 
 function Videocarousel() {
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <div
@@ -27,36 +19,35 @@ function Videocarousel() {
           height: "425px",
           overflow: "hidden",
           borderRadius: "12px",
-          position: "relative", // Added for positioning the loader
+          position: "relative",
         }}
       >
-        {isLoading ? (
+        {isLoading && (
           <div className="loader-container">
             <img
-              src="../images/logo.png"
+              src="/images/logo.png"
               alt="Logo"
               className="loading-image"
             />
             <div className="loader"></div>
           </div>
-        ) : (
-          <>
-            <div className="div-trustedtext">
-              <h2 className="trustedtext">Get Inspiration</h2>
-            </div>
-            <iframe
-              src="https://71a478a187ec4fad9a5538a7214d4bca.elf.site/"
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                borderRadius: "12px",
-              }}
-              title="Video Carousel"
-              onLoad={() => setIsLoading(false)}
-            ></iframe>
-          </>
         )}
+
+        <div className="div-trustedtext">
+          <h2 className="trustedtext">Get Inspiration</h2>
+        </div>
+
+        <iframe
+          src="https://widget.tagembed.com/embed/12345?view" // Replace with your actual Tagembed iframe src
+          style={{
+            width: "100%",
+            height: "100%",
+            border: "none",
+            borderRadius: "12px",
+          }}
+          title="Instagram Feed"
+          onLoad={() => setIsLoading(false)}
+        ></iframe>
       </div>
     </div>
   );

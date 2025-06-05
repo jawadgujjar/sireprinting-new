@@ -56,7 +56,7 @@ function AppRouter() {
             </ProtectedRoute>
           }
         />
-
+        
         <Route path="/products" element={<Products />} />
         <Route path="/blog" element={<MainBlog />} />
         <Route path="/blog1" element={<Blog />} />
@@ -74,7 +74,7 @@ function AppRouter() {
       </Routes>
       <Footer1 />
     </>
-  );
+  );  
 }
 
 export default AppRouter;
