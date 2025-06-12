@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Fallback base URL if environment variable is undefined
-const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000/v1"; // <-- change this to your local API base if needed
+const baseURL = process.env.REACT_APP_API_URL;
 
 // Create instances with consistent base URLs
 const users = axios.create({
@@ -46,7 +46,9 @@ const aboutus = axios.create({
 const contactus = axios.create({
   baseURL: `${baseURL}/contactus`,
 });
-
+const instantquote = axios.create({
+  baseURL: `${baseURL}/instantquote`,
+});
 
 // Request Interceptor
 const requestInterceptor = (req) => {
@@ -75,7 +77,8 @@ const errorInterceptor = (err) => {
   term,
   privacy,
   aboutus,
-  contactus
+  contactus,
+  instantquote,
 ].forEach((instance) => {
   instance.interceptors.request.use(requestInterceptor, errorInterceptor);
 });
@@ -94,5 +97,6 @@ export {
   term,
   privacy,
   aboutus,
-  contactus
+  contactus,
+  instantquote,
 };

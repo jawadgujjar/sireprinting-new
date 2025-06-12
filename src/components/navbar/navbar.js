@@ -248,6 +248,22 @@ const Navbar1 = () => {
                 );
               })
             )}
+            <li className="nav-item">
+              <Link
+                to="/portfolio"
+                className={`nav-link ${isScrolled ? "scrolled" : ""}`}
+              >
+                <span>Portfolio</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/get-a-quote"
+                className={`nav-link ${isScrolled ? "scrolled" : ""}`}
+              >
+                <span>Get a Quote</span>
+              </Link>
+            </li>
           </ul>
 
           {showSearchBar && (
