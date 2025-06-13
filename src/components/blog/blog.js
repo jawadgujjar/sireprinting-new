@@ -7,6 +7,7 @@ import { FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { blog } from "../../utils/axios";
 import { slugify } from "../../utils/slugify";
+import SireprintingLoader from "../loader/loader";
 
 // Sample carousel items
 const carouselItems = [
@@ -90,7 +91,7 @@ function MainBlogRedesign() {
   if (loading) {
     return (
       <div className="blog-redesign-container">
-        <Spin size="large" tip="Loading..." />
+        <SireprintingLoader />
       </div>
     );
   }

@@ -7,6 +7,7 @@ import Subcategoryhead from "../components/products/subcategoryhead";
 import Categorydescription from "../components/products/catdes";
 import Banner from "../components/landing/banner";
 import { category } from "../utils/axios";
+import SireprintingLoader from "../components/loader/loader";
 
 function Subcategorypage() {
   const location = useLocation();
@@ -40,7 +41,7 @@ function Subcategorypage() {
     fetchCategoryData();
   }, [slug, fallbackId]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <SireprintingLoader />;
   if (!categoryData) return <div>No data found</div>;
 
   return (

@@ -7,6 +7,7 @@ import { slugify } from "../../utils/slugify";
 import { Button } from "antd";
 import { useUser } from "../../contextapi/userContext.js";
 import { navitems, subcategory } from "../../utils/axios.js";
+import SireprintingLoader from "../loader/loader.js";
 
 const Navbar1 = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -155,7 +156,11 @@ const Navbar1 = () => {
   };
 
   if (loading) {
-    return <div className="navbar-loading">Loading...</div>;
+    return (
+      <div className="navbar-loading">
+        <SireprintingLoader />
+      </div>
+    );
   }
 
   return (

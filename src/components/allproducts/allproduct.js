@@ -137,8 +137,8 @@ function Allproduct1({ data }) {
         </div>
         <div className="hero-image-container">
           <img
-            className="hero-image"
-            src="../images/landing1.png"
+            className="hero-image-sub"
+            src={data?.image}
             alt="Premium Packaging"
           />
         </div>

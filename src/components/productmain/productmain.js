@@ -8,6 +8,8 @@ import "./productmain.css";
 import Productimgs1 from "./productimgs";
 import Productdetail1 from "./productdetail";
 import { instantquote } from "../../utils/axios";
+import ProductSpecs from "./productspecs";
+import Productdescription from "./productdescription";
 
 const { Option } = Select;
 
@@ -91,7 +93,7 @@ const Productmain1 = ({
 
   // Combine main image with additional images
   const allImages = [data.image, ...(data.additionalImages || [])];
-  const rating = data.reviews[0]?.rating || 0;
+  const rating = 4.5;
 
   const renderStars = (rating) => {
     const stars = [];
@@ -198,7 +200,7 @@ const Productmain1 = ({
                   <div className="product-ratings-left">
                     <span className="stars">{renderStars(rating)}</span>
                     <span className="review-count">
-                      {data.reviews?.length || 47} reviews
+                      {data.reviews?.length || 27} reviews
                     </span>
                   </div>
                   <div style={{ display: "flex", gap: "1rem" }}>
@@ -489,6 +491,8 @@ const Productmain1 = ({
       </Row>
       <div>
         <Productdetail1 data={data} currentVariant={currentVariant} />
+        <ProductSpecs data={data} currentVariant={currentVariant} />
+        <Productdescription data={data} currentVariant={currentVariant} />
       </div>
     </div>
   );

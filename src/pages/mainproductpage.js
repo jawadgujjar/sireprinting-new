@@ -9,6 +9,7 @@ import Testimonial from "../components/landing/testimonial";
 import Banner from "../components/landing/banner";
 import Categorydescription from "../components/products/catdes";
 import { product } from "../utils/axios";
+import SireprintingLoader from "../components/loader/loader";
 
 function Mainproductpage() {
   const location = useLocation();
@@ -30,7 +31,6 @@ function Mainproductpage() {
         const response = await product.get(`/${id}`);
         console.log(response.data, "product");
         setProductData(response.data);
-        // Set first variant as default
         if (response.data.variants && response.data.variants.length > 0) {
           setCurrentVariant(response.data.variants[0]);
         }
@@ -52,7 +52,7 @@ function Mainproductpage() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <SireprintingLoader />;
   if (!productData) return <div>No product data found</div>;
 
   return (
@@ -64,9 +64,7 @@ function Mainproductpage() {
         selectedVariantIndex={selectedVariantIndex}
       />
       <Videocarousel />
-      <ProductSpecs data={productData} currentVariant={currentVariant} />
       <Banner />
-      <Categorydescription data={productData} />
       <Relatedproduct data={productData} />
       {/* <Relatedblogs/> */}
       <Testimonial />

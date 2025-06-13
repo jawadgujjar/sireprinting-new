@@ -1,15 +1,28 @@
 import React from "react";
-import { Row, Col, Form, Input, Button } from "antd";
+import { Row, Col, Form, Input, Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // ✅ Import axios
 import "./dieform.css";
+import { toast } from "react-toastify";
+import { dielineform } from "../../utils/axios";
 
 function Dieform() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log("Form submitted successfully:", values);
-    navigate("/Die-category-template");
+
+    try {
+      // Replace this with your actual API endpoint
+      const response = await dielineform.post("/", values);
+      toast.success("Dieline requested successfully!");
+      form.resetFields();
+      navigate("/Die-category-template");
+    } catch (error) {
+      console.error("API submission failed:", error);
+      message.error("Failed to submit dieline request.");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -80,15 +93,19 @@ function Dieform() {
               </Form.Item>
 
               <Form.Item
-                name="phone"
-                rules={[{ required: true, message: "Please enter your phone number" }]}
+                name="phoneNumber"
+                rules={[
+                  { required: true, message: "Please enter your phone number" },
+                ]}
               >
                 <Input placeholder="Your Phone" />
               </Form.Item>
 
               <Form.Item
                 name="message"
-                rules={[{ required: true, message: "Please enter your message" }]}
+                rules={[
+                  { required: true, message: "Please enter your message" },
+                ]}
               >
                 <Input.TextArea placeholder="Message" rows={4} />
               </Form.Item>
