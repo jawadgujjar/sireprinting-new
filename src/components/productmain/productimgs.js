@@ -59,7 +59,22 @@ function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
               }`}
               onClick={() => handleThumbnailClick(index)}
             >
-              <img src={src} alt={`${title} - ${index + 1}`} />
+              {src.endsWith(".mp4") ||
+              src.endsWith(".webm") ||
+              src.endsWith(".ogg") ? (
+                <video
+                  src={src}
+                  controls
+                  width="100%"
+                  style={{ objectFit: "cover", borderRadius: "8px" }}
+                />
+              ) : (
+                <img
+                  src={src}
+                  alt={`${title} - ${index + 1}`}
+                  style={{ objectFit: "cover", borderRadius: "8px" }}
+                />
+              )}
             </div>
           ))}
         </div>
@@ -91,13 +106,24 @@ function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
           {images.map((src, index) => (
             <div key={index} className="slide-container">
               <div className="zoom-wrapper">
-                <img
-                  src={src}
-                  alt={`${title} - ${index + 1}`}
-                  className="main-product-image"
-                  onMouseMove={handleMouseMove}
-                  onMouseLeave={handleMouseLeave}
-                />
+                {src?.match(/\.(mp4|webm|ogg)$/i) ? (
+                  <video
+                    src={src}
+                    controls
+                    className="main-product-image"
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    style={{ objectFit: "cover", borderRadius: "8px" }}
+                  />
+                ) : (
+                  <img
+                    src={src}
+                    alt={`${title} - ${index + 1}`}
+                    className="main-product-image"
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                  />
+                )}
               </div>
             </div>
           ))}
