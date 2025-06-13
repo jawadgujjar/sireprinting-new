@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./term.css";
 import { term } from "../../utils/axios";
 import { message } from "antd";
+import SireprintingLoader from "../loader/loader";
 
 function Term() {
   const [termsData, setTermsData] = useState([]);
@@ -27,7 +28,8 @@ function Term() {
   }, []);
 
   if (loading) {
-    return <div className="term-loading">Loading...</div>;
+    return         <SireprintingLoader />
+;
   }
 
   const titles = termsData[0]?.title || [];

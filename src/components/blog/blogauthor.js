@@ -6,6 +6,7 @@ import { slugify } from "../../utils/slugify";
 import { useLocation } from "react-router-dom";
 import "./blogauthor.css";
 import "./mainblog.css";
+import SireprintingLoader from "../loader/loader";
 
 function Blogauthor() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -74,7 +75,7 @@ function Blogauthor() {
   if (loading) {
     return (
       <div className="main-blog-container">
-        <Spin size="large" tip="Loading..." />
+        <SireprintingLoader />
       </div>
     );
   }

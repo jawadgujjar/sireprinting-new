@@ -137,8 +137,8 @@ function Allproduct1({ data }) {
         </div>
         <div className="hero-image-container">
           <img
-            className="hero-image"
-            src="../images/landing1.png"
+            className="hero-image-sub"
+            src={data?.image}
             alt="Premium Packaging"
           />
         </div>
@@ -151,7 +151,7 @@ function Allproduct1({ data }) {
             <Row gutter={[16, 16]}>
               {products.length > 0 ? (
                 products.map((product, index) => (
-                  <Col xs={12} sm={12} md={12} lg={8} key={product._id}>
+                  <Col xs={12} sm={12} md={12} lg={12} key={product._id}>
                     <div
                       className="product-card-wrapper"
                       onMouseEnter={() => setHoveredCard(index)}

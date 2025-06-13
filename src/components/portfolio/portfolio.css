@@ -1,15 +1,15 @@
 .portfolio-container {
   padding: 40px 20px;
   max-width: 1200px;
-  margin: 0 auto;
-  margin-top: 3rem;
+  margin: 3rem auto 0;
 }
 
 .portfolio-title {
   text-align: center;
   margin-bottom: 40px;
-  color: #333;
+  color: #01257d;
   font-size: 2.5rem;
+  font-weight: 700;
 }
 
 .product-grid {
@@ -20,28 +20,30 @@
 
 .product-card {
   position: relative;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 14px rgba(1, 37, 125, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   aspect-ratio: 1/1;
+  background-color: #ffffff;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(1, 37, 125, 0.3);
 }
 
 .sku-tag {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #01257d;
   color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 0.8rem;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
   z-index: 2;
 }
 
@@ -57,11 +59,11 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  background: #01257d;
   padding: 20px;
   color: white;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  /* Remove the opacity transition and set to always visible */
+  opacity: 1;
 }
 
 .product-card:hover .product-overlay {
@@ -70,14 +72,13 @@
 
 .product-name {
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 600;
+  color: white !important; /* Changed from #01257d to white */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Added for better readability */
 }
 
-.ant-btn.ant-btn-icon-only {
-  width: 2.5rem;
-}
+/* Modal & Preview */
 
-/* Preview Modal Styles */
 .product-preview-modal .ant-modal-body {
   padding: 0;
 }
@@ -104,40 +105,11 @@
   max-width: 100%;
   max-height: 90vh;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
-.nav-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  background: rgba(255, 255, 255, 0.8);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s;
-}
+/* Text Overlay on Preview */
 
-.nav-button:hover {
-  background: white;
-  transform: translateY(-50%) scale(1.1);
-}
-
-.prev-button {
-  left: 20px;
-}
-
-.next-button {
-  right: 20px;
-}
-
-/* Text Overlay at Top Center */
 .text-overlay-top {
   position: absolute;
   top: 40px;
@@ -145,31 +117,30 @@
   transform: translateX(-50%);
   text-align: center;
   padding: 12px 24px;
-  /* background-color: rgba(255, 255, 255, 0.95); */
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
-  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
   z-index: 2;
   max-width: 90%;
 }
 
 .text-overlay-top h2 {
   margin: 0;
-  color: black;
+  color: #01257d;
   font-size: 1.5rem;
+  font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: 600;
 }
 
 .text-overlay-top .preview-sku {
-  color: black;
+  color: #01257d;
   font-size: 0.9rem;
-  margin: 5px 0 0 0;
   font-weight: 500;
 }
 
-/* Action Buttons Overlay */
+/* Overlay Action Buttons */
+
 .preview-actions-overlay {
   position: absolute;
   bottom: 50px;
@@ -190,11 +161,9 @@
 
 .preview-actions-overlay .ant-btn {
   height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1rem;
+  border-radius: 8px;
   transition: all 0.3s ease;
 }
 
@@ -204,57 +173,90 @@
   font-size: 1.2rem;
 }
 
+/* Buttons with Color Theme */
+
 .whatsapp-btn {
-  background-color: #25d366;
-  border-color: #25d366;
-  color: white;
+  background-color: #00ffbf;
+  border-color: #00ffbf;
+  color: #01257d;
 }
 
 .whatsapp-btn:hover {
-  background-color: #128c7e;
-  border-color: #128c7e;
-  color: white;
+  background-color: #00dddd;
+  border-color: #00dddd;
   transform: scale(1.05);
 }
 
 .email-btn {
-  color: #333;
-  border-color: #d9d9d9;
+  color: #01257d;
   background: white;
+  border-color: #ccc;
 }
 
 .email-btn:hover {
-  background: #f5f5f5;
+  background: #f0f0f0;
   transform: scale(1.05);
 }
 
 .chat-btn {
-  color: #1890ff;
-  border-color: #1890ff;
-  background: white;
+  color: #00ffff;
+  background: #01257d;
+  border-color: #00ffff;
 }
 
 .chat-btn:hover {
-  background: #e6f7ff;
+  background-color: #001f5a;
   transform: scale(1.05);
 }
 
 .pricing-btn {
-  background-color: #ffa015;
-  border-color: #ffa015;
-  color: black;
+  background-color: #01257d;
+  border-color: #01257d;
+  color: white !important;
+  font-weight: 700;
   width: 100%;
-  padding: 0.4rem;
+  padding: 0.6rem;
   max-width: 320px;
-  font-weight: 600;
 }
 
 .pricing-btn:hover {
-  background-color: #ff8c00;
-  border-color: #ff8c00;
-  color: white;
+  background-color: #001f5a;
+  color: #ffffff;
   transform: scale(1.02);
 }
+
+/* Navigation Buttons */
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  border: none;
+  width: 40px !important;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s;
+}
+
+.nav-button:hover {
+  background: #00dddd;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prev-button {
+  left: 20px;
+}
+
+.next-button {
+  right: 20px;
+}
+
+/* Responsive Tweaks */
 
 @media (max-width: 768px) {
   .preview-image {
@@ -263,7 +265,7 @@
 
   .text-overlay-top {
     top: 20px;
-    padding: 8px 16px;
+    padding: 10px 16px;
   }
 
   .text-overlay-top h2 {
@@ -278,10 +280,6 @@
     bottom: 20px;
   }
 
-  .action-icons {
-    gap: 10px;
-  }
-
   .preview-actions-overlay .ant-btn-circle {
     width: 40px;
     height: 40px;
@@ -289,9 +287,8 @@
   }
 
   .pricing-btn {
-    height: 40px;
     font-size: 0.9rem;
-    max-width: 200px;
+    max-width: 240px;
   }
 
   .nav-button {

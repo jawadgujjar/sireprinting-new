@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Modal, Button } from "antd";
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Spin } from "antd";
 import {
   WhatsAppOutlined,
   MailOutlined,
@@ -9,56 +9,64 @@ import {
   SendOutlined,
 } from "@ant-design/icons";
 import "./portfolio.css";
+import { portfolio, product } from "../../utils/axios"; // Make sure you have both APIs configured
 
 function Portfolio() {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [productIds, setProductIds] = useState([]); // Store only IDs from portfolio API
+  const [products, setProducts] = useState([]); // Store full product details
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Sample product data
-  const products = [
-    {
-      id: 1,
-      sku: "SKU-001",
-      image:
-        "https://s3.amazonaws.com/sireprinting.com/portfolios/1697935989-2-piece-box-with-window-lid-sire-printing.avif",
-      name: "Premium Office Chair",
-    },
-    {
-      id: 2,
-      sku: "SKU-002",
-      image:
-        "https://s3.amazonaws.com/sireprinting.com/portfolios/1697935989-2-piece-box-with-window-lid-sire-printing.avif",
-      name: "Ergonomic Keyboard",
-    },
-    {
-      id: 3,
-      sku: "SKU-003",
-      image:
-        "https://s3.amazonaws.com/sireprinting.com/portfolios/1697935989-2-piece-box-with-window-lid-sire-printing.avif",
-      name: "Wireless Headphones",
-    },
-    {
-      id: 4,
-      sku: "SKU-004",
-      image:
-        "https://s3.amazonaws.com/sireprinting.com/portfolios/1697935989-2-piece-box-with-window-lid-sire-printing.avif",
-      name: "4K Monitor",
-    },
-    {
-      id: 5,
-      sku: "SKU-005",
-      image:
-        "https://s3.amazonaws.com/sireprinting.com/portfolios/1697935989-2-piece-box-with-window-lid-sire-printing.avif",
-      name: "Gaming Mouse",
-    },
-    {
-      id: 6,
-      sku: "SKU-006",
-      image:
-        "https://s3.amazonaws.com/sireprinting.com/portfolios/1697935989-2-piece-box-with-window-lid-sire-printing.avif",
-      name: "Bluetooth Speaker",
-    },
-  ];
+  // First fetch product IDs from portfolio API
+  useEffect(() => {
+    const fetchProductIds = async () => {
+      try {
+        const response = await portfolio.get("/");
+        const ids = response.data.map((item) => item.productId);
+        setProductIds(ids);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchProductIds();
+  }, []);
+
+  // Then fetch product details for each ID
+  useEffect(() => {
+    if (productIds.length === 0) return;
+
+    const fetchProductDetails = async () => {
+      try {
+        setLoading(true);
+        const productPromises = productIds.map(
+          (id) => product.get(`/${id}`).catch(() => null) // Handle individual failures
+        );
+        const productResponses = await Promise.all(productPromises);
+        const validProducts = productResponses
+          .filter((res) => res !== null && res.data)
+          .map((res) => {
+            console.log("Variants:", res.data);
+            return {
+              id: res.data.productId,
+              sku: res.data.sku || "N/A",
+              image: res.data.image,
+              name: res.data.title,
+            };
+          });
+        setProducts(validProducts);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductDetails();
+  }, [productIds]);
 
   const showPreview = (index) => {
     setCurrentIndex(index);
@@ -79,9 +87,26 @@ function Portfolio() {
     );
   };
 
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <Spin size="large" />
+        <p>Loading our packaging solutions...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="error-message">Error: {error}</div>;
+  }
+
+  if (products.length === 0) {
+    return <div className="empty-message">No products found</div>;
+  }
+
   return (
     <div className="portfolio-container">
-      <h1 className="portfolio-title">Portfolio</h1>
+      <h1 className="portfolio-title">Our Packaging Solutions</h1>
       <div className="product-grid">
         {products.map((product, index) => (
           <div
@@ -94,8 +119,13 @@ function Portfolio() {
               src={product.image}
               alt={product.name}
               className="product-image"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src =
+                  "https://via.placeholder.com/300x200?text=Product+Image";
+              }}
             />
-            <div className="product-overlay">
+            <div className="product-overlay always-visible">
               <span className="product-name">{product.name}</span>
             </div>
           </div>
@@ -122,6 +152,11 @@ function Portfolio() {
                 src={products[currentIndex].image}
                 alt={products[currentIndex].name}
                 className="preview-image"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src =
+                    "https://via.placeholder.com/800x600?text=Product+Image";
+                }}
               />
               <Button
                 className="nav-button next-button"
@@ -129,13 +164,11 @@ function Portfolio() {
                 onClick={goToNext}
               />
 
-              {/* Text Overlay at Top Center */}
               <div className="text-overlay-top">
                 <h2>{products[currentIndex].name}</h2>
                 <p className="preview-sku">SKU: {products[currentIndex].sku}</p>
               </div>
 
-              {/* Action Buttons Overlay at Bottom */}
               <div className="preview-actions-overlay">
                 <h2 type="default" className="pricing-btn">
                   Get Pricing for this Product

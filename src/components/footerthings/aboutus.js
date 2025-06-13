@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./aboutus.css";
 import { aboutus } from "../../utils/axios";
 import { message } from "antd";
+import SireprintingLoader from "../loader/loader";
 
 function Aboutus() {
   const [aboutData, setAboutData] = useState([]);
@@ -26,7 +27,8 @@ function Aboutus() {
   }, []);
 
   if (loading) {
-    return <div className="about-loading">Loading...</div>;
+    return         <SireprintingLoader />
+;
   }
 
   const titles = aboutData[0]?.title || [];

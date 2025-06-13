@@ -1,43 +1,140 @@
 import React, { useState } from "react";
 import "./sireadvantage.css";
-import { Form, Input, Select, Button, Upload, Row, Col } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Form, Input, Select, Button, Row, Col, message, Upload } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import axios from "axios";
+import { instantquote } from "../../utils/axios";
 
 const { Option } = Select;
 
-const advantages = [
-  {
-    title: "Sustainable Material",
-    description:
-      "Crafted from renewable sources to reduce environmental impact.",
-    image:
-      "https://res.cloudinary.com/sireprinting/image/upload/v1600727486/Self%20Lock%20Cake%20Boxes.jpg",
-  },
-  {
-    title: "Eco-Friendly Packaging",
-    description: "Designed with the environment in mind, minimizing waste.",
-    image:
-      "https://res.cloudinary.com/sireprinting/image/upload/v1600727486/Self%20Lock%20Cake%20Boxes.jpg",
-  },
-  {
-    title: "Recyclable Boxes",
-    description:
-      "Made to be reused or recycled after use, supporting green living.",
-    image:
-      "https://res.cloudinary.com/sireprinting/image/upload/v1600727486/Self%20Lock%20Cake%20Boxes.jpg",
-  },
-];
+const cloudName = "dxhpud7sx";
+const uploadPreset = "sireprinting";
+
+// Custom CloudinaryUploader component
+const CloudinaryUploader = ({
+  cloudName,
+  uploadPreset,
+  listType,
+  maxCount,
+  form,
+  fieldName,
+  children,
+}) => {
+  const [fileList, setFileList] = useState([]);
+  const [uploading, setUploading] = useState(false);
+
+  const handleUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset);
+
+    try {
+      setUploading(true);
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        formData
+      );
+      const newFileList = [
+        {
+          uid: file.uid,
+          name: file.name,
+          status: "done",
+          url: response.data.secure_url,
+        },
+      ];
+      setFileList(newFileList);
+      form.setFieldsValue({ [fieldName]: response.data.secure_url }); // Set the URL in the form
+      return response.data.secure_url;
+    } catch (error) {
+      message.error("Upload failed");
+      console.error(error);
+      return null;
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const uploadProps = {
+    beforeUpload: async (file) => {
+      await handleUpload(file);
+      return false; // Prevent default upload behavior
+    },
+    fileList,
+    onChange: ({ fileList: newFileList }) => {
+      setFileList(newFileList);
+    },
+    listType,
+    maxCount,
+  };
+
+  return (
+    <Upload {...uploadProps}>
+      {fileList.length >= maxCount ? null : children}
+    </Upload>
+  );
+};
 
 function Sireadvantage() {
   const [form] = Form.useForm();
   const [step, setStep] = useState(1);
 
-  const handleFinish = (values) => {
-    console.log("Form Values:", values);
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
+
+  const validateImage = (_, value) => {
+    if (!value) {
+      return Promise.reject(new Error("Please upload an image"));
+    }
+    return Promise.resolve();
   };
 
   const handleNext = () => {
-    setStep(2);
+    form
+      .validateFields()
+      .then(() => {
+        setStep(2);
+      })
+      .catch((error) => {
+        console.error("Validation failed:", error);
+      });
+  };
+
+  const handleFinish = async () => {
+    try {
+      const values = form.getFieldsValue(true); 
+      console.log("All form values:", values);
+
+      const payload = {
+        length: Number(values.length),
+        width: Number(values.width),
+        depth: Number(values.depth),
+        unit: values.unit,
+        color: values.color,
+        quantity: Number(values.quantity),
+        image: values.mainImage || "", 
+        name: values.name,
+        email: values.email,
+        phonenumber: values.phone,
+      };
+
+      const response = await instantquote.post("/", payload);
+      console.log("API Response:", response.data);
+
+      if (response.data.success) {
+        message.success("Quote submitted successfully!");
+        form.resetFields();
+        setStep(1);
+      } else {
+        message.error("Failed to submit quote");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      message.error("An error occurred while submitting the form");
+    }
   };
 
   return (
@@ -47,35 +144,35 @@ function Sireadvantage() {
           SIRE PRINTING ADVANTAGES
         </h2>
       </div>
-      <div className="three-images-advantages-ad ">
-        <div className="icon-grid-ad ">
+      <div className="three-images-advantages-ad">
+        <div className="icon-grid-ad">
           <div className="icon-item-ad text-center">
-            <img src="/images/1.webp" alt="Icon 1" className="icon-img-ad " />
-            <p className="icon-text-ad ">High Quality</p>
+            <img src="/images/1.webp" alt="Icon 1" className="icon-img-ad" />
+            <p className="icon-text-ad">High Quality</p>
           </div>
           <div className="icon-item-ad text-center">
-            <img src="/images/2.webp" alt="Icon 2" className="icon-img-ad " />
-            <p className="icon-text-ad ">Custom Design</p>
+            <img src="/images/2.webp" alt="Icon 2" className="icon-img-ad" />
+            <p className="icon-text-ad">Custom Design</p>
           </div>
           <div className="icon-item-ad text-center">
             <img
               src="/images/Eco-Friendly.png"
               alt="Icon 3"
-              className="icon-img-ad "
+              className="icon-img-ad"
             />
-            <p className="icon-text-ad ">Eco Friendly</p>
+            <p className="icon-text-ad">Eco Friendly</p>
           </div>
           <div className="icon-item-ad text-center">
-            <img src="/images/3.webp" alt="Icon 4" className="icon-img-ad " />
-            <p className="icon-text-ad ">Free Delivery</p>
+            <img src="/images/3.webp" alt="Icon 4" className="icon-img-ad" />
+            <p className="icon-text-ad">Free Delivery</p>
           </div>
-          <div className="icon-item-ad ">
-            <img src="/images/1.webp" alt="Icon 5" className="icon-img-ad " />
-            <p className="icon-text-ad ">Affordable</p>
+          <div className="icon-item-ad">
+            <img src="/images/1.webp" alt="Icon 5" className="icon-img-ad" />
+            <p className="icon-text-ad">Affordable</p>
           </div>
-          <div className="icon-item-ad ">
-            <img src="/images/2.webp" alt="Icon 6" className="icon-img-ad " />
-            <p className="icon-text-ad ">24/7 Support</p>
+          <div className="icon-item-ad">
+            <img src="/images/2.webp" alt="Icon 6" className="icon-img-ad" />
+            <p className="icon-text-ad">24/7 Support</p>
           </div>
         </div>
       </div>
@@ -84,31 +181,11 @@ function Sireadvantage() {
         <Col xs={24} md={12} className="form-left">
           <h3 className="form-title-advantage">Order Process</h3>
           <div className="process-div">
-            {/* Images Row */}
             <img
               alt="process"
               src="../images/process.png"
               className="process-div-img"
             />
-            <div className="process-images-row">
-              {/* <div className="process-div-inside">
-                <img alt="processimage" src="../images/process1.png" />
-              </div>
-              <div className="process-div-inside">
-                <img alt="processimage" src="../images/process2.png" />
-              </div>
-              <div className="process-div-inside">
-                <img alt="processimage" src="../images/process3.png" />
-              </div>
-              <div className="process-div-inside">
-                <img alt="processimage" src="../images/process4.png" />
-              </div>
-              <div className="process-div-inside">
-                <img alt="processimage" src="../images/process5.png" />
-              </div> */}
-            </div>
-
-            {/* Headings Row */}
             <div className="process-headings-row">
               <div className="process-div-inside">
                 <h3>Inquire Your Packaging</h3>
@@ -126,9 +203,8 @@ function Sireadvantage() {
                 <h3>Shipping & Handling</h3>
               </div>
             </div>
-            <div style={{ color: "#01257d", display: "hidden" }}>a</div>
-            <div style={{ color: "#01257d", display: "hidden" }}>a</div>
-            <div style={{ color: "#01257d", display: "hidden" }}>a</div>
+            <div style={{ color: "#01257d", display: "none" }}>a</div>
+            <div style={{ color: "#01257d", display: "none" }}>a</div>
           </div>
         </Col>
 
@@ -147,27 +223,33 @@ function Sireadvantage() {
                     <Form.Item
                       name="length"
                       label="Length"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: "Please enter length" },
+                      ]}
                     >
-                      <Input placeholder="Length" />
+                      <Input placeholder="Length" type="number" />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12} md={6}>
                     <Form.Item
                       name="width"
                       label="Width"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: "Please enter width" },
+                      ]}
                     >
-                      <Input placeholder="Width" />
+                      <Input placeholder="Width" type="number" />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12} md={6}>
                     <Form.Item
                       name="depth"
                       label="Depth"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: "Please enter depth" },
+                      ]}
                     >
-                      <Input placeholder="Depth" />
+                      <Input placeholder="Depth" type="number" />
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12} md={6}>
@@ -175,7 +257,9 @@ function Sireadvantage() {
                       name="unit"
                       label="Unit"
                       initialValue="cm"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: "Please select unit" },
+                      ]}
                     >
                       <Select placeholder="Select Unit" defaultValue="cm">
                         <Option value="inches">Inches</Option>
@@ -188,7 +272,7 @@ function Sireadvantage() {
                 <Form.Item
                   name="color"
                   label="Color"
-                  rules={[{ required: true }]}
+                  rules={[{ required: true, message: "Please select color" }]}
                 >
                   <Select placeholder="Select Color">
                     <Option value="white">White</Option>
@@ -202,7 +286,9 @@ function Sireadvantage() {
                     <Form.Item
                       name="quantity"
                       label="Quantity"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: "Please select quantity" },
+                      ]}
                     >
                       <Select placeholder="Select Quantity">
                         <Option value="10">10</Option>
@@ -212,23 +298,30 @@ function Sireadvantage() {
                       </Select>
                     </Form.Item>
                   </Col>
-
                   <Col xs={24} sm={12}>
                     <Form.Item
-                      name="upload"
+                      name="mainImage"
                       label="Upload File"
                       valuePropName="fileList"
-                      getValueFromEvent={(e) => e.fileList}
+                      getValueFromEvent={normFile}
+                      rules={[{ validator: validateImage }]}
                     >
-                      <Upload beforeUpload={() => false}>
-                        <Button icon={<UploadOutlined />}>
-                          Click to Upload
-                        </Button>
-                      </Upload>
+                      <CloudinaryUploader
+                        cloudName={cloudName}
+                        uploadPreset={uploadPreset}
+                        listType="picture-card"
+                        maxCount={1}
+                        form={form}
+                        fieldName="mainImage"
+                      >
+                        <div>
+                          <PlusOutlined />
+                          <div style={{ marginTop: 8 }}>Upload Main Image</div>
+                        </div>
+                      </CloudinaryUploader>
                     </Form.Item>
                   </Col>
                 </Row>
-
                 <Form.Item>
                   <Button
                     type="primary"
@@ -240,33 +333,39 @@ function Sireadvantage() {
                 </Form.Item>
               </>
             )}
-
             {step === 2 && (
               <>
                 <Form.Item
                   name="name"
                   label="Name"
-                  rules={[{ required: true }]}
+                  rules={[
+                    { required: true, message: "Please enter your name" },
+                  ]}
                 >
                   <Input placeholder="Enter your name" />
                 </Form.Item>
-
                 <Form.Item
                   name="email"
                   label="Email"
-                  rules={[{ required: true, type: "email" }]}
+                  rules={[
+                    { required: true, message: "Please enter your email" },
+                    { type: "email", message: "Please enter a valid email" },
+                  ]}
                 >
                   <Input placeholder="Enter your email" />
                 </Form.Item>
-
                 <Form.Item
                   name="phone"
                   label="Phone Number"
-                  rules={[{ required: true }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your phone number",
+                    },
+                  ]}
                 >
                   <Input placeholder="Enter your phone number" />
                 </Form.Item>
-
                 <Form.Item>
                   <div className="form-buttons">
                     <Button

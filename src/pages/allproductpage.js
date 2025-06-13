@@ -6,6 +6,7 @@ import Benefits from "../components/products/benefits";
 import Banner from "../components/landing/banner";
 import Faq1 from "../components/landing/faq";
 import { subcategory } from "../utils/axios"; // ← yeh tumhare axios instance se hona chahiye
+import SireprintingLoader from "../components/loader/loader";
 
 function Allproductpage() {
   const location = useLocation();
@@ -35,7 +36,7 @@ function Allproductpage() {
     fetchSubcategoryData();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <SireprintingLoader />;
   if (!subcategoryData) return <div>No data found</div>;
 
   return (
