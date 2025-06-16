@@ -82,18 +82,29 @@ function Allproduct1({ data }) {
     const catSlug = categorySlug || categoryTitle || "category";
     const subCatTitle = data?.title ? slugify(data.title) : "subcategory";
     const prodTitle = product?.title || product?.name || "product";
+    // Get the first variant's title if available, otherwise use a fallback
+    const variantTitle = product?.variants?.[0]?.variantTitle
+      ? slugify(product.variants[0].variantTitle)
+      : "default";
 
     console.log("Navigating with:", {
-      categorySlug,
-      categoryTitle,
-      subCategoryTitle: data?.title,
-      productTitle: product?.title || product?.name,
-      product,
+      categorySlug: catSlug,
+      subCategoryTitle: subCatTitle,
+      productTitle: prodTitle,
+      variantTitle: variantTitle,
+      productId: product._id,
     });
 
-    navigate(`/${catSlug}/${subCatTitle}/${slugify(prodTitle)}`, {
-      state: { id: product._id },
-    });
+    // Navigate with variant title in the URL
+    navigate(
+      `/${catSlug}/${subCatTitle}/${slugify(prodTitle)}/${variantTitle}`,
+      {
+        state: {
+          id: product._id,
+          variantTitle: product?.variants?.[0]?.variantTitle,
+        },
+      }
+    );
   };
 
   if (loading) {
@@ -111,28 +122,30 @@ function Allproduct1({ data }) {
       </div>
     );
   }
+
   const decodedDescription = he.decode(
     data?.description || "Explore our premium packaging solutions."
   );
+
   return (
     <div className="all-products-container">
       {/* Hero Section */}
-      <div className="category-hero">
+      <div className="header-section">
         <div className="hero-content">
           <h1 className="hero-title">{data?.title || "Subcategory"}</h1>
           <div className="hero-divider"></div>
           <div className="hero-description">{parse(decodedDescription)}</div>
           <div className="hero-features">
             <div className="feature-item">
-              <span className="feature-icon">✓</span>
+              <span className="feature-icon">✔️</span>
               <span>Customizable Options</span>
             </div>
             <div className="feature-item">
-              <span className="feature-icon">✓</span>
+              <span className="feature-icon">✔️</span>
               <span>Premium Materials</span>
             </div>
             <div className="feature-item">
-              <span className="feature-icon">✓</span>
+              <span className="feature-icon">✔️</span>
               <span>Brand Identity Focus</span>
             </div>
           </div>
@@ -150,13 +163,13 @@ function Allproduct1({ data }) {
       <div className="allproduct-main">
         <Row className="allproduct-row" gutter={[24, 16]}>
           <Col xs={24} md={16} lg={16} className="allproduct-col1">
-            <Row gutter={[16, 16]}>
+            <Row gutter="gutterRow">
               {products.length > 0 ? (
                 products.map((product, index) => (
-                  <Col xs={12} sm={12} md={12} lg={12} key={product._id}>
+                  <Col xs={12} sm={12} md={12} key={product._id}>
                     <div
                       className="product-card-wrapper"
-                      onMouseEnter={() => setHoveredCard(index)}
+                      // onMouseEnter={() => setHoveredProductName(index)}
                       onMouseLeave={() => setHoveredCard(null)}
                     >
                       <Card
@@ -177,7 +190,6 @@ function Allproduct1({ data }) {
                                   : "fade-in"
                               }`}
                             />
-
                             {product.hoverImage && (
                               <img
                                 alt={product.title || product.name || "Product"}

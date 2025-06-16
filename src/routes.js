@@ -40,7 +40,7 @@ function AppRouter() {
           path="/:categoryTitle/:subcategoryTitle"
           element={<Allproductpage />}
         />
-        <Route path="/:categoryTitle/:subcategoryTitle/:productTitle" element={<Mainproductpage />} />
+        <Route path="/:categoryTitle/:subcategoryTitle/:productTitle/:variantSlug" element={<Mainproductpage />} />
         <Route path="/search-products" element={<Search />} />
         {/* Protected login and signup routes */}
         <Route
