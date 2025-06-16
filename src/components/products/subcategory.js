@@ -183,8 +183,16 @@ function Subcategory({ data }) {
                                   categorySlug || categoryTitle
                                 }/${slugify(subCategory.title)}/${slugify(
                                   product.title
-                                )}`}
-                                state={{ id: product._id }}
+                                )}/${
+                                  product.variants?.[0]?.variantTitle
+                                    ? slugify(product.variants[0].variantTitle)
+                                    : "default"
+                                }`}
+                                state={{
+                                  id: product._id,
+                                  variantTitle:
+                                    product.variants?.[0]?.variantTitle,
+                                }}
                                 className="product-link"
                               >
                                 <Card
@@ -199,7 +207,7 @@ function Subcategory({ data }) {
                                   className="product-card"
                                   bodyStyle={{
                                     padding: "10px",
-                                    overflow: "visible",
+                                    overflow: "hidden",
                                   }}
                                 >
                                   <div className="product-title">
@@ -225,7 +233,7 @@ function Subcategory({ data }) {
 
         {/* Right Column: Products for Desktop */}
         {!isMobile && (
-          <Col xs={24} sm={24} md={16}>
+          <Col xs={24} sm={24} md={18}>
             <p className="subcategory-heading1" style={{ fontWeight: "bold" }}>
               {subCategories.find((c) => c._id === selectedCategory)?.title ||
                 "Products"}
@@ -239,8 +247,15 @@ function Subcategory({ data }) {
                       to={`/${categorySlug || categoryTitle}/${slugify(
                         subCategories.find((c) => c._id === selectedCategory)
                           ?.title
-                      )}/${slugify(product.title)}`}
-                      state={{ id: product._id }}
+                      )}/${slugify(product.title)}/${
+                        product.variants?.[0]?.variantTitle
+                          ? slugify(product.variants[0].variantTitle)
+                          : "default"
+                      }`}
+                      state={{
+                        id: product._id,
+                        variantTitle: product.variants?.[0]?.variantTitle,
+                      }}
                       className="product-link"
                     >
                       <Card

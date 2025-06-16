@@ -20,6 +20,8 @@
   background-repeat: no-repeat;
   box-sizing: border-box;
   text-align: left;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .main-title {

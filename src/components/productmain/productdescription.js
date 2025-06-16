@@ -45,30 +45,40 @@ function Productdescription({ currentVariant }) {
       <h2 className="main-heading">{displayDetails.detailTitle}</h2>
       <h3 className="sub-heading">{displayDetails.detailSubtitle}</h3>
 
-      {displayDetails.details.map((section, index) => (
-        <div
-          key={section._id || index}
-          className={`content-section ${
-            index % 2 === 0 ? "image-right" : "image-left"
-          }`}
-        >
-          <div className="text-content">
-            <div className="description-content">
-              {parse(he.decode(section.description))}
+      {displayDetails.details.map((section, index) => {
+        const hasImage = section.image && section.image.trim() !== "";
+
+        return (
+          <div
+            key={section._id || index}
+            className={`content-section ${
+              !hasImage
+                ? "no-image"
+                : index % 2 === 0
+                ? "image-right"
+                : "image-left"
+            }`}
+          >
+            <div className="text-content">
+              <div className="description-content">
+                {parse(he.decode(section.description))}
+              </div>
             </div>
+            {hasImage && (
+              <div className="image-content">
+                <img
+                  src={section.image}
+                  alt={`Detail ${index + 1}`}
+                  onError={(e) => {
+                    e.target.src =
+                      "https://via.placeholder.com/600x400?text=Packaging";
+                  }}
+                />
+              </div>
+            )}
           </div>
-          <div className="image-content">
-            <img
-              src={section.image}
-              alt={`Detail ${index + 1}`}
-              onError={(e) => {
-                e.target.src =
-                  "https://via.placeholder.com/600x400?text=Packaging";
-              }}
-            />
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
