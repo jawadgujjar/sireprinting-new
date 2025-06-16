@@ -1,4 +1,6 @@
 import React from "react";
+import parse from "html-react-parser";
+import he from "he";
 import "../products/catdes.css";
 
 function Productdescription({ currentVariant }) {
@@ -51,7 +53,9 @@ function Productdescription({ currentVariant }) {
           }`}
         >
           <div className="text-content">
-            <p dangerouslySetInnerHTML={{ __html: section.description }} />
+            <div className="description-content">
+              {parse(he.decode(section.description))}
+            </div>
           </div>
           <div className="image-content">
             <img

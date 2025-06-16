@@ -200,7 +200,8 @@ const Productmain1 = ({
                   <div className="product-ratings-left">
                     <span className="stars">{renderStars(rating)}</span>
                     <span className="review-count">
-                      {data.reviews?.length || 27} reviews
+                      {/* {data.reviews?.length || 27}  */}
+                      47 reviews
                     </span>
                   </div>
                   <div style={{ display: "flex", gap: "1rem" }}>
