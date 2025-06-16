@@ -83,7 +83,7 @@
   transition: all 0.3s ease;
   height: 100%;
 }
-.hero-image-sub{
+.hero-image-sub {
   width: auto;
   height: 20rem;
 }
@@ -143,13 +143,22 @@
   margin-bottom: 10px;
 }
 
-.card-description {
+/* .card-description {
   font-size: 0.95rem;
   color: #718096;
   margin-bottom: 12px;
   line-height: 1.5;
+} */
+.card-description {
+  font-size: 0.95rem;
+  color: #718096;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Only show 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
 .card-price {
   font-size: 1rem;
   font-weight: 700;

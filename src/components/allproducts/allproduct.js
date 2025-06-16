@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Spin, Empty } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
+import parse from "html-react-parser";
+import he from "he";
 import Productform1 from "../productform/productform";
 import { product, category } from "../../utils/axios";
 import { slugify } from "../../utils/slugify";
@@ -109,7 +111,9 @@ function Allproduct1({ data }) {
       </div>
     );
   }
-
+  const decodedDescription = he.decode(
+    data?.description || "Explore our premium packaging solutions."
+  );
   return (
     <div className="all-products-container">
       {/* Hero Section */}
@@ -117,9 +121,7 @@ function Allproduct1({ data }) {
         <div className="hero-content">
           <h1 className="hero-title">{data?.title || "Subcategory"}</h1>
           <div className="hero-divider"></div>
-          <p className="hero-description">
-            {data?.description || "Explore our premium packaging solutions."}
-          </p>
+          <div className="hero-description">{parse(decodedDescription)}</div>
           <div className="hero-features">
             <div className="feature-item">
               <span className="feature-icon">✓</span>
@@ -168,9 +170,14 @@ function Allproduct1({ data }) {
                                 product.image || "../images/placeholder.webp"
                               }
                               className={`allproduct-card-image ${
-                                hoveredCard === index ? "fade-out" : "fade-in"
+                                product.hoverImage
+                                  ? hoveredCard === index
+                                    ? "fade-out"
+                                    : "fade-in"
+                                  : "fade-in"
                               }`}
                             />
+
                             {product.hoverImage && (
                               <img
                                 alt={product.title || product.name || "Product"}

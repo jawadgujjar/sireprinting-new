@@ -14,9 +14,8 @@ function Productdetail1({ data, currentVariant }) {
   const [isTurnaroundOpen, setTurnaroundOpen] = useState(false);
 
   // Extract data from currentVariant with fallbacks
-  console.log(currentVariant, data);
   const variantDetail = currentVariant?.variantDetail || {};
-  const faqs = currentVariant?.faqs || [];
+  const faqs = currentVariant?.variantDetail?.faqs || [];
 
   return (
     <div className="productdetail-wrapper">
