@@ -12,9 +12,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 2rem;
   align-items: center;
   width: 100%; /* Ensure it takes full width to space items evenly */
-  max-width: 80%; /* Optional: Restrict the width of images for better alignment */
 }
 
 .brand-images img {

@@ -71,9 +71,9 @@
 
 /* Inside image */
 .landingdie-image {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
+  width: auto;
+  max-width: 500px;
+  height: 15rem;
   border-radius: 10px;
   margin-bottom: 16px;
   transition: none;
@@ -83,7 +83,7 @@
 .landingdie-title {
   font-size: 20px;
   font-weight: bold;
-  color: #01257D;
+  color: #01257d;
   margin-bottom: 12px;
   transition: none;
 }
@@ -98,9 +98,9 @@
 /* Button */
 .landingdie-button {
   padding: 10px 20px;
-  border: 2px solid #01257D;
+  border: 2px solid #01257d;
   background-color: transparent;
-  color: #01257D;
+  color: #01257d;
   border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s ease;
