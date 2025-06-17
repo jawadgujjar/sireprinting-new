@@ -110,12 +110,13 @@ const Industry = () => {
   return (
     <div className="trusted">
       <div className="div-trustedtext">
-        <h2 className="trustedtext">Packaging Solutions</h2>
+        <h2 className="trustedtext">BRING YOUR PACKAGING DREAM TO LIFE</h2>
       </div>
       <p className="industry-main-p">
-        Discover customized packaging designed exclusively for your industry.
-        Our expert team creates innovative solutions that not only meet but
-        exceed your packaging needs.
+        Discover limitless custom packaging boxes that can wow your customers.
+        Ready to impress? Let your product shine and your brand unforgettable
+        with custom printed boxes. Unique, stylish packaging builds stronger
+        customer connections.
       </p>
 
       <div className="tabs">

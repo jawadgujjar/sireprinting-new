@@ -55,7 +55,9 @@ const portfolio = axios.create({
 const dielineform = axios.create({
   baseURL: `${baseURL}/dielineform`,
 });
-
+const instagram = axios.create({
+  baseURL: `${baseURL}/instagram/feed`,
+});
 
 // Request Interceptor
 const requestInterceptor = (req) => {
@@ -87,7 +89,8 @@ const errorInterceptor = (err) => {
   contactus,
   instantquote,
   portfolio,
-  dielineform
+  dielineform,
+  instagram,
 ].forEach((instance) => {
   instance.interceptors.request.use(requestInterceptor, errorInterceptor);
 });
@@ -109,5 +112,6 @@ export {
   contactus,
   instantquote,
   portfolio,
-  dielineform
+  dielineform,
+  instagram,
 };

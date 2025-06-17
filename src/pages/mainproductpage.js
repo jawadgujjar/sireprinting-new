@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import Productmain1 from "../components/productmain/productmain";
-import ProductSpecs from "../components/productmain/productspecs";
 import Videocarousel from "../components/landing/carouselvideo";
 import Relatedproduct from "../components/productmain/relatedproduct";
-import Relatedblogs from "../components/productmain/relatedblogs";
 import Testimonial from "../components/landing/testimonial";
 import Banner from "../components/landing/banner";
-import Categorydescription from "../components/products/catdes";
 import { product } from "../utils/axios";
 import SireprintingLoader from "../components/loader/loader";
 
 function Mainproductpage() {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const id = location.state?.id;
+  const { variantSlug, categoryTitle, subcategoryTitle, productTitle } =
+    useParams();
 
   const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const [currentVariant, setCurrentVariant] = useState(null);
 
+  // Fetch product from API
   useEffect(() => {
     if (!id) {
       console.error("No Product ID found");
@@ -29,10 +31,21 @@ function Mainproductpage() {
     const fetchProductData = async () => {
       try {
         const response = await product.get(`/${id}`);
-        console.log(response.data, "product");
         setProductData(response.data);
+
         if (response.data.variants && response.data.variants.length > 0) {
-          setCurrentVariant(response.data.variants[0]);
+          // Find variant from URL
+          const foundIndex = response.data.variants.findIndex(
+            (v) => v.slug === variantSlug
+          );
+
+          if (foundIndex !== -1) {
+            setSelectedVariantIndex(foundIndex);
+            setCurrentVariant(response.data.variants[foundIndex]);
+          } else {
+            setSelectedVariantIndex(0);
+            setCurrentVariant(response.data.variants[0]);
+          }
         }
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -42,13 +55,22 @@ function Mainproductpage() {
     };
 
     fetchProductData();
-  }, [id]);
+  }, [id, variantSlug]);
 
-  // Handle image selection to change variant
+  // Handle variant selection and update URL
   const handleImageSelect = (index) => {
     if (productData.variants && index < productData.variants.length) {
+      const selected = productData.variants[index];
       setSelectedVariantIndex(index);
-      setCurrentVariant(productData.variants[index]);
+      setCurrentVariant(selected);
+      // Update URL with selected variant slug
+      navigate(
+        `/${categoryTitle}/${subcategoryTitle}/${productTitle}/${selected.variantTitle.replace(
+          /\s+/g,
+          "-"
+        )}`,
+        { replace: true }
+      );
     }
   };
 
@@ -66,7 +88,6 @@ function Mainproductpage() {
       <Videocarousel />
       <Banner />
       <Relatedproduct data={productData} />
-      {/* <Relatedblogs/> */}
       <Testimonial />
     </div>
   );
