@@ -3,53 +3,28 @@ import { Carousel } from "antd";
 import "antd/dist/reset.css";
 import "./productimgs.css";
 
-function Productimgs1() {
-  const [selectedImage, setSelectedImage] = useState(0);
+function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
+  const [selectedImage, setSelectedImage] = useState(selectedIndex || 0);
   const carouselRef = useRef(null);
-  const videoRefs = useRef([]);
 
-  const productMedia = [
-    { type: "image", src: "/images/allproduct1.png" },
-    { type: "video", src: "/video/video1.mp4" },
-    { type: "image", src: "/images/arka.webp" },
-    { type: "image", src: "/images/pillowproduct2.png" },
-    { type: "video", src: "/videos/demo-video.mp4" },
-    { type: "image", src: "/images/pillowproduct3.png" },
-    { type: "image", src: "/images/pillowproduct4.png" },
-  ];
-
-  // Handle video play/pause when slide changes
+  // Sync internal state with prop and handle carousel navigation
   useEffect(() => {
+    setSelectedImage(selectedIndex);
     if (carouselRef.current) {
-      carouselRef.current.goTo(selectedImage);
+      carouselRef.current.goTo(selectedIndex, false); // false to prevent animation
     }
+  }, [selectedIndex]);
 
-    // Pause all videos first
-    videoRefs.current.forEach(video => {
-      if (video) {
-        video.pause();
-        video.currentTime = 0; // Reset video to start
-      }
-    });
-
-    // Try to play current video if it's a video slide
-    const currentMedia = productMedia[selectedImage];
-    if (currentMedia.type === "video" && videoRefs.current[selectedImage]) {
-      const video = videoRefs.current[selectedImage];
-      const playPromise = video.play();
-      
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log("Autoplay prevented:", error);
-          // Show controls if autoplay fails
-          video.controls = true;
-        });
-      }
+  const handleThumbnailClick = (index) => {
+    setSelectedImage(index);
+    if (carouselRef.current) {
+      carouselRef.current.goTo(index, false);
     }
-  }, [selectedImage]);
+    onImageSelect(index); // Trigger variant change
+  };
 
   const handleMouseMove = (e) => {
-    if (e.target.tagName === 'IMG') {
+    if (e.target.tagName === "IMG") {
       const { left, top, width, height } = e.target.getBoundingClientRect();
       const x = ((e.clientX - left) / width) * 100;
       const y = ((e.clientY - top) / height) * 100;
@@ -59,7 +34,7 @@ function Productimgs1() {
   };
 
   const handleMouseLeave = (e) => {
-    if (e.target.tagName === 'IMG') {
+    if (e.target.tagName === "IMG") {
       e.target.style.transform = "scale(1)";
       e.target.style.transformOrigin = "center center";
     }
@@ -70,26 +45,35 @@ function Productimgs1() {
       <div className="thumbnail-vertical-wrapper">
         <button
           className="arrow-button"
-          onClick={() => setSelectedImage((prev) => Math.max(prev - 1, 0))}
+          onClick={() => handleThumbnailClick(Math.max(selectedImage - 1, 0))}
+          disabled={selectedImage === 0}
         >
           ▲
         </button>
         <div className="thumbnail-vertical">
-          {productMedia.map((media, index) => (
+          {images.map((src, index) => (
             <div
               key={index}
-              className={`thumbnail-item-vertical ${selectedImage === index ? "active" : ""}`}
-              onClick={() => setSelectedImage(index)}
+              className={`thumbnail-item-vertical ${
+                selectedImage === index ? "active" : ""
+              }`}
+              onClick={() => handleThumbnailClick(index)}
             >
-              {media.type === "image" ? (
-                <img src={media.src} alt={`Thumbnail ${index + 1}`} />
+              {src.endsWith(".mp4") ||
+              src.endsWith(".webm") ||
+              src.endsWith(".ogg") ? (
+                <video
+                  src={src}
+                  controls
+                  width="100%"
+                  style={{ objectFit: "cover", borderRadius: "8px" }}
+                />
               ) : (
-                <div className="video-thumbnail">
-                  <video muted playsInline>
-                    <source src={media.src} type="video/mp4" />
-                  </video>
-                  <div className="play-icon">▶</div>
-                </div>
+                <img
+                  src={src}
+                  alt={`${title} - ${index + 1}`}
+                  style={{ objectFit: "cover", borderRadius: "8px" }}
+                />
               )}
             </div>
           ))}
@@ -97,8 +81,9 @@ function Productimgs1() {
         <button
           className="arrow-button"
           onClick={() =>
-            setSelectedImage((prev) => Math.min(prev + 1, productMedia.length - 1))
+            handleThumbnailClick(Math.min(selectedImage + 1, images.length - 1))
           }
+          disabled={selectedImage === images.length - 1}
         >
           ▼
         </button>
@@ -108,35 +93,36 @@ function Productimgs1() {
         <Carousel
           ref={carouselRef}
           dots={false}
-          infinite
+          infinite={false}
           speed={500}
           slidesToShow={1}
           slidesToScroll={1}
           arrows
+          beforeChange={(from, to) => {
+            setSelectedImage(to);
+            onImageSelect(to); // Trigger variant change on carousel swipe
+          }}
         >
-          {productMedia.map((media, index) => (
+          {images.map((src, index) => (
             <div key={index} className="slide-container">
               <div className="zoom-wrapper">
-                {media.type === "image" ? (
+                {src?.match(/\.(mp4|webm|ogg)$/i) ? (
+                  <video
+                    src={src}
+                    controls
+                    className="main-product-image"
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    style={{ objectFit: "cover", borderRadius: "8px" }}
+                  />
+                ) : (
                   <img
-                    src={media.src}
-                    alt={`Product ${index + 1}`}
+                    src={src}
+                    alt={`${title} - ${index + 1}`}
                     className="main-product-image"
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
                   />
-                ) : (
-                  <video
-                    ref={el => videoRefs.current[index] = el}
-                    className="main-product-video"
-                    controls // Always show controls
-                    muted
-                    playsInline
-                    loop
-                  >
-                    <source src={media.src} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
                 )}
               </div>
             </div>

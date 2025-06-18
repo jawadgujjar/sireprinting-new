@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button, Col, Row, Spin, Alert } from "antd";
 import { blog, blogcategory } from "../../utils/axios";
 import { slugify } from "../../utils/slugify";
+import SireprintingLoader from "../loader/loader";
 
 function MainBlog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -58,9 +59,8 @@ function MainBlog() {
 
   if (loading) {
     return (
-      <div className="main-blog-container">
-        <Spin size="large" tip="Loading..." />
-      </div>
+             <SireprintingLoader />
+
     );
   }
 

@@ -1,7 +1,6 @@
 .product-page-container {
   background-color: #f9f9f9;
-   padding: 20px;
- 
+  padding: 20px;
 }
 
 .product-header {
@@ -23,7 +22,6 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
-   
 }
 .product-ratings1 {
   display: flex;
@@ -53,6 +51,7 @@
 .review-count {
   font-size: 14px;
   color: #333;
+  margin-left: 0.2rem;
 }
 
 .divider {
@@ -120,7 +119,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width:90%;
+  width: 90%;
   margin-bottom: 10px;
 }
 
@@ -139,6 +138,7 @@
   padding: 4px 16px;
   font-size: 14px;
 }
+
 @media (max-width: 1024px) {
   .form-title1 {
     font-size: 2.5rem;
@@ -191,7 +191,7 @@
     margin-left: -3rem;
   } */
 }
- /* Add these styles to your productmain.css file */
+/* Add these styles to your productmain.css file */
 
 @media (max-width: 425px) {
   .product-page-container {

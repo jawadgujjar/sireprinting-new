@@ -74,7 +74,7 @@ const CloudinaryUploader = ({
   );
 };
 
-function Sireadvantage() {
+function Sireadvantageorder() {
   const [form] = Form.useForm();
   const [step, setStep] = useState(1);
 
@@ -139,7 +139,7 @@ function Sireadvantage() {
 
   return (
     <div className="sireadvantage-wrapper">
-      <div className="div-trustedtext">
+      {/* <div className="div-trustedtext">
         <h2 className="trustedtext" style={{ marginBottom: "2rem" }}>
           SIRE PRINTING ADVANTAGES
         </h2>
@@ -175,9 +175,9 @@ function Sireadvantage() {
             <p className="icon-text-ad">24/7 Support</p>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      {/* <Row className="form-section">
+      <Row className="form-section">
         <Col xs={24} md={12} className="form-left">
           <h3 className="form-title-advantage">Order Process</h3>
           <div className="process-div">
@@ -388,9 +388,9 @@ function Sireadvantage() {
             )}
           </Form>
         </Col>
-      </Row> */}
+      </Row>
     </div>
   );
 }
 
-export default Sireadvantage;
+export default Sireadvantageorder;

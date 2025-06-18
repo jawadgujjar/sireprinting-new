@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./privacy.css";
 import { privacy } from "../../utils/axios";
 import { message } from "antd";
+import SireprintingLoader from "../loader/loader";
 
 function Privacy() {
   const [privacyData, setPrivacyData] = useState([]);
@@ -24,7 +25,8 @@ function Privacy() {
   }, []);
 
   if (loading) {
-    return <div className="privacy-loading">Loading...</div>;
+    return         <SireprintingLoader />
+;
   }
 
   const titles = privacyData[0]?.title || [];

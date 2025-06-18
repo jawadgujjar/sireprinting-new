@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { StarFilled } from "@ant-design/icons";
 import "./productdetail.css";
 
-function Productdetail1() {
+function Productdetail1({ data, currentVariant }) {
   const [isMoreDetailsOpen, setMoreDetailsOpen] = useState(true);
   const [isFaqOpen, setFaqOpen] = useState(false);
   const [isMaterialOpen, setMaterialOpen] = useState(false);
@@ -12,6 +12,10 @@ function Productdetail1() {
   const [isFinishingOpen, setFinishingOpen] = useState(false);
   const [isAddOnOpen, setAddOnOpen] = useState(false);
   const [isTurnaroundOpen, setTurnaroundOpen] = useState(false);
+
+  // Extract data from currentVariant with fallbacks
+  const variantDetail = currentVariant?.variantDetail || {};
+  const faqs = currentVariant?.variantDetail?.faqs || [];
 
   return (
     <div className="productdetail-wrapper">
@@ -74,30 +78,6 @@ function Productdetail1() {
         {/* Column 2: Accordions */}
         <Col xs={24} md={12}>
           <div className="accordion-container">
-            {/* More Details */}
-            {/* <div className="accordion-item">
-              <div
-                className="accordion-header"
-                onClick={() => setMoreDetailsOpen(!isMoreDetailsOpen)}
-              >
-                <p style={{ fontWeight: "bold" }}>More Details</p>
-                <span>{isMoreDetailsOpen ? "▾" : "▸"}</span>
-              </div>
-              {isMoreDetailsOpen && (
-                <div className="accordion-content">
-                  <p>Standardized or fully customizable sizing options</p>
-                  <hr />
-                  <p>FSC Certified Paper and OK Compost Certified 32 ECT</p>
-                  <hr />
-                  <p>Carbon-neutral packaging and fulfillment available</p>
-                  <hr />
-                  <p>Double-sided printing available</p>
-                  <hr />
-                  <p>Roll end lock front with dust flaps and cherry locks</p>
-                </div>
-              )}
-            </div> */}
-
             {/* Material */}
             <div className="accordion-item">
               <div
@@ -109,15 +89,14 @@ function Productdetail1() {
               </div>
               {isMaterialOpen && (
                 <div className="accordion-content">
-                  <p>Standardized or fully customizable sizing options</p>
-                  <hr />
-                  <p>FSC Certified Paper and OK Compost Certified 32 ECT</p>
-                  <hr />
-                  <p>Carbon-neutral packaging and fulfillment available</p>
-                  <hr />
-                  <p>Double-sided printing available</p>
-                  <hr />
-                  <p>Roll end lock front with dust flaps and cherry locks</p>
+                  {variantDetail.material?.map((item, index) => (
+                    <React.Fragment key={index}>
+                      <p>{item}</p>
+                      {index < variantDetail.material.length - 1 && <hr />}
+                    </React.Fragment>
+                  )) || (
+                    <p>FSC Certified Paper and OK Compost Certified 32 ECT</p>
+                  )}
                 </div>
               )}
             </div>
@@ -133,15 +112,12 @@ function Productdetail1() {
               </div>
               {isColorOpen && (
                 <div className="accordion-content">
-                  <p>Standardized or fully customizable sizing options</p>
-                  <hr />
-                  <p>FSC Certified Paper and OK Compost Certified 32 ECT</p>
-                  <hr />
-                  <p>Carbon-neutral packaging and fulfillment available</p>
-                  <hr />
-                  <p>Double-sided printing available</p>
-                  <hr />
-                  <p>Roll end lock front with dust flaps and cherry locks</p>
+                  {variantDetail.colormodel?.map((item, index) => (
+                    <React.Fragment key={index}>
+                      <p>{item}</p>
+                      {index < variantDetail.colormodel.length - 1 && <hr />}
+                    </React.Fragment>
+                  )) || <p>CMYK, Pantone, or Spot Colors available</p>}
                 </div>
               )}
             </div>
@@ -157,15 +133,12 @@ function Productdetail1() {
               </div>
               {isFinishingOpen && (
                 <div className="accordion-content">
-                  <p>Standardized or fully customizable sizing options</p>
-                  <hr />
-                  <p>FSC Certified Paper and OK Compost Certified 32 ECT</p>
-                  <hr />
-                  <p>Carbon-neutral packaging and fulfillment available</p>
-                  <hr />
-                  <p>Double-sided printing available</p>
-                  <hr />
-                  <p>Roll end lock front with dust flaps and cherry locks</p>
+                  {variantDetail.finishing?.map((item, index) => (
+                    <React.Fragment key={index}>
+                      <p>{item}</p>
+                      {index < variantDetail.finishing.length - 1 && <hr />}
+                    </React.Fragment>
+                  )) || <p>Matte or Gloss coating options</p>}
                 </div>
               )}
             </div>
@@ -181,15 +154,14 @@ function Productdetail1() {
               </div>
               {isAddOnOpen && (
                 <div className="accordion-content">
-                  <p>Standardized or fully customizable sizing options</p>
-                  <hr />
-                  <p>FSC Certified Paper and OK Compost Certified 32 ECT</p>
-                  <hr />
-                  <p>Carbon-neutral packaging and fulfillment available</p>
-                  <hr />
-                  <p>Double-sided printing available</p>
-                  <hr />
-                  <p>Roll end lock front with dust flaps and cherry locks</p>
+                  {variantDetail.addon?.map((item, index) => (
+                    <React.Fragment key={index}>
+                      <p>{item}</p>
+                      {index < variantDetail.addon.length - 1 && <hr />}
+                    </React.Fragment>
+                  )) || (
+                    <p>Window patching, foil stamping, embossing available</p>
+                  )}
                 </div>
               )}
             </div>
@@ -205,18 +177,19 @@ function Productdetail1() {
               </div>
               {isTurnaroundOpen && (
                 <div className="accordion-content">
-                  <p>Standardized or fully customizable sizing options</p>
-                  <hr />
-                  <p>FSC Certified Paper and OK Compost Certified 32 ECT</p>
-                  <hr />
-                  <p>Carbon-neutral packaging and fulfillment available</p>
-                  <hr />
-                  <p>Double-sided printing available</p>
-                  <hr />
-                  <p>Roll end lock front with dust flaps and cherry locks</p>
+                  {variantDetail.turnaround?.map((item, index) => (
+                    <React.Fragment key={index}>
+                      <p>{item}</p>
+                      {index < variantDetail.turnaround.length - 1 && <hr />}
+                    </React.Fragment>
+                  )) || (
+                    <p>Standard 7-10 business days, Rush options available</p>
+                  )}
                 </div>
               )}
             </div>
+
+            {/* Quick FAQ's */}
             <div className="accordion-item">
               <div
                 className="accordion-header"
@@ -227,15 +200,32 @@ function Productdetail1() {
               </div>
               {isFaqOpen && (
                 <div className="accordion-content">
-                  <p>Standardized or fully customizable sizing options</p>
-                  <hr />
-                  <p>FSC Certified Paper and OK Compost Certified 32 ECT</p>
-                  <hr />
-                  <p>Carbon-neutral packaging and fulfillment available</p>
-                  <hr />
-                  <p>Double-sided printing available</p>
-                  <hr />
-                  <p>Roll end lock front with dust flaps and cherry locks</p>
+                  {faqs.length > 0 ? (
+                    faqs.map((faq, index) => (
+                      <React.Fragment key={index}>
+                        <p>
+                          <strong>{faq.question}</strong>
+                        </p>
+                        <p>{faq.answer}</p>
+                        {index < faqs.length - 1 && <hr />}
+                      </React.Fragment>
+                    ))
+                  ) : (
+                    <>
+                      <p>
+                        <strong>What materials do you use?</strong>
+                      </p>
+                      <p>
+                        We use FSC Certified Paper and OK Compost Certified
+                        materials
+                      </p>
+                      <hr />
+                      <p>
+                        <strong>What is your turnaround time?</strong>
+                      </p>
+                      <p>Standard production takes 7-10 business days</p>
+                    </>
+                  )}
                 </div>
               )}
             </div>

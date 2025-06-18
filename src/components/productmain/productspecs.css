@@ -89,7 +89,7 @@
 }
 
 .spec-bottom h3 {
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #01257d !important;
   margin-bottom: 0.8rem;
@@ -100,7 +100,27 @@
   color: #444;
   line-height: 1.6;
 }
+.spec-image {
+  width: 7rem;
+  height: 7rem;
+  object-fit: contain;
+  background: white;
+}
 
+.icon-circle {
+  font-size: 24px;
+}
+
+/* Ensure consistent height for all spec items */
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.spec-bottom {
+  flex-grow: 1;
+}
 @media (max-width: 768px) {
   .specs-grid {
     grid-template-columns: 1fr;
