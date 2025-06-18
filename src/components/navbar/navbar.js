@@ -148,6 +148,10 @@ const Navbar1 = () => {
       setActiveDropdown(null);
     }
   };
+  const handleIconClick = () => {
+    setShowUserMenu((prev) => !prev);
+    navigate("/user-interface");
+  };
 
   const handleLogout = () => {
     logout();
@@ -304,7 +308,7 @@ const Navbar1 = () => {
               <div className="user-dropdown-wrapper">
                 <div
                   className="user-icon"
-                  onClick={() => setShowUserMenu((prev) => !prev)}
+                  onClick={handleIconClick}
                   style={{
                     display: "flex",
                     alignItems: "center",

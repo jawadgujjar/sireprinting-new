@@ -5,7 +5,7 @@ import "./landingdie.css";
 function Landingdie() {
   const cardData = [
     {
-      image: "/images/1.webp",
+      image: "/images/can't find.png",
       title: "CAN’T FIND A SIZE YOU NEED?",
       description:
         "No worries, we can customize packaging according to your needs, just give us the right dimensions (LXWXD) of your product, and we will make a custom size for you!",

@@ -8,30 +8,27 @@ function Videocarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    // Simulate fetching Instagram posts
     const fetchInstagramPosts = async () => {
       try {
         const response = await instagram.get();
-        setInstagramPosts(response.data);
 
-        // Mock data - replace with your actual API call
+        // Mock data for now – replace with response.data if API works
         const mockData = [
           {
             imageUrl:
-              "https://instagram.flhe44-1.fna.fbcdn.net/v/t51.29350-15/491417269_1174510267480999_1081103560534888209_n.heic?stp=dst-jpg_e35_s640x640_sh0.08_tt6&_nc_ht=instagram.flhe44-1.fna.fbcdn.net&_nc_cat=107&_nc_oc=Q6cZ2QGflQ7qVJXkEVDVUx7-_9FKbv2EmKpFWLD8sLG_vhIrQxcLBUIKcL5iCDgrpIz8YYw&_nc_ohc=zHpr8xmRJGwQ7kNvwEr6Bta&_nc_gid=8iNnHiCfIYvZaMYXekHqkQ&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfOt2-9OiJE3OxGaT2qtrcKFCeJBxA36ovd31nA1QiUFNA&oe=685747F3&_nc_sid=8b3546",
+              "https://instagram.flhe44-1.fna.fbcdn.net/v/t51.29350-15/491417269_1174510267480999_1081103560534888209_n.heic?...",
             caption: "Photo by Sireprinting on April 23, 2025.",
             postUrl: "https://www.instagram.com/sireprinting/p/DIzwhnMIdSr/",
           },
-          // Add other posts here or use the full response you provided
           {
             imageUrl:
-              "https://instagram.flhe44-1.fna.fbcdn.net/v/t51.29350-15/490754581_648309221373671_5280820845294098682_n.heic?stp=dst-jpg_e35_s640x640_sh0.08_tt6&_nc_ht=instagram.flhe44-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QGflQ7qVJXkEVDVUx7-_9FKbv2EmKpFWLD8sLG_vhIrQxcLBUIKcL5iCDgrpIz8YYw&_nc_ohc=_IXkEyILQ4gQ7kNvwEzrDYJ&_nc_gid=8iNnHiCfIYvZaMYXekHqkQ&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfPSvS9-Wtvmr6cEOXLf_IZoqxggl8e-VtcSWKUCy834Lw&oe=68573DC7&_nc_sid=8b3546",
+              "https://instagram.flhe44-1.fna.fbcdn.net/v/t51.29350-15/490754581_648309221373671_5280820845294098682_n.heic?...",
             caption: "Photo by Sireprinting on April 18, 2025.",
             postUrl: "https://www.instagram.com/sireprinting/p/DImOIPOoP3p/",
           },
         ];
 
-        setInstagramPosts(mockData);
+        setInstagramPosts(mockData); // or use: setInstagramPosts(response.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Instagram posts:", error);
@@ -48,8 +45,7 @@ function Videocarousel() {
         setCurrentIndex((prevIndex) =>
           prevIndex === instagramPosts.length - 1 ? 0 : prevIndex + 1
         );
-      }, 5000); // Change slide every 5 seconds
-
+      }, 5000);
       return () => clearInterval(interval);
     }
   }, [instagramPosts]);
@@ -84,10 +80,11 @@ function Videocarousel() {
           position: "relative",
         }}
       >
+        {/* Loader */}
         {isLoading ? (
           <div className="loader-container">
             <img
-              src="../images/logo.png"
+              src="/images/logo.png"
               alt="Logo"
               className="loading-image"
             />
@@ -149,6 +146,23 @@ function Videocarousel() {
         ) : (
           <div className="no-posts">No Instagram posts available</div>
         )}
+
+        {/* Embedded Iframe (Tagembed) */}
+        <div className="div-trustedtext">
+          <h2 className="trustedtext">Get Inspiration</h2>
+        </div>
+
+        <iframe
+          src="https://widget.tagembed.com/embed/12345?view"
+          style={{
+            width: "100%",
+            height: "100%",
+            border: "none",
+            borderRadius: "12px",
+          }}
+          title="Instagram Feed"
+          onLoad={() => setIsLoading(false)}
+        ></iframe>
       </div>
     </div>
   );
