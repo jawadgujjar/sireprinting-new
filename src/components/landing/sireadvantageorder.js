@@ -105,7 +105,7 @@ function Sireadvantageorder() {
 
   const handleFinish = async () => {
     try {
-      const values = form.getFieldsValue(true); 
+      const values = form.getFieldsValue(true);
       console.log("All form values:", values);
 
       const payload = {
@@ -115,7 +115,7 @@ function Sireadvantageorder() {
         unit: values.unit,
         color: values.color,
         quantity: Number(values.quantity),
-        image: values.mainImage || "", 
+        image: values.mainImage || "",
         name: values.name,
         email: values.email,
         phonenumber: values.phone,
@@ -315,8 +315,11 @@ function Sireadvantageorder() {
                         fieldName="mainImage"
                       >
                         <div>
-                          <PlusOutlined />
-                          <div style={{ marginTop: 8 }}>Upload Main Image</div>
+                          <div style={{ marginTop: 8 }}>
+                            {" "}
+                            <PlusOutlined />
+                            Upload
+                          </div>
                         </div>
                       </CloudinaryUploader>
                     </Form.Item>

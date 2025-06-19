@@ -8,10 +8,10 @@ import Faq1 from "../components/landing/faq";
 import { subcategory } from "../utils/axios"; // ← yeh tumhare axios instance se hona chahiye
 import SireprintingLoader from "../components/loader/loader";
 
-function Allproductpage() {
+function Allproductpage(props) {
   const location = useLocation();
   const id = location.state?.id;
-
+  console.log(props, "data of props", location);
   const [subcategoryData, setSubcategoryData] = useState(null);
   const [loading, setLoading] = useState(true);
 
