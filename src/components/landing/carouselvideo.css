@@ -24,8 +24,8 @@
 
 /* Circular Spinner */
 .loader {
-  border: 6px solid #f3f3f3;       /* Light grey outer ring */
-  border-top: 6px solid #3498db;   /* Blue spinning part */
+  border: 6px solid #f3f3f3; /* Light grey outer ring */
+  border-top: 6px solid #3498db; /* Blue spinning part */
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -65,4 +65,7 @@
   font-weight: bold;
   color: #333;
   margin: 0;
+}
+.taggbox {
+  display: "none" !important;
 }

@@ -34,7 +34,6 @@ function Mainproductpage() {
         setProductData(response.data);
 
         if (response.data.variants && response.data.variants.length > 0) {
-          // Find variant from URL
           const foundIndex = response.data.variants.findIndex(
             (v) => v.slug === variantSlug
           );
