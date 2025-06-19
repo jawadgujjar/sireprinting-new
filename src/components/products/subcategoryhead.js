@@ -8,8 +8,9 @@ function Subcategoryhead({ data }) {
     <div className="subcategory-container">
       <Row className="subcategory-row">
         <Col xs={24} md={12} className="subcategory-left">
-          <h2 className="subcategory-heading">{data?.title}</h2>
-          <p className="subcategory-description">
+          <h1 className="hero-title">{data?.title}</h1>
+          <div className="hero-divider"></div>
+          <p className="hero-description">
             {/* You can use data.seoDescription or create a custom one */}
             {data?.description ||
               "We offer custom printed packaging designed to fit your brand perfectly."}
@@ -22,7 +23,7 @@ function Subcategoryhead({ data }) {
           <img
             src={data?.pageImage || "/images/landing1.png"}
             alt={data?.title}
-            className="subcategory-image"
+            className="hero-image-sub"
           />
         </Col>
       </Row>
