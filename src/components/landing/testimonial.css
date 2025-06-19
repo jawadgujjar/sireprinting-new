@@ -1,7 +1,7 @@
 .testimonial-main {
   background-color: white;
-  padding: 60px 20px;
-  max-width: 1200px;
+  /* padding: 80px 40px; */
+  max-width: 1000px;
   margin: 0 auto;
   text-align: center;
 }
@@ -68,7 +68,14 @@ div[id*="featurable"] > a:last-child {
   left: -9999px !important;
   pointer-events: none !important;
 }
-
+.powered-by-featurable,
+a[href*="featurable"],
+.Branding-module__inline--DrMTH {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+}
 /* Responsive design */
 @media (max-width: 768px) {
   .trustedtext {
