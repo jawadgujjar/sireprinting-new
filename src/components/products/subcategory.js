@@ -121,119 +121,122 @@ function Subcategory({ data }) {
   return (
     <div>
       <Row className="subcategory-products">
-        {/* Left Column: Subcategories */}
-        <Col xs={24} md={6} className="category-column">
-          {!isMobile ? (
-            <>
-              <p className="subcategory-heading1">
-                Sub-Categories <div className="divider1"></div>
-              </p>
-              <div className="category-grid-container">
-                {subCategories.map((subCategory) => (
-                  <div
-                    key={subCategory._id}
-                    className={`category-card ${
-                      selectedCategory === subCategory._id
-                        ? "active-category"
-                        : ""
-                    }`}
-                    onClick={() => handleCategoryClick(subCategory._id)}
-                  >
-                    <div className="category-card-content">
-                      <div className="category-text">
-                        <h3 className="category-name">{subCategory.title}</h3>
-                      </div>
-                      <div className="category-image-container">
-                        <img
-                          src={subCategory.image || fallbackImage}
-                          alt={subCategory.title}
-                          className="category-image"
-                          onError={handleImageError}
-                        />
+        <Col xs={24} md={6}>
+          <p className="subcategory-heading1">
+            Sub-Categories <div className="divider1"></div>
+          </p>
+          <div className="category-column">
+            {!isMobile ? (
+              <>
+                <div className="category-grid-container">
+                  {subCategories.map((subCategory) => (
+                    <div
+                      key={subCategory._id}
+                      className={`category-card ${
+                        selectedCategory === subCategory._id
+                          ? "active-category"
+                          : ""
+                      }`}
+                      onClick={() => handleCategoryClick(subCategory._id)}
+                    >
+                      <div className="category-card-content">
+                        <div className="category-text">
+                          <h3 className="category-name">{subCategory.title}</h3>
+                        </div>
+                        <div className="category-image-container">
+                          <img
+                            src={subCategory.image || fallbackImage}
+                            alt={subCategory.title}
+                            className="category-image"
+                            onError={handleImageError}
+                          />
+                        </div>
                       </div>
                     </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="mobile-accordion">
+                <p className="subcategory-heading1">Sub-Categories</p>
+                {subCategories.map((subCategory) => (
+                  <div key={subCategory._id} className="mobile-category">
+                    <div
+                      className="mobile-category-header"
+                      onClick={() => handleCategoryClick(subCategory._id)}
+                    >
+                      <span>{subCategory.title}</span>
+                      <DownOutlined
+                        className={`dropdown-arrow ${
+                          selectedCategory === subCategory._id ? "rotated" : ""
+                        }`}
+                      />
+                    </div>
+                    {selectedCategory === subCategory._id && (
+                      <div className="mobile-category-products">
+                        <Row gutter={[16, 16]}>
+                          {products.length > 0 ? (
+                            products.map((product) => (
+                              <Col xs={24} key={product._id}>
+                                <Link
+                                  to={`/${
+                                    categorySlug || categoryTitle
+                                  }/${slugify(subCategory.title)}/${slugify(
+                                    product.title
+                                  )}/${
+                                    product.variants?.[0]?.variantTitle
+                                      ? slugify(
+                                          product.variants[0].variantTitle
+                                        )
+                                      : "default"
+                                  }`}
+                                  state={{
+                                    id: product._id,
+                                    variantTitle:
+                                      product.variants?.[0]?.variantTitle,
+                                  }}
+                                  className="product-link"
+                                >
+                                  <Card
+                                    hoverable
+                                    cover={
+                                      <img
+                                        alt={product.title}
+                                        src={product.image || fallbackImage}
+                                        onError={handleImageError}
+                                      />
+                                    }
+                                    className="product-card"
+                                    bodyStyle={{
+                                      padding: "10px",
+                                      overflow: "hidden",
+                                    }}
+                                  >
+                                    <div className="product-title">
+                                      {product.title}
+                                    </div>
+                                  </Card>
+                                </Link>
+                              </Col>
+                            ))
+                          ) : (
+                            <Col span={24}>
+                              <Empty description="No products found" />
+                            </Col>
+                          )}
+                        </Row>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
-            </>
-          ) : (
-            <div className="mobile-accordion">
-              <p className="subcategory-heading1">Sub-Categories</p>
-              {subCategories.map((subCategory) => (
-                <div key={subCategory._id} className="mobile-category">
-                  <div
-                    className="mobile-category-header"
-                    onClick={() => handleCategoryClick(subCategory._id)}
-                  >
-                    <span>{subCategory.title}</span>
-                    <DownOutlined
-                      className={`dropdown-arrow ${
-                        selectedCategory === subCategory._id ? "rotated" : ""
-                      }`}
-                    />
-                  </div>
-                  {selectedCategory === subCategory._id && (
-                    <div className="mobile-category-products">
-                      <Row gutter={[16, 16]}>
-                        {products.length > 0 ? (
-                          products.map((product) => (
-                            <Col xs={24} key={product._id}>
-                              <Link
-                                to={`/${
-                                  categorySlug || categoryTitle
-                                }/${slugify(subCategory.title)}/${slugify(
-                                  product.title
-                                )}/${
-                                  product.variants?.[0]?.variantTitle
-                                    ? slugify(product.variants[0].variantTitle)
-                                    : "default"
-                                }`}
-                                state={{
-                                  id: product._id,
-                                  variantTitle:
-                                    product.variants?.[0]?.variantTitle,
-                                }}
-                                className="product-link"
-                              >
-                                <Card
-                                  hoverable
-                                  cover={
-                                    <img
-                                      alt={product.title}
-                                      src={product.image || fallbackImage}
-                                      onError={handleImageError}
-                                    />
-                                  }
-                                  className="product-card"
-                                  bodyStyle={{
-                                    padding: "10px",
-                                    overflow: "hidden",
-                                  }}
-                                >
-                                  <div className="product-title">
-                                    {product.title}
-                                  </div>
-                                </Card>
-                              </Link>
-                            </Col>
-                          ))
-                        ) : (
-                          <Col span={24}>
-                            <Empty description="No products found" />
-                          </Col>
-                        )}
-                      </Row>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+            )}
+          </div>
         </Col>
 
         {/* Right Column: Products for Desktop */}
         {!isMobile && (
-          <Col xs={24} sm={24} md={18}>
+          <Col xs={24} sm={24} md={14}>
             <p className="subcategory-heading1" style={{ fontWeight: "bold" }}>
               {subCategories.find((c) => c._id === selectedCategory)?.title ||
                 "Products"}

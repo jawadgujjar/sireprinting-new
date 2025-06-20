@@ -7,35 +7,13 @@ function Productdescription({ currentVariant }) {
   // Get variant details or empty object if none exist
   const variantDetails = currentVariant || {};
 
-  // Fallback details if none are provided
-  const fallbackDetails = {
-    detailTitle: "Premium Packaging Solutions",
-    detailSubtitle: "Custom designed for your brand",
-    detailDescription: [
-      {
-        _id: "1",
-        description:
-          "Our packaging is designed to protect your products while showcasing your brand beautifully.",
-        image: "https://via.placeholder.com/600x400?text=Packaging",
-      },
-      {
-        _id: "2",
-        description:
-          "Eco-friendly materials that don't compromise on quality or durability.",
-        image: "https://via.placeholder.com/600x400?text=Eco+Friendly",
-      },
-    ],
-  };
-
-  // Use variant details if available, otherwise use fallback
   const displayDetails = {
-    detailTitle: variantDetails.detailTitle || fallbackDetails.detailTitle,
-    detailSubtitle:
-      variantDetails.detailSubtitle || fallbackDetails.detailSubtitle,
+    detailTitle: variantDetails.detailTitle,
+    detailSubtitle: variantDetails.detailSubtitle,
     details:
       variantDetails.detailDescription?.length > 0
         ? variantDetails.detailDescription
-        : fallbackDetails.detailDescription,
+        : [],
   };
 
   if (!displayDetails.details) return null;
@@ -47,23 +25,27 @@ function Productdescription({ currentVariant }) {
 
       {displayDetails.details.map((section, index) => {
         const hasImage = section.image && section.image.trim() !== "";
+        const hasText =
+          section.description && section.description.trim() !== "";
 
         return (
           <div
             key={section._id || index}
             className={`content-section ${
-              !hasImage
-                ? "no-image"
+              !hasImage || !hasText
+                ? "single-content"
                 : index % 2 === 0
                 ? "image-right"
                 : "image-left"
             }`}
           >
-            <div className="text-content">
-              <div className="description-content">
-                {parse(he.decode(section.description))}
+            {hasText && (
+              <div className="text-content">
+                <div className="description-content">
+                  {parse(he.decode(section.description))}
+                </div>
               </div>
-            </div>
+            )}
             {hasImage && (
               <div className="image-content">
                 <img

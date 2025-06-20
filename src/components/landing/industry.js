@@ -1,107 +1,86 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useHistory hook for navigation
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./industry.css";
-
-const logos = [
-  {
-    title: "Custom Packaging Box",
-    description: "High-quality packaging for your business.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Luxury Gift Box",
-    description: "Elegant design with premium finish.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Rigid Boxes",
-    description: "Sturdy and stylish boxes for luxury goods.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Mailer Boxes",
-    description: "Perfect for shipping and branding.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Corrugated Boxes",
-    description: "Durable and versatile for all industries.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Display Boxes",
-    description: "Showcase your product in style.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Subscription Boxes",
-    description: "Tailored for monthly delights.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Eco-Friendly Boxes",
-    description: "Sustainable and biodegradable packaging.",
-    image: "../images/arka.png",
-  },
-];
-
-const customBoxes = [
-  {
-    title: "Custom Box 1",
-    description: "Bespoke designs for your products.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Custom Box 2",
-    description: "Perfect fit for your brand's needs.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Custom Box 3",
-    description: "High-end materials for luxury packaging.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Custom Box 4",
-    description: "Innovative design to stand out.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Custom Box 5",
-    description: "Custom-tailored for your products.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Custom Box 6",
-    description: "Elegant and sleek packaging solutions.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Custom Box 7",
-    description: "Environmentally friendly options.",
-    image: "../images/arka.png",
-  },
-  {
-    title: "Custom Box 8",
-    description: "Perfect for gifting and branding.",
-    image: "../images/arka.png",
-  },
-];
+import { subcategory, category } from "../../utils/axios"; // Import category API
+import SireprintingLoader from "../loader/loader";
+import { slugify } from "../../utils/slugify";
 
 const Industry = () => {
   const [activeTab, setActiveTab] = useState("customBoxes");
+  const [customBoxes, setCustomBoxes] = useState([]);
+  const [boxesByStyle, setBoxesByStyle] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const renderContent = () => {
-    const items =
-      activeTab === "boxesByStyle" ? logos : customBoxes.slice(0, 8);
+  // Fetch categories and subcategories data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
 
-    return items.map((item, index) => (
-      <div key={index} className="industry-card">
-        <img src={item.image} alt={item.title} />
+        // First fetch all categories
+        const categoriesResponse = await category.get("/");
+        const allCategories = categoriesResponse.data;
+
+        // Find category IDs by name
+        const customBoxesCategory = allCategories.find(
+          (cat) => slugify(cat.title) === slugify("Packaging Boxes")
+        );
+
+        const boxesByStyleCategory = allCategories.find(
+          (cat) => slugify(cat.title) === slugify("Packaging Styles")
+        );
+        // Fetch subcategories for found categories
+        if (customBoxesCategory) {
+          console.log(customBoxesCategory);
+          const customBoxesResponse = await subcategory.get(
+            `/category/${customBoxesCategory._id}`
+          );
+          setCustomBoxes(customBoxesResponse.data);
+        }
+
+        if (boxesByStyleCategory) {
+          const boxesByStyleResponse = await subcategory.get(
+            `/category/${boxesByStyleCategory._id}`
+          );
+          setBoxesByStyle(boxesByStyleResponse.data);
+        }
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const renderContent = () => {
+    if (loading) {
+      return <SireprintingLoader />;
+    }
+
+    const items = activeTab === "boxesByStyle" ? boxesByStyle : customBoxes;
+
+    return items.map((item) => (
+      <div
+        key={item._id}
+        className="industry-card"
+        onClick={() => navigate(`/category/${slugify(item.title)}`)}
+      >
+        <img
+          src={item.image || "../images/arka.png"}
+          alt={item.title}
+          onError={(e) => {
+            e.target.src = "../images/arka.png";
+          }}
+        />
         <div className="industry-blue-part">
           <h3>{item.title}</h3>
-          <p className="product-desc">{item.description}</p>
+          <p className="product-desc">
+            {item.description || "High-quality packaging solution"}
+          </p>
         </div>
       </div>
     ));
@@ -142,7 +121,7 @@ const Industry = () => {
 
       <button
         className="show-more-btn"
-        onClick={() => navigate("/allproducts")} // Navigate to /allproducts
+        onClick={() => navigate("/allproducts")}
       >
         Show More
       </button>

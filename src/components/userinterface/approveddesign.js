@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Typography, Space, Tag } from "antd";
+import dayjs from "dayjs"; // npm install dayjs
 import "./approveddesign.css";
 
 const { Title } = Typography;
@@ -7,7 +8,6 @@ const { Title } = Typography;
 const ApprovedDesigns = () => {
   const [data, setData] = useState([]);
 
-  // Use hardcoded user for demo
   const loggedInEmail =
     localStorage.getItem("userEmail") || "jawad@example.com";
 
@@ -16,6 +16,7 @@ const ApprovedDesigns = () => {
       const res = [
         {
           id: "1",
+          orderId: "ORD-001",
           name: "Jawad Ahmad",
           email: "jawad@example.com",
           productType: "Mailer Boxes",
@@ -26,9 +27,11 @@ const ApprovedDesigns = () => {
           height: "4",
           uploadFile: "design-file.pdf",
           designApproved: null, // Initially pending
+          approvedAt: null,
         },
         {
           id: "2",
+          orderId: "ORD-002",
           name: "Ali Raza",
           email: "ali@example.com",
           productType: "Shipping Boxes",
@@ -39,6 +42,7 @@ const ApprovedDesigns = () => {
           height: "5",
           uploadFile: "design2.jpg",
           designApproved: false,
+          approvedAt: null,
         },
       ];
 
@@ -49,21 +53,53 @@ const ApprovedDesigns = () => {
     fetchData();
   }, [loggedInEmail]);
 
+  // ✅ Auto-update to "Under Production" after 24 hours
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updated = data.map((item) => {
+        if (
+          item.designApproved === true &&
+          item.approvedAt &&
+          dayjs().diff(dayjs(item.approvedAt), "hour") >= 24
+        ) {
+          return { ...item, designApproved: "under_production" };
+        }
+        return item;
+      });
+      setData(updated);
+    }, 60 * 1000); // check every 1 minute
+
+    return () => clearInterval(interval);
+  }, [data]);
+
   const handleApprove = (id) => {
     const updated = data.map((item) =>
-      item.id === id ? { ...item, designApproved: true } : item
+      item.id === id
+        ? {
+            ...item,
+            designApproved: true,
+            approvedAt: new Date().toISOString(),
+          }
+        : item
     );
     setData(updated);
   };
 
   const handleReject = (id) => {
     const updated = data.map((item) =>
-      item.id === id ? { ...item, designApproved: false } : item
+      item.id === id
+        ? { ...item, designApproved: false, approvedAt: null }
+        : item
     );
     setData(updated);
   };
 
   const columns = [
+    {
+      title: "Order ID",
+      dataIndex: "orderId",
+      key: "orderId",
+    },
     {
       title: "Product",
       dataIndex: "productType",
@@ -92,24 +128,21 @@ const ApprovedDesigns = () => {
       render: (file) => {
         const isImage = /\.(jpg|jpeg|png|gif)$/i.test(file);
 
-        if (isImage) {
-          // 👇 Demo image preview (replace src with your actual file path when ready)
-          return (
-            <img
-              src="https://via.placeholder.com/80"
-              alt="design"
-              style={{
-                width: 80,
-                height: 80,
-                objectFit: "cover",
-                borderRadius: 4,
-                border: "1px solid #ddd",
-              }}
-            />
-          );
-        } else {
-          return <span style={{ color: "#888" }}>{file}</span>; // no link, no icon
-        }
+        return isImage ? (
+          <img
+            src="https://via.placeholder.com/80"
+            alt="design"
+            style={{
+              width: 80,
+              height: 80,
+              objectFit: "cover",
+              borderRadius: 4,
+              border: "1px solid #ddd",
+            }}
+          />
+        ) : (
+          <span style={{ color: "#888" }}>{file}</span>
+        );
       },
     },
     {
@@ -117,8 +150,10 @@ const ApprovedDesigns = () => {
       dataIndex: "designApproved",
       key: "designApproved",
       render: (_, record) => {
-        if (record.designApproved === true) {
-          return <Tag color="green">Approved</Tag>;
+        if (record.designApproved === "under_production") {
+          return <Tag color="blue">Under Production</Tag>;
+        } else if (record.designApproved === true) {
+          return <Tag color="gold">Forwarded to Production</Tag>;
         } else if (record.designApproved === false) {
           return <Tag color="red">Rejected</Tag>;
         } else {

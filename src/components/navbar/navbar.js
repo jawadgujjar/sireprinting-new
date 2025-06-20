@@ -262,7 +262,7 @@ const Navbar1 = () => {
                 to="/portfolio"
                 className={`nav-link ${isScrolled ? "scrolled" : ""}`}
               >
-                <span>Portfolio</span>
+                <span>Product Catalog</span>
               </Link>
             </li>
             <li className="nav-item">
