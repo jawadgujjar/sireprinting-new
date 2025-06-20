@@ -90,6 +90,7 @@
 
 .accordion-content p {
   font-size: 0.875rem; /* Smaller paragraph text */
+  text-align: left !important;
 }
 
 .accordion-content {
