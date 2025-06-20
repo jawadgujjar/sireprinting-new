@@ -24,12 +24,13 @@ const Industry = () => {
 
         // Find category IDs by name
         const customBoxesCategory = allCategories.find(
-          (cat) => slugify(cat.title) === slugify("Packaging Boxes")
+          (cat) => slugify(cat.title) === slugify("Packaging Boxes-")
         );
 
         const boxesByStyleCategory = allCategories.find(
           (cat) => slugify(cat.title) === slugify("Packaging Styles")
         );
+        console.log(boxesByStyleCategory,"catbox")
         // Fetch subcategories for found categories
         if (customBoxesCategory) {
           console.log(customBoxesCategory);
