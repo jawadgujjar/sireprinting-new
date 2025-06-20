@@ -3,6 +3,17 @@ import { Carousel } from "antd";
 import "antd/dist/reset.css";
 import "./productimgs.css";
 
+const CustomArrow = ({ direction, onClick, style }) => {
+  return (
+    <div
+      className={`custom-arrow ${direction}`}
+      onClick={onClick}
+      style={style}
+    >
+      {direction === "left" ? "‹" : "›"}
+    </div>
+  );
+};
 function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
   const [selectedImage, setSelectedImage] = useState(selectedIndex || 0);
   const carouselRef = useRef(null);
@@ -97,7 +108,9 @@ function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
           speed={500}
           slidesToShow={1}
           slidesToScroll={1}
-          arrows
+          arrows={true}
+          prevArrow={<CustomArrow direction="left" />}
+          nextArrow={<CustomArrow direction="right" />}
           beforeChange={(from, to) => {
             setSelectedImage(to);
             onImageSelect(to); // Trigger variant change on carousel swipe
