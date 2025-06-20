@@ -147,11 +147,11 @@ function Sireadvantage() {
       <div className="three-images-advantages-ad">
         <div className="icon-grid-ad">
           <div className="icon-item-ad text-center">
-            <img src="/images/highquality.png" alt="Icon 1" className="icon-img-ad" />
+            <img src="/images/support.png" alt="Icon 1" className="icon-img-ad" />
             <p className="icon-text-ad">High Quality</p>
           </div>
           <div className="icon-item-ad text-center">
-            <img src="/images/customdesign.png" alt="Icon 2" className="icon-img-ad" />
+            <img src="/images/highquality.png" alt="Icon 2" className="icon-img-ad" />
             <p className="icon-text-ad">Custom Design</p>
           </div>
           <div className="icon-item-ad text-center">
@@ -171,7 +171,7 @@ function Sireadvantage() {
             <p className="icon-text-ad">Affordable</p>
           </div>
           <div className="icon-item-ad">
-            <img src="/images/support.png" alt="Icon 6" className="icon-img-ad" />
+            <img src="/images/customdesign.png" alt="Icon 6" className="icon-img-ad" />
             <p className="icon-text-ad">24/7 Support</p>
           </div>
         </div>
