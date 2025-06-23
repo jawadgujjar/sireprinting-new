@@ -4,6 +4,7 @@ import "./industry.css";
 import { subcategory, category } from "../../utils/axios"; // Import category API
 import SireprintingLoader from "../loader/loader";
 import { slugify } from "../../utils/slugify";
+import he from "he";
 
 const Industry = () => {
   const [activeTab, setActiveTab] = useState("customBoxes");
@@ -30,7 +31,6 @@ const Industry = () => {
         const boxesByStyleCategory = allCategories.find(
           (cat) => slugify(cat.title) === slugify("Packaging Styles")
         );
-        console.log(boxesByStyleCategory,"catbox")
         // Fetch subcategories for found categories
         if (customBoxesCategory) {
           console.log(customBoxesCategory);
@@ -79,9 +79,15 @@ const Industry = () => {
         />
         <div className="industry-blue-part">
           <h3>{item.title}</h3>
-          <p className="product-desc">
-            {item.description || "High-quality packaging solution"}
-          </p>
+          <p
+            className="product-desc truncated-desc"
+            dangerouslySetInnerHTML={{
+              __html: he.decode(
+                item.description || "High-quality packaging solution"
+              ),
+            }}
+          ></p>
+          <span className="read-more">Read More</span>
         </div>
       </div>
     ));
