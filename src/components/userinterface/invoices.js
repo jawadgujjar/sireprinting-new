@@ -1,149 +1,78 @@
-import React, { useEffect, useState } from "react";
-import { Table, Typography, Modal, Tag } from "antd";
-import "./invoices.css"; // Optional CSS
-
+import { useState } from "react";
+import { Table, Button, Image, Modal, Typography } from "antd";
 const { Title } = Typography;
 
 const Invoices = () => {
-  const [invoices, setInvoices] = useState([]);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
 
-  const loggedInEmail =
-    localStorage.getItem("userEmail") || "jawad@example.com";
-
-  useEffect(() => {
-    const data = [
-      {
-        id: "INV001",
-        productName: "Mailer Boxes",
-        customer: "Jawad Ahmad",
-        email: "jawad@example.com",
-        invoiceImage: "https://via.placeholder.com/100x100?text=Invoice+1",
-        date: "2025-06-15",
-        amount: "$300.00",
-        status: "paid",
-      },
-      {
-        id: "INV002",
-        productName: "Shipping Boxes",
-        customer: "Ali Raza",
-        email: "ali@example.com",
-        invoiceImage: "https://via.placeholder.com/100x100?text=Invoice+2",
-        date: "2025-06-10",
-        amount: "$450.00",
-        status: "unpaid",
-      },
-      {
-        id: "INV003",
-        productName: "Rigid Boxes",
-        customer: "Jawad Ahmad",
-        email: "jawad@example.com",
-        invoiceImage: "https://via.placeholder.com/100x100?text=Invoice+3",
-        date: "2025-06-18",
-        amount: "$650.00",
-        status: "pending",
-      },
-    ];
-
-    const filtered = data.filter((item) => item.email === loggedInEmail);
-    setInvoices(filtered);
-  }, [loggedInEmail]);
-
-  const handlePreview = (imageUrl) => {
-    setPreviewImage(imageUrl);
-    setPreviewVisible(true);
-  };
-
-  const getStatusTag = (status) => {
-    switch (status) {
-      case "paid":
-        return <Tag color="green">PAID</Tag>;
-      case "unpaid":
-        return <Tag color="red">UNPAID</Tag>;
-      case "pending":
-        return <Tag color="orange">PENDING</Tag>;
-      default:
-        return <Tag>UNKNOWN</Tag>;
-    }
-  };
+  const invoices = [
+    {
+      orderId: "ORD-001",
+      productName: "Custom Packaging Box",
+      customerName: "Ali Khan",
+      totalAmount: "Rs. 5,000",
+      invoiceImage:
+        "https://res.cloudinary.com/demo/image/upload/v1710000000/sample-invoice.png",
+    },
+  ];
 
   const columns = [
     {
-      title: "Invoice ID",
-      dataIndex: "id",
-      key: "id",
+      title: "Order ID",
+      dataIndex: "orderId",
     },
     {
-      title: "Product Name",
+      title: "Product",
       dataIndex: "productName",
-      key: "productName",
     },
     {
       title: "Customer",
-      dataIndex: "customer",
-      key: "customer",
+      dataIndex: "customerName",
     },
     {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
-    },
-    {
-      title: "Amount",
-      dataIndex: "amount",
-      key: "amount",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (status) => getStatusTag(status),
+      title: "Total",
+      dataIndex: "totalAmount",
     },
     {
       title: "Invoice",
       dataIndex: "invoiceImage",
-      key: "invoiceImage",
-      render: (imgUrl) => (
-        <img
-          src={imgUrl}
-          alt="Invoice"
-          style={{
-            width: 80,
-            height: 80,
-            cursor: "pointer",
-            border: "1px solid #ddd",
-            borderRadius: 4,
-            objectFit: "cover",
+      render: (img) => (
+        <Image
+          width={60}
+          src={img}
+          preview={false}
+          onClick={() => {
+            setPreviewImage(img);
+            setPreviewVisible(true);
           }}
-          onClick={() => handlePreview(imgUrl)}
+          style={{ cursor: "pointer" }}
         />
+      ),
+    },
+    {
+      title: "Download",
+      dataIndex: "invoiceImage",
+      render: (img) => (
+        <a href={img} download target="_blank" rel="noreferrer">
+          <Button type="primary">Download</Button>
+        </a>
       ),
     },
   ];
 
   return (
-    <div>
-      <Title level={3}>Invoices</Title>
-      <Table
-        columns={columns}
-        dataSource={invoices}
-        rowKey="id"
-        pagination={{ pageSize: 5 }}
-      />
-
+    <>
+      <Title level={3}>Your Invoices</Title>
+      <Table columns={columns} dataSource={invoices} rowKey="orderId" />
       <Modal
         open={previewVisible}
         footer={null}
         onCancel={() => setPreviewVisible(false)}
       >
-        <img
-          alt="Invoice Preview"
-          style={{ width: "100%" }}
-          src={previewImage}
-        />
+        <img alt="Invoice Preview" style={{ width: "100%" }} src={previewImage} />
       </Modal>
-    </div>
+    </>
   );
 };
 
