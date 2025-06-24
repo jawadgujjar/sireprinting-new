@@ -121,9 +121,7 @@
 .product-image-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 4; /* Matches image aspect ratio */
   overflow: hidden;
-  background-color: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
