@@ -78,11 +78,9 @@ function Allproduct1({ data }) {
   }, [data?._id]);
 
   const handleClick = (product) => {
-    // Ensure all values have fallbacks to prevent undefined errors
     const catSlug = categorySlug || categoryTitle || "category";
     const subCatTitle = data?.title ? slugify(data.title) : "subcategory";
     const prodTitle = product?.title || product?.name || "product";
-    // Get the first variant's title if available, otherwise use a fallback
     const variantTitle = product?.variants?.[0]?.variantTitle
       ? slugify(product.variants[0].variantTitle)
       : "default";
@@ -95,7 +93,6 @@ function Allproduct1({ data }) {
       productId: product._id,
     });
 
-    // Navigate with variant title in the URL
     navigate(
       `/${catSlug}/${subCatTitle}/${slugify(prodTitle)}/${variantTitle}`,
       {
@@ -153,50 +150,60 @@ function Allproduct1({ data }) {
         <div className="hero-image-container">
           <img
             className="hero-image-sub"
-            src={data?.pageImage}
-            alt="Premium Packaging"
+            src={data?.pageImage || "../images/placeholder.webp"}
+            alt={data?.title || "Premium Packaging"}
+            onError={(e) => {
+              e.target.src = "../images/placeholder.webp";
+            }}
           />
         </div>
       </div>
 
       {/* Products Section */}
       <div className="allproduct-main">
-        <Row className="allproduct-row" gutter={[24, 16]}>
+        <Row className="allproduct-row" gutter={[24, 24]}>
           <Col xs={24} md={16} lg={16} className="allproduct-col1">
-            <Row gutter="gutterRow">
+            <Row gutter={[16, 16]}>
               {products.length > 0 ? (
                 products.map((product, index) => (
-                  <Col xs={12} sm={12} md={12} key={product._id}>
+                  <Col xs={24} sm={12} md={12} lg={12} key={product._id}>
                     <div
-                      className="product-card-wrapper"
-                      // onMouseEnter={() => setHoveredProductName(index)}
+                      className="product-item-wrapper"
+                      onMouseEnter={() => setHoveredCard(index)}
                       onMouseLeave={() => setHoveredCard(null)}
                     >
                       <Card
-                        className="allproduct-card"
+                        className="product-item-card"
                         hoverable
                         cover={
-                          <div className="card-image-container">
+                          <div className="product-image-container">
                             <img
                               alt={product.title || product.name || "Product"}
-                              src={
-                                product.image || "../images/placeholder.webp"
-                              }
-                              className={`allproduct-card-image ${
+                              src={product.image || "/images/placeholder.webp"}
+                              className={`product-item-image ${
                                 product.hoverImage
                                   ? hoveredCard === index
                                     ? "fade-out"
                                     : "fade-in"
-                                  : "fade-in"
+                                  : ""
                               }`}
+                              onError={(e) => {
+                                e.target.src = "/images/default-image.jpg";
+                              }}
                             />
                             {product.hoverImage && (
                               <img
                                 alt={product.title || product.name || "Product"}
-                                src={product.hoverImage}
-                                className={`allproduct-card-image hover ${
+                                src={
+                                  product.hoverImage ||
+                                  "/images/default-image.jpg"
+                                }
+                                className={`product-item-image hover ${
                                   hoveredCard === index ? "fade-in" : "fade-out"
                                 }`}
+                                onError={(e) => {
+                                  e.target.src = "/images/default-image.jpg";
+                                }}
                               />
                             )}
                           </div>
@@ -205,17 +212,28 @@ function Allproduct1({ data }) {
                       >
                         <Meta
                           title={
-                            <span className="card-title">
+                            <span className="product-item-title">
                               {product.title || product.name || "Product"}
                             </span>
                           }
                           description={
                             <>
-                              <p className="card-description">
-                                {product.description ||
-                                  "Premium packaging solution"}
+                              <p className="product-item-description">
+                                {he.decode(
+                                  product.description ||
+                                    "Premium packaging solution"
+                                )}
                               </p>
-                              <p className="card-price">
+                              <span
+                                className="read-more"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleClick(product);
+                                }}
+                              >
+                                Read More
+                              </span>
+                              <p className="product-item-price">
                                 {product.price
                                   ? `As low as: ${product.price}`
                                   : "Contact for pricing"}
@@ -238,7 +256,7 @@ function Allproduct1({ data }) {
           {/* Form Column */}
           <Col
             xs={24}
-            md={10}
+            md={8}
             lg={8}
             className={`form-column ${scrolled ? "scrolled-form" : ""}`}
           >

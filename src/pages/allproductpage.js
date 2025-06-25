@@ -11,7 +11,6 @@ import SireprintingLoader from "../components/loader/loader";
 function Allproductpage(props) {
   const location = useLocation();
   const id = location.state?.id;
-  console.log(props, "data of props", location);
   const [subcategoryData, setSubcategoryData] = useState(null);
   const [loading, setLoading] = useState(true);
 

@@ -2,11 +2,12 @@
 .product-image-container {
   display: flex;
   gap: 20px;
+  margin-top: 2rem;
   align-items: flex-start;
   padding: 20px;
   flex-wrap: nowrap;
   justify-content: center;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
 }
 
 .thumbnail-vertical-wrapper {

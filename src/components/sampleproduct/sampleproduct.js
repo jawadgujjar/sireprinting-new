@@ -13,6 +13,7 @@ function SampleProduct() {
       price: "$40",
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/01/random-sample.png",
       cartAvailable: true,
+      type: "random sample"
     },
     {
       title: "Custom Sample",
@@ -20,6 +21,7 @@ function SampleProduct() {
       price: "$100",
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/01/plain-sample.png",
       cartAvailable: true,
+      type: "custom sample"
     },
     {
       title: "Premium Sample",
@@ -27,6 +29,7 @@ function SampleProduct() {
       price: "Get Price",
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/01/pre-production-sample.png",
       cartAvailable: false,
+      type: "premium sample"
     },
   ];
 
@@ -34,23 +37,31 @@ function SampleProduct() {
     {
       title: "Shipping Box Orange",
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/12/shipping-box-1-orange.webp",
+      type: "custom box"
     },
     {
       title: "Shipping Box Blue",
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/12/shipping-box-1-orange.webp",
+      type: "custom box"
     },
     {
       title: "Shipping Box Green",
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/12/shipping-box-1-orange.webp",
+      type: "custom box"
     },
     {
       title: "Shipping Box Red",
       img: "https://cdn-glkkl.nitrocdn.com/IFwdajcPpRUghfJEUUZJTMOqctApESOx/assets/images/optimized/rev-aa17197/www.elitecustomboxes.com/wp-content/uploads/2023/12/shipping-box-1-orange.webp",
+      type: "custom box"
     },
   ];
 
   const handleNavigateToCart = (item) => {
     navigate("/add-to-cart", { state: item });
+  };
+
+  const handleNavigateToForm = (item) => {
+    navigate("/sample-form", { state: { productType: item.type || item.title } });
   };
 
   return (
@@ -74,6 +85,7 @@ function SampleProduct() {
               className="simple-card"
               key={index}
               style={{ height: "27rem", width: "30%" }}
+              onClick={() => handleNavigateToForm(item)}
             >
               <img src={item.img} alt={item.title} className="card-image" />
               <div className="card-content">
@@ -81,7 +93,8 @@ function SampleProduct() {
                 <p className="card-text">{item.text}</p>
                 <Button
                   className="price-button"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     if (item.cartAvailable) {
                       handleNavigateToCart(item);
                     }
@@ -110,7 +123,11 @@ function SampleProduct() {
       <div className="samples-section">
         <div className="cards-container">
           {customBoxes.map((box, index) => (
-            <div className="simple-card" key={index}>
+            <div 
+              className="simple-card" 
+              key={index}
+              onClick={() => handleNavigateToForm(box)}
+            >
               <img
                 src={box.img}
                 alt={box.title}

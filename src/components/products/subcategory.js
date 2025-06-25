@@ -135,7 +135,7 @@ function Subcategory({ data }) {
                       className={`category-card ${
                         selectedCategory === subCategory._id
                           ? "active-category"
-                          : ""
+                          : ""  
                       }`}
                       onClick={() => handleCategoryClick(subCategory._id)}
                     >

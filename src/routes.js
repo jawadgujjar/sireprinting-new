@@ -25,6 +25,7 @@ import Diepage from "./pages/diepage";
 import Diecategory from "./components/die-component/diecategory";
 import Blogauthor from "./components/blog/blogauthor";
 import Userinterface from "./components/userinterface/userinterface";
+import Sampleform from "./components/sampleproduct/sampleform";
 // Protected route component
 const ProtectedRoute = ({ children }) => {
   const { user } = useUser();
@@ -75,6 +76,7 @@ function AppRouter() {
         <Route path="/Die-template" element={<Diepage />} />
         <Route path="/Die-category-template" element={<Diecategory />} />
         <Route path="/user-interface" element={<Userinterface />} />
+         <Route path="/sample-form" element={<Sampleform />} />
       </Routes>
       <Footer1 />
     </>
