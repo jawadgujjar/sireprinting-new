@@ -1,16 +1,28 @@
-import React, { useState } from "react";
-import "./sireadvantage.css";
-import { Form, Input, Select, Button, Row, Col, message, Upload } from "antd";
+import { useState } from "react";
+import "./sireadvantageorder.css";
+import {
+  Form,
+  Input,
+  Select,
+  Button,
+  Row,
+  Col,
+  message,
+  Upload,
+  Tabs,
+  Card,
+} from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { instantquote } from "../../utils/axios";
 
+const { TabPane } = Tabs;
 const { Option } = Select;
 
 const cloudName = "dxhpud7sx";
 const uploadPreset = "sireprinting";
 
-// Custom CloudinaryUploader component
+// CloudinaryUploader component remains unchanged
 const CloudinaryUploader = ({
   cloudName,
   uploadPreset,
@@ -43,7 +55,7 @@ const CloudinaryUploader = ({
         },
       ];
       setFileList(newFileList);
-      form.setFieldsValue({ [fieldName]: response.data.secure_url }); // Set the URL in the form
+      form.setFieldsValue({ [fieldName]: response.data.secure_url });
       return response.data.secure_url;
     } catch (error) {
       message.error("Upload failed");
@@ -57,7 +69,7 @@ const CloudinaryUploader = ({
   const uploadProps = {
     beforeUpload: async (file) => {
       await handleUpload(file);
-      return false; // Prevent default upload behavior
+      return false;
     },
     fileList,
     onChange: ({ fileList: newFileList }) => {
@@ -76,6 +88,7 @@ const CloudinaryUploader = ({
 
 function Sireadvantageorder() {
   const [form] = Form.useForm();
+  const [activeTab, setActiveTab] = useState("1");
   const [step, setStep] = useState(1);
 
   const normFile = (e) => {
@@ -128,6 +141,7 @@ function Sireadvantageorder() {
         message.success("Quote submitted successfully!");
         form.resetFields();
         setStep(1);
+        setActiveTab("2");
       } else {
         message.error("Failed to submit quote");
       }
@@ -137,259 +151,241 @@ function Sireadvantageorder() {
     }
   };
 
+  const renderForm = () => (
+    <Form
+      layout="vertical"
+      onFinish={handleFinish}
+      form={form}
+      className="your-form-class"
+    >
+      {step === 1 && (
+        <>
+          <Row gutter={16}>
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                name="length"
+                label="Length"
+                rules={[{ required: true, message: "Please enter length" }]}
+              >
+                <Input placeholder="Length" type="number" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                name="width"
+                label="Width"
+                rules={[{ required: true, message: "Please enter width" }]}
+              >
+                <Input placeholder="Width" type="number" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                name="depth"
+                label="Depth"
+                rules={[{ required: true, message: "Please enter depth" }]}
+              >
+                <Input placeholder="Depth" type="number" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                name="unit"
+                label="Unit"
+                initialValue="cm"
+                rules={[{ required: true, message: "Please select unit" }]}
+              >
+                <Select placeholder="Select Unit" defaultValue="cm">
+                  <Option value="inches">Inches</Option>
+                  <Option value="cm">Centimeters</Option>
+                  <Option value="mm">Millimeters</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Form.Item
+            name="color"
+            label="Color"
+            rules={[{ required: true, message: "Please select color" }]}
+          >
+            <Select placeholder="Select Color">
+              <Option value="white">White</Option>
+              <Option value="kraft">Kraft</Option>
+              <Option value="black">Black</Option>
+              <Option value="full">Full Color</Option>
+            </Select>
+          </Form.Item>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="quantity"
+                label="Quantity"
+                rules={[{ required: true, message: "Please select quantity" }]}
+              >
+                <Select placeholder="Select Quantity">
+                  <Option value="10">10</Option>
+                  <Option value="25">25</Option>
+                  <Option value="50">50</Option>
+                  <Option value="100">100</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="mainImage"
+                label="Upload File"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                rules={[{ validator: validateImage }]}
+              >
+                <CloudinaryUploader
+                  cloudName={cloudName}
+                  uploadPreset={uploadPreset}
+                  listType="picture-card"
+                  maxCount={1}
+                  form={form}
+                  fieldName="mainImage"
+                >
+                  <div>
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>Upload</div>
+                  </div>
+                </CloudinaryUploader>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Form.Item>
+            <Button
+              type="primary"
+              className="submit-button"
+              onClick={handleNext}
+            >
+              Next
+            </Button>
+          </Form.Item>
+        </>
+      )}
+      {step === 2 && (
+        <>
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[{ required: true, message: "Please enter your name" }]}
+          >
+            <Input placeholder="Enter your name" />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[
+              { required: true, message: "Please enter your email" },
+              { type: "email", message: "Please enter a valid email" },
+            ]}
+          >
+            <Input placeholder="Enter your email" />
+          </Form.Item>
+          <Form.Item
+            name="phone"
+            label="Phone Number"
+            rules={[
+              { required: true, message: "Please enter your phone number" },
+            ]}
+          >
+            <Input placeholder="Enter your phone number" />
+          </Form.Item>
+          <Form.Item>
+            <div className="form-buttons">
+              <Button
+                type="primary"
+                onClick={() => setStep(1)}
+                className="submit-button"
+              >
+                Back
+              </Button>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="submit-button"
+              >
+                Submit
+              </Button>
+            </div>
+          </Form.Item>
+        </>
+      )}
+    </Form>
+  );
+
+  const renderCards = () => (
+    <div className="process-cards">
+      <Row gutter={16}>
+        <Col xs={24} sm={8}>
+          <Card title="Request a Price Quote" bordered={false}>
+            <p>
+              First, use our website or give our customer support agent a call
+              to submit a request for a free personalised estimate. The rates
+              will be available to you in half an hour.
+            </p>
+          </Card>
+        </Col>
+        <Col xs={24} sm={8}>
+          <Card title="Comparing prices" bordered={false}>
+            <p>
+              Ask the agent to match the pricing with your budget line. At The
+              box packaging, we will make every effort to provide you with the
+              most affordable costs.
+            </p>
+          </Card>
+        </Col>
+        <Col xs={24} sm={8}>
+          <Card title="Price Approval" bordered={false}>
+            <p>
+              Please approve the prices so that the order can be placed. Joining
+              The Box Packaging for all of your packaging requirements will be a
+              pleasure.
+            </p>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
+
   return (
     <div className="sireadvantage-wrapper">
-      {/* <div className="div-trustedtext">
-        <h2 className="trustedtext" style={{ marginBottom: "2rem" }}>
-          SIRE PRINTING ADVANTAGES
-        </h2>
-      </div>
-      <div className="three-images-advantages-ad">
-        <div className="icon-grid-ad">
-          <div className="icon-item-ad text-center">
-            <img src="/images/1.webp" alt="Icon 1" className="icon-img-ad" />
-            <p className="icon-text-ad">High Quality</p>
-          </div>
-          <div className="icon-item-ad text-center">
-            <img src="/images/2.webp" alt="Icon 2" className="icon-img-ad" />
-            <p className="icon-text-ad">Custom Design</p>
-          </div>
-          <div className="icon-item-ad text-center">
-            <img
-              src="/images/Eco-Friendly.png"
-              alt="Icon 3"
-              className="icon-img-ad"
-            />
-            <p className="icon-text-ad">Eco Friendly</p>
-          </div>
-          <div className="icon-item-ad text-center">
-            <img src="/images/3.webp" alt="Icon 4" className="icon-img-ad" />
-            <p className="icon-text-ad">Free Delivery</p>
-          </div>
-          <div className="icon-item-ad">
-            <img src="/images/1.webp" alt="Icon 5" className="icon-img-ad" />
-            <p className="icon-text-ad">Affordable</p>
-          </div>
-          <div className="icon-item-ad">
-            <img src="/images/2.webp" alt="Icon 6" className="icon-img-ad" />
-            <p className="icon-text-ad">24/7 Support</p>
-          </div>
-        </div>
-      </div> */}
-
       <Row className="form-section">
-        <Col xs={24} md={12} className="form-left">
+        <Col xs={24} className="form-left">
           <h3 className="form-title-advantage">Order Process</h3>
-          <div className="process-div">
-            <img
-              alt="process"
-              src="../images/process.png"
-              className="process-div-img"
-            />
-            <div className="process-headings-row">
-              <div className="process-div-inside">
-                <h3>Inquire Your Packaging</h3>
-              </div>
-              <div className="process-div-inside">
-                <h3>Cost Estimation</h3>
-              </div>
-              <div className="process-div-inside">
-                <h3>Packaging Design Proof</h3>
-              </div>
-              <div className="process-div-inside">
-                <h3>Printing Process</h3>
-              </div>
-              <div className="process-div-inside">
-                <h3>Shipping & Handling</h3>
-              </div>
-            </div>
-            <div style={{ color: "#01257d", display: "none" }}>a</div>
-            <div style={{ color: "#01257d", display: "none" }}>a</div>
+          <div className="process-tabs">
+            <Tabs
+              activeKey={activeTab}
+              onChange={setActiveTab}
+              tabPosition="top"
+              className="custom-tabs"
+            >
+              <TabPane tab="Inquire Your Packaging" key="1">
+                <Row gutter={24}>
+                  <Col xs={24} sm={24} md={24} lg={16}>
+                    {renderCards()}
+                  </Col>
+                  <Col xs={24} sm={24} md={24} lg={8}>
+                    {renderForm()}
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tab="Cost Estimation" key="2">
+                {renderCards()}
+              </TabPane>
+              <TabPane tab="Packaging Design Proof" key="3">
+                {renderCards()}
+              </TabPane>
+              <TabPane tab="Printing Process" key="4">
+                {renderCards()}
+              </TabPane>
+              <TabPane tab="Shipping & Handling" key="5">
+                {renderCards()}
+              </TabPane>
+            </Tabs>
           </div>
-        </Col>
-
-        <Col xs={24} md={12} className="form-right">
-          <h3 className="form-title-advantage">Get Instant Pricing</h3>
-          <Form
-            layout="vertical"
-            onFinish={handleFinish}
-            form={form}
-            className="your-form-class"
-          >
-            {step === 1 && (
-              <>
-                <Row gutter={16}>
-                  <Col xs={24} sm={12} md={6}>
-                    <Form.Item
-                      name="length"
-                      label="Length"
-                      rules={[
-                        { required: true, message: "Please enter length" },
-                      ]}
-                    >
-                      <Input placeholder="Length" type="number" />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} sm={12} md={6}>
-                    <Form.Item
-                      name="width"
-                      label="Width"
-                      rules={[
-                        { required: true, message: "Please enter width" },
-                      ]}
-                    >
-                      <Input placeholder="Width" type="number" />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} sm={12} md={6}>
-                    <Form.Item
-                      name="depth"
-                      label="Depth"
-                      rules={[
-                        { required: true, message: "Please enter depth" },
-                      ]}
-                    >
-                      <Input placeholder="Depth" type="number" />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} sm={12} md={6}>
-                    <Form.Item
-                      name="unit"
-                      label="Unit"
-                      initialValue="cm"
-                      rules={[
-                        { required: true, message: "Please select unit" },
-                      ]}
-                    >
-                      <Select placeholder="Select Unit" defaultValue="cm">
-                        <Option value="inches">Inches</Option>
-                        <Option value="cm">Centimeters</Option>
-                        <Option value="mm">Millimeters</Option>
-                      </Select>
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Form.Item
-                  name="color"
-                  label="Color"
-                  rules={[{ required: true, message: "Please select color" }]}
-                >
-                  <Select placeholder="Select Color">
-                    <Option value="white">White</Option>
-                    <Option value="kraft">Kraft</Option>
-                    <Option value="black">Black</Option>
-                    <Option value="full">Full Color</Option>
-                  </Select>
-                </Form.Item>
-                <Row gutter={16}>
-                  <Col xs={24} sm={12}>
-                    <Form.Item
-                      name="quantity"
-                      label="Quantity"
-                      rules={[
-                        { required: true, message: "Please select quantity" },
-                      ]}
-                    >
-                      <Select placeholder="Select Quantity">
-                        <Option value="10">10</Option>
-                        <Option value="25">25</Option>
-                        <Option value="50">50</Option>
-                        <Option value="100">100</Option>
-                      </Select>
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} sm={12}>
-                    <Form.Item
-                      name="mainImage"
-                      label="Upload File"
-                      valuePropName="fileList"
-                      getValueFromEvent={normFile}
-                      rules={[{ validator: validateImage }]}
-                    >
-                      <CloudinaryUploader
-                        cloudName={cloudName}
-                        uploadPreset={uploadPreset}
-                        listType="picture-card"
-                        maxCount={1}
-                        form={form}
-                        fieldName="mainImage"
-                      >
-                        <div>
-                          <div style={{ marginTop: 8 }}>
-                            {" "}
-                            <PlusOutlined />
-                            Upload
-                          </div>
-                        </div>
-                      </CloudinaryUploader>
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    className="submit-button"
-                    onClick={handleNext}
-                  >
-                    Next
-                  </Button>
-                </Form.Item>
-              </>
-            )}
-            {step === 2 && (
-              <>
-                <Form.Item
-                  name="name"
-                  label="Name"
-                  rules={[
-                    { required: true, message: "Please enter your name" },
-                  ]}
-                >
-                  <Input placeholder="Enter your name" />
-                </Form.Item>
-                <Form.Item
-                  name="email"
-                  label="Email"
-                  rules={[
-                    { required: true, message: "Please enter your email" },
-                    { type: "email", message: "Please enter a valid email" },
-                  ]}
-                >
-                  <Input placeholder="Enter your email" />
-                </Form.Item>
-                <Form.Item
-                  name="phone"
-                  label="Phone Number"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter your phone number",
-                    },
-                  ]}
-                >
-                  <Input placeholder="Enter your phone number" />
-                </Form.Item>
-                <Form.Item>
-                  <div className="form-buttons">
-                    <Button
-                      type="primary"
-                      onClick={() => setStep(1)}
-                      className="submit-button"
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      className="submit-button"
-                    >
-                      Submit
-                    </Button>
-                  </div>
-                </Form.Item>
-              </>
-            )}
-          </Form>
         </Col>
       </Row>
     </div>
