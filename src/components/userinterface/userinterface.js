@@ -1,11 +1,12 @@
 import React from "react";
 import { Tabs } from "antd";
 import "./userinterface.css";
-
 import ApprovedDesigns from "./approveddesign";
 import OrderStatus from "./orderstatus";
 import OrderHistory from "./orderhistory";
 import Invoices from "./invoices";
+ 
+import Userdetail from "./userdetail";
 
 const { TabPane } = Tabs;
 
@@ -25,6 +26,9 @@ const Userinterface = () => {
         </TabPane>
         <TabPane tab="Invoices" key="4">
           <Invoices />
+        </TabPane>
+        <TabPane tab="Personal Details" key="5">
+          <Userdetail />
         </TabPane>
       </Tabs>
     </div>

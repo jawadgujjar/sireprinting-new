@@ -1,10 +1,12 @@
 import React from "react";
 import "./sampleproduct.css";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../contextapi/userContext"; // Updated import
 
 function SampleProduct() {
   const navigate = useNavigate();
+  const { user } = useUser(); // Use useUser hook and get user from context
 
   const sampleCards = [
     {
@@ -56,12 +58,13 @@ function SampleProduct() {
     },
   ];
 
-  const handleNavigateToCart = (item) => {
-    navigate("/add-to-cart", { state: item });
-  };
-
   const handleNavigateToForm = (item) => {
-    navigate("/sample-form", { state: { productType: item.type || item.title } });
+    if (user) { // Check if user exists (i.e., user is logged in)
+      navigate("/sample-form", { state: { productType: item.type || item.title } });
+    } else {
+      message.error("Please login first");
+      navigate("/login");
+    }
   };
 
   return (
@@ -95,9 +98,7 @@ function SampleProduct() {
                   className="price-button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (item.cartAvailable) {
-                      handleNavigateToCart(item);
-                    }
+                    handleNavigateToForm(item);
                   }}
                 >
                   {item.price}
