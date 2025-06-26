@@ -137,27 +137,24 @@ const Navbar1 = () => {
     }
   };
 
-  const handleMouseEnter = (index, categoryId) => {
-    if (!isMobileView) {
-      setActiveDropdown(index);
-    }
+const handleMouseEnter = () => {
+    setShowUserMenu(true);
   };
 
-  const handleMouseLeave = () => {
-    if (!isMobileView) {
-      setActiveDropdown(null);
-    }
+ const handleMouseLeave = () => {
+    setShowUserMenu(false);
   };
   const handleIconClick = () => {
     setShowUserMenu((prev) => !prev);
     navigate("/user-interface");
   };
+const { logoutUser } = useUser();
+const handleLogout = () => {
+  logoutUser();                // Clear context + localStorage
+  setShowUserMenu(false);
+  navigate("/login");          // Redirect to login or home
+};
 
-  const handleLogout = () => {
-    logout();
-    setShowUserMenu(false);
-    navigate("/");
-  };
 
   if (loading) {
     return (
@@ -305,31 +302,44 @@ const Navbar1 = () => {
 
           <div ref={userMenuRef} className="user-icon-container">
             {user ? (
-              <div className="user-dropdown-wrapper">
-                <div
-                  className="user-icon"
-                  onClick={handleIconClick}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  <FaRegUser
-                    className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
-                  />
-                  <span style={{ marginLeft: 5, color: "#01257d" }}>
-                    {user?.name}
-                  </span>
-                </div>
-                {showUserMenu && (
-                  <div className="user-dropdown-menu">
-                    <Button danger onClick={handleLogout}>
-                      Logout
-                    </Button>
-                  </div>
-                )}
-              </div>
+               <div
+      className="user-dropdown-wrapper"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div
+        className="user-icon"
+        onClick={handleIconClick}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          cursor: 'pointer',
+        }}
+      >
+        <FaRegUser
+          className={`phone-icons ${isScrolled ? 'scrolled' : ''}`}
+        />
+        <span style={{ marginLeft: 5, color: '#01257d' }}>
+          {user?.name || 'User'}
+        </span>
+      </div>
+      {showUserMenu && (
+        <div className="user-dropdown-menu">
+          <button
+            className="dropdown-button view-data-button"
+           onClick={() => navigate("/user-detail")}// Replace with your navigation logic
+          >
+            View User Data
+          </button>
+          <button
+            className="dropdown-button logout-button"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
+      )}
+    </div>
             ) : (
               <Link
                 to="/login"

@@ -1,71 +1,163 @@
-.form-container {
+/* FORM LAYOUT */
+.quote-page-container {
   max-width: 600px;
-  margin: 50px auto; /* Increased top margin to push the container down */
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  margin-top: 2rem;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
 }
 
-h1 {
-  color: #333;
-  text-align: center;
-  margin-bottom: 30px;
+/* FORM STYLES */
+.quote-form-container {
+  background: #fff;
+  border-radius: 24px;
+  padding: 20px;
+  border: 1px solid #e0e8ff;
+  box-shadow: 0 10px 30px rgba(1, 37, 125, 0.05);
+  width: 100%;
   margin-top: 4rem;
 }
 
-h2 {
-  color: #444;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
+.quote-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.quote-title {
+  color: #01257d !important;
+  font-weight: 700 !important;
+  font-size: 2rem !important;
+  margin-bottom: 10px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-title {
+  color: #01257d !important;
+  font-weight: 600 !important;
+  margin-bottom: 20px !important;
+  border-bottom: 2px solid #00ffff;
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+.quote-form .ant-form-item-label > label {
+  color: #01257d;
+  font-weight: 500;
+}
+
+.quote-input {
+  border-radius: 8px;
+  padding: 10px 15px;
+  border: 1px solid #d0d8e8;
+}
+
+.quote-input:hover,
+.quote-input:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.quote-select {
+  border-radius: 8px !important;
+  border: 1px solid #d0d8e8 !important;
+}
+
+.quote-select:hover,
+.quote-select:focus {
+  border-color: #00ffff !important;
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2) !important;
+}
+
+.dropdown-icon {
+  color: #01257d;
+}
+
+.input-suffix {
+  color: #01257d;
+  font-weight: 500;
+}
+
+.input-icon {
+  color: #01257d;
+}
+
+.quote-upload {
+  border-radius: 8px;
+  background: #f8faff;
+}
+
+.quote-upload:hover {
+  border-color: #00ffff;
+}
+
+.ant-upload-drag-icon .anticon {
+  color: #01257d;
+  font-size: 2.5rem;
+}
+
+.ant-upload-text {
+  color: #01257d;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.ant-upload-hint {
+  color: #6a7b9b;
+}
+
+.quote-textarea {
+  border-radius: 8px;
+  border: 1px solid #d0d8e8;
+  resize: vertical;
+}
+
+.quote-textarea:hover,
+.quote-textarea:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.submit-col {
+  text-align: center;
   margin-top: 20px;
 }
 
-.form-section {
-  margin-bottom: 25px;
+.quote-submit-btn {
+  background: #01257d;
+  border-color: #01257d;
+  border-radius: 8px;
+  padding: 0 40px;
+  height: 48px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.quote-submit-btn:hover,
+.quote-submit-btn:focus {
+  background: #001a5a;
+  border-color: #001a5a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(1, 37, 125, 0.2);
 }
 
-label {
+.privacy-note {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
+  margin-top: 15px;
+  color: #6a7b9b;
+  font-size: 0.85rem;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="file"],
-select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quote-page-container {
+    padding: 20px 15px;
+  }
 
-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 1em;
-}
-
-.submit-btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.submit-btn:hover {
-  background-color: #45a049;
+  .quote-form-container {
+    padding: 15px;
+    border-radius: 18px;
+  }
 }
