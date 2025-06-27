@@ -40,10 +40,13 @@ function AppRouter() {
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Landingpage />} />
         <Route
-          path="/:categoryTitle/:subcategoryTitle"
+          path="/:categorySlug/:subCategorySlug"
           element={<Allproductpage />}
         />
-        <Route path="/:categoryTitle/:subcategoryTitle/:productTitle/:variantSlug" element={<Mainproductpage />} />
+        <Route
+          path="/:categoryTitle/:subcategoryTitle/:productTitle/:variantSlug"
+          element={<Mainproductpage />}
+        />
         <Route path="/search-products" element={<Search />} />
         <Route
           path="/login"
@@ -64,25 +67,25 @@ function AppRouter() {
         <Route path="/products" element={<Products />} />
         <Route path="/blog" element={<MainBlog />} />
         <Route path="/blog/:slug" element={<Blog />} />
-         <Route path="/blog-author" element={<Blogauthor />} />
+        <Route path="/blog-author" element={<Blogauthor />} />
         <Route path="/get-a-quote" element={<Getquote />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/about-us" element={<Aboutus />} />
         <Route path="/contact-us" element={<Contactus />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Terms_and_conditions" element={<Term />} />
-        <Route path="/:slug" element={<Subcategorypage />} />
+        <Route path="/:slug" element={<Subcategorypage />} />{" "}
         <Route path="/sample-product" element={<Sampleproduct />} />
         <Route path="/add-to-cart" element={<Cart />} />
         <Route path="/Die-template" element={<Diepage />} />
         <Route path="/Die-category-template" element={<Diecategory />} />
         <Route path="/user-interface" element={<Userinterface />} />
-         <Route path="/sample-form" element={<Sampleform />} />
-          <Route path="/user-detail" element={<Userdetail />} />
+        <Route path="/sample-form" element={<Sampleform />} />
+        <Route path="/user-detail" element={<Userdetail />} />
       </Routes>
       <Footer1 />
     </>
-  );  
+  );
 }
 
 export default AppRouter;

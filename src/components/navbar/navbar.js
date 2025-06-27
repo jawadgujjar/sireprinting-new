@@ -3,7 +3,6 @@ import { FaPhone, FaBars, FaTimes, FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
 import "./navbar1.css";
-import { slugify } from "../../utils/slugify";
 import { Button } from "antd";
 import { useUser } from "../../contextapi/userContext.js";
 import { navitems, subcategory } from "../../utils/axios.js";
@@ -137,24 +136,30 @@ const Navbar1 = () => {
     }
   };
 
-const handleMouseEnter = () => {
-    setShowUserMenu(true);
+  const handleMouseEnter = (index) => {
+    if (!isMobileView) {
+      setActiveDropdown(index);
+    }
   };
 
- const handleMouseLeave = () => {
+  const handleMouseLeave = () => {
+    if (!isMobileView) {
+      setActiveDropdown(null);
+    }
     setShowUserMenu(false);
   };
+
   const handleIconClick = () => {
     setShowUserMenu((prev) => !prev);
     navigate("/user-interface");
   };
-const { logoutUser } = useUser();
-const handleLogout = () => {
-  logoutUser();                // Clear context + localStorage
-  setShowUserMenu(false);
-  navigate("/login");          // Redirect to login or home
-};
 
+  const { logoutUser } = useUser();
+  const handleLogout = () => {
+    logoutUser(); // Clear context + localStorage
+    setShowUserMenu(false);
+    navigate("/login"); // Redirect to login
+  };
 
   if (loading) {
     return (
@@ -189,11 +194,11 @@ const handleLogout = () => {
                         : ""
                     } ${activeDropdown === index ? "active" : ""}`}
                     onClick={() => handleDropdownToggle(index, category._id)}
-                    onMouseEnter={() => handleMouseEnter(index, category._id)}
+                    onMouseEnter={() => handleMouseEnter(index)}
                     onMouseLeave={handleMouseLeave}
                   >
                     <Link
-                      to={`/${slugify(category.title)}`}
+                      to={`/${category.slug}`} // Use API-provided slug
                       state={{ id: category._id }}
                       className={`nav-link ${isScrolled ? "scrolled" : ""}`}
                     >
@@ -204,19 +209,15 @@ const handleLogout = () => {
                         className={`dropdown-menu ${
                           activeDropdown === index ? "show" : ""
                         }`}
-                        onMouseEnter={() =>
-                          handleMouseEnter(index, category._id)
-                        }
+                        onMouseEnter={() => handleMouseEnter(index)}
                         onMouseLeave={handleMouseLeave}
                       >
                         <div className="dropdown-content">
                           <div className="dropdown-main-items">
-                            {subCategories[category._id]?.map((subCategory) => (
+                            {subCategories[category._id].map((subCategory) => (
                               <Link
                                 key={subCategory._id}
-                                to={`/${slugify(category.title)}/${slugify(
-                                  subCategory.title
-                                )}`}
+                                to={`/${subCategory.slug}`} // Use API-provided subcategory slug
                                 state={{ id: subCategory._id }}
                                 className="dropdown-item"
                                 onClick={() => {
@@ -302,44 +303,44 @@ const handleLogout = () => {
 
           <div ref={userMenuRef} className="user-icon-container">
             {user ? (
-               <div
-      className="user-dropdown-wrapper"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div
-        className="user-icon"
-        onClick={handleIconClick}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          cursor: 'pointer',
-        }}
-      >
-        <FaRegUser
-          className={`phone-icons ${isScrolled ? 'scrolled' : ''}`}
-        />
-        <span style={{ marginLeft: 5, color: '#01257d' }}>
-          {user?.name || 'User'}
-        </span>
-      </div>
-      {showUserMenu && (
-        <div className="user-dropdown-menu">
-          <button
-            className="dropdown-button view-data-button"
-           onClick={() => navigate("/user-detail")}// Replace with your navigation logic
-          >
-            View User Data
-          </button>
-          <button
-            className="dropdown-button logout-button"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </div>
-      )}
-    </div>
+              <div
+                className="user-dropdown-wrapper"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div
+                  className="user-icon"
+                  onClick={handleIconClick}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  <FaRegUser
+                    className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
+                  />
+                  <span style={{ marginLeft: 5, color: "#01257d" }}>
+                    {user?.name || "User"}
+                  </span>
+                </div>
+                {showUserMenu && (
+                  <div className="user-dropdown-menu">
+                    <button
+                      className="dropdown-button view-data-button"
+                      onClick={() => navigate("/user-detail")}
+                    >
+                      View User Data
+                    </button>
+                    <button
+                      className="dropdown-button logout-button"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link
                 to="/login"
