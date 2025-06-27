@@ -318,7 +318,125 @@
   align-items: center !important;
   gap: 1rem;
 }
+/* .......................................................... */
+/* logout wala dropdown */
+/* userdropdown.css */
+.user-dropdown-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
 
+.user-icon {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.user-icon:hover {
+  background-color: #f4f7fa;
+}
+
+.phone-icons {
+  font-size: 1.25rem;
+  color: #01257d;
+  transition: color 0.3s ease;
+}
+
+.phone-icons.scrolled {
+  color: #1a3c8f;
+}
+
+.user-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  padding: 8px 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+}
+
+.user-dropdown-wrapper:hover .user-dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.dropdown-button {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  border: none;
+  background: none;
+  color: #2d3748;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-button:hover {
+  background-color: #f4f7fa;
+}
+
+.view-data-button {
+  color: #3182ce;
+}
+
+.view-data-button:hover {
+  background-color: #e6f0fa;
+  color: #2b6cb0;
+}
+
+.logout-button {
+  color: #e53e3e;
+}
+
+.logout-button:hover {
+  background-color: #fef6f6;
+  color: #c53030;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-dropdown-menu {
+    min-width: 160px;
+  }
+
+  .dropdown-button {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-icon {
+    padding: 6px 10px;
+  }
+
+  .phone-icons {
+    font-size: 1.1rem;
+  }
+
+  .user-dropdown-menu {
+    min-width: 140px;
+  }
+
+  .dropdown-button {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+}
 @media (max-width: 992px) {
   .mobile-menu-btn {
     display: flex;

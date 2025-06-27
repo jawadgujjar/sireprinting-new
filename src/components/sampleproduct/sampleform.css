@@ -1,0 +1,163 @@
+/* FORM LAYOUT */
+.quote-page-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* FORM STYLES */
+.quote-form-container {
+  background: #fff;
+  border-radius: 24px;
+  padding: 20px;
+  border: 1px solid #e0e8ff;
+  box-shadow: 0 10px 30px rgba(1, 37, 125, 0.05);
+  width: 100%;
+  margin-top: 4rem;
+}
+
+.quote-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.quote-title {
+  color: #01257d !important;
+  font-weight: 700 !important;
+  font-size: 2rem !important;
+  margin-bottom: 10px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-title {
+  color: #01257d !important;
+  font-weight: 600 !important;
+  margin-bottom: 20px !important;
+  border-bottom: 2px solid #00ffff;
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+.quote-form .ant-form-item-label > label {
+  color: #01257d;
+  font-weight: 500;
+}
+
+.quote-input {
+  border-radius: 8px;
+  padding: 10px 15px;
+  border: 1px solid #d0d8e8;
+}
+
+.quote-input:hover,
+.quote-input:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.quote-select {
+  border-radius: 8px !important;
+  border: 1px solid #d0d8e8 !important;
+}
+
+.quote-select:hover,
+.quote-select:focus {
+  border-color: #00ffff !important;
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2) !important;
+}
+
+.dropdown-icon {
+  color: #01257d;
+}
+
+.input-suffix {
+  color: #01257d;
+  font-weight: 500;
+}
+
+.input-icon {
+  color: #01257d;
+}
+
+.quote-upload {
+  border-radius: 8px;
+  background: #f8faff;
+}
+
+.quote-upload:hover {
+  border-color: #00ffff;
+}
+
+.ant-upload-drag-icon .anticon {
+  color: #01257d;
+  font-size: 2.5rem;
+}
+
+.ant-upload-text {
+  color: #01257d;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.ant-upload-hint {
+  color: #6a7b9b;
+}
+
+.quote-textarea {
+  border-radius: 8px;
+  border: 1px solid #d0d8e8;
+  resize: vertical;
+}
+
+.quote-textarea:hover,
+.quote-textarea:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.submit-col {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.quote-submit-btn {
+  background: #01257d;
+  border-color: #01257d;
+  border-radius: 8px;
+  padding: 0 40px;
+  height: 48px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+}
+
+.quote-submit-btn:hover,
+.quote-submit-btn:focus {
+  background: #001a5a;
+  border-color: #001a5a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(1, 37, 125, 0.2);
+}
+
+.privacy-note {
+  display: block;
+  margin-top: 15px;
+  color: #6a7b9b;
+  font-size: 0.85rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quote-page-container {
+    padding: 20px 15px;
+  }
+
+  .quote-form-container {
+    padding: 15px;
+    border-radius: 18px;
+  }
+}

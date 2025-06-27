@@ -26,7 +26,7 @@ function Subcategorypage() {
           response = await category.get(`/${fallbackId}`);
         } else {
           // Case: fallback - fetch by slug
-          response = await category.get(`/slug/${slug}`);
+          response = await category.get(`/${slug}`);
         }
 
         setCategoryData(response.data);
