@@ -155,7 +155,8 @@ function Footer1() {
 
       <div className="footer-copyright">
         <p className="footer-p">
-          Copyright ©2020 - 2024 Sire Printing | The Custom Websites
+          Copyright ©2020 - {new Date().getFullYear()} Sire Printing | The
+          Custom Websites
         </p>
       </div>
     </div>

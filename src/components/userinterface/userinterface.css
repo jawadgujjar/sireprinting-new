@@ -1,0 +1,36 @@
+.userinterface-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-top: 7rem;
+}
+
+.userinterface-heading {
+  font-size: 24px;
+  color: #01257d;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.user-tabs .ant-tabs-tab {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .userinterface-container {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .userinterface-heading {
+    font-size: 20px;
+  }
+
+  .user-tabs .ant-tabs-tab {
+    font-size: 14px;
+  }
+}

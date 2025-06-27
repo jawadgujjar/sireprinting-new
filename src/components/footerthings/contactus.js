@@ -112,7 +112,7 @@ function Contactus() {
             <div className="info-item">
               <IoLocationSharp style={{ fontSize: "26px" }} />
               <span className="info-text1">
-                626 92nd Street Brooklyn NY 11220
+                5 South Charlotte Street Edinburgh EH2 4AN
               </span>
             </div>
           </Col>

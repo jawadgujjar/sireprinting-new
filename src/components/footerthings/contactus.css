@@ -41,7 +41,9 @@
   }
   .info-text1 {
     margin-left: 4px; /* Additional space to the left of the text */
-    font-size: 1.5rem; /* Increase text size if needed */
+    font-size: 1.1rem; /* Increase text size if needed */
+    font-weight: bold;
+     
   }
   .info-text {
     color: black; /* Default color */

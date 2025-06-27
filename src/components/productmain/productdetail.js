@@ -46,11 +46,11 @@ function Productdetail1({ data, currentVariant }) {
           </div>
           <div className="icon-grid">
             <div className="icon-item">
-              <img src="/images/1.webp" alt="Icon 1" className="icon-img" />
+              <img src="/images/support.png" alt="Icon 1" className="icon-img" />
               <p className="icon-text">High Quality</p>
             </div>
             <div className="icon-item">
-              <img src="/images/2.webp" alt="Icon 2" className="icon-img" />
+              <img src="/images/highquality.png" alt="Icon 2" className="icon-img" />
               <p className="icon-text">Custom Design</p>
             </div>
             <div className="icon-item">
@@ -70,7 +70,7 @@ function Productdetail1({ data, currentVariant }) {
               <p className="icon-text">Affordable</p>
             </div>
             <div className="icon-item">
-              <img src="/images/2.webp" alt="Icon 6" className="icon-img" />
+              <img src="/images/customdesign.png" alt="Icon 6" className="icon-img" />
               <p className="icon-text">24/7 Support</p>
             </div>
           </div>
