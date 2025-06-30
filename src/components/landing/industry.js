@@ -68,7 +68,7 @@ const Industry = () => {
       <div
         key={item._id}
         className="industry-card"
-        onClick={() => navigate(`/category/${slugify(item.title)}`)}
+        onClick={() => navigate(`/${item.slug}`)}
       >
         <img
           src={item.image || "../images/arka.png"}
