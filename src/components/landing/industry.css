@@ -151,6 +151,12 @@
   background-color: #00ffff;
 }
 
+@media (min-width: 1400px) {
+  .tabs {
+    width: 21%;
+  }
+}
+
 @media (max-width: 820px) {
   .tabs {
     width: 40%;

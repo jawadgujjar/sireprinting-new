@@ -149,14 +149,14 @@
 
 /* Form Section */
 .form-section {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  background-color: #01257d;
-  
   padding: 40px 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background-color: rgba(13, 232, 184, 0.2); /* Very light cyan */
 }
 
 .form-left {
@@ -168,12 +168,12 @@
   margin-bottom: 25px;
   font-weight: 600;
   text-align: center;
-  color: #00ffff !important;
+  color: #01257d !important;
 }
 
 /* Form Elements */
 .your-form-class .ant-form-item-label > label {
-  color: white !important;
+  color: #01257d !important;
 }
 
 .submit-button {
@@ -208,7 +208,7 @@
 .custom-tabs .ant-tabs-tab {
   font-size: 16px;
   font-weight: 500;
-  color: white !important;
+  color: #01257d !important;
   padding: 12px 16px;
 }
 
@@ -217,12 +217,12 @@
 }
 
 .custom-tabs .ant-tabs-ink-bar {
-  background: #00ffff !important;
+  background: #01257d !important;
   height: 3px;
 }
 
 .custom-tabs .ant-tabs-tab:hover {
-  color: white !important;
+  color: #01257d !important;
 }
 
 /* Cards */
@@ -376,4 +376,3 @@
     padding: 15px; /* Slightly reduce padding for smaller screens */
   }
 }
- 

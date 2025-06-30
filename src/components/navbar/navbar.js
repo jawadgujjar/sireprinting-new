@@ -3,7 +3,6 @@ import { FaPhone, FaBars, FaTimes, FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
 import "./navbar1.css";
-import { slugify } from "../../utils/slugify";
 import { Button } from "antd";
 import { useUser } from "../../contextapi/userContext.js";
 import { navitems, subcategory } from "../../utils/axios.js";
@@ -26,7 +25,6 @@ const Navbar1 = () => {
   const userMenuRef = useRef(null);
   const navRef = useRef(null);
   const { user, logout } = useUser();
-  
 
   // Fetch navitems and subcategories on component mount
   useEffect(() => {
@@ -47,7 +45,13 @@ const Navbar1 = () => {
               const subResponse = await subcategory.get(
                 `/category/${category._id}`
               );
-              subCategoriesData[category._id] = subResponse.data;
+              console.log(
+                `Subcategories for ${category._id}:`,
+                subResponse.data
+              );
+              subCategoriesData[category._id] = Array.isArray(subResponse.data)
+                ? subResponse.data
+                : [];
             } catch (error) {
               console.error(
                 `Error fetching subcategories for category ${category._id}:`,
@@ -75,7 +79,7 @@ const Navbar1 = () => {
       setIsMobileView(window.innerWidth <= 992);
     };
 
-    handleResize(); // Initial check
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -132,27 +136,31 @@ const Navbar1 = () => {
   };
 
   const handleDropdownToggle = (index, categoryId) => {
-    if (isMobileView) {
-      setActiveDropdown(activeDropdown === index ? null : index);
+    console.log("Toggling dropdown:", index, categoryId);
+    setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
+  const handleMouseEnter = (index) => {
+    if (!isMobileView) {
+      setActiveDropdown(index);
     }
   };
 
-  const handleMouseEnter = () => {
-    setShowUserMenu(true);
+  const handleMouseLeave = () => {
+    if (!isMobileView) {
+      setActiveDropdown(null);
+    }
   };
 
-  const handleMouseLeave = () => {
-    setShowUserMenu(false);
-  };
   const handleIconClick = () => {
     setShowUserMenu((prev) => !prev);
     navigate("/user-interface");
   };
-  const { logoutUser } = useUser();
+
   const handleLogout = () => {
-    logoutUser(); // Clear context + localStorage
+    logout(); // Use the logout function from useUser
     setShowUserMenu(false);
-    navigate("/login"); // Redirect to login or home
+    navigate("/login");
   };
 
   if (loading) {
@@ -187,12 +195,16 @@ const Navbar1 = () => {
                         ? "has-dropdown"
                         : ""
                     } ${activeDropdown === index ? "active" : ""}`}
-                    onClick={() => handleDropdownToggle(index, category._id)}
-                    onMouseEnter={() => handleMouseEnter(index, category._id)}
-                    onMouseLeave={handleMouseLeave}
+                    onClick={() =>
+                      isMobileView && handleDropdownToggle(index, category._id)
+                    }
+                    onMouseEnter={() =>
+                      !isMobileView && handleMouseEnter(index)
+                    }
+                    onMouseLeave={() => !isMobileView && handleMouseLeave()}
                   >
                     <Link
-                      to={`/${slugify(category.title)}`}
+                      to={`/${category.slug}`}
                       state={{ id: category._id }}
                       className={`nav-link ${isScrolled ? "scrolled" : ""}`}
                     >
@@ -203,19 +215,13 @@ const Navbar1 = () => {
                         className={`dropdown-menu ${
                           activeDropdown === index ? "show" : ""
                         }`}
-                        onMouseEnter={() =>
-                          handleMouseEnter(index, category._id)
-                        }
-                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="dropdown-content">
                           <div className="dropdown-main-items">
-                            {subCategories[category._id]?.map((subCategory) => (
+                            {subCategories[category._id].map((subCategory) => (
                               <Link
                                 key={subCategory._id}
-                                to={`/${slugify(category.title)}/${slugify(
-                                  subCategory.title
-                                )}`}
+                                to={`/${subCategory.slug}`}
                                 state={{ id: subCategory._id }}
                                 className="dropdown-item"
                                 onClick={() => {
