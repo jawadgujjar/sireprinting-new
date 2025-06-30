@@ -1,0 +1,69 @@
+.approved-designs-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.auth-message {
+  max-width: 500px;
+  margin: 40px auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.table-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Status row highlighting */
+.status-approved {
+  background-color: #f6ffed !important;
+}
+
+.status-rejected {
+  background-color: #fff1f0 !important;
+}
+
+.status-pending {
+  background-color: #fffbe6 !important;
+}
+
+/* Table styling */
+.ant-table {
+  border-radius: 8px;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .approved-designs-container {
+    padding: 12px;
+  }
+  
+  .page-header {
+    margin-bottom: 16px;
+  }
+  
+  .ant-table {
+    font-size: 13px;
+  }
+}
+
+/* Dark mode support */
+[data-theme="dark"] .ant-table-thead > tr > th {
+  background-color: #1f1f1f;
+}
+
+[data-theme="dark"] .table-card {
+  background-color: #1f1f1f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}

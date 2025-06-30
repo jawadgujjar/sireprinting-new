@@ -1,203 +1,295 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Typography, Space, Tag } from "antd";
-import dayjs from "dayjs"; // npm install dayjs
+import {
+  Table,
+  Button,
+  Typography,
+  Space,
+  Tag,
+  message,
+  Card,
+  Grid,
+  Badge,
+} from "antd";
+import { orders } from "../../utils/axios";
+import { useUser } from "../../contextapi/userContext";
 import "./approveddesign.css";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
+const { useBreakpoint } = Grid;
 
 const ApprovedDesigns = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { user } = useUser();
+  const screens = useBreakpoint();
 
-  const loggedInEmail =
-    localStorage.getItem("userEmail") || "jawad@example.com";
+  const loggedInUserId =
+    user?.user?._id || user?.user?.id || user?._id || user?.id;
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = [
-        {
-          id: "1",
-          orderId: "ORD-001",
-          name: "Jawad Ahmad",
-          email: "jawad@example.com",
-          productType: "Mailer Boxes",
-          quantity: 500,
-          material: "Kraft Paper",
-          length: "10",
-          width: "8",
-          height: "4",
-          uploadFile: "design-file.pdf",
-          designApproved: null, // Initially pending
-          approvedAt: null,
-        },
-        {
-          id: "2",
-          orderId: "ORD-002",
-          name: "Ali Raza",
-          email: "ali@example.com",
-          productType: "Shipping Boxes",
-          quantity: 1000,
-          material: "Corrugated",
-          length: "15",
-          width: "10",
-          height: "5",
-          uploadFile: "design2.jpg",
-          designApproved: false,
-          approvedAt: null,
-        },
-      ];
+      if (!loggedInUserId) {
+        message.warning("Please log in to view your orders.");
+        return;
+      }
 
-      const filtered = res.filter((item) => item.email === loggedInEmail);
-      setData(filtered);
+      setLoading(true);
+      try {
+        const response = await orders.get(`/user/${loggedInUserId}`);
+         
+
+        if (response.data?.length > 0) {
+          const formattedData = response.data.map((item) => ({
+            key: item._id,
+            name: item.shippingAddress?.[0]?.name || "Unknown",
+            productType: item.product,
+            quantity: item.quantity,
+            material: item.material || "Not specified",
+            dimensions: item.size
+              ? `${item.size.length}×${item.size.width}×${item.size.height} in`
+              : "Not specified",
+            uploadFile: item.file,
+            status: item.status,
+            approval: item.approvedStatus,
+            trackingid: item.trackingid || "Not assigned",
+            price: item.price
+              ? `£${item.price.toLocaleString("en-GB")}`
+              : "Not specified",
+            shippedvia: item.shippedvia || "Not shipped",
+            createdAt: item.createdAt,
+            updatedAt: item.updatedAt,
+          }));
+
+          setData(formattedData);
+        } else {
+          setData([]);
+          message.info("No orders found for this user.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        message.error("Failed to load orders");
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
-  }, [loggedInEmail]);
+  }, [loggedInUserId]);
 
-  // ✅ Auto-update to "Under Production" after 24 hours
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const updated = data.map((item) => {
-        if (
-          item.designApproved === true &&
-          item.approvedAt &&
-          dayjs().diff(dayjs(item.approvedAt), "hour") >= 24
-        ) {
-          return { ...item, designApproved: "under_production" };
-        }
-        return item;
-      });
-      setData(updated);
-    }, 60 * 1000); // check every 1 minute
-
-    return () => clearInterval(interval);
-  }, [data]);
-
-  const handleApprove = (id) => {
-    const updated = data.map((item) =>
-      item.id === id
-        ? {
-            ...item,
-            designApproved: true,
-            approvedAt: new Date().toISOString(),
-          }
-        : item
-    );
-    setData(updated);
+  const handleApprove = async (id) => {
+    try {
+      await orders.patch(`/${id}`, { approvedStatus: "Approved" });
+      setData(
+        data.map((item) =>
+          item.key === id ? { ...item, approval: "Approved" } : item
+        )
+      );
+      message.success("Design approved!");
+    } catch (error) {
+      console.error("Approve error:", error);
+      message.error("Approval failed");
+    }
   };
 
-  const handleReject = (id) => {
-    const updated = data.map((item) =>
-      item.id === id
-        ? { ...item, designApproved: false, approvedAt: null }
-        : item
-    );
-    setData(updated);
+  const handleReject = async (id) => {
+    try {
+      await orders.patch(`/${id}`, { approvedStatus: "Rejected" });
+      setData(
+        data.map((item) =>
+          item.key === id ? { ...item, approval: "Rejected" } : item
+        )
+      );
+      message.warning("Design rejected");
+    } catch (error) {
+      console.error("Reject error:", error);
+      message.error("Rejection failed");
+    }
+  };
+
+  const getStatusTag = (status) => {
+    switch (status) {
+      case "Approved":
+        return <Tag color="green">Approved</Tag>;
+      case "Rejected":
+        return <Tag color="red">Rejected</Tag>;
+      case "under_production":
+        return <Tag color="blue">In Production</Tag>;
+      default:
+        return <Tag color="orange">Pending</Tag>;
+    }
+  };
+
+  const getOrderStatus = (status) => {
+    switch (status) {
+      case "Shipped":
+        return <Badge status="success" text="Shipped" />;
+      case "Processing":
+        return <Badge status="processing" text="Processing" />;
+      default:
+        return <Badge status="default" text="Pending" />;
+    }
   };
 
   const columns = [
     {
-      title: "Order ID",
-      dataIndex: "orderId",
-      key: "orderId",
+      title: "Sr. No",
+      key: "serialNo",
+      render: (text, record, index) => {
+        const current = pagination.current || 1;
+        const pageSize = pagination.pageSize || 5;
+        return <Text strong>{(current - 1) * pageSize + index + 1}</Text>;
+      },
+      align: "center",
+      width: 80,
     },
     {
       title: "Product",
       dataIndex: "productType",
       key: "productType",
+      width: 120,
     },
-    {
+    screens.md && {
       title: "Material",
       dataIndex: "material",
       key: "material",
+      width: 120,
     },
     {
-      title: "Quantity",
+      title: "Qty",
       dataIndex: "quantity",
       key: "quantity",
+      align: "center",
+      width: 80,
+    },
+    screens.md && {
+      title: "Dimensions",
+      dataIndex: "dimensions",
+      key: "dimensions",
+      width: 120,
     },
     {
-      title: "Size (L×W×H)",
-      key: "dimensions",
-      render: (_, record) =>
-        `${record.length} × ${record.width} × ${record.height} in`,
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+      align: "right",
+      width: 100,
+      render: (price) => <Text strong>{price}</Text>,
     },
     {
       title: "File",
       dataIndex: "uploadFile",
       key: "uploadFile",
-      render: (file) => {
-        const isImage = /\.(jpg|jpeg|png|gif)$/i.test(file);
-
-        return isImage ? (
-          <img
-            src="https://via.placeholder.com/80"
-            alt="design"
-            style={{
-              width: 80,
-              height: 80,
-              objectFit: "cover",
-              borderRadius: 4,
-              border: "1px solid #ddd",
-            }}
-          />
+      render: (file) =>
+        file ? (
+          <Button
+            type="link"
+            href={file}
+            target="_blank"
+            icon={<i className="fas fa-file-download" />}
+            size="small"
+          >
+            {screens.md ? "View File" : "File"}
+          </Button>
         ) : (
-          <span style={{ color: "#888" }}>{file}</span>
-        );
-      },
+          <Text type="secondary">No file</Text>
+        ),
+      width: screens.md ? 120 : 80,
     },
     {
       title: "Status",
-      dataIndex: "designApproved",
-      key: "designApproved",
-      render: (_, record) => {
-        if (record.designApproved === "under_production") {
-          return <Tag color="blue">Under Production</Tag>;
-        } else if (record.designApproved === true) {
-          return <Tag color="gold">Forwarded to Production</Tag>;
-        } else if (record.designApproved === false) {
-          return <Tag color="red">Rejected</Tag>;
-        } else {
-          return (
-            <Space>
-              <Button
-                type="primary"
-                size="small"
-                onClick={() => handleApprove(record.id)}
-              >
-                Accept
-              </Button>
-              <Button
-                danger
-                size="small"
-                onClick={() => handleReject(record.id)}
-              >
-                Reject
-              </Button>
-            </Space>
-          );
-        }
-      },
+      dataIndex: "status",
+      key: "status",
+      render: getOrderStatus,
+      width: 120,
     },
-  ];
+    screens.md && {
+      title: "Tracking ID",
+      dataIndex: "trackingid",
+      key: "trackingId",
+      width: 150,
+      render: (trackingId) =>
+        trackingId !== "Not assigned" ? (
+          <a
+            href={`https://www.dhl.com/in-en/home/tracking/tracking-parcel.html?submit=1&tracking-id=${trackingId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {trackingId}
+          </a>
+        ) : (
+          <Text type="secondary">{trackingId}</Text>
+        ),
+    },
+    screens.md && {
+      title: "Shipped Via",
+      dataIndex: "shippedvia",
+      key: "shippedVia",
+      width: 120,
+      render: (shippedVia) => <Text>{shippedVia}</Text>,
+    },
+    {
+      title: "Action",
+      dataIndex: "approval",
+      key: "approval",
+      render: (approval, record) =>
+        approval === "Pending" ? (
+          <Space size="small">
+            <Button
+              size="small"
+              type="primary"
+              onClick={() => handleApprove(record.key)}
+            >
+              {screens.md ? "Approve" : "✓"}
+            </Button>
+            <Button
+              size="small"
+              danger
+              onClick={() => handleReject(record.key)}
+            >
+              {screens.md ? "Reject" : "✗"}
+            </Button>
+          </Space>
+        ) : (
+          getStatusTag(approval)
+        ),
+      width: screens.md ? 150 : 100,
+    },
+  ].filter(Boolean);
+
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 5,
+    showSizeChanger: true,
+    responsive: true,
+  });
+
+  if (!loggedInUserId) {
+    return (
+      <Card className="auth-message">
+        <Title level={4}>Order Management</Title>
+        <Text>Please login to view your designs</Text>
+      </Card>
+    );
+  }
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: 16,
-        }}
-      >
-        <Title level={3}>Approved Designs</Title>
-      </div>
+    <div className="approved-designs-container">
+      <div className="page-header">
+        <Title level={3}>Design Approvals and Order Status</Title>
+       </div>
 
-      <Table
-        columns={columns}
-        dataSource={data}
-        rowKey="id"
-        pagination={{ pageSize: 5 }}
-      />
+      <Card bordered={false} className="table-card">
+        <Table
+          columns={columns}
+          dataSource={data}
+          loading={loading}
+          pagination={pagination}
+          onChange={(newPagination) => setPagination(newPagination)}
+          scroll={{ x: true }}
+          rowClassName={(record) => `status-${record.approval.toLowerCase()}`}
+          size={screens.md ? "default" : "small"}
+        />
+      </Card>
     </div>
   );
 };

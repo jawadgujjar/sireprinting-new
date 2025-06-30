@@ -15,10 +15,10 @@ const Userinterface = () => {
     <div className="userinterface-container">
       <h1 className="userinterface-heading">User Dashboard</h1>
       <Tabs defaultActiveKey="1" type="card" className="user-tabs">
-        <TabPane tab="Order Status" key="2">
+        {/* <TabPane tab="Order Status" key="2">
           <OrderStatus />
-        </TabPane>
-        <TabPane tab="Approved Designs" key="1">
+        </TabPane> */}
+        <TabPane tab="Approved Designs and status" key="1">
           <ApprovedDesigns />
         </TabPane>
         <TabPane tab="Order History" key="3">
@@ -27,9 +27,9 @@ const Userinterface = () => {
         <TabPane tab="Invoices" key="4">
           <Invoices />
         </TabPane>
-        <TabPane tab="Personal Details" key="5">
+        {/* <TabPane tab="Personal Details" key="5">
           <Userdetail />
-        </TabPane>
+        </TabPane> */}
       </Tabs>
     </div>
   );

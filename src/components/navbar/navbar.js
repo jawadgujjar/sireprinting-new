@@ -25,8 +25,8 @@ const Navbar1 = () => {
   const inputRef = useRef(null);
   const userMenuRef = useRef(null);
   const navRef = useRef(null);
-
   const { user, logout } = useUser();
+  
 
   // Fetch navitems and subcategories on component mount
   useEffect(() => {
@@ -137,24 +137,23 @@ const Navbar1 = () => {
     }
   };
 
-const handleMouseEnter = () => {
+  const handleMouseEnter = () => {
     setShowUserMenu(true);
   };
 
- const handleMouseLeave = () => {
+  const handleMouseLeave = () => {
     setShowUserMenu(false);
   };
   const handleIconClick = () => {
     setShowUserMenu((prev) => !prev);
     navigate("/user-interface");
   };
-const { logoutUser } = useUser();
-const handleLogout = () => {
-  logoutUser();                // Clear context + localStorage
-  setShowUserMenu(false);
-  navigate("/login");          // Redirect to login or home
-};
-
+  const { logoutUser } = useUser();
+  const handleLogout = () => {
+    logoutUser(); // Clear context + localStorage
+    setShowUserMenu(false);
+    navigate("/login"); // Redirect to login or home
+  };
 
   if (loading) {
     return (
@@ -302,44 +301,53 @@ const handleLogout = () => {
 
           <div ref={userMenuRef} className="user-icon-container">
             {user ? (
-               <div
-      className="user-dropdown-wrapper"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div
-        className="user-icon"
-        onClick={handleIconClick}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          cursor: 'pointer',
-        }}
-      >
-        <FaRegUser
-          className={`phone-icons ${isScrolled ? 'scrolled' : ''}`}
-        />
-        <span style={{ marginLeft: 5, color: '#01257d' }}>
-          {user?.name || 'User'}
-        </span>
-      </div>
-      {showUserMenu && (
-        <div className="user-dropdown-menu">
-          <button
-            className="dropdown-button view-data-button"
-           onClick={() => navigate("/user-detail")}// Replace with your navigation logic
-          >
-            View User Data
-          </button>
-          <button
-            className="dropdown-button logout-button"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </div>
-      )}
-    </div>
+              <div
+                className="user-dropdown-wrapper"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div
+                  className="user-icon"
+                  onClick={handleIconClick}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  <FaRegUser
+                    className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
+                  />
+                  <span style={{ marginLeft: 5, color: "#01257d" }}>
+                    {user?.user?.name || "User"}
+                  </span>
+                </div>
+
+                {showUserMenu && (
+                  <div className="user-dropdown-menu">
+                    <button
+                      className="dropdown-button view-data-button"
+                      onClick={() => navigate("/user-detail")}
+                    >
+                      View User Data
+                    </button>
+
+                    <button
+                      className="dropdown-button order-details-button"
+                      onClick={() => navigate("/user-interface")}
+                    >
+                      Order Details
+                    </button>
+
+                    <button
+                      className="dropdown-button logout-button"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link
                 to="/login"
