@@ -1,10 +1,11 @@
 import React from 'react'
 import './samplequote.css';
+import SampleProduct from '../sampleproduct/sampleproduct';
 
 function Samplequote() {
   return (
-    <div>
-      <p>this is sample quote page</p>
+    <div style={{marginTop:'-10rem'}}>
+      <SampleProduct/>
     </div>
   )
 }

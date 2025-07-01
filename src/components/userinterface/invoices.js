@@ -115,7 +115,7 @@ const Invoices = () => {
   return (
     <div className="approved-designs-container">
       <div className="page-header">
-        <Title level={3}>Your Invoices</Title>
+        <h1 className="tab-head">Your Invoices</h1>
       </div>
       <Card bordered={false} className="table-card">
         <Table

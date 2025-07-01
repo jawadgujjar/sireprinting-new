@@ -1,13 +1,18 @@
 .approved-designs-container {
   padding: 20px;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
 .page-header {
   margin-bottom: 24px;
 }
-
+.tab-head {
+  color: #01257d !important;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
 .auth-message {
   max-width: 500px;
   margin: 40px auto;
@@ -48,11 +53,11 @@
   .approved-designs-container {
     padding: 12px;
   }
-  
+
   .page-header {
     margin-bottom: 16px;
   }
-  
+
   .ant-table {
     font-size: 13px;
   }

@@ -275,7 +275,7 @@ const ApprovedDesigns = () => {
   return (
     <div className="approved-designs-container">
       <div className="page-header">
-        <Title level={3}>Design Approvals and Order Status</Title>
+        <h1 className="tab-head">Design Approvals and Order Status</h1>
        </div>
 
       <Card bordered={false} className="table-card">
