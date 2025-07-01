@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Table, Tag, Typography } from "antd";
+import { Table, Tag, Typography, Modal } from "antd";
 import "./orderstatus.css";
 
 const { Title } = Typography;
 
 const OrderStatus = () => {
   const [orders, setOrders] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
 
-  const loggedInEmail = localStorage.getItem("userEmail") || "jawad@example.com";
+  const loggedInEmail =
+    localStorage.getItem("userEmail") || "jawad@example.com";
 
   useEffect(() => {
     const res = [
@@ -35,7 +38,7 @@ const OrderStatus = () => {
         length: "15",
         width: "10",
         height: "5",
-        uploadFile: "design2.pdf",
+        uploadFile: "design2.jpg",
         orderDate: "2025-06-10",
         status: "shipped",
       },
@@ -96,18 +99,23 @@ const OrderStatus = () => {
       dataIndex: "uploadFile",
       key: "uploadFile",
       render: (file) => {
-        const isImage = /\.(jpg|jpeg|png|gif|png)$/i.test(file);
+        const isImage = /\.(jpg|jpeg|png|gif)$/i.test(file);
         if (isImage) {
           return (
             <img
               src="https://via.placeholder.com/80"
               alt="design"
+              onClick={() => {
+                setPreviewImage("https://via.placeholder.com/300");
+                setIsModalOpen(true);
+              }}
               style={{
                 width: 80,
                 height: 80,
                 objectFit: "cover",
                 borderRadius: 4,
                 border: "1px solid #ddd",
+                cursor: "pointer",
               }}
             />
           );
@@ -144,6 +152,19 @@ const OrderStatus = () => {
         rowKey="id"
         pagination={{ pageSize: 5 }}
       />
+
+      {/* Image Preview Modal */}
+      <Modal
+        open={isModalOpen}
+        footer={null}
+        onCancel={() => setIsModalOpen(false)}
+      >
+        <img
+          alt="Preview"
+          src={previewImage}
+          style={{ width: "100%", borderRadius: 6 }}
+        />
+      </Modal>
     </div>
   );
 };

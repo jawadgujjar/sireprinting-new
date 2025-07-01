@@ -91,10 +91,10 @@ function Sampleform() {
   };
 
   return (
-    <div className="quote-page-container">
-      <div className="quote-form-container">
-        <div className="quote-header">
-          <Title level={1} className="quote-title">
+    <div className="sample-page-container">
+      <div className="sample-form-container">
+        <div className="sample-header">
+          <Title level={1} className="sample-title">
             {showShippingForm ? "SHIPPING ADDRESS" : "SAMPLE REQUEST FORM"}
           </Title>
         </div>
@@ -102,13 +102,13 @@ function Sampleform() {
           form={form}
           layout="vertical"
           onFinish={showShippingForm ? handleShippingSubmit : handleSampleSubmit}
-          className="quote-form"
+          className="sample-form"
         >
           {!showShippingForm ? (
             <>
               <Row gutter={24}>
                 <Col span={24}>
-                  <Title level={4} className="section-title">
+                  <Title level={4} className="sample-section-title">
                     Product Specifications
                   </Title>
                 </Col>
@@ -121,8 +121,8 @@ function Sampleform() {
                   >
                     <Select
                       placeholder="Select product"
-                      className="quote-select"
-                      suffixIcon={<span className="dropdown-icon">▼</span>}
+                      className="sample-select"
+                      suffixIcon={<span className="sample-dropdown-icon">▼</span>}
                       onChange={handleProductTypeChange}
                     >
                       <Option value="random sample">Random Sample</Option>
@@ -142,7 +142,7 @@ function Sampleform() {
                     <Input
                       type="number"
                       placeholder="e.g. 1000"
-                      className="quote-input"
+                      className="sample-input"
                     />
                   </Form.Item>
                 </Col>
@@ -155,8 +155,8 @@ function Sampleform() {
                   >
                     <Select
                       placeholder="Select material"
-                      className="quote-select"
-                      suffixIcon={<span className="dropdown-icon">▼</span>}
+                      className="sample-select"
+                      suffixIcon={<span className="sample-dropdown-icon">▼</span>}
                     >
                       <Option value="plastic">Plastic</Option>
                       <Option value="metal">Metal</Option>
@@ -169,7 +169,7 @@ function Sampleform() {
 
               <Row gutter={24}>
                 <Col span={24}>
-                  <Title level={4} className="section-title">
+                  <Title level={4} className="sample-section-title">
                     Size
                   </Title>
                 </Col>
@@ -182,8 +182,8 @@ function Sampleform() {
                   >
                     <Input
                       placeholder="Length"
-                      className="quote-input"
-                      suffix={<span className="input-suffix">in</span>}
+                      className="sample-input"
+                      suffix={<span className="sample-input-suffix">in</span>}
                     />
                   </Form.Item>
                 </Col>
@@ -196,8 +196,8 @@ function Sampleform() {
                   >
                     <Input
                       placeholder="Width"
-                      className="quote-input"
-                      suffix={<span className="input-suffix">in</span>}
+                      className="sample-input"
+                      suffix={<span className="sample-input-suffix">in</span>}
                     />
                   </Form.Item>
                 </Col>
@@ -210,8 +210,8 @@ function Sampleform() {
                   >
                     <Input
                       placeholder="Height"
-                      className="quote-input"
-                      suffix={<span className="input-suffix">in</span>}
+                      className="sample-input"
+                      suffix={<span className="sample-input-suffix">in</span>}
                     />
                   </Form.Item>
                 </Col>
@@ -232,15 +232,15 @@ function Sampleform() {
                           return false;
                         }}
                         fileList={fileList}
-                        className="quote-upload"
+                        className="sample-upload"
                         accept=".jpg,.jpeg,.png"
                         maxCount={1}
                       >
-                        <p className="ant-upload-drag-icon">
+                        <p className="sample-upload-drag-icon">
                           <InboxOutlined />
                         </p>
-                        <p className="ant-upload-text">Click or drag file to this area</p>
-                        <p className="ant-upload-hint">Upload your design image</p>
+                        <p className="sample-upload-text">Click or drag file to this area</p>
+                        <p className="sample-upload-hint">Upload your design image</p>
                       </Dragger>
                     </Form.Item>
                   </Col>
@@ -251,7 +251,7 @@ function Sampleform() {
             <>
               <Row gutter={24}>
                 <Col span={24}>
-                  <Title level={4} className="section-title">
+                  <Title level={4} className="sample-section-title">
                     Shipping Details
                   </Title>
                 </Col>
@@ -262,13 +262,13 @@ function Sampleform() {
                     label="Full Name"
                     rules={[{ required: true, message: "Please enter your name" }]}
                   >
-                    <Input placeholder="Your name" className="quote-input" />
+                    <Input placeholder="Your name" className="sample-input" />
                   </Form.Item>
                 </Col>
 
                 <Col xs={24} sm={12}>
                   <Form.Item name="companyName" label="Company Name">
-                    <Input placeholder="Company (optional)" className="quote-input" />
+                    <Input placeholder="Company (optional)" className="sample-input" />
                   </Form.Item>
                 </Col>
 
@@ -278,7 +278,7 @@ function Sampleform() {
                     label="Phone Number"
                     rules={[{ required: true, message: "Please enter your phone number" }]}
                   >
-                    <Input placeholder="(123) 456-7890" className="quote-input" />
+                    <Input placeholder="(123) 456-7890" className="sample-input" />
                   </Form.Item>
                 </Col>
 
@@ -288,7 +288,7 @@ function Sampleform() {
                     label="Street Address"
                     rules={[{ required: true, message: "Please enter your street address" }]}
                   >
-                    <Input placeholder="Street address" className="quote-input" />
+                    <Input placeholder="Street address" className="sample-input" />
                   </Form.Item>
                 </Col>
 
@@ -298,7 +298,7 @@ function Sampleform() {
                     label="City"
                     rules={[{ required: true, message: "Please enter your city" }]}
                   >
-                    <Input placeholder="City" className="quote-input" />
+                    <Input placeholder="City" className="sample-input" />
                   </Form.Item>
                 </Col>
 
@@ -308,7 +308,7 @@ function Sampleform() {
                     label="Province/State"
                     rules={[{ required: true, message: "Please enter your province/state" }]}
                   >
-                    <Input placeholder="Province/State" className="quote-input" />
+                    <Input placeholder="Province/State" className="sample-input" />
                   </Form.Item>
                 </Col>
 
@@ -318,7 +318,7 @@ function Sampleform() {
                     label="Zip/Postal Code"
                     rules={[{ required: true, message: "Please enter your zip/postal code" }]}
                   >
-                    <Input placeholder="Zip/Postal Code" className="quote-input" />
+                    <Input placeholder="Zip/Postal Code" className="sample-input" />
                   </Form.Item>
                 </Col>
 
@@ -328,7 +328,7 @@ function Sampleform() {
                     label="Country"
                     rules={[{ required: true, message: "Please enter your country" }]}
                   >
-                    <Input placeholder="Country" className="quote-input" />
+                    <Input placeholder="Country" className="sample-input" />
                   </Form.Item>
                 </Col>
               </Row>
@@ -336,13 +336,13 @@ function Sampleform() {
           )}
 
           <Row>
-            <Col span={24} className="submit-col">
+            <Col span={24} className="sample-submit-col">
               <Form.Item>
                 {showShippingForm && (
                   <Button
                     type="default"
                     onClick={handleBack}
-                    className="quote-back-btn"
+                    className="sample-back-btn"
                     size="large"
                     style={{ marginRight: "10px" }}
                   >
@@ -353,13 +353,13 @@ function Sampleform() {
                   type="primary"
                   htmlType="submit"
                   loading={loading}
-                  className="quote-submit-btn"
+                  className="sample-submit-btn"
                   size="large"
                 >
                   {loading ? "Processing..." : showShippingForm ? "Submit Request" : "Next"}
                 </Button>
               </Form.Item>
-              <Text className="privacy-note">
+              <Text className="sample-privacy-note">
                 We respect your privacy. Your information will never be shared.
               </Text>
             </Col>

@@ -5,8 +5,9 @@ import ApprovedDesigns from "./approveddesign";
 import OrderStatus from "./orderstatus";
 import OrderHistory from "./orderhistory";
 import Invoices from "./invoices";
- 
+import SampleQuote from "./samplequote"; // Make sure to create this component
 import Userdetail from "./userdetail";
+import Samplequote from "./samplequote";
 
 const { TabPane } = Tabs;
 
@@ -15,10 +16,10 @@ const Userinterface = () => {
     <div className="userinterface-container">
       <h1 className="userinterface-heading">User Dashboard</h1>
       <Tabs defaultActiveKey="1" type="card" className="user-tabs">
-        <TabPane tab="Order Status" key="2">
+        {/* <TabPane tab="Order Status" key="2">
           <OrderStatus />
-        </TabPane>
-        <TabPane tab="Approved Designs" key="1">
+        </TabPane> */}
+        <TabPane tab="Approved Designs and status" key="1">
           <ApprovedDesigns />
         </TabPane>
         <TabPane tab="Order History" key="3">
@@ -27,9 +28,12 @@ const Userinterface = () => {
         <TabPane tab="Invoices" key="4">
           <Invoices />
         </TabPane>
-        <TabPane tab="Personal Details" key="5">
-          <Userdetail />
+        <TabPane tab="Sample Quote" key="5">
+          <Samplequote />
         </TabPane>
+        {/* <TabPane tab="Personal Details" key="6">
+          <Userdetail />
+        </TabPane> */}
       </Tabs>
     </div>
   );
