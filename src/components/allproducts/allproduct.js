@@ -78,30 +78,17 @@ function Allproduct1({ data }) {
   }, [data?._id]);
 
   const handleClick = (product) => {
-    const catSlug = categorySlug || categoryTitle || "category";
-    const subCatTitle = data?.title ? slugify(data.title) : "subcategory";
-    const prodTitle = product?.title || product?.name || "product";
-    const variantTitle = product?.variants?.[0]?.variantTitle
-      ? slugify(product.variants[0].variantTitle)
-      : "default";
-
-    console.log("Navigating with:", {
-      categorySlug: catSlug,
-      subCategoryTitle: subCatTitle,
-      productTitle: prodTitle,
-      variantTitle: variantTitle,
-      productId: product._id,
-    });
-
-    navigate(
-      `/${catSlug}/${subCatTitle}/${slugify(prodTitle)}/${variantTitle}`,
-      {
-        state: {
-          id: product._id,
-          variantTitle: product?.variants?.[0]?.variantTitle,
-        },
-      }
-    );
+    // Use the full product slug if it exists
+    if (product.slug) {
+      navigate(`/${product.slug}`);
+    }
+    // Fallback to constructing the URL if slug doesn't exist
+    else {
+      const catSlug = categorySlug || "category";
+      const subCatSlug = data?.slug || "subcategory";
+      const productSlug = slugify(product?.title || product?.name) || "product";
+      navigate(`/${catSlug}/${subCatSlug}/${productSlug}`);
+    }
   };
 
   if (loading) {

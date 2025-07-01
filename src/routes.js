@@ -44,7 +44,11 @@ function AppRouter() {
           element={<Allproductpage />}
         />
         <Route
-          path="/:categoryTitle/:subcategoryTitle/:productTitle/:variantSlug"
+          path="/:categorySlug/:subCategorySlug/:productSlug"
+          element={<Mainproductpage />}
+        />
+        <Route
+          path="/:categorySlug/:subCategorySlug/:productSlug/:variantSlug"
           element={<Mainproductpage />}
         />
         <Route path="/search-products" element={<Search />} />
