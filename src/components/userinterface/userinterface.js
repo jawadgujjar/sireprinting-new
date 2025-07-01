@@ -5,32 +5,39 @@ import ApprovedDesigns from "./approveddesign";
 import OrderStatus from "./orderstatus";
 import OrderHistory from "./orderhistory";
 import Invoices from "./invoices";
- 
+import Samplequote from "./samplequote";
 import Userdetail from "./userdetail";
+import UserProfile from "./userprofile"; // ✅ Add this line
 
 const { TabPane } = Tabs;
 
 const Userinterface = () => {
   return (
     <div className="userinterface-container">
-      <h1 className="userinterface-heading">User Dashboard</h1>
-      <Tabs defaultActiveKey="1" type="card" className="user-tabs">
-        <TabPane tab="Order Status" key="2">
-          <OrderStatus />
-        </TabPane>
-        <TabPane tab="Approved Designs" key="1">
-          <ApprovedDesigns />
-        </TabPane>
-        <TabPane tab="Order History" key="3">
-          <OrderHistory />
-        </TabPane>
-        <TabPane tab="Invoices" key="4">
-          <Invoices />
-        </TabPane>
-        <TabPane tab="Personal Details" key="5">
-          <Userdetail />
-        </TabPane>
-      </Tabs>
+      <div className="dashboard-content">
+        <Tabs
+          defaultActiveKey="1"
+          tabPosition="left"
+          className="user-tabs"
+          tabBarStyle={{ width: 200 }}
+        >
+          <TabPane tab="Profile" key="1">  
+            <UserProfile />
+          </TabPane>
+          <TabPane tab="Approved Designs" key="2">
+            <ApprovedDesigns />
+          </TabPane>
+          <TabPane tab="Order History" key="3">
+            <OrderHistory />
+          </TabPane>
+          <TabPane tab="Invoices" key="4">
+            <Invoices />
+          </TabPane>
+          <TabPane tab="Sample Quote" key="5">
+            <Samplequote />
+          </TabPane>
+        </Tabs>
+      </div>
     </div>
   );
 };

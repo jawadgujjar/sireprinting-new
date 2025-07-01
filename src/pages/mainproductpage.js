@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Productmain1 from "../components/productmain/productmain";
 import Videocarousel from "../components/landing/carouselvideo";
 import Relatedproduct from "../components/productmain/relatedproduct";
@@ -9,79 +9,92 @@ import { product } from "../utils/axios";
 import SireprintingLoader from "../components/loader/loader";
 
 function Mainproductpage() {
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const id = location.state?.id;
-  const { variantSlug, categoryTitle, subcategoryTitle, productTitle } =
+  const { categorySlug, subCategorySlug, productSlug, variantSlug } =
     useParams();
-
   const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const [currentVariant, setCurrentVariant] = useState(null);
 
-  // Fetch product from API
+  // Fetch product by slug
   useEffect(() => {
-    if (!id) {
-      console.error("No Product ID found");
-      return;
-    }
-
     const fetchProductData = async () => {
       try {
-        const response = await product.get(`/${id}`);
-        setProductData(response.data);
+        setLoading(true);
 
-        if (response.data.variants && response.data.variants.length > 0) {
-          const foundIndex = response.data.variants.findIndex(
-            (v) => v.slug === variantSlug
-          );
+        // Construct full slug
+        const fullSlug = `${categorySlug}/${subCategorySlug}/${productSlug}`;
+        console.log("Fetching product with slug:", fullSlug);
 
-          if (foundIndex !== -1) {
-            setSelectedVariantIndex(foundIndex);
-            setCurrentVariant(response.data.variants[foundIndex]);
-          } else {
-            setSelectedVariantIndex(0);
-            setCurrentVariant(response.data.variants[0]);
+        // Fetch product directly using the working endpoint
+        const response = await product.get(`/${productSlug}`);
+        const product = response.data;
+        console.log("Product Response:", product);
+        if (!product) {
+          throw new Error("Product not found");
+        }
+
+        setProductData(product); // Corrected from set குறிப்பான தயாரிப்பு
+
+        // Handle variants
+        if (product.variants && product.variants.length > 0) {
+          let variantIndex = 0;
+          if (variantSlug) {
+            const foundIndex = product.variants.findIndex(
+              (v) => v.slug === variantSlug
+            );
+            if (foundIndex !== -1) {
+              variantIndex = foundIndex;
+            }
+          }
+
+          setSelectedVariantIndex(variantIndex);
+          setCurrentVariant(product.variants[variantIndex]);
+
+          if (!variantSlug && product.variants[0]?.slug) {
+            navigate(
+              `/${categorySlug}/${subCategorySlug}/${productSlug}/${product.variants[0].slug}`,
+              { replace: true }
+            );
           }
         }
       } catch (error) {
-        console.error("Error fetching product data:", error);
+        console.error("Error fetching product data:", {
+          message: error.message,
+          response: error.response?.data,
+          status: error.response?.status,
+        });
+        navigate("/not-found", { replace: true });
       } finally {
         setLoading(false);
       }
     };
 
     fetchProductData();
-  }, [id, variantSlug]);
+  }, [categorySlug, subCategorySlug, productSlug, variantSlug, navigate]);
 
-  // Handle variant selection and update URL
-  const handleImageSelect = (index) => {
-    if (productData.variants && index < productData.variants.length) {
+  const handleVariantChange = (index) => {
+    if (productData?.variants && index < productData.variants.length) {
       const selected = productData.variants[index];
       setSelectedVariantIndex(index);
       setCurrentVariant(selected);
-      // Update URL with selected variant slug
       navigate(
-        `/${categoryTitle}/${subcategoryTitle}/${productTitle}/${selected.variantTitle.replace(
-          /\s+/g,
-          "-"
-        )}`,
+        `/${categorySlug}/${subCategorySlug}/${productSlug}/${selected.slug}`,
         { replace: true }
       );
     }
   };
 
   if (loading) return <SireprintingLoader />;
-  if (!productData) return <div>No product data found</div>;
+  if (!productData) return <div>Product not found</div>;
 
   return (
     <div>
       <Productmain1
         data={productData}
         currentVariant={currentVariant}
-        onImageSelect={handleImageSelect}
+        onVariantChange={handleVariantChange}
         selectedVariantIndex={selectedVariantIndex}
       />
       <Videocarousel />

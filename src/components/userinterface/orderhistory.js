@@ -1,99 +1,110 @@
 import React, { useEffect, useState } from "react";
-import { Table, Typography, Tag, Button, Space } from "antd";
+import {
+  Table,
+  Typography,
+  Tag,
+  Button,
+  Space,
+  Image,
+  message,
+  Card,
+} from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
-import "./orderhistory.css"; // Optional CSS
+import { orders } from "../../utils/axios";
+import { useUser } from "../../contextapi/userContext";
+import "./approveddesign.css";
 
-const { Title } = Typography;
+const { Text } = Typography;
 
 const OrderHistory = () => {
-  const [orders, setOrders] = useState([]);
+  const [ordersData, setOrdersData] = useState([]);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 5,
+    showSizeChanger: true,
+    responsive: true,
+  });
+  const [loading, setLoading] = useState(false);
 
-  const loggedInEmail =
-    localStorage.getItem("userEmail") || "jawad@example.com";
+  const { user } = useUser();
+  const loggedInUserId =
+    user?.user?._id || user?.user?.id || user?._id || user?.id;
 
   useEffect(() => {
-    const data = [
-      {
-        id: "OH001",
-        product: "Mailer Boxes",
-        material: "Kraft Paper",
-        quantity: 500,
-        length: 10,
-        width: 8,
-        height: 4,
-        file: "design1.jpg",
-        customer: "Jawad Ahmad",
-        email: "jawad@example.com",
-        status: "delivered",
-      },
-      {
-        id: "OH002",
-        product: "Shipping Boxes",
-        material: "Corrugated",
-        quantity: 1000,
-        length: 15,
-        width: 10,
-        height: 5,
-        file: "shipping_file.pdf",
-        customer: "Ali Raza",
-        email: "ali@example.com",
-        status: "cancelled",
-      },
-      {
-        id: "OH003",
-        product: "Custom Display Boxes",
-        material: "Rigid Board",
-        quantity: 300,
-        length: 12,
-        width: 9,
-        height: 3,
-        file: "displaybox.jpg",
-        customer: "Jawad Ahmad",
-        email: "jawad@example.com",
-        status: "pending",
-      },
-      {
-        id: "OH004",
-        product: "Tuck End Boxes",
-        material: "Cardboard",
-        quantity: 750,
-        length: 11,
-        width: 7,
-        height: 2,
-        file: "tuckend.jpg",
-        customer: "Jawad Ahmad",
-        email: "jawad@example.com",
-        status: "delivered",
-      },
-      {
-        id: "OH005",
-        product: "Sleeve Boxes",
-        material: "Art Paper",
-        quantity: 200,
-        length: 8,
-        width: 6,
-        height: 4,
-        file: "sleevefile.pdf",
-        customer: "Jawad Ahmad",
-        email: "jawad@example.com",
-        status: "pending",
-      },
-    ];
+    const fetchOrders = async () => {
+      if (!loggedInUserId) {
+        message.warning("Please log in to view your orders.");
+        return;
+      }
 
-    const filtered = data.filter((item) => item.email === loggedInEmail);
-    setOrders(filtered);
-  }, [loggedInEmail]);
+      setLoading(true);
+      try {
+        const response = await orders.get(`/user/${loggedInUserId}`);
+
+        if (response.data?.length > 0) {
+          const formatted = response.data.map((item, index) => ({
+            key: item._id,
+            serialNo: index + 1,
+            trackingid: item.trackingid || "Not assigned",
+            product: item.product,
+            material: item.material || "Not specified",
+            quantity: item.quantity,
+            length: item.size?.length || 0,
+            width: item.size?.width || 0,
+            height: item.size?.height || 0,
+            file: item.file,
+            status: item.status,
+          }));
+          setOrdersData(formatted);
+        } else {
+          setOrdersData([]);
+          message.info("No orders found.");
+        }
+      } catch (error) {
+        console.error("Order fetch error:", error);
+        message.error("Failed to load order history.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, [loggedInUserId]);
 
   const handleReorder = (record) => {
     console.log("Re-ordering:", record);
-    // Add API call or redirect logic here
+    message.success(`Re-ordered item: ${record.product}`);
+    // TODO: Add actual reorder API logic here
   };
 
   const columns = [
     {
-      title: "Order ID",
-      dataIndex: "id",
-      key: "id",
+      title: "Sr. No",
+      key: "serialNo",
+      render: (text, record, index) => {
+        const current = pagination.current || 1;
+        const pageSize = pagination.pageSize || 5;
+        return <Text strong>{(current - 1) * pageSize + index + 1}</Text>;
+      },
+      align: "center",
+      width: 80,
+    },
+    {
+      title: "Tracking ID",
+      dataIndex: "trackingid",
+      key: "trackingid",
+      render: (trackingid) =>
+        trackingid !== "Not assigned" ? (
+          <a
+            href={`https://www.dhl.com/in-en/home/tracking/tracking-parcel.html?submit=1&tracking-id=${trackingid}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {trackingid}
+          </a>
+        ) : (
+          <Text type="secondary">{trackingid}</Text>
+        ),
     },
     {
       title: "Product",
@@ -106,13 +117,13 @@ const OrderHistory = () => {
       key: "material",
     },
     {
-      title: "Quantity",
+      title: "Qty",
       dataIndex: "quantity",
       key: "quantity",
     },
     {
-      title: "Size (L×W×H)",
-      key: "size",
+      title: "Dimensions",
+      key: "dimensions",
       render: (_, record) =>
         `${record.length} × ${record.width} × ${record.height} in`,
     },
@@ -123,19 +134,22 @@ const OrderHistory = () => {
       render: (file) => {
         const isImage = /\.(jpg|jpeg|png|gif)$/i.test(file);
         return isImage ? (
-          <img
-            src="https://via.placeholder.com/80"
-            alt="design"
+          <Image
+            width={80}
+            height={80}
+            src={file}
+            alt="Design Preview"
             style={{
-              width: 80,
-              height: 80,
               objectFit: "cover",
-              borderRadius: 4,
               border: "1px solid #ddd",
+              borderRadius: 4,
             }}
+            preview={{ mask: "Click to Preview" }}
           />
         ) : (
-          <span style={{ color: "#888" }}>{file}</span>
+          <a href={file} target="_blank" rel="noopener noreferrer">
+            {file}
+          </a>
         );
       },
     },
@@ -144,25 +158,23 @@ const OrderHistory = () => {
       dataIndex: "status",
       key: "status",
       render: (status, record) => {
+        const lowerStatus = status?.toLowerCase(); // Normalize case
         let color = "default";
-        if (status === "delivered") color = "green";
-        else if (status === "pending") color = "orange";
-        else if (status === "cancelled") color = "red";
+
+        if (lowerStatus === "delivered") color = "green";
+        else if (lowerStatus === "pending") color = "orange";
+        else if (lowerStatus === "cancelled") color = "red";
+        else if (lowerStatus === "shipped") color = "blue";
 
         return (
           <Space>
-            <Tag color={color}>{status.toUpperCase()}</Tag>
-            {status === "delivered" && (
+            <Tag color={color}>{status?.toUpperCase()}</Tag>
+            {["delivered", "shipped"].includes(lowerStatus) && (
               <Button
                 type="primary"
                 icon={<ReloadOutlined />}
                 size="small"
                 onClick={() => handleReorder(record)}
-                style={{
-                  backgroundColor: "#1890ff",
-                  borderColor: "#1890ff",
-                  fontWeight: 500,
-                }}
               >
                 Re-Order
               </Button>
@@ -174,14 +186,22 @@ const OrderHistory = () => {
   ];
 
   return (
-    <div>
-      <Title level={3}>Order History</Title>
-      <Table
-        columns={columns}
-        dataSource={orders}
-        rowKey="id"
-        pagination={{ pageSize: 5 }}
-      />
+    <div className="approved-designs-container">
+      <div className="page-header">
+        <h1 className="tab-head">Order History</h1>
+      </div>
+      <Card bordered={false} className="table-card">
+        <Table
+          columns={columns}
+          dataSource={ordersData}
+          rowKey="key"
+          loading={loading}
+          pagination={pagination}
+          onChange={(newPagination) => setPagination(newPagination)}
+          scroll={{ x: true }}
+          size="middle"
+        />
+      </Card>
     </div>
   );
 };

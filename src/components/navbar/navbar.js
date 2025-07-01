@@ -24,7 +24,6 @@ const Navbar1 = () => {
   const inputRef = useRef(null);
   const userMenuRef = useRef(null);
   const navRef = useRef(null);
-
   const { user, logout } = useUser();
 
   // Fetch navitems and subcategories on component mount
@@ -46,7 +45,13 @@ const Navbar1 = () => {
               const subResponse = await subcategory.get(
                 `/category/${category._id}`
               );
-              subCategoriesData[category._id] = subResponse.data;
+              console.log(
+                `Subcategories for ${category._id}:`,
+                subResponse.data
+              );
+              subCategoriesData[category._id] = Array.isArray(subResponse.data)
+                ? subResponse.data
+                : [];
             } catch (error) {
               console.error(
                 `Error fetching subcategories for category ${category._id}:`,
@@ -74,7 +79,7 @@ const Navbar1 = () => {
       setIsMobileView(window.innerWidth <= 992);
     };
 
-    handleResize(); // Initial check
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -131,9 +136,8 @@ const Navbar1 = () => {
   };
 
   const handleDropdownToggle = (index, categoryId) => {
-    if (isMobileView) {
-      setActiveDropdown(activeDropdown === index ? null : index);
-    }
+    console.log("Toggling dropdown:", index, categoryId);
+    setActiveDropdown(activeDropdown === index ? null : index);
   };
 
   const handleMouseEnter = (index) => {
@@ -146,7 +150,6 @@ const Navbar1 = () => {
     if (!isMobileView) {
       setActiveDropdown(null);
     }
-    setShowUserMenu(false);
   };
 
   const handleIconClick = () => {
@@ -154,11 +157,10 @@ const Navbar1 = () => {
     navigate("/user-interface");
   };
 
-  const { logoutUser } = useUser();
   const handleLogout = () => {
-    logoutUser(); // Clear context + localStorage
+    logout(); // Use the logout function from useUser
     setShowUserMenu(false);
-    navigate("/login"); // Redirect to login
+    navigate("/login");
   };
 
   if (loading) {
@@ -193,12 +195,16 @@ const Navbar1 = () => {
                         ? "has-dropdown"
                         : ""
                     } ${activeDropdown === index ? "active" : ""}`}
-                    onClick={() => handleDropdownToggle(index, category._id)}
-                    onMouseEnter={() => handleMouseEnter(index)}
-                    onMouseLeave={handleMouseLeave}
+                    onClick={() =>
+                      isMobileView && handleDropdownToggle(index, category._id)
+                    }
+                    onMouseEnter={() =>
+                      !isMobileView && handleMouseEnter(index)
+                    }
+                    onMouseLeave={() => !isMobileView && handleMouseLeave()}
                   >
                     <Link
-                      to={`/${category.slug}`} // Use API-provided slug
+                      to={`/${category.slug}`}
                       state={{ id: category._id }}
                       className={`nav-link ${isScrolled ? "scrolled" : ""}`}
                     >
@@ -209,15 +215,13 @@ const Navbar1 = () => {
                         className={`dropdown-menu ${
                           activeDropdown === index ? "show" : ""
                         }`}
-                        onMouseEnter={() => handleMouseEnter(index)}
-                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="dropdown-content">
                           <div className="dropdown-main-items">
                             {subCategories[category._id].map((subCategory) => (
                               <Link
                                 key={subCategory._id}
-                                to={`/${subCategory.slug}`} // Use API-provided subcategory slug
+                                to={`/${subCategory.slug}`}
                                 state={{ id: subCategory._id }}
                                 className="dropdown-item"
                                 onClick={() => {
@@ -321,9 +325,10 @@ const Navbar1 = () => {
                     className={`phone-icons ${isScrolled ? "scrolled" : ""}`}
                   />
                   <span style={{ marginLeft: 5, color: "#01257d" }}>
-                    {user?.name || "User"}
+                    {user?.user?.name || "User"}
                   </span>
                 </div>
+
                 {showUserMenu && (
                   <div className="user-dropdown-menu">
                     <button
@@ -332,6 +337,14 @@ const Navbar1 = () => {
                     >
                       View User Data
                     </button>
+
+                    <button
+                      className="dropdown-button order-details-button"
+                      onClick={() => navigate("/user-interface")}
+                    >
+                      Order Details
+                    </button>
+
                     <button
                       className="dropdown-button logout-button"
                       onClick={handleLogout}

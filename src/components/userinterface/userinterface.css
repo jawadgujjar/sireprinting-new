@@ -1,29 +1,107 @@
 .userinterface-container {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 20px;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 30px;
   background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  margin-top: 7rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  margin-top: 6rem;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .userinterface-heading {
-  font-size: 24px;
+  font-size: 28px;
   color: #01257d;
   text-align: center;
-  margin-bottom: 20px;
-  font-weight: bold;
+  margin-bottom: 30px;
+  font-weight: 600;
 }
 
+.dashboard-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  min-height: 500px;
+}
+
+.user-tabs {
+  width: 100%;
+}
+
+/* Side tab styles */
 .user-tabs .ant-tabs-tab {
-  font-size: 16px;
+  background-color: #01257d;
+  color: white !important;
+  border-radius: 8px;
+  margin: 6px 0;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 16px !important;
+  transition: all 0.3s ease;
 }
 
-@media (max-width: 768px) {
+.user-tabs .ant-tabs-tab:hover {
+  background-color: #014fce;
+  color: #fff !important;
+}
+
+.user-tabs .ant-tabs-tab.ant-tabs-tab-active {
+  background-color: #0EEEB9;
+  color: #01257d !important;
+  font-weight: 600;
+}
+
+/* Remove underline from active tab */
+.user-tabs .ant-tabs-ink-bar {
+  display: none;
+}
+
+/* Tab list area */
+.user-tabs .ant-tabs-nav {
+  width: 220px;
+  padding-right: 20px;
+}
+
+/* Tab content area */
+.user-tabs .ant-tabs-content-holder {
+  padding-left: 30px;
+  border-left: 1px solid #f0f0f0;
+  flex: 1;
+}
+:where(.css-dev-only-do-not-override-1v5z42l).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #021f47;
+    text-shadow: 0 0 0.25px currentcolor;
+}
+@media (max-width: 992px) {
+  .user-tabs .ant-tabs-nav {
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding-right: 0;
+  }
+
+  .user-tabs .ant-tabs-content-holder {
+    padding-left: 0;
+    padding-top: 20px;
+    border-left: none;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .dashboard-content {
+    flex-direction: column;
+  }
+
+  .user-tabs .ant-tabs-tab {
+    padding: 10px 14px !important;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
   .userinterface-container {
-    margin: 10px;
-    padding: 15px;
+    margin: 20px 10px;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 4rem;
   }
 
   .userinterface-heading {
@@ -31,6 +109,7 @@
   }
 
   .user-tabs .ant-tabs-tab {
-    font-size: 14px;
+    font-size: 13px;
+    padding: 8px 10px !important;
   }
 }
