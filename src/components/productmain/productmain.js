@@ -13,11 +13,7 @@ import Productdescription from "./productdescription";
 
 const { Option } = Select;
 
-// Cloudinary configuration
-const cloudName = "dxhpud7sx";
-const uploadPreset = "sireprinting";
-
-// Custom CloudinaryUploader component
+// CloudinaryUploader component
 const CloudinaryUploader = ({
   cloudName,
   uploadPreset,
@@ -85,14 +81,25 @@ const Productmain1 = ({
   data,
   currentVariant,
   onImageSelect,
-  selectedVariantIndex,
+  selectedImageIndex,
 }) => {
   const [step, setStep] = useState(1);
   const [form] = Form.useForm();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Combine main image with additional images
-  const allImages = [data.image, ...(data.additionalImages || [])];
+  // Combine images: main product image, additional images, then variant images
+  const allImages = [
+    data.image, // Main product image
+    ...(data.additionalImages || []), // Additional images
+    ...(data.variants?.map((variant) => variant.image) || []), // Variant images
+  ].filter((img) => img && typeof img === "string" && img.trim() !== "");
+
+  // Debug: Log images and other props
+  console.log("Productmain1 - All Images:", allImages);
+  console.log("Productmain1 - Selected Image Index:", selectedImageIndex);
+  console.log("Productmain1 - Current Variant:", currentVariant);
+  console.log("Productmain1 - Product Data:", data);
+
   const rating = 4.5;
 
   const renderStars = (rating) => {
@@ -152,8 +159,8 @@ const Productmain1 = ({
 
       if (response.data.success) {
         message.success("Quote submitted successfully!");
-        form.resetFields(); // Reset all form fields
-        setStep(1); // Return to step 1
+        form.resetFields();
+        setStep(1);
       } else {
         message.error("Failed to submit quote");
       }
@@ -163,15 +170,17 @@ const Productmain1 = ({
     }
   };
 
-  const text = currentVariant?.variantDescription || data.description;
-  const toggleReadMore = () => {
-    setIsExpanded(!isExpanded);
-  };
-  const truncatedText = text.slice(0, 100);
-
-  // Get price from current variant or fallback to main product price
+  // Get display data - use variant if available, otherwise use main product
+  const displayTitle = currentVariant?.variantTitle || data.title;
+  const displayDescription =
+    currentVariant?.variantDescription || data.description;
   const displayPrice = currentVariant?.price || data.price || "4.00";
   const displaySalePrice = currentVariant?.salePrice || data.salePrice;
+  const displaySku = currentVariant?.sku || data.sku || "#123456";
+
+  const text = displayDescription;
+  const toggleReadMore = () => setIsExpanded(!isExpanded);
+  const truncatedText = text?.slice(0, 100) || "";
 
   return (
     <div className="products-page-container">
@@ -181,9 +190,9 @@ const Productmain1 = ({
           <div className="product-image-section">
             <Productimgs1
               images={allImages}
-              selectedIndex={selectedVariantIndex}
-              onImageSelect={onImageSelect} // Only trigger variant change, no form updates
-              title={currentVariant?.variantTitle || data.title}
+              selectedIndex={selectedImageIndex}
+              onImageSelect={onImageSelect}
+              title={displayTitle}
             />
           </div>
         </Col>
@@ -193,21 +202,14 @@ const Productmain1 = ({
           <div className="product-form-section">
             <div className="productmain-form-container">
               <div className="product-header-group">
-                <p className="form-title1">
-                  {currentVariant?.variantTitle || data.title}
-                </p>
+                <p className="form-title1">{displayTitle}</p>
                 <div className="product-ratings-wrapper">
                   <div className="product-ratings-left">
                     <span className="stars">{renderStars(rating)}</span>
-                    <span className="review-count">
-                      {/* {data.reviews?.length || 27}  */}
-                      47 reviews
-                    </span>
+                    <span className="review-count">47 reviews</span>
                   </div>
                   <div style={{ display: "flex", gap: "1rem" }}>
-                    <span className="sku-id">
-                      SKU: {currentVariant?.sku || data.sku || "#123456"}
-                    </span>
+                    <span className="sku-id">SKU: {displaySku}</span>
                     <span className="sku-id">ID: {data.sku || "#123456"}</span>
                   </div>
                 </div>
@@ -217,10 +219,7 @@ const Productmain1 = ({
                   {isExpanded ? text : `${truncatedText}...`}
                   <span
                     onClick={toggleReadMore}
-                    style={{
-                      color: "#333",
-                      cursor: "pointer",
-                    }}
+                    style={{ color: "#333", cursor: "pointer" }}
                   >
                     {isExpanded ? "Read Less" : "Read More"}
                   </span>
@@ -323,8 +322,8 @@ const Productmain1 = ({
                           rules={[{ validator: validateImage }]}
                         >
                           <CloudinaryUploader
-                            cloudName={cloudName}
-                            uploadPreset={uploadPreset}
+                            cloudName="dxhpud7sx"
+                            uploadPreset="sireprinting"
                             listType="picture-card"
                             maxCount={1}
                             form={form}

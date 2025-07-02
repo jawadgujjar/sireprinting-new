@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Productmain1 from "../components/productmain/productmain";
 import Videocarousel from "../components/landing/carouselvideo";
 import Relatedproduct from "../components/productmain/relatedproduct";
+import Productmain1 from "../components/productmain/productmain";
 import Testimonial from "../components/landing/testimonial";
 import Banner from "../components/landing/banner";
 import { product } from "../utils/axios";
@@ -14,58 +14,53 @@ function Mainproductpage() {
     useParams();
   const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const [currentVariant, setCurrentVariant] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  // Fetch product by slug
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         setLoading(true);
 
-        // Construct full slug
-        const fullSlug = `${categorySlug}/${subCategorySlug}/${productSlug}`;
-        console.log("Fetching product with slug:", fullSlug);
+        // First fetch just the product data without variants
+        const response = await product.get(
+          `/${categorySlug}/${subCategorySlug}/${productSlug}`
+        );
 
-        // Fetch product directly using the working endpoint
-        const response = await product.get(`/${productSlug}`);
-        const product = response.data;
-        console.log("Product Response:", product);
-        if (!product) {
+        if (!response.data) {
           throw new Error("Product not found");
         }
 
-        setProductData(product); // Corrected from set குறிப்பான தயாரிப்பு
+        setProductData(response.data);
 
-        // Handle variants
-        if (product.variants && product.variants.length > 0) {
-          let variantIndex = 0;
+        // Only handle variants if they exist and we have a variantSlug
+        if (response.data.variants?.length > 0) {
           if (variantSlug) {
-            const foundIndex = product.variants.findIndex(
-              (v) => v.slug === variantSlug
-            );
-            if (foundIndex !== -1) {
-              variantIndex = foundIndex;
+            // Find the variant by matching the end of the slug (SKU part)
+            const variant = response.data.variants.find((v) => {
+              const variantSlugEnd = v.slug.split("/").pop();
+              return variantSlug.endsWith(variantSlugEnd);
+            });
+
+            if (variant) {
+              setCurrentVariant(variant);
+              // +1 because index 0 is for main product image
+              setSelectedImageIndex(
+                response.data.variants.indexOf(variant) + 1
+              );
             }
-          }
-
-          setSelectedVariantIndex(variantIndex);
-          setCurrentVariant(product.variants[variantIndex]);
-
-          if (!variantSlug && product.variants[0]?.slug) {
-            navigate(
-              `/${categorySlug}/${subCategorySlug}/${productSlug}/${product.variants[0].slug}`,
-              { replace: true }
-            );
           }
         }
       } catch (error) {
         console.error("Error fetching product data:", {
           message: error.message,
+          config: error.config,
           response: error.response?.data,
-          status: error.response?.status,
         });
-        navigate("/not-found", { replace: true });
+
+        if (error.response?.status === 404) {
+          navigate("/not-found", { replace: true });
+        }
       } finally {
         setLoading(false);
       }
@@ -74,15 +69,28 @@ function Mainproductpage() {
     fetchProductData();
   }, [categorySlug, subCategorySlug, productSlug, variantSlug, navigate]);
 
-  const handleVariantChange = (index) => {
-    if (productData?.variants && index < productData.variants.length) {
-      const selected = productData.variants[index];
-      setSelectedVariantIndex(index);
-      setCurrentVariant(selected);
-      navigate(
-        `/${categorySlug}/${subCategorySlug}/${productSlug}/${selected.slug}`,
-        { replace: true }
-      );
+  const handleImageSelect = (index) => {
+    if (!productData?.variants) return;
+
+    setSelectedImageIndex(index);
+
+    if (index === 0) {
+      // Main product selected - clear variant
+      setCurrentVariant(null);
+      navigate(`/${categorySlug}/${subCategorySlug}/${productSlug}`, {
+        replace: true,
+      });
+    } else {
+      // Variant selected - get the correct variant
+      const selectedVariant = productData.variants[index - 1];
+      if (selectedVariant?.slug) {
+        setCurrentVariant(selectedVariant);
+        // Use only the last part of variant slug (SKU part)
+        const variantSlugPart = selectedVariant.slug.split("/").pop();
+        navigate(`/${categorySlug}/${subCategorySlug}/${variantSlugPart}`, {
+          replace: true,
+        });
+      }
     }
   };
 
@@ -94,8 +102,8 @@ function Mainproductpage() {
       <Productmain1
         data={productData}
         currentVariant={currentVariant}
-        onVariantChange={handleVariantChange}
-        selectedVariantIndex={selectedVariantIndex}
+        onImageSelect={handleImageSelect}
+        selectedImageIndex={selectedImageIndex}
       />
       <Videocarousel />
       <Banner />
