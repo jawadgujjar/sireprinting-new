@@ -21,46 +21,29 @@ function Mainproductpage() {
     const fetchProductData = async () => {
       try {
         setLoading(true);
-
-        // First fetch just the product data without variants
         const response = await product.get(
           `/${categorySlug}/${subCategorySlug}/${productSlug}`
         );
 
-        if (!response.data) {
-          throw new Error("Product not found");
-        }
-
+        if (!response.data) throw new Error("Product not found");
         setProductData(response.data);
 
-        // Only handle variants if they exist and we have a variantSlug
-        if (response.data.variants?.length > 0) {
-          if (variantSlug) {
-            // Find the variant by matching the end of the slug (SKU part)
-            const variant = response.data.variants.find((v) => {
-              const variantSlugEnd = v.slug.split("/").pop();
-              return variantSlug.endsWith(variantSlugEnd);
-            });
+        if (response.data.variants?.length > 0 && variantSlug) {
+          // CHANGE HERE: Match by last part of slug
+          const variant = response.data.variants.find((v) => {
+            const variantLastPart = v.slug.split("/").pop();
+            return variantLastPart === variantSlug;
+          });
 
-            if (variant) {
-              setCurrentVariant(variant);
-              // +1 because index 0 is for main product image
-              setSelectedImageIndex(
-                response.data.variants.indexOf(variant) + 1
-              );
-            }
+          if (variant) {
+            setCurrentVariant(variant);
+            setSelectedImageIndex(response.data.variants.indexOf(variant) + 1);
           }
         }
       } catch (error) {
-        console.error("Error fetching product data:", {
-          message: error.message,
-          config: error.config,
-          response: error.response?.data,
-        });
-
-        if (error.response?.status === 404) {
+        console.error("Error:", error);
+        if (error.response?.status === 404)
           navigate("/not-found", { replace: true });
-        }
       } finally {
         setLoading(false);
       }
@@ -75,21 +58,22 @@ function Mainproductpage() {
     setSelectedImageIndex(index);
 
     if (index === 0) {
-      // Main product selected - clear variant
       setCurrentVariant(null);
       navigate(`/${categorySlug}/${subCategorySlug}/${productSlug}`, {
         replace: true,
       });
     } else {
-      // Variant selected - get the correct variant
       const selectedVariant = productData.variants[index - 1];
       if (selectedVariant?.slug) {
         setCurrentVariant(selectedVariant);
-        // Use only the last part of variant slug (SKU part)
-        const variantSlugPart = selectedVariant.slug.split("/").pop();
-        navigate(`/${categorySlug}/${subCategorySlug}/${variantSlugPart}`, {
-          replace: true,
-        });
+
+        // NEW: Get only the last part of slug for URL
+        const lastSlugPart = selectedVariant.slug.split("/").pop();
+
+        navigate(
+          `/${categorySlug}/${subCategorySlug}/${productSlug}/${lastSlugPart}`,
+          { replace: true }
+        );
       }
     }
   };
