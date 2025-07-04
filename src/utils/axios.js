@@ -61,7 +61,9 @@ const instagram = axios.create({
 const orders = axios.create({
   baseURL: `${baseURL}/order`,
 });
-
+const sampleorder = axios.create({
+  baseURL: `${baseURL}/samplerequests`,
+});
 // Request Interceptor
 const requestInterceptor = (req) => {
   // Optional: Add auth tokens if needed
@@ -95,6 +97,7 @@ const errorInterceptor = (err) => {
   dielineform,
   instagram,
   orders,
+  sampleorder,
 ].forEach((instance) => {
   instance.interceptors.request.use(requestInterceptor, errorInterceptor);
 });
@@ -119,4 +122,5 @@ export {
   dielineform,
   instagram,
   orders,
+  sampleorder,
 };
