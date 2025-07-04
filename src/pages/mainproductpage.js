@@ -14,9 +14,11 @@ function Mainproductpage() {
     useParams();
   const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [variantLoading, setVariantLoading] = useState(false); // New state for variant loading
   const [currentVariant, setCurrentVariant] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
+  // Fetch main product data
   useEffect(() => {
     const fetchProductData = async () => {
       try {
@@ -28,8 +30,9 @@ function Mainproductpage() {
         if (!response.data) throw new Error("Product not found");
         setProductData(response.data);
 
+        // Only load variant if variantSlug exists
         if (response.data.variants?.length > 0 && variantSlug) {
-          // CHANGE HERE: Match by last part of slug
+          setVariantLoading(true);
           const variant = response.data.variants.find((v) => {
             const variantLastPart = v.slug.split("/").pop();
             return variantLastPart === variantSlug;
@@ -42,18 +45,46 @@ function Mainproductpage() {
         }
       } catch (error) {
         console.error("Error:", error);
-        if (error.response?.status === 404)
+        if (error.response?.status === 404) {
           navigate("/not-found", { replace: true });
+        }
       } finally {
         setLoading(false);
+        setVariantLoading(false);
       }
     };
 
     fetchProductData();
-  }, [categorySlug, subCategorySlug, productSlug, variantSlug, navigate]);
+  }, [categorySlug, subCategorySlug, productSlug, navigate]);
+
+  // Handle variant changes separately
+  useEffect(() => {
+    if (!productData?.variants || !variantSlug) return;
+
+    const loadVariant = async () => {
+      setVariantLoading(true);
+      try {
+        const variant = productData.variants.find((v) => {
+          const variantLastPart = v.slug.split("/").pop();
+          return variantLastPart === variantSlug;
+        });
+
+        if (variant) {
+          setCurrentVariant(variant);
+          setSelectedImageIndex(productData.variants.indexOf(variant) + 1);
+        }
+      } catch (error) {
+        console.error("Variant loading error:", error);
+      } finally {
+        setVariantLoading(false);
+      }
+    };
+
+    loadVariant();
+  }, [variantSlug, productData]);
 
   const handleImageSelect = (index) => {
-    if (!productData?.variants) return;
+    if (!productData?.variants || variantLoading) return;
 
     setSelectedImageIndex(index);
 
@@ -66,10 +97,7 @@ function Mainproductpage() {
       const selectedVariant = productData.variants[index - 1];
       if (selectedVariant?.slug) {
         setCurrentVariant(selectedVariant);
-
-        // NEW: Get only the last part of slug for URL
         const lastSlugPart = selectedVariant.slug.split("/").pop();
-
         navigate(
           `/${categorySlug}/${subCategorySlug}/${productSlug}/${lastSlugPart}`,
           { replace: true }
@@ -88,6 +116,7 @@ function Mainproductpage() {
         currentVariant={currentVariant}
         onImageSelect={handleImageSelect}
         selectedImageIndex={selectedImageIndex}
+        variantLoading={variantLoading} // Pass loading state to product main component
       />
       <Videocarousel />
       <Banner />
