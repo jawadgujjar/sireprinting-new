@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import { Table, Button, Image, Modal, Typography, message, Card } from "antd";
+import React, { useEffect, useState } from "react";
+import { Table, Button, Image as AntdImage, Modal, Typography, message, Card } from "antd";
 import { orders } from "../../utils/axios";
 import { useUser } from "../../contextapi/userContext";
+import jsPDF from "jspdf";
 import "./approveddesign.css";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const Invoices = () => {
   const [invoices, setInvoices] = useState([]);
@@ -22,21 +23,18 @@ const Invoices = () => {
         message.warning("Please log in to view your invoices.");
         return;
       }
-
       setLoading(true);
       try {
         const response = await orders.get(`/user/${loggedInUserId}`);
-
         if (response.data?.length > 0) {
           const formatted = response.data.map((item, index) => ({
             key: item._id,
-            serialNo: index + 1,
             trackingId: item.trackingid || "Not assigned",
             productName: item.product || "N/A",
             price: item.price
               ? `Rs. ${Number(item.price).toLocaleString("en-PK")}`
               : "Not specified",
-            invoiceImage: item.invoiceImage || "", // make sure this field exists in backend
+            invoice: item.invoice || "",
           }));
           setInvoices(formatted);
         } else {
@@ -44,7 +42,7 @@ const Invoices = () => {
           message.info("No invoices found.");
         }
       } catch (error) {
-        console.error("Fetch invoices error:", error);
+        console.error("Error fetching invoices:", error);
         message.error("Failed to load invoices.");
       } finally {
         setLoading(false);
@@ -54,17 +52,47 @@ const Invoices = () => {
     fetchInvoices();
   }, [loggedInUserId]);
 
-  const handlePreview = (img) => {
-    setPreviewImage(img);
+  const handlePreview = (url) => {
+    if (!url) {
+      message.error("No invoice image available.");
+      return;
+    }
+    setPreviewImage(url);
     setPreviewVisible(true);
   };
 
+  const handleDownloadPDF = (url, id) => {
+    if (!url) {
+      message.error("No invoice URL provided.");
+      return;
+    }
+
+    console.log("Generating PDF for URL:", url, "ID:", id);
+
+    const img = new window.Image(); // Using window.Image to avoid conflict
+    img.crossOrigin = "anonymous";
+    img.src = url;
+
+    img.onload = () => {
+      try {
+        const pdf = new jsPDF();
+        const width = 180;
+        const height = (img.height * width) / img.width;
+        pdf.addImage(img, "JPEG", 15, 15, width, height);
+        pdf.save(`Invoice_${id || "invoice"}.pdf`);
+        message.success("PDF downloaded successfully.");
+      } catch (error) {
+        console.error("Error generating PDF:", error);
+        message.error("Failed to generate PDF.");
+      }
+    };
+
+    img.onerror = () => {
+      message.error("Failed to load invoice image for PDF.");
+    };
+  };
+
   const columns = [
-    {
-      title: "Sr. No",
-      key: "serial",
-      render: (_, __, index) => index + 1,
-    },
     {
       title: "Tracking ID",
       dataIndex: "trackingId",
@@ -82,16 +110,15 @@ const Invoices = () => {
     },
     {
       title: "Invoice",
-      dataIndex: "invoiceImage",
-      key: "invoiceImage",
-      render: (img) =>
-        img ? (
-          <Image
+      key: "invoice",
+      render: (_, record) =>
+        record.invoice ? (
+          <AntdImage
             width={60}
-            src={img}
+            src={record.invoice}
             preview={false}
-            onClick={() => handlePreview(img)}
-            style={{ cursor: "pointer", border: "1px solid #eee", borderRadius: 4 }}
+            onClick={() => handlePreview(record.invoice)}
+            style={{ cursor: "pointer" }}
           />
         ) : (
           <Text type="secondary">No image</Text>
@@ -99,13 +126,15 @@ const Invoices = () => {
     },
     {
       title: "Download",
-      dataIndex: "invoiceImage",
       key: "download",
-      render: (img) =>
-        img ? (
-          <a href={img} download target="_blank" rel="noreferrer">
-            <Button type="primary">Download</Button>
-          </a>
+      render: (_, record) =>
+        record.invoice ? (
+          <Button
+            type="primary"
+            onClick={() => handleDownloadPDF(record.invoice, record.trackingId)}
+          >
+            Download PDF
+          </Button>
         ) : (
           <Text type="secondary">N/A</Text>
         ),
@@ -114,30 +143,24 @@ const Invoices = () => {
 
   return (
     <div className="approved-designs-container">
-      <div className="page-header">
-        <Title level={3}>Your Invoices</Title>
-      </div>
-      <Card bordered={false} className="table-card">
+      <h1 className="tab-head">Your Invoices</h1>
+      <Card>
         <Table
           columns={columns}
           dataSource={invoices}
           rowKey="key"
           loading={loading}
           pagination={{ pageSize: 5 }}
-          scroll={{ x: true }}
         />
       </Card>
+
       <Modal
         open={previewVisible}
         footer={null}
         onCancel={() => setPreviewVisible(false)}
         width={600}
       >
-        <img
-          alt="Invoice Preview"
-          style={{ width: "100%", borderRadius: 8 }}
-          src={previewImage}
-        />
+        <img src={previewImage} alt="Invoice" style={{ width: "100%" }} />
       </Modal>
     </div>
   );

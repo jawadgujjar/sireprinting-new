@@ -14,7 +14,7 @@ import { orders } from "../../utils/axios";
 import { useUser } from "../../contextapi/userContext";
 import "./approveddesign.css";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const OrderHistory = () => {
   const [ordersData, setOrdersData] = useState([]);
@@ -73,7 +73,8 @@ const OrderHistory = () => {
 
   const handleReorder = (record) => {
     console.log("Re-ordering:", record);
-    // Add Reorder API logic here
+    message.success(`Re-ordered item: ${record.product}`);
+    // TODO: Add actual reorder API logic here
   };
 
   const columns = [
@@ -157,15 +158,18 @@ const OrderHistory = () => {
       dataIndex: "status",
       key: "status",
       render: (status, record) => {
+        const lowerStatus = status?.toLowerCase();  
         let color = "default";
-        if (status === "delivered") color = "green";
-        else if (status === "pending") color = "orange";
-        else if (status === "cancelled") color = "red";
+
+        if (lowerStatus === "delivered") color = "green";
+        else if (lowerStatus === "pending") color = "orange";
+        else if (lowerStatus === "cancelled") color = "red";
+        else if (lowerStatus === "shipped") color = "blue";
 
         return (
           <Space>
             <Tag color={color}>{status?.toUpperCase()}</Tag>
-            {status === "delivered" && (
+            {["delivered", "shipped"].includes(lowerStatus) && (
               <Button
                 type="primary"
                 icon={<ReloadOutlined />}
@@ -184,7 +188,7 @@ const OrderHistory = () => {
   return (
     <div className="approved-designs-container">
       <div className="page-header">
-        <Title level={3}>Order History</Title>
+        <h1 className="tab-head">Order History</h1>
       </div>
       <Card bordered={false} className="table-card">
         <Table

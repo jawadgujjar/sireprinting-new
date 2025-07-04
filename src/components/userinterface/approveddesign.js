@@ -9,6 +9,8 @@ import {
   Card,
   Grid,
   Badge,
+  Modal,
+  Descriptions,
 } from "antd";
 import { orders } from "../../utils/axios";
 import { useUser } from "../../contextapi/userContext";
@@ -20,6 +22,8 @@ const { useBreakpoint } = Grid;
 const ApprovedDesigns = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [detailVisible, setDetailVisible] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
   const { user } = useUser();
   const screens = useBreakpoint();
 
@@ -36,7 +40,6 @@ const ApprovedDesigns = () => {
       setLoading(true);
       try {
         const response = await orders.get(`/user/${loggedInUserId}`);
-         
 
         if (response.data?.length > 0) {
           const formattedData = response.data.map((item) => ({
@@ -106,6 +109,11 @@ const ApprovedDesigns = () => {
     }
   };
 
+  const showDetails = (record) => {
+    setSelectedRecord(record);
+    setDetailVisible(true);
+  };
+
   const getStatusTag = (status) => {
     switch (status) {
       case "Approved":
@@ -161,12 +169,6 @@ const ApprovedDesigns = () => {
       align: "center",
       width: 80,
     },
-    screens.md && {
-      title: "Dimensions",
-      dataIndex: "dimensions",
-      key: "dimensions",
-      width: 120,
-    },
     {
       title: "Price",
       dataIndex: "price",
@@ -176,83 +178,45 @@ const ApprovedDesigns = () => {
       render: (price) => <Text strong>{price}</Text>,
     },
     {
-      title: "File",
-      dataIndex: "uploadFile",
-      key: "uploadFile",
-      render: (file) =>
-        file ? (
-          <Button
-            type="link"
-            href={file}
-            target="_blank"
-            icon={<i className="fas fa-file-download" />}
-            size="small"
-          >
-            {screens.md ? "View File" : "File"}
-          </Button>
-        ) : (
-          <Text type="secondary">No file</Text>
-        ),
-      width: screens.md ? 120 : 80,
-    },
-    {
       title: "Status",
       dataIndex: "status",
       key: "status",
       render: getOrderStatus,
       width: 120,
     },
-    screens.md && {
-      title: "Tracking ID",
-      dataIndex: "trackingid",
-      key: "trackingId",
-      width: 150,
-      render: (trackingId) =>
-        trackingId !== "Not assigned" ? (
-          <a
-            href={`https://www.dhl.com/in-en/home/tracking/tracking-parcel.html?submit=1&tracking-id=${trackingId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {trackingId}
-          </a>
-        ) : (
-          <Text type="secondary">{trackingId}</Text>
-        ),
-    },
-    screens.md && {
-      title: "Shipped Via",
-      dataIndex: "shippedvia",
-      key: "shippedVia",
-      width: 120,
-      render: (shippedVia) => <Text>{shippedVia}</Text>,
-    },
     {
       title: "Action",
-      dataIndex: "approval",
-      key: "approval",
-      render: (approval, record) =>
-        approval === "Pending" ? (
-          <Space size="small">
-            <Button
-              size="small"
-              type="primary"
-              onClick={() => handleApprove(record.key)}
-            >
-              {screens.md ? "Approve" : "✓"}
-            </Button>
-            <Button
-              size="small"
-              danger
-              onClick={() => handleReject(record.key)}
-            >
-              {screens.md ? "Reject" : "✗"}
-            </Button>
-          </Space>
-        ) : (
-          getStatusTag(approval)
-        ),
-      width: screens.md ? 150 : 100,
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <Button
+            type="default"
+            className="view-details-btn"
+            onClick={() => showDetails(record)}
+          >
+            View Details
+          </Button>
+          {record.approval === "Pending" && (
+            <Space>
+              <Button
+                size="small"
+                type="primary"
+                onClick={() => handleApprove(record.key)}
+              >
+                Approve
+              </Button>
+              <Button
+                size="small"
+                danger
+                onClick={() => handleReject(record.key)}
+              >
+                Reject
+              </Button>
+            </Space>
+          )}
+        </Space>
+      ),
+      width: screens.md ? 200 : 150,
     },
   ].filter(Boolean);
 
@@ -275,8 +239,8 @@ const ApprovedDesigns = () => {
   return (
     <div className="approved-designs-container">
       <div className="page-header">
-        <Title level={3}>Design Approvals and Order Status</Title>
-       </div>
+        <h1 className="tab-head">Design Approvals and Order Status</h1>
+      </div>
 
       <Card bordered={false} className="table-card">
         <Table
@@ -290,6 +254,91 @@ const ApprovedDesigns = () => {
           size={screens.md ? "default" : "small"}
         />
       </Card>
+
+      {/* Detail View Modal */}
+      <Modal
+        title="Order Details"
+        visible={detailVisible}
+        onCancel={() => setDetailVisible(false)}
+        footer={[
+          <Button key="back" type="primary" onClick={() => setDetailVisible(false)}>
+            Close
+          </Button>,
+        ]}
+        width={screens.md ? 800 : "90%"}
+        className="order-details-modal"
+        bodyStyle={{
+          backgroundColor: "#fff",
+          padding: "24px",
+          borderRadius: "8px",
+        }}
+        style={{
+          top: 20,
+        }}
+      >
+        {selectedRecord && (
+          <Descriptions
+            bordered
+            column={screens.md ? 1 : 1}
+            size="middle"
+            className="order-details-descriptions"
+          >
+            <Descriptions.Item label="Product Type">
+              <Text strong>{selectedRecord.productType}</Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="Material">
+              <Text>{selectedRecord.material}</Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="Quantity">
+              <Text>{selectedRecord.quantity}</Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="Dimensions">
+              <Text>{selectedRecord.dimensions}</Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="Price">
+              <Text strong>{selectedRecord.price}</Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="Status">
+              {getOrderStatus(selectedRecord.status)}
+            </Descriptions.Item>
+            <Descriptions.Item label="Approval Status">
+              {getStatusTag(selectedRecord.approval)}
+            </Descriptions.Item>
+            <Descriptions.Item label="Tracking ID">
+              {selectedRecord.trackingid !== "Not assigned" ? (
+                <a
+                  href={`https://www.dhl.com/in-en/home/tracking/tracking-parcel.html?submit=1&tracking-id=${selectedRecord.trackingid}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "#1890ff" }}
+                >
+                  {selectedRecord.trackingid}
+                </a>
+              ) : (
+                <Text type="secondary">{selectedRecord.trackingid}</Text>
+              )}
+            </Descriptions.Item>
+            <Descriptions.Item label="Shipped Via">
+              <Text>{selectedRecord.shippedvia}</Text>
+            </Descriptions.Item>
+            <Descriptions.Item label="Design File">
+              {selectedRecord.uploadFile ? (
+                <Button
+                  type="link"
+                  href={selectedRecord.uploadFile}
+                  target="_blank"
+                  icon={<i className="fas fa-file-download" />}
+                  style={{ padding: 0 }}
+                >
+                  Download File
+                </Button>
+              ) : (
+                <Text type="secondary">No file available</Text>
+              )}
+            </Descriptions.Item>
+          </Descriptions>
+        )}
+      </Modal>
     </div>
   );
 };

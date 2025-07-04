@@ -1,36 +1,188 @@
 .userinterface-container {
-  max-width: 1300px;
-  margin: 20px auto;
+  margin-top: 6rem !important;
+  max-width: 1400px;
   padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Profile Card Styles */
+.profile-card {
   border-radius: 10px;
-  margin-top: 7rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  border: none;
 }
 
-.userinterface-heading {
-  font-size: 24px;
-  color: #01257d;
+.profile-title {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+}
+
+.profile-divider {
+  margin: 16px 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+/* User Profile Section */
+.user-profile-section {
   text-align: center;
-  margin-bottom: 20px;
+  padding: 0 0 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.user-avatar {
+  background-color: #03267E;
   font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 16px;
 }
 
-.user-tabs .ant-tabs-tab {
-  font-size: 16px;
+.user-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 1.25rem;
 }
 
-@media (max-width: 768px) {
+.user-email {
+  color: #666;
+  display: block;
+  font-size: 0.95rem;
+}
+
+/* Vertical Tabs Styles */
+.vertical-tabs {
+  width: 100%;
+}
+
+.vertical-tabs .ant-tabs-nav {
+  width: 100%;
+  margin: 0;
+}
+
+.vertical-tabs .ant-tabs-tab {
+  display: block;
+  padding: 16px 20px;
+  margin: 0 !important;
+  text-align: left;
+  border-radius: 0;
+  border-left: 3px solid transparent;
+  transition: all 0.3s;
+}
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tab-icon {
+  font-size: 1.25rem;
+  min-width: 24px;
+}
+
+.tab-text {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.vertical-tabs .ant-tabs-tab:hover {
+  background-color: #f8f8f8;
+}
+
+.vertical-tabs .ant-tabs-tab.ant-tabs-tab-active {
+  background-color: #f0f7ff;
+  border-left: 3px solid #03267E;
+  color: #03267E !important;
+}
+
+.vertical-tabs .ant-tabs-tab.ant-tabs-tab-active .tab-icon {
+  color: #03267E;
+}
+
+.vertical-tabs .ant-tabs-ink-bar {
+  display: none;
+}
+
+/* Content Card Styles */
+.content-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  min-height: 500px;
+  padding: 24px;
+  border: none;
+}
+
+.content-tabs .ant-tabs-content {
+  height: 100%;
+}
+
+/* Logout Button */
+.logout-tab-style {
+  margin-top: 32px;
+  padding: 0 8px;
+}
+
+.logout-tab-button {
+  background-color: #03267E;
+  color: white !important;
+  border: none;
+  height: 48px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+.logout-tab-button:hover {
+  background-color: #3a5dbd !important;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .profile-card,
+  .content-card {
+    margin-bottom: 24px;
+  }
+
+  .vertical-tabs .ant-tabs-nav {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .vertical-tabs .ant-tabs-tab {
+    display: inline-block;
+    width: auto;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    padding: 12px 16px;
+  }
+
+  .vertical-tabs .ant-tabs-tab.ant-tabs-tab-active {
+    border-left: none;
+    border-bottom: 3px solid #03267E;
+  }
+}
+
+@media (max-width: 576px) {
   .userinterface-container {
-    margin: 10px;
-    padding: 15px;
+    padding: 12px;
+    margin: 24px auto;
   }
 
-  .userinterface-heading {
-    font-size: 20px;
+  .vertical-tabs .ant-tabs-tab {
+    padding: 12px 14px;
   }
-
-  .user-tabs .ant-tabs-tab {
-    font-size: 14px;
+  
+  .tab-icon {
+    font-size: 1.1rem;
+  }
+  
+  .tab-text {
+    font-size: 0.9rem;
   }
 }
