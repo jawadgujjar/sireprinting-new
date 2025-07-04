@@ -18,9 +18,8 @@ function Allproduct1({ data }) {
   const [scrolled, setScrolled] = useState(false);
   const [categoryTitle, setCategoryTitle] = useState("");
   const navigate = useNavigate();
-  const { slug: categorySlug } = useParams();
+  const { categorySlug } = useParams();
 
-  // Handle scroll effect for form
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
@@ -30,7 +29,6 @@ function Allproduct1({ data }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fetch category title based on subcategory's category ID
   useEffect(() => {
     const fetchCategoryTitle = async () => {
       if (data?.categoryId) {
@@ -39,18 +37,17 @@ function Allproduct1({ data }) {
           setCategoryTitle(slugify(response.data.title || "category"));
         } catch (err) {
           console.error("Error fetching category title:", err);
-          setCategoryTitle("category");
+          setCategoryTitle(categorySlug || "category");
         }
       } else {
         console.warn("No categoryId found in data:", data);
-        setCategoryTitle("category");
+        setCategoryTitle(categorySlug || "category");
       }
     };
 
     fetchCategoryTitle();
-  }, [data?.categoryId]);
+  }, [data?.categoryId, categorySlug]);
 
-  // Fetch products for the subcategory
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -78,16 +75,17 @@ function Allproduct1({ data }) {
   }, [data?._id]);
 
   const handleClick = (product) => {
-    // Use the full product slug if it exists
-    if (product.slug) {
-      navigate(`/${product.slug}`);
-    }
-    // Fallback to constructing the URL if slug doesn't exist
-    else {
-      const catSlug = categorySlug || "category";
-      const subCatSlug = data?.slug || "subcategory";
-      const productSlug = slugify(product?.title || product?.name) || "product";
+    // Split the full product slug into parts
+    const slugParts = product.slug.split("/");
+
+    // Ensure we have at least 3 parts (category/subcategory/product)
+    if (slugParts.length >= 3) {
+      const [catSlug, subCatSlug, productSlug] = slugParts;
       navigate(`/${catSlug}/${subCatSlug}/${productSlug}`);
+    } else {
+      // Fallback for unexpected slug formats
+      console.error("Invalid product slug format:", product.slug);
+      navigate("/products/" + product.slug); // Alternative approach
     }
   };
 
@@ -113,7 +111,6 @@ function Allproduct1({ data }) {
 
   return (
     <div className="all-products-container">
-      {/* Hero Section */}
       <div className="header-section">
         <div className="hero-content">
           <h1 className="hero-title">{data?.title || "Subcategory"}</h1>
@@ -146,7 +143,6 @@ function Allproduct1({ data }) {
         </div>
       </div>
 
-      {/* Products Section */}
       <div className="allproduct-main">
         <Row className="allproduct-row" gutter={[24, 24]}>
           <Col xs={24} md={16} lg={16} className="allproduct-col1">
@@ -240,7 +236,6 @@ function Allproduct1({ data }) {
             </Row>
           </Col>
 
-          {/* Form Column */}
           <Col
             xs={24}
             md={8}

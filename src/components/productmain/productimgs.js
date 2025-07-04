@@ -3,56 +3,65 @@ import { Carousel } from "antd";
 import "antd/dist/reset.css";
 import "./productimgs.css";
 
-const CustomArrow = ({ direction, onClick, style }) => {
-  return (
-    <div
-      className={`custom-arrow ${direction}`}
-      onClick={onClick}
-      style={style}
-    >
-      {direction === "left" ? "‹" : "›"}
-    </div>
-  );
-};
 function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
   const [selectedImage, setSelectedImage] = useState(selectedIndex || 0);
   const carouselRef = useRef(null);
 
-  // Sync internal state with prop and handle carousel navigation
+  // Filter out invalid images (null, undefined, or empty strings)
+  const validImages =
+    images?.filter(
+      (img) => img && typeof img === "string" && img.trim() !== ""
+    ) || [];
+
+  // Debug: Log images to verify
+  console.log("Productimgs1 - Valid Images:", validImages);
+  console.log("Productimgs1 - Selected Image Index:", selectedIndex);
+
   useEffect(() => {
-    setSelectedImage(selectedIndex);
+    // Ensure selectedImage is within bounds
+    const newIndex = Math.max(
+      0,
+      Math.min(selectedIndex, validImages.length - 1)
+    );
+    setSelectedImage(newIndex);
     if (carouselRef.current) {
-      carouselRef.current.goTo(selectedIndex, false); // false to prevent animation
+      carouselRef.current.goTo(newIndex, false);
     }
-  }, [selectedIndex]);
+  }, [selectedIndex, validImages.length]);
 
   const handleThumbnailClick = (index) => {
     setSelectedImage(index);
     if (carouselRef.current) {
       carouselRef.current.goTo(index, false);
     }
-    onImageSelect(index); // Trigger variant change
-  };
-
-  const handleMouseMove = (e) => {
-    if (e.target.tagName === "IMG") {
-      const { left, top, width, height } = e.target.getBoundingClientRect();
-      const x = ((e.clientX - left) / width) * 100;
-      const y = ((e.clientY - top) / height) * 100;
-      e.target.style.transformOrigin = `${x}% ${y}%`;
-      e.target.style.transform = "scale(2)";
+    if (typeof onImageSelect === "function") {
+      onImageSelect(index);
     }
   };
 
-  const handleMouseLeave = (e) => {
-    if (e.target.tagName === "IMG") {
-      e.target.style.transform = "scale(1)";
-      e.target.style.transformOrigin = "center center";
-    }
+  // Safe image URL check with fallback
+  const getImageUrl = (img) => {
+    return img && typeof img === "string" && img.trim() !== ""
+      ? img
+      : "https://via.placeholder.com/150"; // Fallback placeholder image
   };
+
+  // If no valid images, show a placeholder
+  if (validImages.length === 0) {
+    return (
+      <div className="product-image-container">
+        <img
+          src="https://via.placeholder.com/300"
+          alt="No images available"
+          className="main-product-image"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="product-image-container">
+      {/* Thumbnail navigation */}
       <div className="thumbnail-vertical-wrapper">
         <button
           className="arrow-button"
@@ -62,7 +71,7 @@ function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
           ▲
         </button>
         <div className="thumbnail-vertical">
-          {images.map((src, index) => (
+          {validImages.map((src, index) => (
             <div
               key={index}
               className={`thumbnail-item-vertical ${
@@ -70,36 +79,28 @@ function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
               }`}
               onClick={() => handleThumbnailClick(index)}
             >
-              {src.endsWith(".mp4") ||
-              src.endsWith(".webm") ||
-              src.endsWith(".ogg") ? (
-                <video
-                  src={src}
-                  controls
-                  width="100%"
-                  style={{ objectFit: "cover", borderRadius: "8px" }}
-                />
-              ) : (
-                <img
-                  src={src}
-                  alt={`${title} - ${index + 1}`}
-                  style={{ objectFit: "cover", borderRadius: "8px" }}
-                />
-              )}
+              <img
+                src={getImageUrl(src)}
+                alt={`${title || "Product"} - ${index + 1}`}
+                style={{ objectFit: "cover", borderRadius: "8px" }}
+              />
             </div>
           ))}
         </div>
         <button
           className="arrow-button"
           onClick={() =>
-            handleThumbnailClick(Math.min(selectedImage + 1, images.length - 1))
+            handleThumbnailClick(
+              Math.min(selectedImage + 1, validImages.length - 1)
+            )
           }
-          disabled={selectedImage === images.length - 1}
+          disabled={selectedImage === validImages.length - 1}
         >
           ▼
         </button>
       </div>
 
+      {/* Main carousel */}
       <div className="main-carousel">
         <Carousel
           ref={carouselRef}
@@ -108,35 +109,21 @@ function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
           speed={500}
           slidesToShow={1}
           slidesToScroll={1}
-          arrows={true}
-          prevArrow={<CustomArrow direction="left" />}
-          nextArrow={<CustomArrow direction="right" />}
           beforeChange={(from, to) => {
             setSelectedImage(to);
-            onImageSelect(to); // Trigger variant change on carousel swipe
+            if (typeof onImageSelect === "function") {
+              onImageSelect(to);
+            }
           }}
         >
-          {images.map((src, index) => (
+          {validImages.map((src, index) => (
             <div key={index} className="slide-container">
               <div className="zoom-wrapper">
-                {src?.match(/\.(mp4|webm|ogg)$/i) ? (
-                  <video
-                    src={src}
-                    controls
-                    className="main-product-image"
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                    style={{ objectFit: "cover", borderRadius: "8px" }}
-                  />
-                ) : (
-                  <img
-                    src={src}
-                    alt={`${title} - ${index + 1}`}
-                    className="main-product-image"
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                  />
-                )}
+                <img
+                  src={getImageUrl(src)}
+                  alt={`${title || "Product"} - ${index + 1}`}
+                  className="main-product-image"
+                />
               </div>
             </div>
           ))}
