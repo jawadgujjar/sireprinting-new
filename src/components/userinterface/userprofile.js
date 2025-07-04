@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Button, Input, Upload, message } from "antd";
+import { Row, Col, Button, Input, Upload, message, Card, Typography } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useUser } from "../../contextapi/userContext";
 import "./userprofile.css";
 
+const { Title } = Typography;
+
 const UserProfile = () => {
   const { user } = useUser();
+  // console.log(user,"user ka data")
   const [avatar, setAvatar] = useState(null);
   const [preview, setPreview] = useState("");
   const [name, setName] = useState("");
@@ -13,13 +16,12 @@ const UserProfile = () => {
   const [phone, setPhone] = useState("");
 
   useEffect(() => {
-    console.log(user,"logged j user")
     if (user?.user) {
       const currentUser = user.user;
       setName(currentUser.name || "");
       setEmail(currentUser.email || "");
       setPhone(currentUser.phone || "");
-      setPreview(currentUser.avatarUrl || "https://i.pravatar.cc/150?u=" + currentUser.email);
+      setPreview(currentUser.avatarUrl || "https://i.pravatar.cc/300?u=" + currentUser.email);
     }
   }, [user]);
 
@@ -53,64 +55,82 @@ const UserProfile = () => {
 
   return (
     <div className="profile-container">
-      <h1 className="profile-title">User Profile</h1>
+      <h1 className="tab-head">User Profile</h1>
+      
+      <Card className="profile-card">
+        <form className="profile-form" onSubmit={handleSubmit}>
+          <Row gutter={[32, 32]}>
+            {/* Avatar Column */}
+            <Col xs={24} md={8} className="avatar-section">
+              <div className="avatar-preview">
+                {preview ? (
+                  <img src={preview} alt="Avatar Preview" />
+                ) : (
+                  <span>Upload Avatar</span>
+                )}
+              </div>
+              <Upload
+                showUploadList={false}
+                beforeUpload={beforeUpload}
+                onChange={handleAvatarChange}
+                accept="image/*"
+                multiple={false}
+              >
+                <Button 
+                  icon={<UploadOutlined />} 
+                  className="upload-btn" 
+                  block
+                  type="primary"
+                >
+                  Change Avatar
+                </Button>
+              </Upload>
+            </Col>
 
-      <form className="profile-form" onSubmit={handleSubmit}>
-        <Row gutter={[32, 32]} align="middle">
-          {/* Avatar Section */}
-          <Col xs={24} sm={8} className="avatar-col">
-            <div className="avatar-preview">
-              {preview ? (
-                <img src={preview} alt="Avatar Preview" />
-              ) : (
-                <span>Upload Avatar</span>
-              )}
-            </div>
-            <Upload
-              showUploadList={false}
-              beforeUpload={beforeUpload}
-              onChange={handleAvatarChange}
-              accept="image/*"
-              multiple={false}
-            >
-              <Button icon={<UploadOutlined />} className="upload-btn" block>
-                Change Avatar
+            {/* User Info Column */}
+            <Col xs={24} md={16} className="info-section">
+              <div className="form-group">
+                <label className="form-label">Full Name</label>
+                <Input 
+                  value={name} 
+                  disabled 
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Email Address</label>
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Phone Number</label>
+                <Input
+                  type="tel"
+                  placeholder="Enter your phone number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="form-input"
+                />
+              </div>
+
+              <Button 
+                type="primary" 
+                htmlType="submit" 
+                className="update-btn"
+                size="large"
+              >
+                Update Profile
               </Button>
-            </Upload>
-          </Col>
-
-          {/* User Info Section */}
-          <Col xs={24} sm={16}>
-            <div className="input-group">
-              <label>Name</label>
-              <Input value={name} disabled />
-            </div>
-
-            <div className="input-group">
-              <label>Email</label>
-              <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div className="input-group">
-              <label>Phone</label>
-              <Input
-                type="tel"
-                placeholder="Enter your phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
-
-            <Button type="primary" htmlType="submit" className="update-btn">
-              Update Profile
-            </Button>
-          </Col>
-        </Row>
-      </form>
+            </Col>
+          </Row>
+        </form>
+      </Card>
     </div>
   );
 };

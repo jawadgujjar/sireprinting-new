@@ -1,43 +1,42 @@
 .profile-container {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 25px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 20px;
 }
 
 .profile-title {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 30px;
-  color: #222;
-  font-weight: 700;
+  text-align: left;
+  margin-bottom: 24px;
+  color: #1a3353;
+  font-weight: 600;
 }
 
-.profile-form {
-  width: 100%;
+.profile-card {
+  /* border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); */
+  border: none;
+  padding: 24px;
 }
 
-.avatar-col {
+.avatar-section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
 }
 
 .avatar-preview {
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  background-color: #f5f5f5;
-  border: 2px dashed #d9d9d9;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 12px;
-  font-size: 14px;
-  color: #aaa;
+  margin-bottom: 20px;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .avatar-preview img {
@@ -48,41 +47,72 @@
 }
 
 .upload-btn {
-  background-color: #1890ff;
-  border-color: #1890ff;
-  color: white;
+  width: 100%;
+  max-width: 180px;
+  height: 40px;
+  font-weight: 500;
 }
 
-.upload-btn:hover, .upload-btn:focus {
-  background-color: #40a9ff;
-  border-color: #40a9ff;
-  color: white;
+.info-section {
+  padding: 20px;
 }
 
-.input-group {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
+.form-group {
+  margin-bottom: 24px;
 }
 
-.input-group label {
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #444;
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #495057;
   font-size: 15px;
+}
+
+.form-input {
+  height: 42px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  padding: 10px 15px;
+  font-size: 15px;
+}
+
+.form-input:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
 }
 
 .update-btn {
   width: 100%;
-  padding: 12px 0;
-  font-size: 17px;
-  font-weight: 700;
-  border-radius: 8px;
+  height: 46px;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 16px;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .avatar-preview {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .profile-card {
+    padding: 16px;
+  }
 }
 
 @media (max-width: 576px) {
   .avatar-preview {
     width: 120px;
     height: 120px;
+  }
+  
+  .form-input {
+    height: 38px;
+  }
+  
+  .update-btn {
+    height: 42px;
   }
 }

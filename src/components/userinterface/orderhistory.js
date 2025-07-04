@@ -158,7 +158,7 @@ const OrderHistory = () => {
       dataIndex: "status",
       key: "status",
       render: (status, record) => {
-        const lowerStatus = status?.toLowerCase(); // Normalize case
+        const lowerStatus = status?.toLowerCase();  
         let color = "default";
 
         if (lowerStatus === "delivered") color = "green";

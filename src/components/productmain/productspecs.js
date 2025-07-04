@@ -1,11 +1,15 @@
 import React from "react";
 import "./productspecs.css";
 
-function ProductSpecs({ currentVariant = {} }) {
-  // Get variant specifications or empty array if none exist
-  const specifications = currentVariant?.variantSpecifications || [];
+function ProductSpecs({ currentVariant = {}, data = {} }) {
+  // Get specs with priority order
+  const variantSpecs =
+    currentVariant?.specifications ||
+    currentVariant?.variantSpecifications ||
+    data?.variantSpecifications ||
+    [];
 
-  // Fallback specifications if none are provided
+  // Fallback specifications
   const fallbackSpecs = [
     {
       _id: "1",
@@ -37,9 +41,8 @@ function ProductSpecs({ currentVariant = {} }) {
     },
   ];
 
-  // Use variant specifications if available, otherwise use fallback
-  const displaySpecs =
-    specifications.length > 0 ? specifications : fallbackSpecs;
+  // Use available specs or fallback
+  const displaySpecs = variantSpecs.length > 0 ? variantSpecs : fallbackSpecs;
 
   return (
     <div className="specs-container">
@@ -53,6 +56,9 @@ function ProductSpecs({ currentVariant = {} }) {
             <div className="spec-top">
               {spec.image && (
                 <img src={spec.image} alt={spec.title} className="spec-image" />
+              )}
+              {!spec.image && spec.icon && (
+                <span className="spec-icon">{spec.icon}</span>
               )}
             </div>
             <div className="spec-bottom">

@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Button } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Row, Col, Button } from "antd";
+import { DownOutlined, DownloadOutlined } from "@ant-design/icons";
 import jsPDF from "jspdf";
 import "./diecategory.css";
 import Faq1 from "../landing/faq";
 import Banner from "../landing/banner";
 import Sireadvantage from "../landing/sireadvantage";
-
-const { Meta } = Card;
+import { subcategory, category, product } from "../../utils/axios";
+import { slugify } from "../../utils/slugify";
+import he from "he";
+import SireprintingLoader from "../loader/loader";
 
 function Diecategory() {
-  const [selectedCategory, setSelectedCategory] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,111 +29,82 @@ function Diecategory() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const categories = [
-    {
-      id: 1,
-      name: "Packaging Styles",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 2,
-      name: "Folding Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 3,
-      name: "Tray Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 4,
-      name: "Rigid Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-    {
-      id: 5,
-      name: "Candle Boxes",
-      image:
-        "https://customboxesbase.com/wp-content/uploads/2025/04/Carry-bags-Photoroom-1024x1024.webp",
-      count: 24,
-    },
-  ];
+  // Fetch categories, subcategories and products data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
 
-  const productsByCategory = {
-    1: [
-      { id: 1, name: "Product 1", image: "images/allproduct1.png" },
-      { id: 2, name: "Product 2", image: "images/process1.png" },
-      { id: 3, name: "Product 3", image: "images/allproduct1.png" },
-      { id: 4, name: "Product 4", image: "images/allproduct1.png" },
-      { id: 5, name: "Product 5", image: "images/allproduct1.png" },
-      { id: 6, name: "Product 6", image: "images/allproduct1.png" },
-    ],
-    2: [
-      { id: 7, name: "Mailer Box 1", image: "images/allproduct1.png" },
-      { id: 8, name: "Mailer Box 2", image: "images/process1.png" },
-      { id: 9, name: "Mailer Box 3", image: "images/allproduct1.png" },
-    ],
-    3: [
-      { id: 10, name: "Carry Bag 1", image: "images/allproduct1.png" },
-      { id: 11, name: "Carry Bag 2", image: "images/process1.png" },
-    ],
-    4: [
-      { id: 12, name: "Handle Box 1", image: "images/allproduct1.png" },
-      { id: 13, name: "Handle Box 2", image: "images/process1.png" },
-      { id: 14, name: "Handle Box 3", image: "images/allproduct1.png" },
-      { id: 15, name: "Handle Box 4", image: "images/allproduct1.png" },
-    ],
-    5: [
-      { id: 16, name: "Candle Box 1", image: "images/allproduct1.png" },
-      { id: 17, name: "Candle Box 2", image: "images/process1.png" },
-    ],
-  };
+        // First fetch all categories
+        const categoriesResponse = await category.get("/");
+        const allCategories = categoriesResponse.data;
 
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId === selectedCategory ? null : categoryId);
-  };
+        // Find Packaging Styles category
+        const packagingStylesCategory = allCategories.find(
+          (cat) => slugify(cat.title) === slugify("Packaging Styles")
+        );
 
-  const handleDownloadPDF = async (product) => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = product.image;
+        if (packagingStylesCategory) {
+          setCategories([packagingStylesCategory]);
 
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
+          // Fetch subcategories
+          const subCategoriesResponse = await subcategory.get(
+            `/category/${packagingStylesCategory._id}`
+          );
+          setSubCategories(subCategoriesResponse.data);
 
-      const imgData = canvas.toDataURL("image/jpeg", 1.0);
-      const pdf = new jsPDF({
-        orientation: img.width > img.height ? "landscape" : "portrait",
-        unit: "pt",
-        format: [img.width, img.height],
-      });
+          // Set first subcategory as selected by default and fetch its products
+          if (subCategoriesResponse.data.length > 0) {
+            const firstSubCat = subCategoriesResponse.data[0];
+            setSelectedCategory(firstSubCat._id);
+            await fetchProducts(firstSubCat._id);
+          }
+        }
 
-      pdf.addImage(imgData, "JPEG", 0, 0, img.width, img.height);
-
-      // Show preview in new tab
-      const blobUrl = pdf.output("bloburl");
-      window.open(blobUrl, "_blank");
-
-      // Optional: also download
-      pdf.save(`${product.name}.pdf`);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
     };
 
-    img.onerror = () => {
-      alert("Failed to load image. Cannot generate PDF.");
-    };
+    fetchData();
+  }, []);
+
+  const fetchProducts = async (subCategoryId) => {
+    try {
+      const productsResponse = await product.get(
+        `/subcategory/${subCategoryId}`
+      );
+      setProducts(productsResponse.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
+
+  const handleCategoryClick = async (categoryId) => {
+    setSelectedCategory(categoryId);
+    await fetchProducts(categoryId);
+  };
+
+  const handleDownloadPDF = async (pdfUrl, productName) => {
+    try {
+      // Create a temporary anchor element
+      const link = document.createElement("a");
+      link.href = pdfUrl;
+      link.download = `${slugify(productName)}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading PDF:", error);
+      alert("Failed to download PDF");
+    }
+  };
+
+  if (loading) {
+    return <SireprintingLoader />;
+  }
 
   return (
     <div>
@@ -136,31 +114,28 @@ function Diecategory() {
             {!isMobile ? (
               <>
                 <p className="subcategory-heading1">
-                  Sub-Categories <div className="divider1"></div>
+                  Packaging Styles <div className="divider1"></div>
                 </p>
                 <div className="category-grid-container">
-                  {categories.map((category) => (
+                  {subCategories.map((subCat) => (
                     <div
-                      key={category.id}
+                      key={subCat._id}
                       className={`category-card ${
-                        selectedCategory === category.id
-                          ? "active-category"
-                          : ""
+                        selectedCategory === subCat._id ? "active-category" : ""
                       }`}
-                      onClick={() => handleCategoryClick(category.id)}
+                      onClick={() => handleCategoryClick(subCat._id)}
                     >
                       <div className="category-card-content">
                         <div className="category-text">
-                          <h3 className="category-name">{category.name}</h3>
+                          <h3 className="category-name">{subCat.title}</h3>
                         </div>
                         <div className="category-image-container">
                           <img
-                            src={category.image}
-                            alt={category.name}
+                            src={subCat.image || "../images/arka.png"}
+                            alt={subCat.title}
                             className="category-image"
                             onError={(e) =>
-                              (e.target.src =
-                                "https://via.placeholder.com/300x200?text=Packaging")
+                              (e.target.src = "../images/arka.png")
                             }
                           />
                         </div>
@@ -171,59 +146,59 @@ function Diecategory() {
               </>
             ) : (
               <div className="mobile-accordion">
-                <p className="subcategory-heading1">Sub-Categories</p>
-                {categories.map((category) => (
-                  <div key={category.id} className="mobile-category">
+                <p className="subcategory-heading1">Packaging Styles</p>
+                {subCategories.map((subCat) => (
+                  <div key={subCat._id} className="mobile-category">
                     <div
                       className="mobile-category-header"
-                      onClick={() => handleCategoryClick(category.id)}
+                      onClick={() => handleCategoryClick(subCat._id)}
                     >
-                      <span>{category.name}</span>
+                      <span>{subCat.title}</span>
                       <DownOutlined
                         className={`dropdown-arrow ${
-                          selectedCategory === category.id ? "rotated" : ""
+                          selectedCategory === subCat._id ? "rotated" : ""
                         }`}
                       />
                     </div>
-                    {selectedCategory === category.id && (
+                    {selectedCategory === subCat._id && (
                       <div className="mobile-category-products">
                         <Row gutter={[16, 16]}>
-                          {productsByCategory[category.id]?.map((product) => (
-                            <Col xs={24} key={product.id}>
-                              <Link to={``} className="product-link">
-                                <Card
-                                  hoverable
-                                  cover={
+                          {products.map((prod) => (
+                            <Col xs={24} key={prod._id}>
+                              <div className="product-card-with-pdf">
+                                <div className="pdf-preview-container">
+                                  {prod.pdfImage ? (
                                     <img
-                                      alt={product.name}
-                                      src={product.image}
+                                      src={prod.pdfImage}
+                                      alt={`${prod.title} PDF Preview`}
+                                      className="pdf-preview-image"
+                                      onError={(e) => {
+                                        e.target.src = "../images/arka.png";
+                                      }}
                                     />
-                                  }
-                                  className="product-card"
-                                  bodyStyle={{
-                                    padding: "10px",
-                                    overflow: "visible",
-                                  }}
-                                >
-                                  <div className="product-title">
-                                    {product.name}
-                                  </div>
-                                  <div
-                                    style={{
-                                      marginTop: "10px",
-                                      textAlign: "center",
-                                    }}
+                                  ) : (
+                                    <div className="pdf-placeholder">
+                                      No PDF Available
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="product-info">
+                                  <h3>{prod.title}</h3>
+                                  <Button
+                                    type="primary"
+                                    icon={<DownloadOutlined />}
+                                    onClick={() =>
+                                      handleDownloadPDF(
+                                        prod.pdfImage,
+                                        prod.title
+                                      )
+                                    }
+                                    disabled={!prod.pdfImage}
                                   >
-                                    <Button
-                                      type="primary"
-                                      size="small"
-                                      onClick={() => handleDownloadPDF(product)}
-                                    >
-                                      Download
-                                    </Button>
-                                  </div>
-                                </Card>
-                              </Link>
+                                    Download PDF
+                                  </Button>
+                                </div>
+                              </div>
                             </Col>
                           ))}
                         </Row>
@@ -236,49 +211,51 @@ function Diecategory() {
           </Col>
 
           {/* Desktop Products */}
-          {!isMobile && (
+          {!isMobile && selectedCategory && (
             <Col xs={24} sm={24} md={16}>
               <p
                 className="subcategory-heading1"
                 style={{ fontWeight: "bold" }}
               >
-                {categories.find((c) => c.id === selectedCategory)?.name ||
+                {subCategories.find((c) => c._id === selectedCategory)?.title ||
                   "Products"}
                 <div className="divider1"></div>
               </p>
               <Row gutter={[16, 16]}>
-                {productsByCategory[selectedCategory]?.map((product) => (
-                  <Col xs={24} sm={8} md={8} lg={8} key={product.id}>
-                    <Link to={``} className="product-link">
-                      <Card
-                        className="allproduct-card"
-                        hoverable
-                        cover={
-                          <div className="card-image-container">
-                            <img
-                              alt={product.name}
-                              src={product.image}
-                              className="allproduct-card-image"
-                            />
+                {products.map((prod) => (
+                  <Col xs={24} sm={12} md={8} lg={6} key={prod._id}>
+                    <div className="product-card-with-pdf">
+                      <div className="pdf-preview-container">
+                        {prod.pdfImage ? (
+                          <img
+                            src={prod.pdfImage}
+                            alt={`${prod.title} PDF Preview`}
+                            className="pdf-preview-image"
+                            onError={(e) => {
+                              e.target.src = "../images/arka.png";
+                            }}
+                          />
+                        ) : (
+                          <div className="pdf-placeholder">
+                            No PDF Available
                           </div>
-                        }
-                      >
-                        <Meta
-                          title={
-                            <span className="card-title">{product.name}</span>
+                        )}
+                      </div>
+                      <div className="product-info">
+                        <h3>{prod.title}</h3>
+                        <Button
+                          type="primary"
+                          icon={<DownloadOutlined />}
+                          onClick={() =>
+                            handleDownloadPDF(prod.pdfImage, prod.title)
                           }
-                        />
-                        <div style={{ marginTop: "10px", textAlign: "center" }}>
-                          <Button
-                            type="primary"
-                            size="small"
-                            onClick={() => handleDownloadPDF(product)}
-                          >
-                            Download
-                          </Button>
-                        </div>
-                      </Card>
-                    </Link>
+                          disabled={!prod.pdfImage}
+                          block
+                        >
+                          Download PDF
+                        </Button>
+                      </div>
+                    </div>
                   </Col>
                 ))}
               </Row>

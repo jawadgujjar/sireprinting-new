@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Productmain1 from "../components/productmain/productmain";
 import Videocarousel from "../components/landing/carouselvideo";
 import Relatedproduct from "../components/productmain/relatedproduct";
+import Productmain1 from "../components/productmain/productmain";
 import Testimonial from "../components/landing/testimonial";
 import Banner from "../components/landing/banner";
 import { product } from "../utils/axios";
@@ -14,75 +14,95 @@ function Mainproductpage() {
     useParams();
   const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+  const [variantLoading, setVariantLoading] = useState(false); // New state for variant loading
   const [currentVariant, setCurrentVariant] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  // Fetch product by slug
+  // Fetch main product data
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         setLoading(true);
+        const response = await product.get(
+          `/${categorySlug}/${subCategorySlug}/${productSlug}`
+        );
 
-        // Construct full slug
-        const fullSlug = `${categorySlug}/${subCategorySlug}/${productSlug}`;
-        console.log("Fetching product with slug:", fullSlug);
+        if (!response.data) throw new Error("Product not found");
+        setProductData(response.data);
 
-        // Fetch product directly using the working endpoint
-        const response = await product.get(`/${productSlug}`);
-        const product = response.data;
-        console.log("Product Response:", product);
-        if (!product) {
-          throw new Error("Product not found");
-        }
+        // Only load variant if variantSlug exists
+        if (response.data.variants?.length > 0 && variantSlug) {
+          setVariantLoading(true);
+          const variant = response.data.variants.find((v) => {
+            const variantLastPart = v.slug.split("/").pop();
+            return variantLastPart === variantSlug;
+          });
 
-        setProductData(product); // Corrected from set குறிப்பான தயாரிப்பு
-
-        // Handle variants
-        if (product.variants && product.variants.length > 0) {
-          let variantIndex = 0;
-          if (variantSlug) {
-            const foundIndex = product.variants.findIndex(
-              (v) => v.slug === variantSlug
-            );
-            if (foundIndex !== -1) {
-              variantIndex = foundIndex;
-            }
-          }
-
-          setSelectedVariantIndex(variantIndex);
-          setCurrentVariant(product.variants[variantIndex]);
-
-          if (!variantSlug && product.variants[0]?.slug) {
-            navigate(
-              `/${categorySlug}/${subCategorySlug}/${productSlug}/${product.variants[0].slug}`,
-              { replace: true }
-            );
+          if (variant) {
+            setCurrentVariant(variant);
+            setSelectedImageIndex(response.data.variants.indexOf(variant) + 1);
           }
         }
       } catch (error) {
-        console.error("Error fetching product data:", {
-          message: error.message,
-          response: error.response?.data,
-          status: error.response?.status,
-        });
-        navigate("/not-found", { replace: true });
+        console.error("Error:", error);
+        if (error.response?.status === 404) {
+          navigate("/not-found", { replace: true });
+        }
       } finally {
         setLoading(false);
+        setVariantLoading(false);
       }
     };
 
     fetchProductData();
-  }, [categorySlug, subCategorySlug, productSlug, variantSlug, navigate]);
+  }, [categorySlug, subCategorySlug, productSlug, navigate]);
 
-  const handleVariantChange = (index) => {
-    if (productData?.variants && index < productData.variants.length) {
-      const selected = productData.variants[index];
-      setSelectedVariantIndex(index);
-      setCurrentVariant(selected);
-      navigate(
-        `/${categorySlug}/${subCategorySlug}/${productSlug}/${selected.slug}`,
-        { replace: true }
-      );
+  // Handle variant changes separately
+  useEffect(() => {
+    if (!productData?.variants || !variantSlug) return;
+
+    const loadVariant = async () => {
+      setVariantLoading(true);
+      try {
+        const variant = productData.variants.find((v) => {
+          const variantLastPart = v.slug.split("/").pop();
+          return variantLastPart === variantSlug;
+        });
+
+        if (variant) {
+          setCurrentVariant(variant);
+          setSelectedImageIndex(productData.variants.indexOf(variant) + 1);
+        }
+      } catch (error) {
+        console.error("Variant loading error:", error);
+      } finally {
+        setVariantLoading(false);
+      }
+    };
+
+    loadVariant();
+  }, [variantSlug, productData]);
+
+  const handleImageSelect = (index) => {
+    if (!productData?.variants || variantLoading) return;
+
+    setSelectedImageIndex(index);
+
+    if (index === 0) {
+      setCurrentVariant(null);
+      navigate(`/${categorySlug}/${subCategorySlug}/${productSlug}`, {
+        replace: true,
+      });
+    } else {
+      const selectedVariant = productData.variants[index - 1];
+      if (selectedVariant?.slug) {
+        setCurrentVariant(selectedVariant);
+        const lastSlugPart = selectedVariant.slug.split("/").pop();
+        navigate(
+          `/${categorySlug}/${subCategorySlug}/${productSlug}/${lastSlugPart}`,
+          { replace: true }
+        );
+      }
     }
   };
 
@@ -94,8 +114,9 @@ function Mainproductpage() {
       <Productmain1
         data={productData}
         currentVariant={currentVariant}
-        onVariantChange={handleVariantChange}
-        selectedVariantIndex={selectedVariantIndex}
+        onImageSelect={handleImageSelect}
+        selectedImageIndex={selectedImageIndex}
+        variantLoading={variantLoading} // Pass loading state to product main component
       />
       <Videocarousel />
       <Banner />
