@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar1 from "./components/navbar/navbar";
 import AppRouter from "./routes";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -10,6 +10,17 @@ import ScrollToTop from "./components/landing/scrolltop";
 
 function App() {
   const [isVerified, setIsVerified] = useState(false);
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.clear();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <div className="App">
