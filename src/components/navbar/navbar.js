@@ -119,14 +119,15 @@ const Navbar1 = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSearchSubmit = (e) => {
+   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/search-products?query=${encodeURIComponent(searchQuery)}`);
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
       setShowSearchBar(false);
       setSearchQuery("");
     }
   };
+
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);

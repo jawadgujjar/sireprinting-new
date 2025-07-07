@@ -298,11 +298,11 @@
   padding: 6px 10px;
   cursor: pointer;
 }
-.phone-icons.scrolled {
+/* .phone-icons.scrolled {
   margin-right: 8px;
   color: #01257d;
   font-size: 22px;
-}
+} */
 
 /* Mobile Styles */
 .mobile-menu-btn {
