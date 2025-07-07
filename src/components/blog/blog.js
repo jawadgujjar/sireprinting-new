@@ -1,39 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./blog.css";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Col, Row, Carousel, Spin, Alert } from "antd";
 import { TwitterOutlined } from "@ant-design/icons";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { blog } from "../../utils/axios";
-import { slugify } from "../../utils/slugify";
+import { blog, product } from "../../utils/axios";
 import SireprintingLoader from "../loader/loader";
-
-// Sample carousel items
-const carouselItems = [
-  {
-    id: 1,
-    title: "Mailer Box",
-    image: "/images/arka.png",
-  },
-  {
-    id: 2,
-    title: "Window Box",
-    image: "/images/arka.png",
-  },
-  {
-    id: 3,
-    title: "Corrugated Box",
-    image: "/images/arka.png",
-  },
-];
 
 function MainBlogRedesign() {
   const { slug } = useParams();
-  const location = useLocation();
   const navigate = useNavigate();
-  const fallbackId = location.state?.id;
   const [blogContent, setBlogContent] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -43,25 +21,8 @@ function MainBlogRedesign() {
         setLoading(true);
         setError(null);
 
-        let response;
-
-        // First try to fetch by ID if available
-        if (fallbackId) {
-          response = await blog.get(`/${fallbackId}`);
-        }
-        // Then try by slug
-        else {
-          try {
-            response = await blog.get(`/slug/${slug}`);
-          } catch (slugError) {
-            // If slug fails and looks like ID, try as ID
-            if (/^[0-9a-fA-F]{24}$/.test(slug)) {
-              response = await blog.get(`/${slug}`);
-            } else {
-              throw slugError;
-            }
-          }
-        }
+        // Fetch blog by slug
+        const response = await blog.get(`/${slug}`);
 
         if (!response?.data) {
           throw new Error("Blog post not found");
@@ -70,13 +31,14 @@ function MainBlogRedesign() {
         const data = response.data;
         setBlogContent(data);
 
-        // Verify URL matches the actual blog slug
-        const expectedSlug = slugify(data.title);
-        if (slug !== expectedSlug) {
-          navigate(`/blog/${expectedSlug}`, {
-            state: { id: data._id },
-            replace: true,
-          });
+        // Fetch related products
+        try {
+          const productResponse = await product.get(
+            data.blogCategory ? `/category/${data.blogCategory._id}` : "/"
+          );
+          setRelatedProducts(productResponse.data.slice(0, 5) || []);
+        } catch (productError) {
+          console.error("Failed to fetch related products:", productError);
         }
       } catch (err) {
         setError(err.message || "Failed to fetch blog post");
@@ -86,7 +48,7 @@ function MainBlogRedesign() {
     };
 
     fetchBlogData();
-  }, [slug, fallbackId, navigate]);
+  }, [slug, navigate]);
 
   if (loading) {
     return (
@@ -116,14 +78,17 @@ function MainBlogRedesign() {
       </div>
     );
   }
+
   const currentUrl = window.location.href;
   const text = blogContent?.title || "Check out this blog post!";
+
   return (
     <div className="blog-redesign-container">
-      {/* Social Media Icons Column */}
       <div className="social-icons-column">
         <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`}
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            currentUrl
+          )}`}
           target="_blank"
           rel="noopener noreferrer"
           className="social-icon"
@@ -131,7 +96,9 @@ function MainBlogRedesign() {
           <FaFacebookF style={{ fontSize: "25px" }} />
         </a>
         <a
-          href={`https://twitter.com/intent/tweet?url=${currentUrl}&text=${text}`}
+          href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+            currentUrl
+          )}&text=${encodeURIComponent(text)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="social-icon"
@@ -139,7 +106,9 @@ function MainBlogRedesign() {
           <TwitterOutlined style={{ fontSize: "25px" }} />
         </a>
         <a
-          href={`https://www.linkedin.com/shareArticle?mini=true&url=${currentUrl}`}
+          href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+            currentUrl
+          )}`}
           target="_blank"
           rel="noopener noreferrer"
           className="social-icon"
@@ -148,17 +117,16 @@ function MainBlogRedesign() {
         </a>
       </div>
 
-      {/* Top Section */}
       <Row gutter={[24, 24]} align="middle" className="top-section">
         <Col xs={24} md={12}>
-          <h1 className="blog-title">{blogContent.title}</h1>
+          <h1 className="blog-title">{blogContent.title || "Untitled Blog"}</h1>
           <p className="blog-description">
-            {blogContent.details[0]?.detailDescription ||
+            {blogContent.details?.[0]?.detailDescription ||
               "No description available"}
           </p>
           <div className="author-info">
             <Link
-              to="/blog-author"
+              to={`/blog-author/${blogContent.blogAuthor?._id || ""}`}
               state={{ id: blogContent.blogAuthor?._id }}
               className="author-link"
             >
@@ -174,7 +142,7 @@ function MainBlogRedesign() {
                 {blogContent.blogAuthor?.name || "Unknown Author"}
               </span>
             </Link>
-            <span style={{ marginLeft: "0.5rem" }} className="post-date">
+            <span className="post-date">
               {new Date(blogContent.createdAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
@@ -184,18 +152,21 @@ function MainBlogRedesign() {
           </div>
         </Col>
         <Col xs={24} md={12}>
-          <img src={blogContent.image} className="main-image" alt="Main blog" />
+          <img
+            src={blogContent.image || "/images/placeholder.png"}
+            className="main-image"
+            alt={blogContent.title || "Blog image"}
+          />
         </Col>
       </Row>
 
-      {/* Second Section */}
       <Row gutter={[24, 24]} className="second-section">
         <Col xs={24} md={16}>
           <div className="blog-body">
             {blogContent.details?.map((detail, index) => (
               <React.Fragment key={index}>
                 {detail.detailTitle && <h2>{detail.detailTitle}</h2>}
-                <p>{detail.detailDescription}</p>
+                <p>{detail.detailDescription || "No content available"}</p>
                 {detail.table && detail.table.length > 0 && (
                   <table className="comparison-table">
                     <thead>
@@ -222,18 +193,22 @@ function MainBlogRedesign() {
           <h3 className="carousel-heading">Related Products</h3>
           <Carousel
             dots={false}
-            slidesToShow={Math.min(5, carouselItems.length)}
+            slidesToShow={Math.min(5, relatedProducts.length)}
             autoplay
             className="product-carousel"
           >
-            {carouselItems.map((item) => (
-              <div className="carousel-item" key={item.id}>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="carousel-img"
-                />
-                <div className="carousel-title">{item.title}</div>
+            {relatedProducts.map((item) => (
+              <div className="carousel-item" key={item._id}>
+                <Link to={`/product/${item.slug}`}>
+                  <img
+                    src={item.images?.[0] || "/images/placeholder.png"}
+                    alt={item.title || "Product"}
+                    className="carousel-img"
+                  />
+                  <div className="carousel-title">
+                    {item.title || "Untitled Product"}
+                  </div>
+                </Link>
               </div>
             ))}
           </Carousel>
@@ -245,9 +220,9 @@ function MainBlogRedesign() {
               alt="Banner"
               className="side-banner"
             />
-            <a href="/get-a-quote" className="get-quote-button">
+            <Link to="/get-a-quote" className="get-quote-button">
               Get a Quote
-            </a>
+            </Link>
           </div>
         </Col>
       </Row>

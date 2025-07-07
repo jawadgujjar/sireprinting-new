@@ -1,17 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./mainblog.css";
-import { Link } from "react-router-dom";
-import { Button, Col, Row, Spin, Alert } from "antd";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Button, Col, Row, Alert, Input, notification } from "antd";
 import { blog, blogcategory } from "../../utils/axios";
-import { slugify } from "../../utils/slugify";
 import SireprintingLoader from "../loader/loader";
+import debounce from "lodash/debounce";
 
 function MainBlog() {
+  const location = useLocation();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [blogs, setBlogs] = useState([]);
-  const [categories, setCategories] = useState(["All"]); // Initialize with "All"
+  const [categories, setCategories] = useState(["All"]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  // Initialize search query from URL if present
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const query = searchParams.get("query");
+    if (query) {
+      setSearchQuery(query);
+    }
+  }, [location.search]);
+
+  const performSearch = useCallback(
+    debounce((query) => {
+      if (query.trim()) {
+        navigate(`/blog?query=${encodeURIComponent(query)}`, { replace: true });
+      } else {
+        navigate("/blog", { replace: true });
+      }
+    }, 500),
+    [navigate]
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,27 +42,23 @@ function MainBlog() {
         setLoading(true);
         setError(null);
 
-        // Fetch blogs
-        const blogsResponse = await blog.get("/");
-        setBlogs(blogsResponse.data);
+        const [blogsResponse, categoriesResponse] = await Promise.all([
+          blog.get("/"),
+          blogcategory.get("/").catch(() => ({ data: { data: [] } })),
+        ]);
 
-        // Fetch categories with error handling
-        try {
-          const categoriesResponse = await blogcategory.get("/");
+        const blogData = Array.isArray(blogsResponse.data)
+          ? blogsResponse.data.filter((blog) => blog.slug)
+          : [];
+        setBlogs(blogData);
 
-          // Access the nested data property
-          const responseData = categoriesResponse?.data?.data || [];
-
-          // Ensure we have an array and extract names safely
-          const categoryNames = Array.isArray(responseData)
-            ? responseData.map((cat) => cat?.name).filter((name) => name)
-            : [];
-
-          setCategories(["All", ...new Set(categoryNames)]); // Remove duplicates
-        } catch (categoriesError) {
-          console.error("Failed to fetch categories:", categoriesError);
-          // Continue with just "All" category
-        }
+        const responseData = Array.isArray(categoriesResponse?.data?.data)
+          ? categoriesResponse.data.data
+          : [];
+        const categoryNames = responseData
+          .map((cat) => cat?.name)
+          .filter((name) => name);
+        setCategories(["All", ...new Set(categoryNames)]);
       } catch (err) {
         setError(err.message || "Failed to fetch blog data");
       } finally {
@@ -50,18 +69,58 @@ function MainBlog() {
     fetchData();
   }, []);
 
-  const filteredBlogs =
-    selectedCategory === "All"
-      ? blogs
-      : blogs.filter((blog) => blog.blogCategory?.name === selectedCategory);
+  const handleSearch = () => {
+    if (!searchQuery.trim()) {
+      notification.warning({
+        message: "Search Error",
+        description: "Please enter a search term",
+      });
+      return;
+    }
+    if (searchQuery.trim().length < 2) {
+      notification.warning({
+        message: "Search Error",
+        description: "Search term must be at least 2 characters",
+      });
+      return;
+    }
+    setError(null);
+    performSearch(searchQuery);
+  };
 
-  const popularBlogs = blogs.filter((blog) => blog.popular);
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    if (!value.trim()) {
+      navigate("/blog", { replace: true });
+    }
+  };
+
+  const filteredBlogs = searchQuery.trim()
+    ? blogs.filter(
+        (blog) =>
+          blog?.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          blog?.details?.[0]?.detailDescription
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          blog?.blogCategory?.name
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase())
+      )
+    : selectedCategory === "All"
+    ? blogs
+    : blogs.filter((blog) => blog?.blogCategory?.name === selectedCategory);
+
+  const popularBlogs = blogs.filter((blog) => blog?.popular === true);
 
   if (loading) {
-    return (
-             <SireprintingLoader />
-
-    );
+    return <SireprintingLoader />;
   }
 
   if (error) {
@@ -84,27 +143,32 @@ function MainBlog() {
         <div className="blog-content">
           <p className="blog-description">
             Unpack expert insights with a range of content from our packaging
-            wizards, featuring in-depth guides, custom packaging tips and
+            wizards, featuring in-depth guides, custom packaging tips, and
             inspiring customer stories.
           </p>
         </div>
 
         <div className="blog-divider"></div>
 
-        {/* Search */}
         <div className="blog-search-container">
           <div className="blog-search-box">
-            <span className="search-icon">🔍</span>
-            <input
-              type="text"
-              placeholder="Search ..."
+            <Input
+              placeholder="Search blogs..."
               className="search-input"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              onKeyPress={handleKeyPress}
             />
-            <button className="search-button">Search</button>
+            <Button
+              className="search-button"
+              onClick={handleSearch}
+              type="primary"
+            >
+              Search
+            </Button>
           </div>
         </div>
 
-        {/* Category Tabs */}
         <div className="blog-category-tabs">
           {categories.map((cat) => (
             <button
@@ -112,99 +176,121 @@ function MainBlog() {
               className={`category-tab-button ${
                 selectedCategory === cat ? "active" : ""
               }`}
-              onClick={() => setSelectedCategory(cat)}
+              onClick={() => {
+                setSelectedCategory(cat);
+                setSearchQuery("");
+                navigate("/blog");
+              }}
             >
               {cat}
             </button>
           ))}
         </div>
 
-        {/* Two-column layout */}
         <div className="blog-grid">
-          {/* Left Column */}
           <div className="blog-main-content">
             <Row gutter={[16, 16]}>
-              {filteredBlogs.map((blog) => (
-                <Col xs={24} sm={12} lg={12} key={blog._id}>
-                  <Link
-                    to={`/blog/${slugify(blog.title)}`}
-                    state={{ id: blog._id }}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <div className="blog-card">
-                      <div
-                        className="blog-card-image"
-                        style={{ backgroundImage: `url(${blog.image})` }}
-                      >
-                        <div className="image-overlay"></div>
-                      </div>
-                      <div className="blog-card-content">
-                        <h3 className="blog-card-title">{blog.title}</h3>
-                        <div className="blog-meta">
-                          <img
-                            src={
-                              blog.blogAuthor?.avatar ||
-                              "https://randomuser.me/api/portraits/women/44.jpg"
-                            }
-                            alt={blog.blogAuthor?.name || "Author"}
-                            className="author-avatar"
-                          />
-                          <div>
-                            <span className="author-name">
-                              {blog.blogAuthor?.name || "Unknown Author"}
-                            </span>
-                            <span className="post-date">
-                              {new Date(blog.createdAt).toLocaleDateString(
-                                "en-US",
-                                {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                }
-                              )}
-                            </span>
-                          </div>
+              {filteredBlogs.length > 0 ? (
+                filteredBlogs.map((blog) => (
+                  <Col xs={24} sm={12} lg={12} key={blog._id}>
+                    <Link
+                      to={`/blog/${blog.slug}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div className="blog-card">
+                        <div
+                          className="blog-card-image"
+                          style={{
+                            backgroundImage: `url(${
+                              blog.image || "/images/placeholder.png"
+                            })`,
+                          }}
+                        >
+                          <div className="image-overlay"></div>
                         </div>
-                        <p className="blog-card-description">
-                          {blog.details[0]?.detailDescription ||
-                            "No description available"}
-                        </p>
-                        <div className="hover-read-more">READ MORE →</div>
+                        <div className="blog-card-content">
+                          <h3 className="blog-card-title">
+                            {blog.title || "Untitled Blog"}
+                          </h3>
+                          <div className="blog-meta">
+                            <img
+                              src={
+                                blog.blogAuthor?.avatar ||
+                                "https://randomuser.me/api/portraits/women/44.jpg"
+                              }
+                              alt={blog.blogAuthor?.name || "Author"}
+                              className="author-avatar"
+                            />
+                            <div>
+                              <span className="author-name">
+                                {blog.blogAuthor?.name || "Unknown Author"}
+                              </span>
+                              <span className="post-date">
+                                {blog.createdAt
+                                  ? new Date(
+                                      blog.createdAt
+                                    ).toLocaleDateString()
+                                  : "Unknown Date"}
+                              </span>
+                            </div>
+                          </div>
+                          <p className="blog-card-description">
+                            {blog.details?.[0]?.detailDescription ||
+                              "No description available"}
+                          </p>
+                          <div className="hover-read-more">READ MORE →</div>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </Col>
+                ))
+              ) : (
+                <Col span={24}>
+                  <Alert
+                    message="No Blogs Found"
+                    description={
+                      searchQuery
+                        ? `No blogs found for search "${searchQuery}"`
+                        : `No blogs available for category "${selectedCategory}"`
+                    }
+                    type="info"
+                    showIcon
+                  />
                 </Col>
-              ))}
+              )}
             </Row>
           </div>
 
-          {/* Right Column - Popular Posts */}
-          <div>
+          <div className="blog-sidebar">
             <div className="popular-posts-sidebar">
               <h3 className="sidebar-title">Most Popular</h3>
               <div className="popular-posts-list">
-                {popularBlogs.map((blog) => (
-                  <div className="popular-post-card" key={blog._id}>
-                    <Link
-                      to={`/blog/${slugify(blog.title)}`}
-                      state={{ id: blog._id }}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <div
-                        className="popular-post-image"
-                        style={{ backgroundImage: `url(${blog.image})` }}
-                      ></div>
-                      <div className="popular-post-content">
-                        <h4
-                          className="popular-post-title"
-                          style={{ color: "black" }}
-                        >
-                          {blog.title}
-                        </h4>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
+                {popularBlogs.length > 0 ? (
+                  popularBlogs.map((blog) => (
+                    <div className="popular-post-card" key={blog._id}>
+                      <Link
+                        to={`/blog/${blog.slug}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <div
+                          className="popular-post-image"
+                          style={{
+                            backgroundImage: `url(${
+                              blog.image || "/images/placeholder.png"
+                            })`,
+                          }}
+                        ></div>
+                        <div className="popular-post-content">
+                          <h4 className="popular-post-title">
+                            {blog.title || "Untitled Blog"}
+                          </h4>
+                        </div>
+                      </Link>
+                    </div>
+                  ))
+                ) : (
+                  <p>No popular blogs available</p>
+                )}
               </div>
             </div>
             <div className="featured-categories">
@@ -218,12 +304,16 @@ function MainBlog() {
                       className={`sidebar-category-button ${
                         selectedCategory === cat ? "active" : ""
                       }`}
-                      onClick={() => setSelectedCategory(cat)}
+                      onClick={() => {
+                        setSelectedCategory(cat);
+                        setSearchQuery("");
+                        navigate("/blog");
+                      }}
                     >
                       {cat}
                       <span className="category-count">
                         {
-                          blogs.filter((b) => b.blogCategory?.name === cat)
+                          blogs.filter((b) => b?.blogCategory?.name === cat)
                             .length
                         }
                       </span>
@@ -231,86 +321,6 @@ function MainBlog() {
                   ))}
               </div>
             </div>
-            <div className="follow-us-section">
-              <p className="follow-us-title">Follow us:</p>
-              <div className="social-icons">
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/145/145802.png"
-                    alt="Facebook"
-                  />
-                </a>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
-                    alt="Instagram"
-                  />
-                </a>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/145/145812.png"
-                    alt="Twitter"
-                  />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/145/145807.png"
-                    alt="LinkedIn"
-                  />
-                </a>
-                <a
-                  href="https://youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/145/145807.png"
-                    alt="YouTube"
-                  />
-                </a>
-              </div>
-            </div>
-            <div className="side-banner-container">
-              <img
-                src="../images/blog_banner.png"
-                alt="Banner"
-                className="side-banner"
-              />
-              <a href="/get-a-quote" className="get-quote-button">
-                Get a Quote
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="div-getquote-blog">
-          <h2 className="testimonials-main-sec">
-            Ready to think outside the box? Let's get started!
-          </h2>
-          <h4>
-            Get in touch with a custom packaging specialist now for a free
-            consultation and instant price quote.
-          </h4>
-          <div className="getbutton-center">
-            <Link to="/get-a-quote">
-              <Button className="getquote-button">Get a Quote</Button>
-            </Link>
           </div>
         </div>
       </div>
