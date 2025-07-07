@@ -1,4 +1,3 @@
-/* productimgs.css */
 .product-image-container {
   display: flex;
   gap: 20px;
@@ -7,7 +6,6 @@
   padding: 20px;
   flex-wrap: nowrap;
   justify-content: center;
-  /* margin-top: 2rem; */
 }
 
 .thumbnail-vertical-wrapper {
@@ -26,14 +24,12 @@
   max-height: 350px;
   padding: 10px;
   border-radius: 4px;
-
-  /* ✅ Hide scrollbar for modern browsers */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .thumbnail-vertical::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  display: none;
 }
 
 .thumbnail-item-vertical {
@@ -78,150 +74,92 @@
   flex-grow: 1;
 }
 
-/* .slide-container {
+.slide-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 28rem;
-  width: 60%;
-  background-color: #62c3b5;
+  width: 100%;
   border-radius: 8px;
   overflow: hidden;
   padding: 15px;
   box-sizing: border-box;
-} */
+}
 
 .zoom-wrapper {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.main-product-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-/* Add these to your productimgs.css file */
-
-.video-thumbnail {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-.video-thumbnail video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.play-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  pointer-events: none;
-}
-
-.main-product-video {
+.main-product-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  background-color: #000;
-  cursor: pointer;
+  transition: transform 0.3s ease;
+  cursor: crosshair;
 }
 
-/* Update the slide-container to better handle videos */
-.slide-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 28rem;
-  width: 60%;
-  background-color: transparent;
-  border-radius: 8px;
-  overflow: hidden;
-  padding: 15px;
-  box-sizing: border-box;
-}
-
-/* For video slides, remove the padding */
-.slide-container video {
-  padding: 0;
-}
-.custom-arrow {
+/* Magnifying glass effect */
+.magnifier {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background-color: rgba(255, 255, 255, 0.9) !important;
+  width: 300px; /* Increased size */
+  height: 300px; /* Increased size */
+  border: 4px solid rgba(255, 255, 255, 0.8);
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  color: #333;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: none;
   z-index: 10;
-  transition: all 0.3s ease;
-  opacity: 0.8;
+  background-size: 300% 300%;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease-out;
 }
 
-.custom-arrow:hover {
-  opacity: 1;
-  background-color: white !important;
-  color: #1890ff;
+/* Zoom effect on hover */
+.zoom-wrapper:hover .magnifier {
+  display: flex;
 }
 
-.custom-arrow.left {
-  left: 15px;
-}
-
-.custom-arrow.right {
-  right: 15px;
-}
-
-/* Hide the default arrows */
-.slick-prev,
-.slick-next {
+/* Remove hover effect from thumbnails */
+.thumbnail-item-vertical:hover .magnifier {
   display: none !important;
 }
-/* ✅ Tablet & Mobile View */
+.main-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+
+.main-product-image.zoomed {
+  transform: scale(2);
+  cursor: zoom-out;
+}
+
+/* Responsive styles */
 @media (max-width: 1024px) {
   .product-image-container {
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
     padding: 10px;
-    gap: 10px; /* Reduce gap between carousel and thumbnails */
+    gap: 10px;
   }
 
   .thumbnail-vertical-wrapper {
     flex-direction: row;
-    gap: 8px; /* Reduced gap */
+    gap: 8px;
     order: 2;
     justify-content: center;
     width: 100%;
     overflow-x: auto;
-    padding: 5px 0; /* Reduced vertical spacing */
-    margin-top: -10px; /* Bring thumbnails closer to image */
+    padding: 5px 0;
+    margin-top: -10px;
   }
 
   .thumbnail-vertical {
@@ -231,11 +169,6 @@
     max-height: none;
     padding: 0;
     width: auto;
-    scrollbar-width: none;
-  }
-
-  .thumbnail-vertical::-webkit-scrollbar {
-    display: none;
   }
 
   .thumbnail-item-vertical {
@@ -252,7 +185,12 @@
     font-size: 16px;
     padding: 4px;
   }
+
+  .magnifier {
+    display: none !important;
+  }
 }
+
 @media (max-width: 425px) {
   .product-image-container {
     display: flex;

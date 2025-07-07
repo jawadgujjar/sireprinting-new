@@ -5,20 +5,20 @@ import "./productimgs.css";
 
 function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
   const [selectedImage, setSelectedImage] = useState(selectedIndex || 0);
+  const [zoomState, setZoomState] = useState({
+    isZoomed: false,
+    zoomX: 0,
+    zoomY: 0,
+  });
   const carouselRef = useRef(null);
 
-  // Filter out invalid images (null, undefined, or empty strings)
+  // Filter out invalid images
   const validImages =
     images?.filter(
       (img) => img && typeof img === "string" && img.trim() !== ""
     ) || [];
 
-  // Debug: Log images to verify
-  console.log("Productimgs1 - Valid Images:", validImages);
-  console.log("Productimgs1 - Selected Image Index:", selectedIndex);
-
   useEffect(() => {
-    // Ensure selectedImage is within bounds
     const newIndex = Math.max(
       0,
       Math.min(selectedIndex, validImages.length - 1)
@@ -39,14 +39,33 @@ function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
     }
   };
 
-  // Safe image URL check with fallback
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+
+    setZoomState({
+      isZoomed: true,
+      zoomX: x,
+      zoomY: y,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setZoomState({
+      isZoomed: false,
+      zoomX: 0,
+      zoomY: 0,
+    });
+  };
+
   const getImageUrl = (img) => {
     return img && typeof img === "string" && img.trim() !== ""
       ? img
-      : "https://via.placeholder.com/150"; // Fallback placeholder image
+      : "https://via.placeholder.com/150";
   };
 
-  // If no valid images, show a placeholder
   if (validImages.length === 0) {
     return (
       <div className="product-image-container">
@@ -118,11 +137,20 @@ function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
         >
           {validImages.map((src, index) => (
             <div key={index} className="slide-container">
-              <div className="zoom-wrapper">
+              <div
+                className="zoom-wrapper"
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
                 <img
                   src={getImageUrl(src)}
                   alt={`${title || "Product"} - ${index + 1}`}
-                  className="main-product-image"
+                  className={`main-product-image ${
+                    zoomState.isZoomed ? "zoomed" : ""
+                  }`}
+                  style={{
+                    transformOrigin: `${zoomState.zoomX}% ${zoomState.zoomY}%`,
+                  }}
                 />
               </div>
             </div>
