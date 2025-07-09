@@ -1,10 +1,10 @@
-// src/context/UserContext.js
+ 
 import React, { createContext, useState, useContext, useEffect } from "react";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // null by default
+  const [user, setUser] = useState(null);  
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {

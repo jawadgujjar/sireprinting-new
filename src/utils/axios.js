@@ -64,6 +64,12 @@ const orders = axios.create({
 const sampleorder = axios.create({
   baseURL: `${baseURL}/samplerequests`,
 });
+const updateuser = axios.create({
+  baseURL: `${baseURL}/users`,
+});
+const profileaddress = axios.create({
+  baseURL: `${baseURL}/profileaddress`,
+});
 // Request Interceptor
 const requestInterceptor = (req) => {
   // Optional: Add auth tokens if needed
@@ -98,6 +104,8 @@ const errorInterceptor = (err) => {
   instagram,
   orders,
   sampleorder,
+  updateuser,
+  profileaddress,
 ].forEach((instance) => {
   instance.interceptors.request.use(requestInterceptor, errorInterceptor);
 });
@@ -123,4 +131,6 @@ export {
   instagram,
   orders,
   sampleorder,
+  updateuser,
+  profileaddress,
 };
