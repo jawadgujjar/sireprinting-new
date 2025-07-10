@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Spin, Empty, Alert } from "antd";
 import { DownOutlined } from "@ant-design/icons";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { subcategory, product, category } from "../../utils/axios";
 import { slugify } from "../../utils/slugify";
 import "./subcategory.css";
@@ -19,7 +19,8 @@ function Subcategory({ data }) {
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [categoryTitle, setCategoryTitle] = useState("");
-  const { slug: categorySlug } = useParams(); // Get category slug from URL
+  const { slug: categorySlug } = useParams();
+  const navigate = useNavigate();
 
   // Handle window resize for mobile detection
   useEffect(() => {
@@ -36,7 +37,7 @@ function Subcategory({ data }) {
       if (data?._id) {
         try {
           const response = await category.get(`/${data._id}`);
-          setCategoryTitle(slugify(response.data.title));
+          setCategoryTitle(response.data.title);
         } catch (err) {
           console.error("Error fetching category title:", err);
         }
@@ -96,10 +97,29 @@ function Subcategory({ data }) {
     );
   };
 
+  const handleProductClick = (product, subCategoryTitle) => {
+    // Split the full product slug into parts if it exists
+    if (product.slug && product.slug.includes("/")) {
+      const slugParts = product.slug.split("/");
+      if (slugParts.length >= 3) {
+        const [catSlug, subCatSlug, productSlug] = slugParts;
+        navigate(`/${catSlug}/${subCatSlug}/${productSlug}`);
+        return;
+      }
+    }
+
+    // Fallback to constructing the URL from parts
+    const categorySlugPart = categorySlug || slugify(categoryTitle);
+    const subCategorySlug = slugify(subCategoryTitle || "");
+    const productSlug = product.slug || slugify(product.title);
+
+    navigate(`/${categorySlugPart}/${subCategorySlug}/${productSlug}`);
+  };
+
   // Handle image error
   const handleImageError = (e) => {
     e.target.src = fallbackImage;
-    e.target.onerror = null; // Prevent infinite loop if fallback fails
+    e.target.onerror = null;
   };
 
   if (loading && !subCategories.length) {
@@ -135,7 +155,7 @@ function Subcategory({ data }) {
                       className={`category-card ${
                         selectedCategory === subCategory._id
                           ? "active-category"
-                          : ""  
+                          : ""
                       }`}
                       onClick={() => handleCategoryClick(subCategory._id)}
                     >
@@ -176,49 +196,44 @@ function Subcategory({ data }) {
                       <div className="mobile-category-products">
                         <Row gutter={[16, 16]}>
                           {products.length > 0 ? (
-                            products.map((product) => (
-                              <Col xs={24} key={product._id}>
-                                <Link
-                                  to={`/${
-                                    categorySlug || categoryTitle
-                                  }/${slugify(subCategory.title)}/${slugify(
-                                    product.title
-                                  )}/${
-                                    product.variants?.[0]?.variantTitle
-                                      ? slugify(
-                                          product.variants[0].variantTitle
-                                        )
-                                      : "default"
-                                  }`}
-                                  state={{
-                                    id: product._id,
-                                    variantTitle:
-                                      product.variants?.[0]?.variantTitle,
-                                  }}
-                                  className="product-link"
-                                >
-                                  <Card
-                                    hoverable
-                                    cover={
-                                      <img
-                                        alt={product.title}
-                                        src={product.image || fallbackImage}
-                                        onError={handleImageError}
-                                      />
+                            products.map((product) => {
+                              const currentSubCategory = subCategories.find(
+                                (c) => c._id === selectedCategory
+                              );
+                              return (
+                                <Col xs={24} key={product._id}>
+                                  <div
+                                    onClick={() =>
+                                      handleProductClick(
+                                        product,
+                                        currentSubCategory?.title
+                                      )
                                     }
-                                    className="product-card"
-                                    bodyStyle={{
-                                      padding: "10px",
-                                      overflow: "hidden",
-                                    }}
+                                    className="product-link"
                                   >
-                                    <div className="product-title">
-                                      {product.title}
-                                    </div>
-                                  </Card>
-                                </Link>
-                              </Col>
-                            ))
+                                    <Card
+                                      hoverable
+                                      cover={
+                                        <img
+                                          alt={product.title}
+                                          src={product.image || fallbackImage}
+                                          onError={handleImageError}
+                                        />
+                                      }
+                                      className="product-card"
+                                      bodyStyle={{
+                                        padding: "10px",
+                                        overflow: "hidden",
+                                      }}
+                                    >
+                                      <div className="product-title">
+                                        {product.title}
+                                      </div>
+                                    </Card>
+                                  </div>
+                                </Col>
+                              );
+                            })
                           ) : (
                             <Col span={24}>
                               <Empty description="No products found" />
@@ -244,46 +259,44 @@ function Subcategory({ data }) {
             </p>
             <Row gutter={[16, 16]}>
               {products.length > 0 ? (
-                products.map((product) => (
-                  <Col xs={24} sm={8} md={8} lg={8} key={product._id}>
-                    <Link
-                      to={`/${categorySlug || categoryTitle}/${slugify(
-                        subCategories.find((c) => c._id === selectedCategory)
-                          ?.title
-                      )}/${slugify(product.title)}/${
-                        product.variants?.[0]?.variantTitle
-                          ? slugify(product.variants[0].variantTitle)
-                          : "default"
-                      }`}
-                      state={{
-                        id: product._id,
-                        variantTitle: product.variants?.[0]?.variantTitle,
-                      }}
-                      className="product-link"
-                    >
-                      <Card
-                        className="allproduct-card"
-                        hoverable
-                        cover={
-                          <div className="card-image-container">
-                            <img
-                              alt={product.title}
-                              src={product.image || fallbackImage}
-                              className="allproduct-card-image"
-                              onError={handleImageError}
-                            />
-                          </div>
+                products.map((product) => {
+                  const currentSubCategory = subCategories.find(
+                    (c) => c._id === selectedCategory
+                  );
+                  return (
+                    <Col xs={24} sm={8} md={8} lg={8} key={product._id}>
+                      <div
+                        onClick={() =>
+                          handleProductClick(product, currentSubCategory?.title)
                         }
+                        className="product-link"
                       >
-                        <Meta
-                          title={
-                            <span className="card-title">{product.title}</span>
+                        <Card
+                          className="allproduct-card"
+                          hoverable
+                          cover={
+                            <div className="card-image-container">
+                              <img
+                                alt={product.title}
+                                src={product.image || fallbackImage}
+                                className="allproduct-card-image"
+                                onError={handleImageError}
+                              />
+                            </div>
                           }
-                        />
-                      </Card>
-                    </Link>
-                  </Col>
-                ))
+                        >
+                          <Meta
+                            title={
+                              <span className="card-title">
+                                {product.title}
+                              </span>
+                            }
+                          />
+                        </Card>
+                      </div>
+                    </Col>
+                  );
+                })
               ) : (
                 <Col span={24}>
                   <Empty description="No products found" />

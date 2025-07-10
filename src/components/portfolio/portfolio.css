@@ -1,7 +1,9 @@
+/* Portfolio Container */
 .portfolio-container {
   padding: 40px 20px;
   max-width: 1200px;
   margin: 3rem auto 0;
+  box-sizing: border-box;
 }
 
 .portfolio-title {
@@ -12,6 +14,7 @@
   font-weight: 700;
 }
 
+/* Product Grid */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -19,7 +22,7 @@
 }
 
 .product-card {
-  position: relative;
+  POSITION: relative;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(1, 37, 125, 0.2);
@@ -32,6 +35,10 @@
 .product-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 10px 24px rgba(1, 37, 125, 0.3);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.1);
 }
 
 .sku-tag {
@@ -52,6 +59,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.3s ease;
 }
 
 .product-overlay {
@@ -62,104 +70,112 @@
   background: #01257d;
   padding: 20px;
   color: white;
-  /* Remove the opacity transition and set to always visible */
-  opacity: 1;
-}
-
-.product-card:hover .product-overlay {
   opacity: 1;
 }
 
 .product-name {
   font-size: 1.2rem;
   font-weight: 600;
-  color: white !important; /* Changed from #01257d to white */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Added for better readability */
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Modal & Preview */
+/* Modal Styles */
+.product-preview-modal .ant-modal {
+  top: 20px;
+  margin: 0 auto;
+  max-width: 90%;
+  width: 900px;
+}
+
+.product-preview-modal .ant-modal-content {
+  height: 90vh;
+  max-height: auto;
+  overflow: hidden;
+  border-radius: 12px;
+  padding: 0;
+  background: #fff;
+}
 
 .product-preview-modal .ant-modal-body {
   padding: 0;
+  height: 100%;
+  display: flex;
 }
 
+/* Preview Content */
 .preview-content {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .preview-image-container {
-  position: relative;
-  width: 100%;
-  background-color: transparent !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  text-align: center;
-}
-
-.ant-modal-content {
-  background-color: transparent !important;
-  box-shadow: none !important;
+  background: #f7f7f7;
+  position: relative;
 }
 
 .preview-image {
   max-width: 100%;
-  max-height: 90vh;
+  max-height: 80%;
   object-fit: contain;
-  border-radius: 10px;
-}
-
-/* Text Overlay on Preview */
-
-.text-overlay-top {
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  padding: 12px 24px;
-  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
-  z-index: 2;
-  max-width: 90%;
+  transition: transform 0.3s ease;
 }
 
-.text-overlay-top h2 {
-  margin: 0;
-  color: #01257d;
-  font-size: 1.5rem;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.preview-image:hover {
+  transform: scale(1.2);
 }
 
-.text-overlay-top .preview-sku {
-  color: #01257d;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-/* Overlay Action Buttons */
-
-.preview-actions-overlay {
-  position: absolute;
-  bottom: 50px;
-  left: 0;
-  right: 0;
+.preview-details {
+  flex: 1;
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  padding: 0 20px;
-  z-index: 2;
+  justify-content: space-between;
 }
 
-.action-icons {
+.product-info {
+  margin-bottom: 20px;
+}
+
+.product-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #01257d;
+  margin-bottom: 10px;
+}
+
+.product-sku {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Action Buttons */
+.preview-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.image-action-row {
   display: flex;
   gap: 15px;
+  position: absolute;
+  bottom: 20px;
+  justify-content: center;
+  z-index: 10;
 }
 
-.preview-actions-overlay .ant-btn {
+.preview-actions .ant-btn,
+.image-action-row .ant-btn {
   height: 50px;
   font-weight: 600;
   font-size: 1rem;
@@ -167,13 +183,12 @@
   transition: all 0.3s ease;
 }
 
-.preview-actions-overlay .ant-btn-circle {
+.preview-actions .ant-btn-circle,
+.image-action-row .ant-btn-circle {
   width: 50px;
   height: 50px;
   font-size: 1.2rem;
 }
-
-/* Buttons with Color Theme */
 
 .whatsapp-btn {
   background-color: #00ffbf;
@@ -212,11 +227,10 @@
 .pricing-btn {
   background-color: #01257d;
   border-color: #01257d;
-  color: white !important;
+  color: white;
   font-weight: 700;
   width: 100%;
   padding: 0.6rem;
-  max-width: 320px;
 }
 
 .pricing-btn:hover {
@@ -226,14 +240,13 @@
 }
 
 /* Navigation Buttons */
-
 .nav-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
   border: none;
-  width: 40px !important;
+  width: 40px;
   height: 40px;
   border-radius: 50%;
   display: flex;
@@ -257,38 +270,41 @@
 }
 
 /* Responsive Tweaks */
-
 @media (max-width: 768px) {
-  .preview-image {
-    max-height: 60vh;
+  .product-preview-modal .ant-modal {
+    width: 95%;
+    max-width: none;
   }
 
-  .text-overlay-top {
-    top: 20px;
-    padding: 10px 16px;
+  .preview-content {
+    flex-direction: column;
+    height: auto;
   }
 
-  .text-overlay-top h2 {
-    font-size: 1.2rem;
+  .preview-image-container {
+    height: 300px;
+    padding: 10px;
   }
 
-  .text-overlay-top .preview-sku {
-    font-size: 0.8rem;
+  .preview-details {
+    padding: 20px;
   }
 
-  .preview-actions-overlay {
-    bottom: 20px;
+  .product-title {
+    font-size: 1.5rem;
   }
 
-  .preview-actions-overlay .ant-btn-circle {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-
-  .pricing-btn {
+  .preview-actions .ant-btn,
+  .image-action-row .ant-btn {
+    height: 45px;
     font-size: 0.9rem;
-    max-width: 240px;
+  }
+
+  .preview-actions .ant-btn-circle,
+  .image-action-row .ant-btn-circle {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
   }
 
   .nav-button {
@@ -308,13 +324,26 @@
     margin-bottom: 30px;
   }
 
-  .text-overlay-top h2 {
-    font-size: 1rem;
+  .preview-image-container {
+    height: 250px;
   }
 
-  .preview-actions-overlay .ant-btn-circle {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
+  .preview-details {
+    padding: 15px;
+  }
+
+  .product-title {
+    font-size: 1.3rem;
+  }
+
+  .image-action-row {
+    gap: 10px;
+  }
+
+  .preview-actions .ant-btn-circle,
+  .image-action-row .ant-btn-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
   }
 }
