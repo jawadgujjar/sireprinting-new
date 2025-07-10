@@ -10,7 +10,7 @@ import {
   Card,
 } from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
-import { orders } from "../../utils/axios";
+import { orders, sampleorder } from "../../utils/axios";
 import { useUser } from "../../contextapi/userContext";
 import "./approveddesign.css";
 
@@ -40,6 +40,7 @@ const OrderHistory = () => {
       setLoading(true);
       try {
         const response = await orders.get(`/user/${loggedInUserId}`);
+        console.log("Raw GET response:", response.data); // Debug: Check raw response
 
         if (response.data?.length > 0) {
           const formatted = response.data.map((item, index) => ({
@@ -54,6 +55,8 @@ const OrderHistory = () => {
             height: item.size?.height || 0,
             file: item.file,
             status: item.status,
+            price: item.price || 0, // Add price for re-order
+            shippingAddress: item.shippingAddress?.[0] || {}, // Extract first object from array
           }));
           setOrdersData(formatted);
         } else {
@@ -71,10 +74,44 @@ const OrderHistory = () => {
     fetchOrders();
   }, [loggedInUserId]);
 
-  const handleReorder = (record) => {
-    console.log("Re-ordering:", record);
-    message.success(`Re-ordered item: ${record.product}`);
-    // TODO: Add actual reorder API logic here
+  const handleReorder = async (record) => {
+    try {
+      // Validate shippingAddress
+      if (!record.shippingAddress || Object.keys(record.shippingAddress).length === 0) {
+        message.warning("Shipping address is missing. Please update the order with a valid address.");
+        return;
+      }
+
+      const reorderData = {
+        userId: loggedInUserId,
+        product: record.product,
+        quantity: record.quantity,
+        material: record.material,
+        size: {
+          length: record.length,
+          width: record.width,
+          height: record.height,
+          unit: "in",
+        },
+        file: record.file,
+        price: record.price || 0,
+        shippingAddress: record.shippingAddress, // Send as single object
+      };
+
+      console.log("Reorder payload:", reorderData); // Debug: Log payload
+
+      const response = await sampleorder.post("/", reorderData);
+      console.log("POST response:", response.data); // Debug: Log response
+
+      if (response.status === 201 || response.status === 200) {
+        message.success(`Re-order placed for: ${record.product}`);
+      } else {
+        message.error("Something went wrong while reordering.");
+      }
+    } catch (error) {
+      console.error("Reorder error:", error.response?.data || error.message);
+      message.error("Failed to place reorder.");
+    }
   };
 
   const columns = [
@@ -153,12 +190,21 @@ const OrderHistory = () => {
         );
       },
     },
+    // {
+    //   title: "Shipping Address",
+    //   dataIndex: "shippingAddress",
+    //   key: "shippingAddress",
+    //   render: (shippingAddress) =>
+    //     shippingAddress && Object.keys(shippingAddress).length > 0
+    //       ? `${shippingAddress.name}, ${shippingAddress.streetAddress}, ${shippingAddress.city}, ${shippingAddress.province} ${shippingAddress.zipCode}, ${shippingAddress.country}`
+    //       : "Not provided",
+    // },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
       render: (status, record) => {
-        const lowerStatus = status?.toLowerCase();  
+        const lowerStatus = status?.toLowerCase();
         let color = "default";
 
         if (lowerStatus === "delivered") color = "green";

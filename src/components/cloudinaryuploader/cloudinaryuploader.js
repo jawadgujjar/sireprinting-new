@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Spin, message } from "antd";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import "./cloudinary.css";
 
 const CloudinaryUploader = ({
   onUploadSuccess,
@@ -124,16 +125,8 @@ const CloudinaryUploader = ({
                 disabled={isUploading || disabled}
               />
               <div
-                style={{
-                  width: 100,
-                  height: 100,
-                  border: "1px dashed #d9d9d9",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                  cursor: "pointer",
-                }}
+                className="custom-upload-btn"
+                style={{ width: 100, height: 100 }}
               >
                 {isUploading ? (
                   <Spin tip={`${progress}%`} />

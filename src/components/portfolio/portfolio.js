@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Modal, Button, Spin } from "antd";
 import {
   WhatsAppOutlined,
@@ -9,17 +9,27 @@ import {
   SendOutlined,
 } from "@ant-design/icons";
 import "./portfolio.css";
-import { portfolio, product } from "../../utils/axios"; // Make sure you have both APIs configured
+import { portfolio, product } from "../../utils/axios";
+import FormSubmit from "./formsubmit";
 
 function Portfolio() {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [productIds, setProductIds] = useState([]); // Store only IDs from portfolio API
-  const [products, setProducts] = useState([]); // Store full product details
+  const [productIds, setProductIds] = useState([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [zoomState, setZoomState] = useState({
+    isZoomed: false,
+    zoomX: 0,
+    zoomY: 0,
+  });
+  const [previewZoomState, setPreviewZoomState] = useState({
+    isZoomed: false,
+    zoomX: 0,
+    zoomY: 0,
+  });
 
-  // First fetch product IDs from portfolio API
   useEffect(() => {
     const fetchProductIds = async () => {
       try {
@@ -35,21 +45,19 @@ function Portfolio() {
     fetchProductIds();
   }, []);
 
-  // Then fetch product details for each ID
   useEffect(() => {
     if (productIds.length === 0) return;
 
     const fetchProductDetails = async () => {
       try {
         setLoading(true);
-        const productPromises = productIds.map(
-          (id) => product.get(`/${id}`).catch(() => null) // Handle individual failures
+        const productPromises = productIds.map((id) =>
+          product.get(`/${id}`).catch(() => null)
         );
         const productResponses = await Promise.all(productPromises);
         const validProducts = productResponses
           .filter((res) => res !== null && res.data)
           .map((res) => {
-            console.log("Variants:", res.data);
             return {
               id: res.data.productId,
               sku: res.data.sku || "N/A",
@@ -75,16 +83,59 @@ function Portfolio() {
 
   const handleCancel = () => {
     setPreviewVisible(false);
+    setPreviewZoomState({ isZoomed: false, zoomX: 0, zoomY: 0 });
   };
 
   const goToNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % products.length);
+    setPreviewZoomState({ isZoomed: false, zoomX: 0, zoomY: 0 });
   };
 
   const goToPrev = () => {
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + products.length) % products.length
     );
+    setPreviewZoomState({ isZoomed: false, zoomX: 0, zoomY: 0 });
+  };
+
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setZoomState({
+      isZoomed: true,
+      zoomX: x,
+      zoomY: y,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setZoomState({
+      isZoomed: false,
+      zoomX: 0,
+      zoomY: 0,
+    });
+  };
+
+  const handlePreviewMouseMove = (e) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setPreviewZoomState({
+      isZoomed: true,
+      zoomX: x,
+      zoomY: y,
+    });
+  };
+
+  const handlePreviewMouseLeave = () => {
+    setPreviewZoomState({
+      isZoomed: false,
+      zoomX: 0,
+      zoomY: 0,
+    });
   };
 
   if (loading) {
@@ -115,16 +166,36 @@ function Portfolio() {
             onClick={() => showPreview(index)}
           >
             <div className="sku-tag">{product.sku}</div>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="product-image"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src =
-                  "https://via.placeholder.com/300x200?text=Product+Image";
-              }}
-            />
+            <div
+              className="zoom-wrapper"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
+              <img
+                src={product.image}
+                alt={product.name}
+                className={`product-image ${
+                  zoomState.isZoomed ? "zoomed" : ""
+                }`}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src =
+                    "https://via.placeholder.com/300x200?text=Product+Image";
+                }}
+              />
+              <div
+                className="magnifier"
+                style={{
+                  backgroundImage: `url(${
+                    product.image ||
+                    "https://via.placeholder.com/300x200?text=Product+Image"
+                  })`,
+                  backgroundPosition: `${zoomState.zoomX}% ${zoomState.zoomY}%`,
+                  display: zoomState.isZoomed ? "block" : "none",
+                  transform: `translate(${zoomState.zoomX}%, ${zoomState.zoomY}%)`,
+                }}
+              />
+            </div>
             <div className="product-overlay always-visible">
               <span className="product-name">{product.name}</span>
             </div>
@@ -137,7 +208,7 @@ function Portfolio() {
         onCancel={handleCancel}
         footer={null}
         width="80%"
-        style={{ maxWidth: "900px" }}
+        style={{ maxWidth: "900px",top:14 }}
         className="product-preview-modal"
       >
         {products[currentIndex] && (
@@ -148,54 +219,73 @@ function Portfolio() {
                 icon={<LeftOutlined />}
                 onClick={goToPrev}
               />
-              <img
-                src={products[currentIndex].image}
-                alt={products[currentIndex].name}
-                className="preview-image"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src =
-                    "https://via.placeholder.com/800x600?text=Product+Image";
-                }}
-              />
+              <div
+                className="zoom-wrapper"
+                onMouseMove={handlePreviewMouseMove}
+                onMouseLeave={handlePreviewMouseLeave}
+              >
+                <img
+                  src={products[currentIndex].image}
+                  alt={products[currentIndex].name}
+                  className={`preview-image ${
+                    previewZoomState.isZoomed ? "zoomed" : ""
+                  }`}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://via.placeholder.com/800x600?text=Product+Image";
+                  }}
+                />
+                <div
+                  className="magnifier"
+                  style={{
+                    backgroundImage: `url(${
+                      products[currentIndex].image ||
+                      "https://via.placeholder.com/800x600?text=Product+Image"
+                    })`,
+                    backgroundPosition: `${previewZoomState.zoomX}% ${previewZoomState.zoomY}%`,
+                    display: previewZoomState.isZoomed ? "block" : "none",
+                    transform: `translate(${previewZoomState.zoomX}%, ${previewZoomState.zoomY}%)`,
+                  }}
+                />
+              </div>
               <Button
                 className="nav-button next-button"
                 icon={<RightOutlined />}
                 onClick={goToNext}
               />
-
-              <div className="text-overlay-top">
-                <h2>{products[currentIndex].name}</h2>
-                <p className="preview-sku">SKU: {products[currentIndex].sku}</p>
+              <div className="image-action-row">
+                <Button
+                  type="primary"
+                  shape="circle"
+                  icon={<WhatsAppOutlined />}
+                  className="whatsapp-btn"
+                />
+                <Button
+                  shape="circle"
+                  icon={<MailOutlined />}
+                  className="email-btn"
+                />
+                <Button
+                  shape="circle"
+                  icon={<MessageOutlined />}
+                  className="chat-btn"
+                />
+                <Button
+                  shape="circle"
+                  icon={<SendOutlined />}
+                  className="email-btn"
+                />
               </div>
+            </div>
 
-              <div className="preview-actions-overlay">
-                <h2 type="default" className="pricing-btn">
-                  Get Pricing for this Product
-                </h2>
-                <div className="action-icons">
-                  <Button
-                    type="primary"
-                    shape="circle"
-                    icon={<WhatsAppOutlined />}
-                    className="whatsapp-btn"
-                  />
-                  <Button
-                    shape="circle"
-                    icon={<MailOutlined />}
-                    className="email-btn"
-                  />
-                  <Button
-                    shape="circle"
-                    icon={<MessageOutlined />}
-                    className="chat-btn"
-                  />
-                  <Button
-                    shape="circle"
-                    icon={<SendOutlined />}
-                    className="email-btn"
-                  />
-                </div>
+            <div className="preview-details">
+              <div className="product-info">
+                <h1 className="product-title">{products[currentIndex].name}</h1>
+                <p className="product-sku">SKU: {products[currentIndex].sku}</p>
+              </div>
+              <div className="preview-actions">
+                <FormSubmit />
               </div>
             </div>
           </div>
