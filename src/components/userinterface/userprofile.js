@@ -99,6 +99,7 @@ const UserProfile = () => {
   const [addressSuccess, setAddressSuccess] = useState(null);
   const [viewAddressError, setViewAddressError] = useState(null);
   const [viewAddressSuccess, setViewAddressSuccess] = useState(null);
+  const [initialLoad, setInitialLoad] = useState(true);
 
   // Shipping address states
   const [shippingName, setShippingName] = useState("");
@@ -124,9 +125,6 @@ const UserProfile = () => {
   // User profile states
   const [avatarUrl, setAvatarUrl] = useState("");
   const [preview, setPreview] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
 
   // Reset form for shipping address
   const resetAddressForm = () => {
@@ -157,18 +155,21 @@ const UserProfile = () => {
   useEffect(() => {
     const loadUserData = async () => {
       if (userContext?.user) {
-        setName(userContext.user.name || "");
-        setEmail(userContext.user.email || "");
-        setPhone(userContext.user.phone || "");
-        setPreview(
-          userContext.user.avatarUrl ||
-            `https://i.pravatar.cc/300?u=${userContext.user.email}`
-        );
-        setAvatarUrl(userContext.user.avatarUrl || "");
-
         try {
+          // Check localStorage for cached image first
+          const cachedImage = localStorage.getItem('userProfileImage');
+          const defaultImage = `https://i.pravatar.cc/300?u=${userContext.user.email}`;
+          
+          // Set image from cache if available, otherwise from user context, otherwise default
+          const initialImage = cachedImage || userContext.user.profile || defaultImage;
+          
+          setPreview(initialImage);
+          setAvatarUrl(userContext.user.profile || "");
+          
+          // Load address data
           const response = await profileaddress.get(`/${userContext.user.id}`);
           const shippingAddress = response.data;
+          
           if (shippingAddress) {
             setShippingName(shippingAddress.name || "");
             setCompanyName(shippingAddress.companyName || "");
@@ -191,20 +192,25 @@ const UserProfile = () => {
         } catch (error) {
           console.error("Error fetching address:", error);
           setHasAddress(false);
+        } finally {
+          setInitialLoad(false);
         }
       }
     };
 
     loadUserData();
-  }, [userContext]);
+  }, [userContext, userContext?.user?.profile]);
 
   // Handle Cloudinary upload success
   const handleUploadSuccess = (data) => {
-    setAvatarUrl(data.secure_url);
-    setPreview(data.secure_url);
+    const imageUrl = data.secure_url;
+    setAvatarUrl(imageUrl);
+    setPreview(imageUrl);
+    // Cache the new image immediately
+    localStorage.setItem('userProfileImage', imageUrl);
   };
 
-  // Handle profile submit with PATCH API - UPDATED FOR AUTHENTICATION
+  // Handle profile submit with PATCH API
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
 
@@ -220,50 +226,70 @@ const UserProfile = () => {
 
     setLoading(true);
     try {
-      // Get fresh token from localStorage
-      const token = localStorage.getItem('token');
-      
+      const token = localStorage.getItem("token");
       if (!token) {
         throw new Error("No authentication token found");
       }
 
-      // Make request with explicit authorization header
+      // Update profile in backend
       const response = await axios.patch(
         `${updateuser.defaults.baseURL}/${userContext.user.id}`,
-        { avatarUrl },
+        { profile: avatarUrl },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
 
       if (response.data.success) {
-        message.success("Avatar updated successfully!");
-        // Update user context
+        message.success("Profile picture updated successfully!");
+        
+        // Update local cache
+        localStorage.setItem('userProfileImage', avatarUrl);
+        
+        // Update user context with the new profile image
         if (setUserContext) {
           setUserContext({
             ...userContext,
             user: {
               ...userContext.user,
-              avatarUrl: avatarUrl
-            }
+              profile: avatarUrl,
+            },
+          });
+        }
+
+        // Refresh user data from server to ensure consistency
+        const updatedUser = await axios.get(
+          `${updateuser.defaults.baseURL}/${userContext.user.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        
+        if (updatedUser.data) {
+          setUserContext({
+            ...userContext,
+            user: updatedUser.data,
           });
         }
       } else {
-        message.error(response.data.message || "Failed to update avatar");
+        message.error(
+          response.data.message || "Failed to update profile picture"
+        );
       }
     } catch (error) {
-      console.error("Avatar update failed:", error);
+      console.error("Profile update failed:", error);
       if (error.response?.status === 401) {
         message.error("Session expired. Please login again.");
-        // Optionally redirect to login here
       } else {
         message.error(
-          error.message || 
-          error.response?.data?.message || 
-          "Failed to update avatar. Please try again."
+          error.message ||
+            error.response?.data?.message ||
+            "Failed to update profile. Please try again."
         );
       }
     } finally {
@@ -397,10 +423,10 @@ const UserProfile = () => {
               <Row gutter={[24, 24]}>
                 <Col xs={24} md={8} className="avatar-section">
                   <div className="avatar-preview">
-                    {preview ? (
+                    {!initialLoad && preview ? (
                       <img src={preview} alt="Avatar Preview" />
                     ) : (
-                      <span>Upload Avatar</span>
+                      <span>Loading avatar...</span>
                     )}
                   </div>
                   <CloudinaryUploader
@@ -429,15 +455,27 @@ const UserProfile = () => {
                 <Col xs={24} md={16}>
                   <div className="form-group">
                     <label className="form-label">Name</label>
-                    <Input value={name} readOnly className="form-input" />
+                    <Input 
+                      value={userContext?.user?.name || ""} 
+                      readOnly 
+                      className="form-input" 
+                    />
                   </div>
                   <div className="form-group">
                     <label className="form-label">Email</label>
-                    <Input value={email} readOnly className="form-input" />
+                    <Input 
+                      value={userContext?.user?.email || ""} 
+                      readOnly 
+                      className="form-input" 
+                    />
                   </div>
                   <div className="form-group">
                     <label className="form-label">Phone</label>
-                    <Input value={phone} readOnly className="form-input" />
+                    <Input 
+                      value={userContext?.user?.phone || ""} 
+                      readOnly 
+                      className="form-input" 
+                    />
                   </div>
                 </Col>
               </Row>
@@ -549,7 +587,7 @@ const UserProfile = () => {
           </TabPane>
 
           {/* VIEW/EDIT ADDRESS TAB */}
-          <TabPane tab="View/Edit Address" key="Address">
+          <TabPane tab="View/Edit Address" key="3">
             {viewAddressError && (
               <Alert
                 message={viewAddressError}
