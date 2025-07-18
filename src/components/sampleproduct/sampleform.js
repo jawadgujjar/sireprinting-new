@@ -43,19 +43,21 @@ function Sampleform() {
     }
   };
 
-  const normFile = (e) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList;
-  };
+const normFile = (e) => {
+  if (Array.isArray(e)) return e;
+  return e?.fileList || [];
+};
 
   const validateImage = (_, value) => {
-    if (!value) {
-      return Promise.reject(new Error("Please upload an image"));
-    }
-    return Promise.resolve();
-  };
+  if (!value || value.length === 0) {
+    return Promise.reject("Please upload a file");
+  }
+  const isValidType = ["image/jpeg", "image/png"].includes(value[0]?.type);
+  const isValidSize = value[0]?.size / 1024 / 1024 < 10; // 10MB
+  if (!isValidType) return Promise.reject("Only JPG/PNG files allowed!");
+  if (!isValidSize) return Promise.reject("File must be smaller than 10MB!");
+  return Promise.resolve();
+};
 
   const cloudName = "dxhpud7sx";
   const uploadPreset = "sireprinting";

@@ -196,6 +196,9 @@
   margin-bottom: 0.8rem;
 }
 
+/* element.style{
+  height: 20px !important;
+} */
 /* Responsive Adjustments */
 @media (max-width: 480px) {
   .ultra-compact-form {
