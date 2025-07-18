@@ -82,27 +82,38 @@
   color: #01257d;
 }
 
-.sample-upload {
-  border-radius: 8px;
-  background: #f8faff;
+/* Upload Styles */
+.responsive-upload .ant-upload {
+  width: 100% !important;
+   
+  padding: 16px !important;
 }
 
-.sample-upload:hover {
-  border-color: #00ffff;
+.responsive-upload .ant-upload.ant-upload-drag {
+  padding: 24px !important;
+}
+
+.upload-content-wrapper {
+  padding: 16px;
+}
+
+.sample-upload-drag-icon {
+  margin-bottom: 8px;
 }
 
 .sample-upload-drag-icon .anticon {
   color: #01257d;
-  font-size: 2.5rem;
+  font-size: 32px;
 }
 
 .sample-upload-text {
   color: #01257d;
   font-weight: 500;
   font-size: 1.1rem;
+  margin-bottom: 4px;
 }
 
-.sample-upload-hint {
+.ant-upload-hint {
   color: #6a7b9b;
 }
 
@@ -159,7 +170,9 @@
   color: #6a7b9b;
   font-size: 0.85rem;
 }
-
+:where(.css-dev-only-do-not-override-1v5z42l).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select{
+  height: 110px;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .sample-page-container {
@@ -169,5 +182,21 @@
   .sample-form-container {
     padding: 15px;
     border-radius: 18px;
+  }
+
+  .responsive-upload .ant-upload.ant-upload-drag {
+    padding: 16px !important;
+  }
+  
+  .sample-upload-drag-icon .anticon {
+    font-size: 24px !important;
+  }
+  
+  .sample-upload-text {
+    font-size: 0.9rem !important;
+  }
+  
+  .ant-upload-hint {
+    font-size: 0.8rem !important;
   }
 }
