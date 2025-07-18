@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { InboxOutlined, CheckCircleTwoTone } from "@ant-design/icons";
 import { sampleorder } from "../../utils/axios";
+import axios from "axios";
 import "./sampleform.css";
 import { useUser } from "../../contextapi/userContext";
 
@@ -42,6 +43,89 @@ function Sampleform() {
     }
   };
 
+const normFile = (e) => {
+  if (Array.isArray(e)) return e;
+  return e?.fileList || [];
+};
+
+  const validateImage = (_, value) => {
+  if (!value || value.length === 0) {
+    return Promise.reject("Please upload a file");
+  }
+  const isValidType = ["image/jpeg", "image/png"].includes(value[0]?.type);
+  const isValidSize = value[0]?.size / 1024 / 1024 < 10; // 10MB
+  if (!isValidType) return Promise.reject("Only JPG/PNG files allowed!");
+  if (!isValidSize) return Promise.reject("File must be smaller than 10MB!");
+  return Promise.resolve();
+};
+
+  const cloudName = "dxhpud7sx";
+  const uploadPreset = "sireprinting";
+
+  const CloudinaryUploader = ({
+    cloudName,
+    uploadPreset,
+    listType,
+    maxCount,
+    form,
+    fieldName,
+    children,
+  }) => {
+    const [fileList, setFileList] = useState([]);
+    const [uploading, setUploading] = useState(false);
+
+    const handleUpload = async (file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", uploadPreset);
+
+      try {
+        setUploading(true);
+        const response = await axios.post(
+          `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+          formData
+        );
+        const newFileList = [
+          {
+            uid: file.uid,
+            name: file.name,
+            status: "done",
+            url: response.data.secure_url,
+          },
+        ];
+        setFileList(newFileList);
+        form.setFieldsValue({ [fieldName]: response.data.secure_url });
+        return response.data.secure_url;
+      } catch (error) {
+        message.error("Upload failed");
+        console.error(error);
+        return null;
+      } finally {
+        setUploading(false);
+      }
+    };
+
+    const uploadProps = {
+      beforeUpload: async (file) => {
+        await handleUpload(file);
+        return false;
+      },
+      fileList,
+      onChange: ({ fileList: newFileList }) => {
+        setFileList(newFileList);
+      },
+      listType,
+      maxCount,
+      className: "responsive-upload",
+    };
+
+    return (
+      <Upload {...uploadProps}>
+        {fileList.length >= maxCount ? null : children}
+      </Upload>
+    );
+  };
+
   const handleSampleSubmit = async (values) => {
     setLoading(true);
     const price = getPriceByProductType(values.productType);
@@ -56,7 +140,8 @@ function Sampleform() {
         height: parseFloat(values.height),
         unit: "in",
       },
-      file: values.productType !== "random sample" ? fileList[0]?.name || "" : "",
+      file:
+        values.productType !== "random sample" ? fileList[0]?.name || "" : "",
       price: price,
     };
 
@@ -98,7 +183,7 @@ function Sampleform() {
           zipCode: values.zipCode,
           country: values.country,
         },
-        notification: false, // Matches schema default
+        notification: false,
       };
 
       const response = await sampleorder.post("/", combinedData);
@@ -116,7 +201,9 @@ function Sampleform() {
       });
 
       const errorMsg =
-        error.response?.data?.message || error.message || "Submission failed. Please try again.";
+        error.response?.data?.message ||
+        error.message ||
+        "Submission failed. Please try again.";
       message.error(errorMsg);
     } finally {
       setLoading(false);
@@ -150,19 +237,25 @@ function Sampleform() {
 
         {submissionSuccess ? (
           <div style={{ textAlign: "center", marginTop: 50 }}>
-            <CheckCircleTwoTone twoToneColor="#52c41a" style={{ fontSize: 60 }} />
+            <CheckCircleTwoTone
+              twoToneColor="#52c41a"
+              style={{ fontSize: 60 }}
+            />
             <Title level={3} style={{ marginTop: 20 }}>
               Your sample request has been submitted successfully!
             </Title>
             <Text style={{ fontSize: 16 }}>
-              Our team will contact you shortly regarding the status and shipping.
+              Our team will contact you shortly regarding the status and
+              shipping.
             </Text>
           </div>
         ) : (
           <Form
             form={form}
             layout="vertical"
-            onFinish={showShippingForm ? handleShippingSubmit : handleSampleSubmit}
+            onFinish={
+              showShippingForm ? handleShippingSubmit : handleSampleSubmit
+            }
             className="sample-form"
             initialValues={{ quantity: 1 }}
           >
@@ -174,7 +267,10 @@ function Sampleform() {
                       Product Specifications
                     </Title>
                     {productType && (
-                      <Text strong style={{ display: "block", marginBottom: 16 }}>
+                      <Text
+                        strong
+                        style={{ display: "block", marginBottom: 16 }}
+                      >
                         Price:{" "}
                         {productType === "premium sample"
                           ? "To be determined by admin"
@@ -187,16 +283,24 @@ function Sampleform() {
                     <Form.Item
                       name="productType"
                       label="Product Type"
-                      rules={[{ required: true, message: "Please select a product" }]}
+                      rules={[
+                        { required: true, message: "Please select a product" },
+                      ]}
                     >
                       <Select
                         placeholder="Select product"
                         className="sample-select"
                         onChange={handleProductTypeChange}
                       >
-                        <Option value="random sample">Random Sample (£50)</Option>
-                        <Option value="custom sample">Custom Sample (£100)</Option>
-                        <Option value="premium sample">Premium Sample (Admin Price)</Option>
+                        <Option value="random sample">
+                          Random Sample (£50)
+                        </Option>
+                        <Option value="custom sample">
+                          Custom Sample (£100)
+                        </Option>
+                        <Option value="premium sample">
+                          Premium Sample (Admin Price)
+                        </Option>
                       </Select>
                     </Form.Item>
                   </Col>
@@ -207,7 +311,10 @@ function Sampleform() {
                         type="number"
                         readOnly
                         className="sample-input"
-                        style={{ backgroundColor: "#f5f5f5", cursor: "not-allowed" }}
+                        style={{
+                          backgroundColor: "#f5f5f5",
+                          cursor: "not-allowed",
+                        }}
                       />
                     </Form.Item>
                   </Col>
@@ -216,9 +323,14 @@ function Sampleform() {
                     <Form.Item
                       name="material"
                       label="Material"
-                      rules={[{ required: true, message: "Please select material" }]}
+                      rules={[
+                        { required: true, message: "Please select material" },
+                      ]}
                     >
-                      <Select placeholder="Select material" className="sample-select">
+                      <Select
+                        placeholder="Select material"
+                        className="sample-select"
+                      >
                         <Option value="plastic">Plastic</Option>
                         <Option value="metal">Metal</Option>
                         <Option value="wood">Wood</Option>
@@ -264,37 +376,30 @@ function Sampleform() {
                   <Row gutter={24}>
                     <Col span={24}>
                       <Form.Item
-
                         name="files"
                         label="Upload Design (Optional)"
-                        extra="JPG/PNG, Max 10MB"
+                        valuePropName="fileList"
+                        getValueFromEvent={normFile}
+                        rules={[{ validator: validateImage }]}
                       >
-                        <Dragger
-                          onRemove={() => setFileList([])}
-                          beforeUpload={(file) => {
-                            const isImage = file.type.includes("image");
-                            const isLt10M = file.size / 1024 / 1024 < 10;
-                            if (!isImage) {
-                              message.error("Only image files allowed");
-                              return false;
-                            }
-                            if (!isLt10M) {
-                              message.error("File must be smaller than 10MB");
-                              return false;
-                            }
-                            setFileList([file]);
-                            return false;
-                          }}
-                          fileList={fileList}
-                          className="sample-upload"
-                          accept="image/*"
+                        <CloudinaryUploader
+                          cloudName={cloudName}
+                          uploadPreset={uploadPreset}
                           maxCount={1}
+                          listType="picture-card"
+                          form={form}
+                          fieldName="files"
                         >
-                          <p className="sample-upload-drag-icon">
-                            <InboxOutlined />
-                          </p>
-                          <p className="sample-upload-text">Click or drag file here</p>
-                        </Dragger>
+                          <div className="upload-content-wrapper">
+                            <p className="sample-upload-drag-icon">
+                              <InboxOutlined />
+                            </p>
+                            <p className="sample-upload-text">
+                              Click or drag file here
+                            </p>
+                            <p className="ant-upload-hint">JPG/PNG, Max 10MB</p>
+                          </div>
+                        </CloudinaryUploader>
                       </Form.Item>
                     </Col>
                   </Row>
@@ -308,7 +413,10 @@ function Sampleform() {
                       Shipping Information
                     </Title>
                     {sampleData && (
-                      <Text strong style={{ display: "block", marginBottom: 16 }}>
+                      <Text
+                        strong
+                        style={{ display: "block", marginBottom: 16 }}
+                      >
                         Product: {sampleData.product} | Price:{" "}
                         {sampleData.price === 0
                           ? "To be determined by admin"
@@ -319,12 +427,28 @@ function Sampleform() {
 
                   {[
                     { name: "name", label: "Full Name", required: true },
-                    { name: "companyName", label: "Company Name", required: false },
+                    {
+                      name: "companyName",
+                      label: "Company Name",
+                      required: false,
+                    },
                     { name: "phoneNumber", label: "Phone", required: true },
-                    { name: "streetAddress", label: "Street Address", required: true },
+                    {
+                      name: "streetAddress",
+                      label: "Street Address",
+                      required: true,
+                    },
                     { name: "city", label: "City", required: true },
-                    { name: "province", label: "State/Province", required: true },
-                    { name: "zipCode", label: "Zip/Postal Code", required: true },
+                    {
+                      name: "province",
+                      label: "State/Province",
+                      required: true,
+                    },
+                    {
+                      name: "zipCode",
+                      label: "Zip/Postal Code",
+                      required: true,
+                    },
                     { name: "country", label: "Country", required: true },
                   ].map((field) => (
                     <Col xs={24} sm={12} key={field.name}>
@@ -334,13 +458,22 @@ function Sampleform() {
                         rules={
                           field.required
                             ? [
-                                { required: true, message: `${field.label} is required` },
-                                { min: 2, message: `${field.label} is too short` },
+                                {
+                                  required: true,
+                                  message: `${field.label} is required`,
+                                },
+                                {
+                                  min: 2,
+                                  message: `${field.label} is too short`,
+                                },
                               ]
                             : []
                         }
                       >
-                        <Input placeholder={field.label} className="sample-input" />
+                        <Input
+                          placeholder={field.label}
+                          className="sample-input"
+                        />
                       </Form.Item>
                     </Col>
                   ))}

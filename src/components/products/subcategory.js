@@ -178,14 +178,23 @@ function Subcategory({ data }) {
               </>
             ) : (
               <div className="mobile-accordion">
-                <p className="subcategory-heading1">Sub-Categories</p>
+                {/* <p className="subcategory-heading1">Sub-Categories</p> */}
                 {subCategories.map((subCategory) => (
                   <div key={subCategory._id} className="mobile-category">
                     <div
                       className="mobile-category-header"
                       onClick={() => handleCategoryClick(subCategory._id)}
                     >
+                      <div className="category-image-mobile">
+                        <img
+                          src={subCategory.image || fallbackImage}
+                          alt={subCategory.title}
+                          className="category-image"
+                          onError={handleImageError}
+                        />
+                      </div>
                       <span>{subCategory.title}</span>
+
                       <DownOutlined
                         className={`dropdown-arrow ${
                           selectedCategory === subCategory._id ? "rotated" : ""

@@ -80,7 +80,9 @@ function Videocarousel() {
         }}
       >
         <div className="div-trustedtext">
-          <h2 className="trustedtext">Get Inspiration</h2>
+          <h2 className="trustedtext" style={{ marginBottom: "3rem" }}>
+            Get Inspiration
+          </h2>
         </div>
 
         {status === "loading" && (
@@ -95,14 +97,21 @@ function Videocarousel() {
         )}
 
         {status === "error" && (
-          <div className="error-message">
+          <div
+            className="error-message"
+            style={{
+              height: "450px", // Adjust this height based on how much you want to show
+              overflow: "hidden", // Cut off the "Powered by" part
+              borderRadius: "12px",
+            }}
+          >
             <iframe
               src="https://widget.taggbox.com/288892?website=1"
               style={{
                 width: "100%",
-                height: "350px",
+                height: "600px", // Keep actual iframe large enough so that content shifts up
+                transform: "translateY(-38px)", // Move up to hide top part
                 border: "none",
-                marginTop: "20px",
               }}
               title="Instagram Feed Fallback"
             ></iframe>

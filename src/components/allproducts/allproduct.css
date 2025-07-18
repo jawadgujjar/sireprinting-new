@@ -7,13 +7,13 @@
 
 .header-section {
   width: 100%;
-  padding: 150px 20px 0;
+  padding: 120px 20px 0;
   color: black;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
       rgba(255, 255, 255, 0.9),
       rgba(255, 255, 255, 0.9)
     ),
-    url("../../../public/images/background1.jpg");
+    url("../../../public/images/background1.jpg"); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -205,7 +205,7 @@
   padding: 20px;
   border-radius: 8px;
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
 }
 
 .allproduct-col1 {
@@ -218,6 +218,7 @@
     padding: 60px 20px;
     flex-direction: column;
     align-items: center;
+    margin-top: 2rem;
   }
 
   .hero-title {
@@ -302,6 +303,7 @@
 @media (max-width: 576px) {
   .header-section {
     padding: 40px 15px;
+    margin-top: 4rem;
   }
 
   .hero-title {
