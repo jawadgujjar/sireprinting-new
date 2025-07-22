@@ -171,7 +171,7 @@
   font-size: 0.85rem;
 }
 :where(.css-dev-only-do-not-override-1v5z42l).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select{
-  height: 110px;
+  height: 140px;
 }
 /* Responsive Design */
 @media (max-width: 768px) {

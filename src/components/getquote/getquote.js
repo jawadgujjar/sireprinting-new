@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Form,
@@ -10,6 +10,7 @@ import {
   Upload,
   Typography,
   Collapse,
+  Spin,
 } from "antd";
 import {
   InboxOutlined,
@@ -19,11 +20,11 @@ import {
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 import "./getquote.css";
-import { getquote } from "../../utils/axios";
+import { getquote, product } from "../../utils/axios";
+import axios from "axios";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
-const { Dragger } = Upload;
 const { TextArea } = Input;
 const { Panel } = Collapse;
 
@@ -70,10 +71,125 @@ const faqData = [
   },
 ];
 
+// Cloudinary configuration
+const cloudName = "dxhpud7sx";
+const uploadPreset = "sireprinting";
+
+const CloudinaryUploader = ({
+  cloudName,
+  uploadPreset,
+  listType,
+  maxCount,
+  form,
+  fieldName,
+  children,
+}) => {
+  const [fileList, setFileList] = useState([]);
+  const [uploading, setUploading] = useState(false);
+
+  const handleUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset);
+
+    try {
+      setUploading(true);
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        formData
+      );
+      const newFileList = [
+        {
+          uid: file.uid,
+          name: file.name,
+          status: "done",
+          url: response.data.secure_url,
+        },
+      ];
+      setFileList(newFileList);
+      form.setFieldsValue({ [fieldName]: response.data.secure_url });
+      return response.data.secure_url;
+    } catch (error) {
+      message.error("Upload failed");
+      console.error(error);
+      return null;
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const uploadProps = {
+    beforeUpload: async (file) => {
+      await handleUpload(file);
+      return false;
+    },
+    fileList,
+    onChange: ({ fileList: newFileList }) => {
+      setFileList(newFileList);
+    },
+    listType,
+    maxCount,
+    className: "responsive-upload",
+  };
+
+  return (
+    <Upload {...uploadProps}>
+      {fileList.length >= maxCount ? null : children}
+    </Upload>
+  );
+};
+
 function Getquote() {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [fileList, setFileList] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [fetchingProducts, setFetchingProducts] = useState(true);
+
+  // Fetch products on component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setFetchingProducts(true);
+        const response = await product.get("/");
+        let productsData = [];
+
+        if (response.data) {
+          if (Array.isArray(response.data)) {
+            productsData = response.data;
+          } else if (response.data.success) {
+            productsData = response.data.data || response.data.products;
+          } else {
+            productsData = response.data;
+          }
+        }
+
+        setProducts(productsData);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+        message.error("Failed to load products");
+      } finally {
+        setFetchingProducts(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const normFile = (e) => {
+    if (Array.isArray(e)) return e;
+    return e?.fileList || [];
+  };
+
+  const validateImage = (_, value) => {
+    if (!value || value.length === 0) {
+      return Promise.resolve();
+    }
+    const isValidType = ["image/jpeg", "image/png", "application/pdf", "application/postscript"].includes(value[0]?.type);
+    const isValidSize = value[0]?.size / 1024 / 1024 < 10;
+    if (!isValidType) return Promise.reject("Only JPG/PNG/PDF/AI files allowed!");
+    if (!isValidSize) return Promise.reject("File must be smaller than 10MB!");
+    return Promise.resolve();
+  };
 
   const handleSubmit = async (values) => {
     setLoading(true);
@@ -87,7 +203,7 @@ function Getquote() {
       phoneNumber: values.phone,
       fullName: values.name,
       email: values.email,
-      uploadFile: fileList[0]?.name || "", // You might want to handle file upload separately
+      uploadFile: values.files || "",
       material: values.material,
       finishOption: values.finish,
       message: values.notes,
@@ -99,7 +215,6 @@ function Getquote() {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       message.success("Quote request submitted successfully!");
       form.resetFields();
-      setFileList([]);
     } catch (error) {
       message.error("Submission failed. Please try again.");
     } finally {
@@ -107,16 +222,13 @@ function Getquote() {
     }
   };
 
-  const uploadProps = {
-    onRemove: () => {
-      setFileList([]);
-    },
-    beforeUpload: (file) => {
-      setFileList([file]);
-      return false;
-    },
-    fileList,
-  };
+  if (fetchingProducts) {
+    return (
+      <div className="loading-container">
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className="quote-page-container">
@@ -159,12 +271,21 @@ function Getquote() {
                           placeholder="Select product"
                           className="quote-select"
                           suffixIcon={<span className="dropdown-icon">▼</span>}
+                          showSearch
+                          optionFilterProp="children"
+                          filterOption={(input, option) =>
+                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                          }
+                          loading={fetchingProducts}
                         >
-                          <Option value="mailer">Mailer Boxes</Option>
-                          <Option value="shipping">Shipping Boxes</Option>
-                          <Option value="poly">Poly Mailers</Option>
-                          <Option value="product">Product Boxes</Option>
-                          <Option value="custom">Custom Boxes</Option>
+                          {products.map((product) => (
+                            <Option
+                              key={product._id || product.id}
+                              value={product._id || product.id}
+                            >
+                              {product.title || product.name}
+                            </Option>
+                          ))}
                         </Select>
                       </Form.Item>
                     </Col>
@@ -373,29 +494,37 @@ function Getquote() {
                       </Form.Item>
                     </Col>
                   </Row>
+
                   <Row gutter={24}>
                     <Col span={24}>
                       <Form.Item
                         name="files"
                         label="Upload Design Files"
+                        valuePropName="fileList"
+                        getValueFromEvent={normFile}
+                        rules={[{ validator: validateImage }]}
                         extra="Supports JPG, PNG, PDF, AI (Max 10MB)"
                       >
-                        <Dragger
-                          {...uploadProps}
-                          className="quote-upload"
-                          accept=".jpg,.jpeg,.png,.pdf,.ai"
+                        <CloudinaryUploader
+                          cloudName={cloudName}
+                          uploadPreset={uploadPreset}
                           maxCount={1}
+                          listType="picture-card"
+                          form={form}
+                          fieldName="files"
                         >
-                          <p className="ant-upload-drag-icon">
-                            <InboxOutlined />
-                          </p>
-                          <p className="ant-upload-text">
-                            Click or drag file to this area
-                          </p>
-                          <p className="ant-upload-hint">
-                            Upload your design files or artwork
-                          </p>
-                        </Dragger>
+                          <div className="upload-content-wrapper">
+                            <p className="ant-upload-drag-icon">
+                              <InboxOutlined />
+                            </p>
+                            <p className="ant-upload-text">
+                              Click or drag file to this area
+                            </p>
+                            <p className="ant-upload-hint">
+                              Upload your design files or artwork
+                            </p>
+                          </div>
+                        </CloudinaryUploader>
                       </Form.Item>
                     </Col>
                     <Col span={24}>
@@ -408,6 +537,7 @@ function Getquote() {
                       </Form.Item>
                     </Col>
                   </Row>
+
                   <Row>
                     <Col span={24} className="submit-col">
                       <Form.Item>
