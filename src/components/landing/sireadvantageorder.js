@@ -355,7 +355,7 @@ function Sireadvantageorder() {
           <Card title="Quote Approval" bordered={false}>
             <img
               alt="submit-quote"
-              src="../images/price_approval.png"
+              src="../images/Price_Approval.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
