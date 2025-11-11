@@ -20,7 +20,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./userinterface.css";
 import ApprovedDesigns from "./approveddesign";
-import OrderStatus from "./orderstatus";
 import OrderHistory from "./orderhistory";
 import Invoices from "./invoices";
 import Samplequote from "./samplequote";
