@@ -22,7 +22,7 @@ function Landingpage() {
       {/* <Solutions /> */}
       <Sireadvantage />
       <Landingdie />
-      <Landingquote />
+      {/* <Landingquote /> */}
       <Landingdes />
       <Sireadvantageorder />
       <Testimonial />

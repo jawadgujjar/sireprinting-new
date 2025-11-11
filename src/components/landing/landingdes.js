@@ -7,7 +7,7 @@ function Landingdes() {
       id: 1,
       title: "Premium Quality Materials",
       description:
-        "We use only the highest quality materials for our packaging boxes, ensuring durability and protection for your products during shipping and handling. Our materials are eco-friendly and sustainable.",
+        "Cheap Custom Packaging prioritizes high-quality materials to ensure that our custom packaging and boxes are durable, reliable, and eco-friendly. We use high-grade cardboard, Kraft, and rigid substrates to create custom box packaging that protects your products during shipping and handling. Whatever you need for custom shipping boxes in USA or custom printed packaging for small business products, our materials guarantee strength and sustainability. Our custom box wholesale options provide cost-effective solutions without compromising on quality. Using environmentally friendly materials aligns with our commitment to green packaging. With our premium-quality custom boxes featuring your logo, your products are protected while making a strong brand impression. From sturdy packing company solutions to stylish custom packaging boxes in USA, we deliver boxes that last and leave a positive impact on your customers.",
       image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
       imagePosition: "right",
     },
@@ -15,7 +15,7 @@ function Landingdes() {
       id: 2,
       title: "Custom Design Options",
       description:
-        "Create packaging that perfectly represents your brand with our custom design services. Choose from various colors, finishes, and printing techniques to make your packaging stand out.",
+        "Your packaging should tell your brand’s unique story, and at Cheap Custom Packaging, we offer extensive customization to make that happen. From sizes and shapes to colors and finishes, our custom printed boxes bring your ideas to life. Whether you want vibrant colors on your custom boxes with a logo or eco-friendly options for custom packaging to meet your small business needs, our design options fit all. We specialize in custom shipping boxes and custom printed packaging that stands out on shelves. Choose from matte, gloss, foil stamping, die-cutting, and more to create beautiful and functional packaging that stands out. Our custom packaging service ensures your boxes are more than just containers. They are powerful tools that improve your brand and attract customers.",
       image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
       imagePosition: "left",
     },
@@ -47,7 +47,9 @@ function Landingdes() {
         <div
           key={section.id}
           className={`landingdes-section ${
-            section.imagePosition === "left" ? "landingdes-image-left" : "landingdes-image-right"
+            section.imagePosition === "left"
+              ? "landingdes-image-left"
+              : "landingdes-image-right"
           }`}
         >
           <div className="landingdes-text">

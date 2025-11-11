@@ -287,9 +287,9 @@ const Productmain1 = ({
                       ]}
                     >
                       <Select placeholder="Select Color">
-                        <Option value="white">White</Option>
-                        <Option value="kraft">Kraft</Option>
-                        <Option value="black">Black</Option>
+                        <Option value="white">1 Color</Option>
+                        <Option value="kraft">2 Color</Option>
+                        <Option value="black">3 Color</Option>
                         <Option value="full">Full Color</Option>
                       </Select>
                     </Form.Item>
@@ -301,18 +301,14 @@ const Productmain1 = ({
                           rules={[
                             {
                               required: true,
-                              message: "Please select quantity",
+                              message: "Please enter quantity",
                             },
                           ]}
                         >
-                          <Select placeholder="Select Quantity">
-                            <Option value="10">10</Option>
-                            <Option value="25">25</Option>
-                            <Option value="50">50</Option>
-                            <Option value="100">100</Option>
-                          </Select>
+                          <Input placeholder="Enter Quantity" />
                         </Form.Item>
                       </Col>
+
                       <Col xs={24} sm={12}>
                         <Form.Item
                           name="mainImage"

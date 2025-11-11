@@ -96,13 +96,21 @@ const Industry = () => {
   return (
     <div className="trusted">
       <div className="div-trustedtext">
-        <h2 className="trustedtext">BRING YOUR PACKAGING DREAM TO LIFE</h2>
+        <h2 className="trustedtext">
+          Bring Your Custom Packaging Vision to Life
+        </h2>
       </div>
       <p className="industry-main-p">
-        Discover limitless custom packaging boxes that can wow your customers.
-        Ready to impress? Let your product shine and your brand unforgettable
-        with custom printed boxes. Unique, stylish packaging builds stronger
-        customer connections.
+        Your products deserve packaging that feels as special as what's inside.
+        At Cheap Custom Packaging, we don't just print boxes, we build
+        experiences. Our custom printed packaging in USA is designed to capture
+        your brand's personality, featuring rich colors, high-quality finishes,
+        and details that impress at first look. If you need custom shipping
+        boxes that protect with style or luxury gift boxes that improve your
+        brand, we bring your ideas to life with quality and care. It is our goal
+        to create boxes that tell your brand's story creatively, professionally,
+        and in a way that your customers will remember it long after they unbox
+        them.
       </p>
 
       <div className="tabs">

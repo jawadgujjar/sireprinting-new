@@ -10,9 +10,9 @@
 
 .industry-main-p {
   font-size: 1.2rem;
-  text-align: center;
-  width: 80%;
-  margin: 0 auto 3rem;
+  text-align: left;
+  width: 100%;
+  /* margin: 0 auto 3rem; */
   color: #555;
   font-weight: 400;
   line-height: 1.6;

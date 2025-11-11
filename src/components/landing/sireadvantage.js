@@ -105,7 +105,7 @@ function Sireadvantage() {
 
   const handleFinish = async () => {
     try {
-      const values = form.getFieldsValue(true); 
+      const values = form.getFieldsValue(true);
       console.log("All form values:", values);
 
       const payload = {
@@ -115,7 +115,7 @@ function Sireadvantage() {
         unit: values.unit,
         color: values.color,
         quantity: Number(values.quantity),
-        image: values.mainImage || "", 
+        image: values.mainImage || "",
         name: values.name,
         email: values.email,
         phonenumber: values.phone,
@@ -141,17 +141,25 @@ function Sireadvantage() {
     <div className="sireadvantage-wrapper">
       <div className="div-trustedtext">
         <h2 className="trustedtext" style={{ marginBottom: "2rem" }}>
-          SIRE PRINTING ADVANTAGES
+          Cheap Custom Packaging Advantages
         </h2>
       </div>
       <div className="three-images-advantages-ad">
         <div className="icon-grid-ad">
           <div className="icon-item-ad text-center">
-            <img src="/images/support.png" alt="Icon 1" className="icon-img-ad" />
+            <img
+              src="/images/support.png"
+              alt="Icon 1"
+              className="icon-img-ad"
+            />
             <p className="icon-text-ad">High Quality</p>
           </div>
           <div className="icon-item-ad text-center">
-            <img src="/images/highquality.png" alt="Icon 2" className="icon-img-ad" />
+            <img
+              src="/images/highquality.png"
+              alt="Icon 2"
+              className="icon-img-ad"
+            />
             <p className="icon-text-ad">Custom Design</p>
           </div>
           <div className="icon-item-ad text-center">
@@ -171,7 +179,11 @@ function Sireadvantage() {
             <p className="icon-text-ad">Affordable</p>
           </div>
           <div className="icon-item-ad">
-            <img src="/images/customdesign.png" alt="Icon 6" className="icon-img-ad" />
+            <img
+              src="/images/customdesign.png"
+              alt="Icon 6"
+              className="icon-img-ad"
+            />
             <p className="icon-text-ad">24/7 Support</p>
           </div>
         </div>

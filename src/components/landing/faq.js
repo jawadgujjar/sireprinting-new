@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
-import { Row, Col, Image, Spin, message } from "antd";
+import { Row, Col, Form, Spin, message, Button, Input } from "antd";
+import {  toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./faq.css";
 import { faq } from "../../utils/axios";
+import { contactus } from "../../utils/axios";
+
 
 const Faq1 = () => {
   const [faqs, setFaqs] = useState([]);
@@ -40,12 +44,28 @@ const Faq1 = () => {
     "../images/Custom Mailer Boxes with Inserts.png",
   ];
 
+  //  const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
+
+  const onFinish = async (values) => {
+    setLoading(true);
+    try {
+      await contactus.post("/", values);
+      toast.success("Message sent successfully!");
+      form.resetFields();
+    } catch (error) {
+      toast.error("Failed to send message. Try again.");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <section id="faq" style={{ padding: "2rem 1rem", marginTop: "2rem" }}>
       <Row gutter={[24, 24]} justify="space-evenly" align="top">
         {/* Left Image Gallery */}
         <Col xs={24} md={10} lg={10}>
-          <Row gutter={[16, 16]} justify="center">
+          {/* <Row gutter={[16, 16]} justify="center">
             {imageURLs.map((url, index) => (
               <Col key={`image-${index}`} span={8}>
                 <Image
@@ -61,7 +81,71 @@ const Faq1 = () => {
                 />
               </Col>
             ))}
-          </Row>
+          </Row> */}
+          <h1 className="form-title">Message Us!</h1>
+            <Form layout="vertical" form={form} onFinish={onFinish}>
+              <Form.Item
+                name="fullName"
+                rules={[{ required: true, message: "Full name is required" }]}
+              >
+                <Input
+                  placeholder="Full name"
+                  className="inputborder-contact"
+                />
+              </Form.Item>
+              <Form.Item
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    type: "email",
+                    message: "Valid email is required",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Enter your email"
+                  className="inputborder-contact"
+                />
+              </Form.Item>
+              <Form.Item
+                name="phoneNumber"
+                rules={[
+                  { required: true, message: "Phone number is required" },
+                  {
+                    pattern: /^[0-9]{10,15}$/,
+                    message: "Please enter a valid phone number (10-15 digits)",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Enter your phone"
+                  className="inputborder-contact"
+                />
+              </Form.Item>
+              <Form.Item
+                name="message"
+                rules={[{ required: true, message: "Message cannot be empty" }]}
+              >
+                <Input.TextArea
+                  placeholder="Your message"
+                  rows={4}
+                  className="textarea-border-contact"
+                />
+              </Form.Item>
+              <Form.Item>
+                <div className="btn-main-contact">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="btn-contact"
+                    loading={loading}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </Form.Item>
+            </Form>
         </Col>
 
         {/* Right FAQ */}

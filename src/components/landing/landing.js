@@ -6,13 +6,17 @@ const Landing = () => {
   return (
     <div className="landing-page">
       <div className="landing-content">
-        <h1 className="premium-heading">Welcome to the Future of Packaging</h1>
+        <h1 className="premium-heading">
+          Custom Packaging Boxes Made for Your Brand in the USA
+        </h1>
         <p className="p-tag-landing">
-          Unleash your wild ideas with custom printed packaging. Elevate your
-          brand with packaging that drives your customers crazy.
+          Bring your brand to life with custom packaging boxes designed to
+          impress. From custom boxes with logo to cheap custom boxes, we craft
+          packaging that protects, promotes, and elevates your products. Perfect
+          for small businesses and large enterprises alike.
         </p>
         <Link to="/get-a-quote">
-          <button className="button-landing">Customize Your Design</button>
+          <button className="button-landing">Get a Free Custom Design</button>
         </Link>
       </div>
       <img

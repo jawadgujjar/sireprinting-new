@@ -320,50 +320,43 @@ function Sireadvantageorder() {
     <div className="process-cards">
       <Row gutter={16}>
         <Col xs={24} sm={8}>
-          <Card title={<span>Submit Quote</span>} bordered={false}>
+          <Card title={<span>Request a Price Quote</span>} bordered={false}>
             <img
               alt="submit-quote"
               src="../images/submit_quote.png"
               style={{ height: "5rem", width: "4rem", marginBottom: "1rem" }}
             />
             <p>
-              To get started, please submit our quote form with your printing
-              and packaging requirements, or feel free to contact us directly
-              with any queries. For an instant quote, you can also chat with our
-              live packaging experts, available 24/7 to assist you.
+              First, use our website or give our customer support agent a call
+              to submit a request for a free personalised estimate. The rates
+              will be available to you in half an hour.
             </p>
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card title="Budget Friendly" bordered={false}>
+          <Card title="Comparing prices" bordered={false}>
             <img
               alt="submit-quote"
               src="../images/budget_friendly.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              If you have a budget allocated for your printing project, please
-              don't hesitate to share it with us. We are dedicated to supporting
-              small businesses in launching their ventures. If you are comparing
-              prices, feel free to let us know the best quote you have received
-              so far. Our dedicated "Beat My Quote" department is here to ensure
-              you receive the most competitive pricing available.
+              Ask the agent to match the pricing with your budget line. At CCP,
+              we will make every effort to provide you with the most affordable
+              costs.
             </p>
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card title="Quote Approval" bordered={false}>
+          <Card title="Price Approval" bordered={false}>
             <img
               alt="submit-quote"
               src="../images/Price_Approval.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              Once we receive your approval on the quoted price, we will proceed
-              to set up your account with us. This will give you convenient
-              access to your packaging designs, order history, and more. There
-              is no need to make any payment until your design has been
-              finalised.
+              Please approve the prices so that the order can be placed. Joining
+              CCP for all of your packaging requirements will be a pleasure.
             </p>
           </Card>
         </Col>
@@ -375,45 +368,47 @@ function Sireadvantageorder() {
     <div className="process-cards">
       <Row gutter={16}>
         <Col xs={24} sm={8}>
-          <Card title={<span>Submit Your Artwork</span>} bordered={false}>
+          <Card title={<span>Personalized Quote</span>} bordered={false}>
             <img
               alt="Submit_Artwork"
               src="../images/Submit_Artwork.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              Our design team will work closely with you to create packaging
-              that reflects your brand identity. Share your ideas, logos, and
-              any specific requirements, and we'll bring your vision to life.
+              Submit your packaging details or contact our support team to
+              receive a free, personalized cost estimate. We calculate accurate
+              rates based on size, quantity, material, and design, ensuring
+              transparency and no hidden fees.
             </p>
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card title="Design My Packaging" bordered={false}>
+          <Card title="Budget Comparison" bordered={false}>
             <img
               alt="Design_my_packaging_box_free"
               src="../images/Design_my_packaging_box_free.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              We offer a wide range of custom templates to suit your product
-              needs. Whether you need boxes, bags, or specialty packaging, we
-              have templates that can be customized to your exact
-              specifications.
+              We help match your packaging needs with your budget. Our team
+              suggests options for custom boxes wholesale or affordable custom
+              packaging without compromising quality, so you get the best value
+              for your investment.
             </p>
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card title="Design Approval" bordered={false}>
+          <Card title="Approval & Confirmation" bordered={false}>
             <img
               alt="Design_Approval"
               src="../images/Design_Approval.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              We ensure your packaging maintains brand consistency across all
-              your products. Our designers will match colors, fonts, and styles
-              to your existing branding materials.
+              Once you review and approve the estimate, we confirm your order to
+              proceed. This step ensures your custom packaging service aligns
+              with your expectations, pricing, and timeline, making the process
+              seamless and stress-free.
             </p>
           </Card>
         </Col>
@@ -425,44 +420,44 @@ function Sireadvantageorder() {
     <div className="process-cards">
       <Row gutter={16}>
         <Col xs={24} sm={8}>
-          <Card title={<span>Accept Card Payment</span>} bordered={false}>
+          <Card title={<span>Design Creation</span>} bordered={false}>
             <img
               alt="Accept_Card_Payments"
               src="../images/Accept_Card_Payments.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              Within 48 hours of finalizing your design, we'll send you a
-              digital proof for approval. This allows you to see exactly how
-              your packaging will look before we proceed to production.
+              Our expert designers craft your packaging design proof using your
+              brand colors, logos, and style to ensure an accurate
+              representation of your custom boxes with logo.
             </p>
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card title="Accept Paypal Transfers" bordered={false}>
+          <Card title="Digital Proof Review" bordered={false}>
             <img
               alt="Accept_PayPal_Payments"
               src="../images/Accept_PayPal_Payments.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              We include up to 3 rounds of revisions in our standard service.
-              Our team will work with you to make any necessary adjustments
-              until you're completely satisfied with the design.
+              You receive a clear digital proof to review every detail. Request
+              changes to make sure your packaging looks perfect before
+              production starts.
             </p>
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card title="Accept Bank Transfer" bordered={false}>
+          <Card title=" Final Approval" bordered={false}>
             <img
               alt="Bank_Transfer"
               src="../images/Bank_Transfer.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              Once you approve the final proof, we'll lock in the design and
-              prepare for production. This is your last chance to make changes,
-              so please review carefully.
+              Approve the final design proof to move forward with printing. This
+              step guarantees your satisfaction with the custom packaging boxes
+              USA.
             </p>
           </Card>
         </Col>
@@ -474,16 +469,18 @@ function Sireadvantageorder() {
     <div className="process-cards">
       <Row gutter={16}>
         <Col xs={24} sm={8}>
-          <Card title={<span>Final Spec Sheet For Approval</span>} bordered={false}>
+          <Card
+            title={<span>Advanced Printing Technology</span>}
+            bordered={false}
+          >
             <img
               alt="Final_spec_sheet_for_approval"
               src="../images/Final_spec_sheet_for_approval.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              We use state-of-the-art printing technology to ensure vibrant
-              colors and crisp details on every package. Our printing process is
-              environmentally friendly and uses high-quality, sustainable inks.
+              We use high-quality printing methods like digital and offset to
+              produce vibrant, sharp images on your custom printed boxes.
             </p>
           </Card>
         </Col>
@@ -495,23 +492,21 @@ function Sireadvantageorder() {
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              Every piece goes through rigorous quality control checks. We
-              verify color accuracy, print quality, and structural integrity
-              before shipping your order.
+              Each batch undergoes strict quality checks to ensure colors,
+              logos, and finishes meet premium standards and your expectations.
             </p>
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card title="Production Time" bordered={false}>
+          <Card title="Durable Finishes" bordered={false}>
             <img
               alt="production-time"
               src="../images/production_time.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              Standard production takes 7-10 business days after final approval.
-              Rush services are available for an additional fee if you need your
-              order sooner.
+              Your custom boxes receive protective coatings like matte, gloss,
+              spot UV, varnish to enhance appearance and protect the print.
             </p>
           </Card>
         </Col>
@@ -523,44 +518,43 @@ function Sireadvantageorder() {
     <div className="process-cards">
       <Row gutter={16}>
         <Col xs={24} sm={8}>
-          <Card title={<span>Packaging</span>} bordered={false}>
+          <Card title={<span>Secure Packaging</span>} bordered={false}>
             <img
               alt="packaging"
               src="../images/shipping_packaging.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              We carefully package your order to ensure it arrives in perfect
-              condition. All boxes are securely packed with protective materials
-              to prevent damage during transit.
+              Your custom packaging is carefully packed to prevent damage during
+              transit and maintain the quality of your custom boxes wholesale in
+              USA.
             </p>
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card title="Shipping Options" bordered={false}>
+          <Card title="Reliable Delivery" bordered={false}>
             <img
               alt="shipping-options"
               src="../images/shipping_options.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              We offer multiple shipping options including standard, expedited,
-              and freight services for large orders. You'll receive tracking
-              information as soon as your order ships.
+              We partner with trusted carriers to ensure fast and safe delivery
+              across the USA, tracking every shipment along the way.
             </p>
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card title="Delivery & Support" bordered={false}>
+          <Card title="Customer Support" bordered={false}>
             <img
               alt="delivery-support"
               src="../images/delivery_support.png"
               style={{ height: "5rem", width: "5rem", marginBottom: "1rem" }}
             />
             <p>
-              Our customer support team is available to assist with any delivery
-              questions or concerns. If there are any issues with your shipment,
-              we'll work quickly to resolve them.
+              Our support team is available to assist you throughout the
+              shipping process, answering questions and providing updates as
+              needed.
             </p>
           </Card>
         </Col>
@@ -569,7 +563,7 @@ function Sireadvantageorder() {
   );
 
   return (
-    <div className="sireadvantage-wrapper">
+    <div className="sireadvantage-wrapper" style={{marginTop:"2rem"}}>
       <Row className="form-section">
         <Col xs={24} className="form-left">
           <h3 className="form-title-advantage">How to Place Your Order?</h3>
@@ -590,13 +584,13 @@ function Sireadvantageorder() {
                   </Col>
                 </Row>
               </TabPane>
-              <TabPane tab="Packaging Design" key="2">
+              <TabPane tab="Cost Estimation" key="2">
                 {renderDesignCards()}
               </TabPane>
-              <TabPane tab="Payment" key="3">
+              <TabPane tab="Packaging Design Proof" key="3">
                 {renderDesignProofCards()}
               </TabPane>
-              <TabPane tab="Production" key="4">
+              <TabPane tab="Printing Process" key="4">
                 {renderPrintingCards()}
               </TabPane>
               <TabPane tab="Shipping & Handling" key="5">

@@ -33,12 +33,15 @@
     color: #01257d !important;
     font-size: 1.8rem;
     margin-bottom: 20px;
+        text-align: left;
+
   }
   
   .landingdes-text p {
     color: #555;
     line-height: 1.6;
     font-size: 1.1rem;
+    text-align: left;
   }
   
   .landingdes-image {

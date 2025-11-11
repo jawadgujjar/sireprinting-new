@@ -8,6 +8,7 @@ import Categorydescription from "../components/products/catdes";
 import Banner from "../components/landing/banner";
 import { category } from "../utils/axios";
 import SireprintingLoader from "../components/loader/loader";
+import Sireadvantageorder from "../components/landing/sireadvantageorder";
 
 function Subcategorypage() {
   const location = useLocation();
@@ -48,6 +49,7 @@ function Subcategorypage() {
     <div>
       <Subcategoryhead data={categoryData} />
       <Subcategory data={categoryData} />
+      <Sireadvantageorder />
       <Sireadvantage />
       <Banner />
       <Categorydescription data={categoryData} />

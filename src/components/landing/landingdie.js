@@ -8,15 +8,17 @@ function Landingdie() {
       image: "/images/can't find.png",
       title: "CAN’T FIND A SIZE YOU NEED?",
       description:
-        "No worries, we can customize packaging according to your needs, just give us the right dimensions (LXWXD) of your product, and we will make a custom size for you!",
+        "No worries! We customize packaging to fit your exact product dimensions. Just share the length, width, and height (L×W×D) of your item, and we’ll create the perfect custom-sized box tailored just for you.",
       link: "/get-a-quote",
+      button: "Talk to Our Design Expert Now",
     },
     {
       image: "/images/Request_Template-01.png",
       title: "Request Box Template",
       description:
-        "No worries, we can customize packaging according to your needs, just give us the right dimensions (LXWXD) of your product, and we will make a custom size for you!",
+        "Need a specific box template? We’ve got you covered. Provide your product’s dimensions (L×W×D), and we’ll design a custom packaging template that fits your needs perfectly—making your packaging process easier and faster.",
       link: "/Die-template",
+      button: "Get Free Template",
     },
   ];
 
@@ -29,7 +31,7 @@ function Landingdie() {
           <p className="landingdie-description">{card.description}</p>
 
           <Link to={card.link} className="landingdie-button-link">
-            <button className="landingdie-button">Get Started</button>
+            <button className="landingdie-button">{card.button}</button>
           </Link>
         </div>
       ))}
