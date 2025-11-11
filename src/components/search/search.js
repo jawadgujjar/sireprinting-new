@@ -27,7 +27,7 @@ function Search() {
 
   const debouncedSearch = useCallback(
     debounce((query) => performSearch(query), 300),
-    [allData]
+    [allData, performSearch]
   );
 
   useEffect(() => {

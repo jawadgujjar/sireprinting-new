@@ -180,7 +180,7 @@ const Navbar1 = () => {
         </div>
         <div className="logo">
           <Link to="/">
-            <img className="logo-size" alt="logo" src="./images/logo.png" />
+            <img className="logo-size" alt="logo" src="./Cheapcustompackaging logo.svg" />
           </Link>
         </div>
         <div className={`nav-links ${isMobileMenuOpen ? "active" : ""}`}>
