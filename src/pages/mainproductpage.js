@@ -19,43 +19,44 @@ function Mainproductpage() {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   // Fetch main product data
-  useEffect(() => {
-    const fetchProductData = async () => {
-      try {
-        setLoading(true);
-        const response = await product.get(
-          `/${categorySlug}/${subCategorySlug}/${productSlug}`
-        );
+ useEffect(() => {
+  const fetchProductData = async () => {
+    try {
+      setLoading(true);
+      const response = await product.get(
+        `/${categorySlug}/${subCategorySlug}/${productSlug}`
+      );
 
-        if (!response.data) throw new Error("Product not found");
-        setProductData(response.data);
+      if (!response.data) throw new Error("Product not found");
+      setProductData(response.data);
 
-        // Only load variant if variantSlug exists
-        if (response.data.variants?.length > 0 && variantSlug) {
-          setVariantLoading(true);
-          const variant = response.data.variants.find((v) => {
-            const variantLastPart = v.slug.split("/").pop();
-            return variantLastPart === variantSlug;
-          });
+      // Only load variant if variantSlug exists
+      if (response.data.variants?.length > 0 && variantSlug) {
+        setVariantLoading(true);
+        const variant = response.data.variants.find((v) => {
+          const variantLastPart = v.slug.split("/").pop();
+          return variantLastPart === variantSlug;
+        });
 
-          if (variant) {
-            setCurrentVariant(variant);
-            setSelectedImageIndex(response.data.variants.indexOf(variant) + 1);
-          }
+        if (variant) {
+          setCurrentVariant(variant);
+          setSelectedImageIndex(response.data.variants.indexOf(variant) + 1);
         }
-      } catch (error) {
-        console.error("Error:", error);
-        if (error.response?.status === 404) {
-          navigate("/not-found", { replace: true });
-        }
-      } finally {
-        setLoading(false);
-        setVariantLoading(false);
       }
-    };
+    } catch (error) {
+      console.error("Error:", error);
+      if (error.response?.status === 404) {
+        navigate("/not-found", { replace: true });
+      }
+    } finally {
+      setLoading(false);
+      setVariantLoading(false);
+    }
+  };
 
-    fetchProductData();
-  }, [categorySlug, subCategorySlug, productSlug, navigate]);
+  fetchProductData();
+}, [categorySlug, subCategorySlug, productSlug, navigate, variantSlug]);
+
 
   // Handle variant changes separately
   useEffect(() => {
