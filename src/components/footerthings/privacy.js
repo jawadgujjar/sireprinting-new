@@ -24,10 +24,10 @@ function Privacy() {
     fetchPrivacy();
   }, []);
 
-  if (loading) {
-    return         <SireprintingLoader />
-;
-  }
+//   if (loading) {
+//     return         <SireprintingLoader />
+// ;
+//   }
 
   const titles = privacyData[0]?.title || [];
   const descriptions = privacyData[0]?.description || [];

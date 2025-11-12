@@ -102,9 +102,9 @@ function Diecategory() {
     }
   };
 
-  if (loading) {
-    return <SireprintingLoader />;
-  }
+  // if (loading) {
+  //   return <SireprintingLoader />;
+  // }
 
   return (
     <div>

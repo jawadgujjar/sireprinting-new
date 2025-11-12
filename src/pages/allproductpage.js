@@ -30,7 +30,7 @@ function Allproductpage() {
     fetchSubcategoryData();
   }, [categorySlug, subCategorySlug]);
 
-  if (loading) return <SireprintingLoader />;
+  // if (loading) return <SireprintingLoader />;
   if (!subcategoryData) return <div>No data found</div>;
 
   return (

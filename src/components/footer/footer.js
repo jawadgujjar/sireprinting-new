@@ -33,11 +33,11 @@ function Footer1() {
             Subscribe to our newsletter and stay updated with our new products,
             policies, and terms.
           </p>
-          <img
+          {/* <img
             src="../images/googleplay.png"
             alt="Google Play"
             style={{ marginTop: "1rem" }}
-          />
+          /> */}
         </Col>
 
         <Col xs={24} sm={12} md={8} lg={6} className="footersire-column">
@@ -136,7 +136,7 @@ function Footer1() {
           <Link to="/Terms_and_conditions" className="sirefooter-p-txt">
             Terms And Conditions
           </Link>
-          <div className="flag-gap">
+          {/* <div className="flag-gap">
             <img
               src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/us.svg"
               alt="USA Flag"
@@ -149,7 +149,7 @@ function Footer1() {
               className="flag"
               title="United Kingdom"
             />
-          </div>
+          </div> */}
         </Col>
       </Row>
 

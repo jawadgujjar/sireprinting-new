@@ -287,9 +287,9 @@ const Productmain1 = ({
                       ]}
                     >
                       <Select placeholder="Select Color">
-                        <Option value="white">1 Color</Option>
-                        <Option value="kraft">2 Color</Option>
-                        <Option value="black">3 Color</Option>
+                        <Option value="1 color">1 Color</Option>
+                        <Option value="2 color">2 Color</Option>
+                        <Option value="3 color">3 Color</Option>
                         <Option value="full">Full Color</Option>
                       </Select>
                     </Form.Item>
@@ -308,7 +308,7 @@ const Productmain1 = ({
                           <Input placeholder="Enter Quantity" />
                         </Form.Item>
                       </Col>
-
+                          
                       <Col xs={24} sm={12}>
                         <Form.Item
                           name="mainImage"

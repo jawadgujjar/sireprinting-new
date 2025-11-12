@@ -75,7 +75,7 @@ function Blogauthor() {
   if (loading) {
     return (
       <div className="main-blog-container">
-        <SireprintingLoader />
+        {/* <SireprintingLoader /> */}
       </div>
     );
   }

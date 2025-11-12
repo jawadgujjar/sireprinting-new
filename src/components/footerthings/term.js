@@ -27,10 +27,10 @@ function Term() {
     fetchTerms();
   }, []);
 
-  if (loading) {
-    return         <SireprintingLoader />
-;
-  }
+//   if (loading) {
+//     return         <SireprintingLoader />
+// ;
+//   }
 
   const titles = termsData[0]?.title || [];
   const descriptions = termsData[0]?.description || [];

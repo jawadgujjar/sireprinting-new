@@ -164,13 +164,13 @@ const Navbar1 = () => {
     navigate("/login");
   };
 
-  if (loading) {
-    return (
-      <div className="navbar-loading">
-        <SireprintingLoader />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="navbar-loading">
+  //       <SireprintingLoader />
+  //     </div>
+  //   );
+  // }
 
   return (
     <nav className={`navbar ${isScrolled ? "scrolled" : ""}`} ref={navRef}>

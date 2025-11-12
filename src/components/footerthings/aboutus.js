@@ -26,10 +26,10 @@ function Aboutus() {
     fetchAbout();
   }, []);
 
-  if (loading) {
-    return         <SireprintingLoader />
-;
-  }
+//   if (loading) {
+//     return         <SireprintingLoader />
+// ;
+//   }
 
   const titles = aboutData[0]?.title || [];
   const descriptions = aboutData[0]?.description || [];

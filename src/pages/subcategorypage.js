@@ -42,7 +42,7 @@ function Subcategorypage() {
     fetchCategoryData();
   }, [slug, fallbackId]);
 
-  if (loading) return <SireprintingLoader />;
+  // if (loading) return <SireprintingLoader />;
   if (!categoryData) return <div>No data found</div>;
 
   return (

@@ -53,7 +53,7 @@ function MainBlogRedesign() {
   if (loading) {
     return (
       <div className="blog-redesign-container">
-        <SireprintingLoader />
+        {/* <SireprintingLoader /> */}
       </div>
     );
   }

@@ -82,7 +82,7 @@ const Faq1 = () => {
               </Col>
             ))}
           </Row> */}
-          <h1 className="form-title">Message Us!</h1>
+          <h1 className="form-title">Any Packaging Idea in Your Mind? Send us your message today!</h1>
             <Form layout="vertical" form={form} onFinish={onFinish}>
               <Form.Item
                 name="fullName"

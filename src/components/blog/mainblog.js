@@ -119,9 +119,9 @@ function MainBlog() {
 
   const popularBlogs = blogs.filter((blog) => blog?.popular === true);
 
-  if (loading) {
-    return <SireprintingLoader />;
-  }
+  // if (loading) {
+  //   return <SireprintingLoader />;
+  // }
 
   if (error) {
     return (

@@ -160,9 +160,9 @@ const FormSubmit = ({ onSubmit, cloudName, uploadPreset }) => {
             rules={[{ required: true, message: "Please select color" }]}
           >
             <Select placeholder="Select Color">
-              <Option value="white">White</Option>
-              <Option value="kraft">Kraft</Option>
-              <Option value="black">Black</Option>
+              <Option value="1 color">1 Color</Option>
+              <Option value="2 color">2 Color</Option>
+              <Option value="3 color">3 Color</Option>
               <Option value="full">Full Color</Option>
             </Select>
           </Form.Item>

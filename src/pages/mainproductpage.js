@@ -107,7 +107,7 @@ function Mainproductpage() {
     }
   };
 
-  if (loading) return <SireprintingLoader />;
+  // if (loading) return <SireprintingLoader />;
   if (!productData) return <div>Product not found</div>;
 
   return (

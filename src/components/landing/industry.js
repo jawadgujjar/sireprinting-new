@@ -58,9 +58,9 @@ const Industry = () => {
   }, []);
 
   const renderContent = () => {
-    if (loading) {
-      return <SireprintingLoader />;
-    }
+    // if (loading) {
+    //   return <SireprintingLoader />;
+    // }
 
     const items = activeTab === "boxesByStyle" ? boxesByStyle : customBoxes;
 

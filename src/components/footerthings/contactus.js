@@ -30,7 +30,9 @@ function Contactus() {
       <div className="contact-container">
         <Row justify="center">
           <Col xs={24} md={15} className="form-column">
-            <h1 className="form-title">Message Us!</h1>
+            <h1 className="form-title">
+              Any Packaging Idea in Your Mind? Send us your message today!
+            </h1>
             <Form layout="vertical" form={form} onFinish={onFinish}>
               <Form.Item
                 name="fullName"
