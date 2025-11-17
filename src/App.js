@@ -7,6 +7,7 @@ import Verify from "./components/search/loginmainverify";
 import "./App.css";
 import { UserProvider } from "./contextapi/userContext.js";
 import ScrollToTop from "./components/landing/scrolltop";
+import AutoImageWrapper from "./pages/imagewrapper.js";
 
 function App() {
   const [isVerified, setIsVerified] = useState(false);
@@ -24,6 +25,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* <AutoImageWrapper/> */}
       <Router>
         {isVerified ? (
           <UserProvider>
