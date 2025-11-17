@@ -67,6 +67,7 @@
   line-height: 1.8;
   font-size: 1.05rem;
   margin: 0;
+  text-align: left !important;
 }
 
 /* Image container and image */

@@ -125,6 +125,7 @@ function Productimgs1({ images, selectedIndex, onImageSelect, title }) {
           ref={carouselRef}
           dots={false}
           infinite={false}
+          autoplay={false}
           speed={500}
           slidesToShow={1}
           slidesToScroll={1}
