@@ -3,7 +3,7 @@ import Navbar1 from "./components/navbar/navbar";
 import AppRouter from "./routes";
 import { BrowserRouter as Router } from "react-router-dom";
 import ChatButtons from "./components/chat buttons/chatbutton";
-import Verify from "./components/search/loginmainverify";
+// import Verify from "./components/search/loginmainverify";
 import "./App.css";
 import { UserProvider } from "./contextapi/userContext.js";
 import ScrollToTop from "./components/landing/scrolltop";
@@ -27,16 +27,16 @@ function App() {
     <div className="App">
       {/* <AutoImageWrapper/> */}
       <Router>
-        {isVerified ? (
+        {/* {isVerified ? ( */}
           <UserProvider>
             <ScrollToTop />
             <Navbar1 />
             <AppRouter />
             <ChatButtons />
           </UserProvider>
-        ) : (
+        {/* ) : (
           <Verify onVerified={setIsVerified} />
-        )}
+        )} */}
       </Router>
     </div>
   );
