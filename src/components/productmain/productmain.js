@@ -153,6 +153,7 @@ const Productmain1 = ({
         name: values.name,
         email: values.email,
         phone: values.phone,
+        additionalinformation: values.additionalInformation,
       };
 
       const response = await instantquote.post("/", payload);
@@ -267,6 +268,7 @@ const Productmain1 = ({
                         <Form.Item
                           name="unit"
                           label="Unit"
+                          initialValue="inches"
                           rules={[
                             { required: true, message: "Please select unit" },
                           ]}
@@ -282,9 +284,7 @@ const Productmain1 = ({
                     <Form.Item
                       name="color"
                       label="Color"
-                      rules={[
-                        { required: true, message: "Please select color" },
-                      ]}
+                      rules={[{ message: "Please select color" }]}
                     >
                       <Select placeholder="Select Color">
                         <Option value="1 color">1 Color</Option>
@@ -308,7 +308,7 @@ const Productmain1 = ({
                           <Input placeholder="Enter Quantity" />
                         </Form.Item>
                       </Col>
-                          
+
                       <Col xs={24} sm={12}>
                         <Form.Item
                           name="mainImage"
@@ -454,6 +454,15 @@ const Productmain1 = ({
                       ]}
                     >
                       <Input placeholder="Enter your phone number" />
+                    </Form.Item>
+                    <Form.Item
+                      name="additionalInformation"
+                      label="Additional Information"
+                    >
+                      <Input.TextArea
+                        placeholder="Type any special instructions, materials, finishing, or additional notes..."
+                        rows={4}
+                      />
                     </Form.Item>
                     <Form.Item>
                       <div
