@@ -4,6 +4,12 @@ import { aboutus } from "../../utils/axios";
 import { message } from "antd";
 import SireprintingLoader from "../loader/loader";
 
+function decodeHTML(html) {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  return txt.value;
+}
+
 function Aboutus() {
   const [aboutData, setAboutData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,20 +22,13 @@ function Aboutus() {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching about us data:", error);
-        message.error(
-          "Failed to load about us information. Please try again later."
-        );
+        message.error("Failed to load about us information. Please try again later.");
         setLoading(false);
       }
     };
 
     fetchAbout();
   }, []);
-
-//   if (loading) {
-//     return         <SireprintingLoader />
-// ;
-//   }
 
   const titles = aboutData[0]?.title || [];
   const descriptions = aboutData[0]?.description || [];
@@ -41,9 +40,13 @@ function Aboutus() {
       {titles.map((title, index) => (
         <div key={index}>
           <h2 className="about-subtitle">{title}</h2>
-          <p className="about-text">
-            {descriptions[index] || "No description available."}
-          </p>
+
+          <div
+            className="about-text"
+            dangerouslySetInnerHTML={{
+              __html: decodeHTML(descriptions[index] || "")
+            }}
+          ></div>
         </div>
       ))}
     </div>

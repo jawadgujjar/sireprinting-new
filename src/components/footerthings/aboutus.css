@@ -2,13 +2,14 @@
     max-width: 900px;
     margin: 100px auto 0 auto; /* Navbar ke neeche space */
     padding: 10px;
+    text-align: left !important;
   }
   
   .about-title {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 20px;
-    text-align: left;
+    text-align: center !important;
   }
   
   .about-subtitle {

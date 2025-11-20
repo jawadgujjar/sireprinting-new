@@ -4,6 +4,12 @@ import { term } from "../../utils/axios";
 import { message } from "antd";
 import SireprintingLoader from "../loader/loader";
 
+function decodeHTML(html) {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  return txt.value;
+}
+
 function Term() {
   const [termsData, setTermsData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,11 +33,6 @@ function Term() {
     fetchTerms();
   }, []);
 
-//   if (loading) {
-//     return         <SireprintingLoader />
-// ;
-//   }
-
   const titles = termsData[0]?.title || [];
   const descriptions = termsData[0]?.description || [];
 
@@ -46,26 +47,30 @@ function Term() {
           height: "auto",
         }}
       />
-      <h1 className="term-heading">Terms & Conditions</h1>
 
       {titles.map((title, index) => (
         <div key={index}>
-          <h2 className="term-subheading">{title}</h2>
-          <p className="term-text">
-            {descriptions[index] || "No description available."}
-          </p>
+          <h1 className="term-heading">{title}</h1>
+
+          <div
+            className="term-text"
+            dangerouslySetInnerHTML={{
+              __html: decodeHTML(descriptions[index] || ""),
+            }}
+          ></div>
         </div>
       ))}
 
       <h2 className="term-subheading">How to Get in Touch with Us?</h2>
-      <p className="term-text">
+
+      <div className="term-text">
         If there are any questions regarding this privacy policy, you might call
-        us to use the details below.
+        us using the details below.
         <br />
         <strong>Phone: (410) 834-9965</strong>
         <br />
         <strong>Email: support@sireprinting.com</strong>
-      </p>
+      </div>
     </div>
   );
 }

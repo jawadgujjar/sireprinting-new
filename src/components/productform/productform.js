@@ -242,7 +242,6 @@ function Productform1() {
             </Form.Item>
           </Col>
         </Row>
-
         <Form.Item name="unit" className="unit-selector" initialValue="inches">
           <Select className="ultra-compact-select">
             <Option value="inches">Inches</Option>
@@ -250,7 +249,6 @@ function Productform1() {
             <Option value="mm">mm</Option>
           </Select>
         </Form.Item>
-
         {/* Product Selection */}
         <Row gutter={[8, 8]}>
           <Col xs={24} sm={12}>
@@ -303,7 +301,6 @@ function Productform1() {
             </Form.Item>
           </Col>
         </Row>
-
         {/* Details Section */}
         <Row gutter={[8, 8]}>
           <Col xs={24} sm={8}>
@@ -345,7 +342,6 @@ function Productform1() {
             </Form.Item>
           </Col>
         </Row>
-
         {/* Contact Section */}
         <Row gutter={[8, 8]}>
           <Col xs={24} sm={12}>
@@ -388,7 +384,6 @@ function Productform1() {
             </Form.Item>
           </Col>
         </Row>
-
         {/* Message Section */}
         <Form.Item name="message" label="NOTES">
           <Input.TextArea
@@ -397,7 +392,6 @@ function Productform1() {
             rows={3}
           />
         </Form.Item>
-
         {/* Submit Button */}
         <Form.Item>
           <Button
@@ -411,6 +405,7 @@ function Productform1() {
             {loading ? "PROCESSING..." : "GET QUOTE NOW"}
           </Button>
         </Form.Item>
+        In a Hurry? Give us a call at +123-456-7890
       </Form>
     </div>
   );

@@ -27,6 +27,7 @@ import Blogauthor from "./components/blog/blogauthor";
 import Userinterface from "./components/userinterface/userinterface";
 import Sampleform from "./components/sampleproduct/sampleform";
 import Userdetail from "./components/userinterface/userdetail";
+import ReturnPolicy from "./components/returnpolicy/returnpolicy";
 // Protected route component
 const ProtectedRoute = ({ children }) => {
   const { user } = useUser();
@@ -82,6 +83,7 @@ function AppRouter() {
         <Route path="/contact-us" element={<Contactus />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/Terms_and_conditions" element={<Term />} />
+        <Route path="/return-policy" element={<ReturnPolicy />} />
         <Route path="/:slug" element={<Subcategorypage />} />{" "}
         <Route path="/sample-product" element={<Sampleproduct />} />
         <Route path="/add-to-cart" element={<Cart />} />

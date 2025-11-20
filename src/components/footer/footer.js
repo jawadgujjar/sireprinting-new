@@ -136,6 +136,10 @@ function Footer1() {
           <Link to="/Terms_and_conditions" className="sirefooter-p-txt">
             Terms And Conditions
           </Link>
+          <Link to="/return-policy" className="sirefooter-p-txt">
+            Return & Refund Policy
+          </Link>
+
           {/* <div className="flag-gap">
             <img
               src="https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/us.svg"

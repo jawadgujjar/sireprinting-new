@@ -41,7 +41,10 @@ function Productdescription({ currentVariant }) {
           >
             {hasText && (
               <div className="text-content">
-                <div className="description-content">
+                <div
+                  className="description-content"
+                  style={{ textAlign: "left",padding:"10%" }}
+                >
                   {parse(he.decode(section.description))}
                 </div>
               </div>

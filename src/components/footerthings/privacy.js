@@ -4,6 +4,12 @@ import { privacy } from "../../utils/axios";
 import { message } from "antd";
 import SireprintingLoader from "../loader/loader";
 
+function decodeHTML(html) {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  return txt.value;
+}
+
 function Privacy() {
   const [privacyData, setPrivacyData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,11 +30,6 @@ function Privacy() {
     fetchPrivacy();
   }, []);
 
-//   if (loading) {
-//     return         <SireprintingLoader />
-// ;
-//   }
-
   const titles = privacyData[0]?.title || [];
   const descriptions = privacyData[0]?.description || [];
 
@@ -43,14 +44,17 @@ function Privacy() {
           height: "auto",
         }}
       />
-      <h1 className="privacy-heading">Privacy Policy</h1>
 
       {titles.map((title, index) => (
         <div key={index}>
-          <h2 className="privacy-subheading">{title}</h2>
-          <p className="privacy-text">
-            {descriptions[index] || "No description available."}
-          </p>
+          <h1 className="privacy-heading">{title}</h1>
+
+          <div
+            className="privacy-text"
+            dangerouslySetInnerHTML={{
+              __html: decodeHTML(descriptions[index] || "")
+            }}
+          ></div>
         </div>
       ))}
     </div>
