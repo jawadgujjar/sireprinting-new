@@ -21,13 +21,13 @@ function Landingpage() {
       {/* <Popularproducts /> */}
       {/* <Solutions /> */}
       <Sireadvantage />
-      <Landingdie />
       {/* <Landingquote /> */}
       <Landingdes />
+      <Landingdie />
       <Sireadvantageorder />
-      <Testimonial />
       <Banner />
       <Videocarousel />
+      <Testimonial />
       <Faq1 />
     </div>
   );

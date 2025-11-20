@@ -5,10 +5,11 @@ import Sireadvantage from "../components/landing/sireadvantage";
 import Faq1 from "../components/landing/faq";
 import Subcategoryhead from "../components/products/subcategoryhead";
 import Categorydescription from "../components/products/catdes";
-import Banner from "../components/landing/banner";
+// import Banner from "../components/landing/banner";
 import { category } from "../utils/axios";
 import SireprintingLoader from "../components/loader/loader";
 import Sireadvantageorder from "../components/landing/sireadvantageorder";
+import Landingdie from "../components/landing/landingdie";
 
 function Subcategorypage() {
   const location = useLocation();
@@ -51,7 +52,7 @@ function Subcategorypage() {
       <Subcategory data={categoryData} />
       <Sireadvantageorder />
       <Sireadvantage />
-      <Banner />
+      <Landingdie />
       <Categorydescription data={categoryData} />
       <Faq1 data={categoryData} />
     </div>

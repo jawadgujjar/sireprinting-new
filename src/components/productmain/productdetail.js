@@ -23,8 +23,8 @@ function Productdetail1({ data, currentVariant }) {
         {/* Column 1: Need Design Help */}
         <Col xs={24} md={12}>
           <div className="design-help-container">
-            <Row align="middle" justify="space-between">
-              <Col span={18} style={{ color: "#fff" }}>
+            <Row align="middle" justify="space-between" >
+              <Col span={22} style={{ color: "#fff" }}>
                 <h3>Need Design Help?</h3>
                 <p style={{ color: "#fff" }}>
                   Upload your artwork along with any instructions and our expert
@@ -35,7 +35,7 @@ function Productdetail1({ data, currentVariant }) {
                   <Button className="design-help-btn">Get a Free Quote</Button>
                 </Link>
               </Col>
-              <Col span={6} className="icon-col">
+              <Col span={2} className="icon-col">
                 <div className="icon-wrapper">
                   <StarFilled className="sparkle-icon" />
                   <StarFilled className="sparkle-icon small" />
