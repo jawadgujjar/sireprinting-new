@@ -18,6 +18,7 @@ import { instantquote } from "../../utils/axios";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
+const { TextArea } = Input;
 
 const cloudName = "dxhpud7sx";
 const uploadPreset = "sireprinting";
@@ -132,6 +133,7 @@ function Sireadvantageorder() {
         name: values.name,
         email: values.email,
         phonenumber: values.phone,
+        additionalinformation: values.additionalInformation || "", // Added this field
       };
 
       const response = await instantquote.post("/", payload);
@@ -192,7 +194,7 @@ function Sireadvantageorder() {
               <Form.Item
                 name="unit"
                 label="Unit"
-                initialValue="cm"
+                initialValue="inches"
                 rules={[{ required: true, message: "Please select unit" }]}
               >
                 <Select placeholder="Select Unit" defaultValue="cm">
@@ -293,6 +295,20 @@ function Sireadvantageorder() {
           >
             <Input placeholder="Enter your phone number" />
           </Form.Item>
+          
+          {/* Additional Information Field - YAHAN ADD KIYA HAI */}
+          <Form.Item
+            name="additionalInformation"
+            label="Additional Information"
+          >
+            <TextArea 
+              placeholder="Enter any additional information about your requirements, special instructions, or notes..."
+              rows={4}
+              showCount
+              maxLength={500}
+            />
+          </Form.Item>
+          
           <Form.Item>
             <div className="form-buttons">
               <Button
@@ -585,16 +601,44 @@ function Sireadvantageorder() {
                 </Row>
               </TabPane>
               <TabPane tab="Cost Estimation" key="2">
-                {renderDesignCards()}
+                <Row gutter={24}>
+                  <Col xs={24} sm={24} md={24} lg={16}>
+                    {renderDesignCards()}
+                  </Col>
+                  <Col xs={24} sm={24} md={24} lg={8}>
+                    {renderForm()}
+                  </Col>
+                </Row>
               </TabPane>
               <TabPane tab="Packaging Design Proof" key="3">
-                {renderDesignProofCards()}
+                <Row gutter={24}>
+                  <Col xs={24} sm={24} md={24} lg={16}>
+                    {renderDesignProofCards()}
+                  </Col>
+                  <Col xs={24} sm={24} md={24} lg={8}>
+                    {renderForm()}
+                  </Col>
+                </Row>
               </TabPane>
               <TabPane tab="Printing Process" key="4">
-                {renderPrintingCards()}
+                <Row gutter={24}>
+                  <Col xs={24} sm={24} md={24} lg={16}>
+                    {renderPrintingCards()}
+                  </Col>
+                  <Col xs={24} sm={24} md={24} lg={8}>
+                    {renderForm()}
+                  </Col>
+                </Row>
               </TabPane>
               <TabPane tab="Shipping & Handling" key="5">
-                {renderShippingCards()}
+                <Row gutter={24}>
+                  <Col xs={24} sm={24} md={24} lg={16}>
+                    {renderShippingCards()}
+                  </Col>
+                  <Col xs={24} sm={24} md={24} lg={8}>
+                    {renderForm()}
+                  </Col>
+                </Row>
               </TabPane>
             </Tabs>
           </div>
